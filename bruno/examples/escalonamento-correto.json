@@ -1,0 +1,69 @@
+{
+  "problema": {
+    "titulo": "Escalonamento Ótimo",
+    "descricao": "O SBC (System for Batch Computing) é um sistema operacional voltado para a execução sequencial de tarefas. Cada tarefa pode depender da conclusão de outras tarefas para iniciar. Se uma tarefa A depende de uma tarefa B, então B deve terminar antes que A comece. Cada tarefa possui uma prioridade baseada em seu índice: quanto menor o índice, maior a prioridade. O objetivo é determinar se é possível executar todas as tarefas respeitando as dependências e, caso seja possível, produzir a ordem ótima de execução, priorizando sempre a tarefa disponível de menor índice.",
+    "objetivo": {
+      "descricao": "Determinar se existe uma ordenação das tarefas que respeite todas as dependências. Caso exista, retornar a ordem ótima de execução considerando prioridade por menor índice. Caso não exista (presença de ciclo), indicar impossibilidade.",
+      "criterio_de_otimalidade": "Entre todas as ordenações válidas (ordenações topológicas), escolher aquela que minimiza lexicograficamente a sequência de tarefas executadas."
+    },
+    "entrada": {
+      "formato": "A primeira linha contém dois inteiros N e M. As próximas M linhas contêm dois inteiros A e B cada, indicando que a tarefa B depende da tarefa A.",
+      "campos": [
+        {
+          "nome": "N",
+          "tipo": "inteiro",
+          "descricao": "Número de tarefas (numeradas de 0 a N-1)."
+        },
+        {
+          "nome": "M",
+          "tipo": "inteiro",
+          "descricao": "Número de relações de dependência."
+        },
+        {
+          "nome": "A",
+          "tipo": "inteiro",
+          "descricao": "Tarefa que deve ser concluída antes."
+        },
+        {
+          "nome": "B",
+          "tipo": "inteiro",
+          "descricao": "Tarefa que depende de A."
+        }
+      ]
+    },
+    "saida": {
+      "formato": "Se não for possível ordenar as tarefas, imprimir uma única linha contendo '*'. Caso contrário, imprimir N linhas, cada uma contendo o índice da tarefa na ordem ótima de execução.",
+      "descricao": "A i-ésima linha deve conter o índice da i-ésima tarefa na ordem de execução ótima."
+    },
+    "restricoes": {
+      "N": "0 ≤ N ≤ 50000",
+      "M": "0 ≤ M ≤ 200000",
+      "A_B": "0 ≤ A, B < N"
+    },
+    "pontuacao": {
+      "observacao": "Em um conjunto de casos de teste totalizando 60 pontos, N ≤ 1000."
+    },
+    "conceitos_envolvidos": [
+      "Grafo direcionado",
+      "Ordenação topológica",
+      "Detecção de ciclo em grafo",
+      "Fila de prioridade (min-heap)",
+      "Comparação lexicográfica"
+    ],
+    "exemplos": [
+      {
+        "entrada": "3 1\n2 0",
+        "saida": "1\n2\n0"
+      },
+      {
+        "entrada": "2 2\n0 1\n1 0",
+        "saida": "*"
+      }
+    ]
+  },
+  "resposta_usuario": {
+    "ideia": "O problema modela as tarefas como um grafo direcionado onde uma aresta (A, B) significa que B depende de A. Precisamos verificar se existe ordenação topológica (sem ciclos). Se existir, devemos retornar a ordenação topológica ótima no sentido lexicográfico, ou seja, entre as tarefas que podem ser executadas a qualquer momento, escolher sempre a de menor índice. Se houver ciclo, imprimir '*'.",
+    "interpretacao_entrada": "Primeira linha: N (número de tarefas, numeradas 0 a N-1) e M (número de dependências). As M linhas seguintes: cada linha tem dois inteiros A e B indicando que a tarefa B depende da tarefa A (A deve terminar antes de B começar).",
+    "interpretacao_saida": "Se não existir ordenação válida (ciclo no grafo), uma única linha com '*'. Caso contrário, N linhas: a i-ésima linha contém o índice da tarefa que é executada na i-ésima posição da ordem ótima (ordenação topológica lexicograficamente mínima)."
+  }
+}

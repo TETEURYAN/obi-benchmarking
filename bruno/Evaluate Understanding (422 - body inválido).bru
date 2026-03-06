@@ -1,0 +1,29 @@
+meta {
+  name: Evaluate Understanding (422 - body inválido)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/evaluate-understanding
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  "problema": {
+    "titulo": "Soma de Dois Números"
+  },
+  "resposta_usuario": {
+    "ideia": "Resumo qualquer",
+    "interpretacao_entrada": "Entrada"
+  }
+}
+
+vars:pre-request {
+  base_url: http://localhost:8000
+}
