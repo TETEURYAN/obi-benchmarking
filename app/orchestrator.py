@@ -50,6 +50,15 @@ class Orchestrator:
         self.history.append(ChatMessage.from_assistant(intro_message))
         return intro_message
 
+    def start_planning(self) -> str:
+        """Generates the first message to start the planning phase."""
+        if not self.current_question:
+            return "Please select a question first."
+        
+        intro_message = f"Great job understanding the problem! Now, let's devise a plan for the '{self.current_question.title}' challenge. How would you solve this step-by-step? (Remember, no code for now, just the logic!)"
+        self.history.append(ChatMessage.from_assistant(intro_message))
+        return intro_message
+
     def handle_message(self, message: str) -> Dict[str, Any]:
         if self.state == State.COMPREHENSION:
             result = self.comprehension_agent.run(
@@ -65,21 +74,25 @@ class Orchestrator:
             
             if result.get("is_complete"):
                 self.comprehension_summary = result.get("summary", "")
-                # We don't automatically transition here so the UI can show the final feedback
-                # and a "Next" button.
             
             return result
         
         elif self.state == State.PLANNING:
-            # Placeholder for planning logic
-            self.history.append(ChatMessage.from_user(message))
             result = self.planning_agent.run(
                 self.current_question.description,
                 self.comprehension_summary,
-                message
+                message,
+                self.history
             )
-            self.history.append(ChatMessage.from_assistant(result["reply"]))
-            return {"feedback": result["reply"], "is_complete": False}
+            
+            # Update history
+            self.history.append(ChatMessage.from_user(message))
+            self.history.append(ChatMessage.from_assistant(result["feedback"]))
+            
+            if result.get("is_complete"):
+                self.plan_summary = result.get("plan", "")
+            
+            return result
             
         elif self.state == State.IMPLEMENTATION:
             return {"feedback": "Implement your solution now.", "is_complete": False}

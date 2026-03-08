@@ -76,8 +76,12 @@ if orchestrator.current_question:
             st.success("Great! You seem to have a good understanding of this step.")
             if st.button("Proceed to Next Phase →"):
                 orchestrator.next_phase()
+                if orchestrator.state == State.PLANNING:
+                    intro = orchestrator.start_planning()
+                    st.session_state.messages = [{"role": "assistant", "content": intro}]
+                else:
+                    st.session_state.messages = []
                 st.session_state.is_phase_complete = False
-                st.session_state.messages = []
                 st.rerun()
 
     elif orchestrator.state == State.IMPLEMENTATION:
