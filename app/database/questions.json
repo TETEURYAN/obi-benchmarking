@@ -1,0 +1,24 @@
+[
+  {
+    "id": "sum-two-numbers",
+    "title": "Sum Two Numbers",
+    "description": "Write a function `sum_two_numbers(a, b)` that returns the sum of two numbers.",
+    "constraints": ["a and b are integers."],
+    "examples": [
+      {
+        "input": "1, 2",
+        "output": "3"
+      }
+    ],
+    "test_cases": [
+      {
+        "input": "1 2",
+        "expected_output": "3"
+      },
+      {
+        "input": "10 20",
+        "expected_output": "30"
+      }
+    ]
+  }
+]
