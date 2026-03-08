@@ -2,11 +2,11 @@
   {
     "id": "sum-two-numbers",
     "title": "Sum Two Numbers",
-    "description": "Write a function `sum_two_numbers(a, b)` that returns the sum of two numbers.",
+    "description": "Read two integers from standard input (stdin) separated by a space, and print their sum to standard output (stdout).",
     "constraints": ["a and b are integers."],
     "examples": [
       {
-        "input": "1, 2",
+        "input": "1 2",
         "output": "3"
       }
     ],

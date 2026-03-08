@@ -127,7 +127,7 @@ sequenceDiagram
 | Interface | Streamlit |
 | Orchestrator | Python |
 | Question Manager | Python |
-| Judge | Judge0 Python SDK |
+| Judge | Piston (Self-hosted via Docker) |
 | Comprehension Agent | Python, Haystack |
 | Planning Agent | Python, Haystack |
 | Implementation Agent | Python, Haystack |

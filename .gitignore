@@ -153,3 +153,6 @@ Thumbs.db
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Piston
+piston/data/
