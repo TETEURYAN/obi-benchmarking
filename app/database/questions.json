@@ -20,5 +20,95 @@
         "expected_output": "30"
       }
     ]
+  },
+  {
+    "id": "multiply-two-numbers",
+    "title": "Multiply Two Numbers",
+    "description": "Read two integers from standard input (stdin) separated by a space, and print their product to standard output (stdout).",
+    "constraints": ["a and b are integers."],
+    "examples": [
+      {
+        "input": "3 4",
+        "output": "12"
+      }
+    ],
+    "test_cases": [
+      {
+        "input": "3 4",
+        "expected_output": "12"
+      },
+      {
+        "input": "-5 6",
+        "expected_output": "-30"
+      },
+      {
+        "input": "0 100",
+        "expected_output": "0"
+      }
+    ]
+  },
+  {
+    "id": "max-of-three",
+    "title": "Maximum of Three",
+    "description": "Read three integers from standard input (stdin) separated by spaces, and print the largest one.",
+    "constraints": ["The integers can be positive, negative, or zero."],
+    "examples": [
+      {
+        "input": "1 5 3",
+        "output": "5"
+      }
+    ],
+    "test_cases": [
+      {
+        "input": "1 5 3",
+        "expected_output": "5"
+      },
+      {
+        "input": "10 10 2",
+        "expected_output": "10"
+      },
+      {
+        "input": "-1 -5 -3",
+        "expected_output": "-1"
+      }
+    ]
+  },
+  {
+    "id": "even-or-odd",
+    "title": "Even or Odd",
+    "description": "Read a single integer from standard input (stdin) and print 'Even' if the number is even, or 'Odd' if it is odd.",
+    "constraints": ["The integer can be any valid signed integer."],
+    "examples": [
+      {
+        "input": "4",
+        "output": "Even"
+      },
+      {
+        "input": "7",
+        "output": "Odd"
+      }
+    ],
+    "test_cases": [
+      {
+        "input": "4",
+        "expected_output": "Even"
+      },
+      {
+        "input": "7",
+        "expected_output": "Odd"
+      },
+      {
+        "input": "0",
+        "expected_output": "Even"
+      },
+      {
+        "input": "-2",
+        "expected_output": "Even"
+      },
+      {
+        "input": "-3",
+        "expected_output": "Odd"
+      }
+    ]
   }
 ]
