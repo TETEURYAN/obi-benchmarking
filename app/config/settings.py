@@ -40,6 +40,22 @@ class Settings(BaseSettings):
     api_host: str = Field(default="0.0.0.0", description="Host to bind the API server")
     api_port: int = Field(default=8000, description="Port for the API server")
 
+    # Judge (external)
+    judge_base_url: str = Field(
+        default="http://localhost:8080",
+        description="Base URL of the external judge API",
+    )
+    judge_timeout_seconds: float = Field(default=30.0, description="Judge HTTP timeout")
+
+    # Prompts
+    prompt_version: str = Field(default="v1", description="Prompt version (v1, v2, ...)")
+
+    # Agent implementation (example: switch between PydanticAI and LangChain for Etapa 1)
+    comprehension_agent: Literal["pydantic_ai", "langchain"] = Field(
+        default="pydantic_ai",
+        description="Which implementation to use for comprehension agent: pydantic_ai or langchain",
+    )
+
 
 @lru_cache
 def get_settings() -> Settings:
