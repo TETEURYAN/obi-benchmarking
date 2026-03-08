@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# FIXME: We PROBABLY should use a better judge provider such as Judge0, but is just a PITA to set up.
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
