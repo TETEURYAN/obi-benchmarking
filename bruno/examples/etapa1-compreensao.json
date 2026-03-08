@@ -1,0 +1,14 @@
+{
+  "id_questao": "q1",
+  "id_usuario": "u1",
+  "descricao_questao": "Dados dois números inteiros, calcule a soma.",
+  "formato_entrada": "Dois inteiros A e B em uma linha.",
+  "formato_saida": "Um inteiro: A + B.",
+  "exemplos": { "entrada": "2 3", "saida": "5" },
+  "respostas_usuario": {
+    "Quais são os dados de entrada (input)?": "Dois inteiros na mesma linha.",
+    "Qual é a saída esperada (output)?": "Um inteiro com a soma.",
+    "Existem condições especiais ou casos de borda?": "Não.",
+    "Qual a ideia do problema?": "Ler dois números e imprimir a soma."
+  }
+}

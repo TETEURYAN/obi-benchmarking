@@ -1,0 +1,26 @@
+meta {
+  name: Judge - Submit
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/judge/submit
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  "code": "a, b = map(int, input().split())\nprint(a + b)",
+  "language": "python3",
+  "problem_id": "soma",
+  "reveal_inputs": false
+}
+
+vars:pre-request {
+  base_url: http://localhost:8000
+}
