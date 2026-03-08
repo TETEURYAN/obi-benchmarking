@@ -12,6 +12,9 @@ from fastapi import FastAPI
 
 from app.config.settings import get_settings
 from app.interfaces.api.routes import router as evaluate_router
+from app.interfaces.api.routes.etapa1 import router as etapa1_router
+from app.interfaces.api.routes.health import router as health_router
+from app.interfaces.api.routes.judge import router as judge_router
 
 # ----- Structured logging -----
 logging.basicConfig(
@@ -29,12 +32,9 @@ app = FastAPI(
 )
 
 app.include_router(evaluate_router)
-
-
-@app.get("/health")
-def health() -> dict[str, str]:
-    """Health check for load balancers and Docker."""
-    return {"status": "ok"}
+app.include_router(etapa1_router)
+app.include_router(health_router)
+app.include_router(judge_router)
 
 
 def main() -> None:
