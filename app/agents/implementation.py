@@ -63,16 +63,21 @@ class ImplementationAgent:
     def run(self, problem_description: str, plan: str, user_code: str, execution_results: str, student_message: str = "", history: List[ChatMessage] = None) -> Dict[str, Any]:
         history = history or []
         
-        result = self.pipeline.run({
+        result = self.pipeline.run(
+            {
             "prompt_builder": {
-                "problem_description": problem_description,
-                "plan": plan,
-                "user_code": user_code,
-                "execution_results": execution_results,
-                "student_message": student_message,
-                "history": history
-            }
-        })
+                    "problem_description": problem_description,
+                    "plan": plan,
+                    "user_code": user_code,
+                    "execution_results": execution_results,
+                    "student_message": student_message,
+                    "history": history
+                }
+            },
+            include_outputs_from=["prompt_builder"]
+        )
+        
+        print(result["prompt_builder"]["prompt"])
         
         import json
         raw_reply = result["llm"]["replies"][0].text

@@ -15,7 +15,8 @@ class Question(BaseModel):
     id: str
     title: str
     description: str
-    constraints: List[str]
+    input_format: str
+    output_format: str
     examples: List[Example]
     test_cases: List[TestCase]
 

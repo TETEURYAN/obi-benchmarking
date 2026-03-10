@@ -34,12 +34,15 @@ class PlanningAgent:
         Problema: {{problem_description}}
         Resumo da Compreensão: {{comprehension_summary}}
 
-        Histórico da Conversa:
+        --- HISTÓRICO DA CONVERSA ---
         {% for msg in history %}
             {{msg.role.value}}: {{msg.text}}
         {% endfor %}
+        --- FIM HISTÓRICO DA CONVERSA ---
 
-        Mensagem do estudante: {{student_message}}
+        --- MENSAGEM DO ESTUDANTE ---
+        {{student_message}}
+        --- FIM MENSAGEM DO ESTUDANTE ---
 
         Avalie se o plano do estudante está completo, viável e correto.
         Retorne sua resposta no formato JSON com estes campos:
@@ -56,16 +59,21 @@ class PlanningAgent:
     def run(self, problem_description: str, comprehension_summary: str, student_message: str, history: List[ChatMessage] = None) -> Dict[str, Any]:
         history = history or []
         
-        result = self.pipeline.run({
-            "prompt_builder": {
-                "problem_description": problem_description,
-                "comprehension_summary": comprehension_summary,
-                "student_message": student_message,
-                "history": history
-            }
-        })
+        print("print history: ", history)
         
-        print("test: ", result)
+        result = self.pipeline.run(
+            {
+                "prompt_builder": {
+                    "problem_description": problem_description,
+                    "comprehension_summary": comprehension_summary,
+                    "student_message": student_message,
+                    "history": history
+                }
+            },
+            include_outputs_from=["prompt_builder"]
+        )
+        
+        print(result["prompt_builder"]["prompt"])
         
         import json
         raw_reply = result["llm"]["replies"][0].text

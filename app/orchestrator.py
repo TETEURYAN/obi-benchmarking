@@ -63,7 +63,7 @@ class Orchestrator:
         if not self.current_question:
             return "Por favor, selecione uma questão primeiro."
         
-        intro_message = f"Ótimo trabalho entendendo o problema! Agora, vamos elaborar um plano para o desafio '{self.current_question.title}'. Como você resolveria isso passo a passo? (Lembre-se, sem código por enquanto, apenas a lógica!)"
+        intro_message = f"Agora, vamos elaborar um plano para o desafio '{self.current_question.title}'. Como você resolveria isso passo a passo? (Lembre-se, sem código por enquanto, apenas a lógica!)"
         self.history.append(ChatMessage.from_assistant(intro_message))
         logger.info("Planning phase started.")
         return intro_message
@@ -73,7 +73,10 @@ class Orchestrator:
         if self.state == State.COMPREHENSION:
             result = self.comprehension_agent.run(
                 self.current_question.description,
-                ", ".join(self.current_question.constraints),
+                ", ".join([
+                    self.current_question.input_format or "",
+                    self.current_question.output_format or ""
+                ]),
                 message,
                 self.history
             )
@@ -167,10 +170,8 @@ class Orchestrator:
         old_state = self.state
         if self.state == State.COMPREHENSION:
             self.state = State.PLANNING
-            self.history = [] 
         elif self.state == State.PLANNING:
             self.state = State.IMPLEMENTATION
-            self.history = []
         elif self.state == State.IMPLEMENTATION:
             self.state = State.DONE
         logger.info(f"Phase transition: {old_state.value} -> {self.state.value}")

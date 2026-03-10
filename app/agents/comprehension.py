@@ -28,7 +28,7 @@ class ComprehensionAgent:
         )
 
         self.prompt_builder = PromptBuilder(template="""
-        Você é um tutor especialista ajudando um estudante a entender um problema de programação usando o método de Pólya.
+        Você é um tutor especialista ajudando um estudante iniciante a entender um problema de programação usando o método de Pólya.
         Seu objetivo nesta fase é APENAS garantir que o estudante entenda a declaração do problema, entradas, saídas e restrições.
         NÃO forneça soluções ou planos ainda.
 
@@ -40,7 +40,9 @@ class ComprehensionAgent:
             {{msg.role.value}}: {{msg.text}}
         {% endfor %}
 
-        Mensagem do estudante: {{student_message}}
+        --- MENSAGEM DO ESTUDANTE ---
+        {{student_message}}
+        --- FIM MENSAGEM DO ESTUDANTE ---
 
         Avalie se o estudante tem uma compreensão sólida.
         Retorne sua resposta no formato JSON com estes campos:
@@ -59,14 +61,18 @@ class ComprehensionAgent:
         
         # Prepare the prompt
         # Note: Haystack PromptBuilder expects specific keys
-        result = self.pipeline.run({
-            "prompt_builder": {
-                "problem_description": problem_description,
-                "constraints": constraints,
-                "student_message": student_message,
-                "history": history
-            }
-        })
+        result = self.pipeline.run(
+            {
+                "prompt_builder": {
+                    "problem_description": problem_description,
+                    "constraints": constraints,
+                    "student_message": student_message,
+                    "history": history
+            }},
+            include_outputs_from=["prompt_builder"]
+        )
+        
+        print(result["prompt_builder"]["prompt"])
         
         # Parse JSON response
         import json
