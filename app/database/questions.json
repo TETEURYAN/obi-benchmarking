@@ -1,9 +1,9 @@
 [
   {
     "id": "sum-two-numbers",
-    "title": "Sum Two Numbers",
-    "description": "Read two integers from standard input (stdin) separated by a space, and print their sum to standard output (stdout).",
-    "constraints": ["a and b are integers."],
+    "title": "Somar Dois Números",
+    "description": "Leia dois inteiros da entrada padrão (stdin) separados por um espaço e imprima a soma deles na saída padrão (stdout).",
+    "constraints": ["a e b são inteiros."],
     "examples": [
       {
         "input": "1 2",
@@ -23,9 +23,9 @@
   },
   {
     "id": "multiply-two-numbers",
-    "title": "Multiply Two Numbers",
-    "description": "Read two integers from standard input (stdin) separated by a space, and print their product to standard output (stdout).",
-    "constraints": ["a and b are integers."],
+    "title": "Multiplicar Dois Números",
+    "description": "Leia dois inteiros da entrada padrão (stdin) separados por um espaço e imprima o produto deles na saída padrão (stdout).",
+    "constraints": ["a e b são inteiros."],
     "examples": [
       {
         "input": "3 4",
@@ -49,9 +49,9 @@
   },
   {
     "id": "max-of-three",
-    "title": "Maximum of Three",
-    "description": "Read three integers from standard input (stdin) separated by spaces, and print the largest one.",
-    "constraints": ["The integers can be positive, negative, or zero."],
+    "title": "Máximo de Três",
+    "description": "Leia três inteiros da entrada padrão (stdin) separados por espaços e imprima o maior deles.",
+    "constraints": ["Os inteiros podem ser positivos, negativos ou zero."],
     "examples": [
       {
         "input": "1 5 3",
@@ -75,39 +75,39 @@
   },
   {
     "id": "even-or-odd",
-    "title": "Even or Odd",
-    "description": "Read a single integer from standard input (stdin) and print 'Even' if the number is even, or 'Odd' if it is odd.",
-    "constraints": ["The integer can be any valid signed integer."],
+    "title": "Par ou Ímpar",
+    "description": "Leia um único inteiro da entrada padrão (stdin) e imprima 'Par' se o número for par, ou 'Ímpar' se for ímpar.",
+    "constraints": ["O inteiro pode ser qualquer inteiro válido com sinal."],
     "examples": [
       {
         "input": "4",
-        "output": "Even"
+        "output": "Par"
       },
       {
         "input": "7",
-        "output": "Odd"
+        "output": "Ímpar"
       }
     ],
     "test_cases": [
       {
         "input": "4",
-        "expected_output": "Even"
+        "expected_output": "Par"
       },
       {
         "input": "7",
-        "expected_output": "Odd"
+        "expected_output": "Ímpar"
       },
       {
         "input": "0",
-        "expected_output": "Even"
+        "expected_output": "Par"
       },
       {
         "input": "-2",
-        "expected_output": "Even"
+        "expected_output": "Par"
       },
       {
         "input": "-3",
-        "expected_output": "Odd"
+        "expected_output": "Ímpar"
       }
     ]
   }

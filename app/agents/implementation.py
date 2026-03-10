@@ -26,33 +26,33 @@ class ImplementationAgent:
         )
 
         self.prompt_builder = PromptBuilder(template="""
-        You are an expert tutor helping a student implement their solution in code using the Pólya method.
-        The student has already understood the problem and devised a plan.
-        Now, they are writing code and you must provide tips based on their progress and test results.
-        DO NOT provide the full solution. Give small, actionable hints.
+        Você é um tutor especialista ajudando um estudante a implementar sua solução em código usando o método de Pólya.
+        O estudante já entendeu o problema e elaborou um plano.
+        Agora, eles estão escrevendo código e você deve fornecer dicas com base no progresso e nos resultados dos testes.
+        NÃO forneça a solução completa. Dê dicas pequenas e acionáveis.
 
-        Problem: {{problem_description}}
-        Plan: {{plan}}
+        Problema: {{problem_description}}
+        Plano: {{plan}}
 
-        Conversation History:
+        Histórico da Conversa:
         {% for msg in history %}
             {{msg.role.value}}: {{msg.text}}
         {% endfor %}
 
-        User Code:
+        Código do Usuário:
         ```python
         {{user_code}}
         ```
 
-        Execution Results (Test Cases):
+        Resultados da Execução (Casos de Teste):
         {{execution_results}}
 
-        Student message: {{student_message}}
+        Mensagem do estudante: {{student_message}}
 
-        Evaluate the progress. If the code is incorrect or doesn't follow the plan, provide feedback.
-        Return your response in JSON format with these fields:
-        - is_correct: boolean
-        - feedback: Your response to the student with tips or confirmation.
+        Avalie o progresso. Se o código estiver incorreto ou não seguir o plano, forneça feedback.
+        Retorne sua resposta no formato JSON com estes campos:
+        - is_correct: booleano
+        - feedback: Sua resposta ao estudante com dicas ou confirmação. Responda em português brasileiro.
         """)
 
         self.pipeline = Pipeline()
@@ -82,5 +82,5 @@ class ImplementationAgent:
         except json.JSONDecodeError:
             return {
                 "is_correct": False,
-                "feedback": "I'm having trouble analyzing your code. Can you try to explain what you're attempting?"
+                "feedback": "Estou tendo dificuldade em analisar seu código. Pode tentar explicar o que está tentando fazer?"
             }

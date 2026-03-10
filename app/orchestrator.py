@@ -51,9 +51,9 @@ class Orchestrator:
     def start_comprehension(self) -> str:
         """Generates the first message to start the comprehension phase."""
         if not self.current_question:
-            return "Please select a question first."
+            return "Por favor, selecione uma questão primeiro."
         
-        intro_message = f"Hello! I'm here to help you understand the '{self.current_question.title}' problem. Can you tell me what you think this problem is asking you to do in your own words?"
+        intro_message = f"Olá! Estou aqui para ajudá-lo a entender o problema '{self.current_question.title}'. Você pode me dizer o que acha que este problema está pedindo para fazer com suas próprias palavras?"
         self.history.append(ChatMessage.from_assistant(intro_message))
         logger.info("Comprehension phase started.")
         return intro_message
@@ -61,9 +61,9 @@ class Orchestrator:
     def start_planning(self) -> str:
         """Generates the first message to start the planning phase."""
         if not self.current_question:
-            return "Please select a question first."
+            return "Por favor, selecione uma questão primeiro."
         
-        intro_message = f"Great job understanding the problem! Now, let's devise a plan for the '{self.current_question.title}' challenge. How would you solve this step-by-step? (Remember, no code for now, just the logic!)"
+        intro_message = f"Ótimo trabalho entendendo o problema! Agora, vamos elaborar um plano para o desafio '{self.current_question.title}'. Como você resolveria isso passo a passo? (Lembre-se, sem código por enquanto, apenas a lógica!)"
         self.history.append(ChatMessage.from_assistant(intro_message))
         logger.info("Planning phase started.")
         return intro_message
@@ -120,7 +120,7 @@ class Orchestrator:
             self.history.append(ChatMessage.from_assistant(result["feedback"]))
             return result
             
-        return {"feedback": "Please select a question first.", "is_complete": False}
+        return {"feedback": "Por favor, selecione uma questão primeiro.", "is_complete": False}
 
     def evaluate_code(self, code: str) -> Dict[str, Any]:
         """Runs the code through the judge and then through the implementation agent for feedback."""
@@ -136,7 +136,7 @@ class Orchestrator:
         all_passed = True
         for res in test_results:
             status = res.get("status")
-            if status != "Accepted":
+            if status != "Aceito":
                 all_passed = False
             results_str += f"Input: {res.get('input')}, Expected: {res.get('expected')}, Actual: {res.get('actual')}, Status: {status}\n"
 
@@ -148,7 +148,7 @@ class Orchestrator:
             self.plan_summary,
             code,
             results_str,
-            "User submitted code for evaluation."
+            "O usuário enviou código para avaliação."
         )
         
         if all_passed:

@@ -49,18 +49,18 @@ class Judge:
                 stdout = run_result.get("stdout", "")
                 expected = tc.get("expected_output", "")
                 
-                status = "Accepted" if status_code == 0 else "Runtime Error"
+                status = "Aceito" if status_code == 0 else "Erro em Tempo de Execução"
                 if status_msg == "TO":
-                    status = "Time Limit Exceeded"
+                    status = "Limite de Tempo Excedido"
                 elif status_msg == "RE":
-                    status = "Runtime Error"
+                    status = "Erro em Tempo de Execução"
                 elif status_msg == "SG":
-                    status = f"Terminated ({run_result.get('signal')})"
+                    status = f"Terminado ({run_result.get('signal')})"
                 
                 # Compare output if the code ran successfully
-                if status == "Accepted":
+                if status == "Aceito":
                     if stdout.strip() != expected.strip():
-                        status = "Wrong Answer"
+                        status = "Resposta Incorreta"
 
                 results.append({
                     "input": tc.get("input"),

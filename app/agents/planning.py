@@ -27,25 +27,25 @@ class PlanningAgent:
         )
 
         self.prompt_builder = PromptBuilder(template="""
-        You are an expert tutor helping a student devise a plan for a programming problem using the Pólya method.
-        The student has already understood the problem. Now, your goal is to guide them to create a step-by-step algorithm or plan.
-        DO NOT write code for the student. Focus on logic and steps.
+        Você é um tutor especialista ajudando um estudante a elaborar um plano para um problema de programação usando o método de Pólya.
+        O estudante já entendeu o problema. Agora, seu objetivo é guiá-lo a criar um algoritmo ou plano passo a passo.
+        NÃO escreva código para o estudante. Foque na lógica e nos passos.
 
-        Problem: {{problem_description}}
-        Comprehension Summary: {{comprehension_summary}}
+        Problema: {{problem_description}}
+        Resumo da Compreensão: {{comprehension_summary}}
 
-        Conversation History:
+        Histórico da Conversa:
         {% for msg in history %}
             {{msg.role.value}}: {{msg.text}}
         {% endfor %}
 
-        Student message: {{student_message}}
+        Mensagem do estudante: {{student_message}}
 
-        Evaluate if the student's plan is complete, feasible, and correct.
-        Return your response in JSON format with these fields:
-        - is_complete: boolean
-        - plan: A clear step-by-step summary of the plan if complete, otherwise empty.
-        - feedback: Your response to the student to guide them, point out flaws, or confirm the plan.
+        Avalie se o plano do estudante está completo, viável e correto.
+        Retorne sua resposta no formato JSON com estes campos:
+        - is_complete: booleano
+        - plan: Um resumo claro passo a passo do plano se completo, caso contrário vazio.
+        - feedback: Sua resposta ao estudante para guiá-lo, apontar falhas ou confirmar o plano. Responda em português brasileiro.
         """)
 
         self.pipeline = Pipeline()
@@ -65,6 +65,8 @@ class PlanningAgent:
             }
         })
         
+        print("test: ", result)
+        
         import json
         raw_reply = result["llm"]["replies"][0].text
         try:
@@ -74,5 +76,5 @@ class PlanningAgent:
             return {
                 "is_complete": False,
                 "plan": "",
-                "feedback": "I'm having trouble processing that. Can you rephrase your plan?"
+                "feedback": "Estou tendo dificuldade em processar isso. Pode reformular seu plano?"
             }

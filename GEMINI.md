@@ -1,134 +1,134 @@
-# Pólya - Project Overview
+# Pólya - Visão Geral do Projeto
 
-Pólya is a system that helps freshman programming students to solve programming problems. Based on the Pólya's four-step method for problem solving, Pólya focus on each step as a separate task, and provides immediate feedback to the student. 
+Pólya é um sistema que ajuda estudantes de programação iniciantes a resolver problemas de programação. Baseado no método de quatro etapas de Pólya para resolução de problemas, Pólya foca em cada etapa como uma tarefa separada e fornece feedback imediato ao estudante.
 
-## Pólya's four-step method
+## Método de quatro etapas de Pólya
 
-1. Understand the problem (Comprehension)
-2. Devise a plan (Planning)
-3. Carry out the plan (Implementation)
-4. Look back (Testing)
+1. Entender o problema (Compreensão)
+2. Elaborar um plano (Planejamento)
+3. Executar o plano (Implementação)
+4. Revisar (Teste)
 
-## System Architecture
+## Arquitetura do Sistema
 
-![System Architecture](assets/arch.png)
+![Arquitetura do Sistema](assets/arch.png)
 
 ```mermaid
 graph TD
-    Student([Student])
+    Student([Estudante])
 
     subgraph Polya ["Polya [Software]"]
         Interface(["Interface<br>&lt;container&gt;<br>Streamlit"])
         Orchestrator(["Orchestrator"])
-        QuestionManager(["Question Manager"])
-        Judge(["Judge"])
+        QuestionManager(["Gerenciador de Questões"])
+        Judge(["Juiz"])
 
-        subgraph Agents ["Agents"]
-            Comprehension(["Comprehension Agent<br>&lt;container&gt;"])
-            Planning(["Planning Agent<br>&lt;container&gt;"])
-            Implementation(["Implementation (Code)<br>Agent<br>&lt;container&gt;"])
+        subgraph Agents ["Agentes"]
+            Comprehension(["Agente de Compreensão<br>&lt;container&gt;"])
+            Planning(["Agente de Planejamento<br>&lt;container&gt;"])
+            Implementation(["Agente de Implementação (Código)<br>&lt;container&gt;"])
         end
     end
 
-    Database(["Question Database<br>&lt;container&gt;<br>JSON"])
+    Database(["Banco de Dados de Questões<br>&lt;container&gt;<br>JSON"])
 
-    %% Connections
-    Student -- "Select a question to<br>study" --> Interface
-    Interface -- "User I/O" --> Orchestrator
-    Orchestrator -- "Retrieves the<br>available programming<br>questions to solve" --> QuestionManager
-    QuestionManager -- "Loads the data from<br>JSON file" --> Database
-    Orchestrator -- "Send the user code to<br>test on test cases" --> Judge
+    %% Conexões
+    Student -- "Seleciona uma questão para<br>estudar" --> Interface
+    Interface -- "E/S do Usuário" --> Orchestrator
+    Orchestrator -- "Recupera as<br>questões de programação<br>disponíveis para resolver" --> QuestionManager
+    QuestionManager -- "Carrega os dados do<br>arquivo JSON" --> Database
+    Orchestrator -- "Envia o código do usuário para<br>testar nos casos de teste" --> Judge
     Orchestrator --> Comprehension
     Orchestrator --> Planning
     Orchestrator --> Implementation
 ```
 
-## System Main Flow
+## Fluxo Principal do Sistema
 
-![System Main Flow](assets/flow.png)
+![Fluxo Principal do Sistema](assets/flow.png)
 
 ```mermaid
 sequenceDiagram
-    participant S as Student
+    participant S as Estudante
     participant I as Interface
     participant O as Orchestrator
-    participant CA as Comprehension Agent
-    participant PA as Plan Agent
-    participant IA as Implementation Agent
-    participant J as Judge
+    participant CA as Agente de Compreensão
+    participant PA as Agente de Plano
+    participant IA as Agente de Implementação
+    participant J as Juiz
 
-    S->>I: Selects the question to solve
-    Note over I: List questions
-    Note over I: Show question information
+    S->>I: Seleciona a questão para resolver
+    Note over I: Listar questões
+    Note over I: Mostrar informações da questão
 
-    %% Comprehension Phase
-    S->>I: Starts the comp. and chat with agent
-    Note over I: Start a conversation for comprehension process
-    I->>O: Starts the comp ->
-    Note over O: Start the Comprehension Agent and store conversation context
-    O->>CA: Starts the comp ->
-    Note over CA: Guide the student to understand the problem and constraints
+    %% Fase de Compreensão
+    S->>I: Inicia a comp. e conversa com o agente
+    Note over I: Iniciar uma conversa para o processo de compreensão
+    I->>O: Inicia a comp ->
+    Note over O: Iniciar o Agente de Compreensão e armazenar contexto da conversa
+    O->>CA: Inicia a comp ->
+    Note over CA: Guiar o estudante a entender o problema e restrições
 
-    CA->>O: When it's confident that student understood the problem
-    Note over O: Stop the comprehension agent
-    O->>I: notify the student ->
-    Note over I: Shows to student that they understood the problem with a summary
-    I-->>S: verify the student ->
+    CA->>O: Quando confiante de que o estudante entendeu o problema
+    Note over O: Parar o agente de compreensão
+    O->>I: notificar o estudante ->
+    Note over I: Mostra ao estudante que eles entenderam o problema com um resumo
+    I-->>S: verificar o estudante ->
 
-    %% Planning Phase
-    S->>I: Checks to proceed, and chat with agent
-    Note over I: Proceed to planning step
-    I->>O: Starts the planning ->
-    Note over O: Start the Plan Agent and store conversation context
-    O->>PA: Starts the planning ->
-    Note over PA: Guide the student to plan a solution to the problem
+    %% Fase de Planejamento
+    S->>I: Verifica para prosseguir, e conversa com o agente
+    Note over I: Prosseguir para a etapa de planejamento
+    I->>O: Inicia o planejamento ->
+    Note over O: Iniciar o Agente de Plano e armazenar contexto da conversa
+    O->>PA: Inicia o planejamento ->
+    Note over PA: Guiar o estudante a planejar uma solução para o problema
 
-    PA->>O: When it is confident that student planned a good solution
-    Note over O: Stop the plan agent
-    O->>I: notify the student ->
-    Note over I: Shows to student that they planned a feasible solution with a summary
+    PA->>O: Quando confiante de que o estudante planejou uma boa solução
+    Note over O: Parar o agente de plano
+    O->>I: notificar o estudante ->
+    Note over I: Mostra ao estudante que eles planejaram uma solução viável com um resumo
 
-    %% Implementation Phase
-    S->>I: Checks to proceed
-    Note over I: Proceed to implementation step and shows the code interface
-    I->>O: Starts the implementation ->
-    Note over O: Start the Implementation Agent
-    O->>IA: Starts the implementation ->
-    Note over IA: Guide the student to code they proposed as planned, executing the tests and code
+    %% Fase de Implementação
+    S->>I: Verifica para prosseguir
+    Note over I: Prosseguir para a etapa de implementação e mostra a interface de código
+    I->>O: Inicia a implementação ->
+    Note over O: Iniciar o Agente de Implementação
+    O->>IA: Inicia a implementação ->
+    Note over IA: Guiar o estudante a codificar o que propôs como planejado, executando os testes e código
 
-    %% Implementation Loop
-    loop Implementation Loop
-        S->>I: Run the submit
-        Note over I: Shows a processing interface
-        I->>O: Send the code ->
-        Note over O: Sends to the judge to run test cases
-        O->>J: Send the code and question information ->
-        Note over J: Evaluate the code against execution test cases
-        J->>O: Return the evaluation results ->
-        Note over O: Checks the evaluation results
+    %% Loop de Implementação
+    loop Loop de Implementação
+        S->>I: Executar o envio
+        Note over I: Mostra uma interface de processamento
+        I->>O: Enviar o código ->
+        Note over O: Envia ao juiz para executar casos de teste
+        O->>J: Enviar o código e informações da questão ->
+        Note over J: Avaliar o código contra casos de teste de execução
+        J->>O: Retornar os resultados da avaliação ->
+        Note over O: Verifica os resultados da avaliação
 
-        alt If is not correct
-            O->>IA: If is not correct, send to implementation agent ->
-            Note over IA: Checks the user code, the evaluation results, planning, and question info
-            IA->>I: Output the processing results with tips to user solve correctly ->
-            Note over I: Output the processing results with tips to user solve correctly
-        else If is correct
-            O->>I: If is correct, stop the process ->
-            Note over I: Shows that student completed successful
+        alt Se não estiver correto
+            O->>IA: Se não estiver correto, enviar ao agente de implementação ->
+            Note over IA: Verifica o código do usuário, os resultados da avaliação, planejamento e informações da questão
+            IA->>I: Saída dos resultados de processamento com dicas para o usuário resolver corretamente ->
+            Note over I: Saída dos resultados de processamento com dicas para o usuário resolver corretamente
+        else Se estiver correto
+            O->>I: Se estiver correto, parar o processo ->
+            Note over I: Mostra que o estudante completou com sucesso
         end
     end
 ```
 
-# Tech Stack
+# Pilha de Tecnologia
 
-| Component | Technology |
-|-----------|------------|
-| Package Manager | uv |
+| Componente | Tecnologia |
+|------------|------------|
+| Gerenciador de Pacotes | uv |
 | Interface | Streamlit |
 | Orchestrator | Python |
-| Question Manager | Python |
-| Judge | Piston (Self-hosted via Docker) |
-| Comprehension Agent | Python, Haystack |
-| Planning Agent | Python, Haystack |
-| Implementation Agent | Python, Haystack |
-| Question Database | JSON |
+| Gerenciador de Questões | Python |
+| Juiz | Piston (Auto-hospedado via Docker) |
+| Agente de Compreensão | Python, Haystack |
+| Agente de Planejamento | Python, Haystack |
+| Agente de Implementação | Python, Haystack |
+| Banco de Dados de Questões | JSON |

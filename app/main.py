@@ -7,29 +7,29 @@ if "orchestrator" not in st.session_state:
 
 orchestrator = st.session_state.orchestrator
 
-st.set_page_config(page_title="Pólya AI Tutor", layout="wide")
-st.title("🎓 Pólya AI Tutor")
+st.set_page_config(page_title="Tutor IA de Pólya", layout="wide")
+st.title("🎓 Tutor IA de Pólya")
 st.markdown("""
-Welcome! We'll guide you through the problem-solving process using Pólya's four-step method:
-1. **Comprehension** 2. **Planning** 3. **Implementation** 4. **Review**
+Bem-vindo! Vamos guiá-lo através do processo de resolução de problemas usando o método de quatro etapas de Pólya:
+1. **Compreensão**\n2. **Planejamento**\n3. **Implementação**\n4. **Revisão**
 """)
 
 # Sidebar for question selection and debug tools
 with st.sidebar:
-    st.header("Select a Question")
+    st.header("Selecionar uma Questão")
     questions = orchestrator.question_manager.load_questions()
-    selected_q_id = st.selectbox("Choose a programming challenge:", options=[q.id for q in questions])
+    selected_q_id = st.selectbox("Escolha um desafio de programação:", options=[q.id for q in questions])
     
-    if st.button("Start Question"):
+    if st.button("Iniciar Questão"):
         orchestrator.select_question(selected_q_id)
         intro = orchestrator.start_comprehension()
         st.session_state.messages = [{"role": "assistant", "content": intro}]
         st.session_state.is_phase_complete = False
-        st.success(f"Started: {selected_q_id}")
+        st.success(f"Iniciado: {selected_q_id}")
 
     st.divider()
-    st.header("Debug Tools")
-    if st.button("⏭️ Skip to Next Phase"):
+    st.header("Ferramentas de Depuração")
+    if st.button("⏭️ Pular para Próxima Fase"):
         orchestrator.next_phase()
         if orchestrator.state == State.PLANNING:
             intro = orchestrator.start_planning()
@@ -40,20 +40,6 @@ with st.sidebar:
         st.rerun()
 
 if orchestrator.current_question:
-    # Phase Navigation
-    cols = st.columns(4)
-    for idx, (state, label) in enumerate([
-        (State.COMPREHENSION, "1. Comprehension"),
-        (State.PLANNING, "2. Planning"),
-        (State.IMPLEMENTATION, "3. Implementation"),
-        (State.DONE, "4. Done")
-    ]):
-        if orchestrator.state == state:
-            cols[idx].button(label, type="primary", key=f"nav_{state}", disabled=True)
-        else:
-            cols[idx].button(label, type="secondary", key=f"nav_{state}", disabled=True)
-
-    st.divider()
 
     # Step-by-step content
     st.subheader(f"{orchestrator.current_question.title}")
@@ -69,7 +55,7 @@ if orchestrator.current_question:
         for msg in st.session_state.messages:
             chat_container.chat_message(msg["role"]).write(msg["content"])
 
-        if prompt := st.chat_input("Ask or respond here..."):
+        if prompt := st.chat_input("Pergunte ou responda aqui..."):
             st.session_state.messages.append({"role": "user", "content": prompt})
             chat_container.chat_message("user").write(prompt)
             
@@ -85,8 +71,8 @@ if orchestrator.current_question:
                 st.rerun()
 
         if st.session_state.get("is_phase_complete"):
-            st.success("Great! You seem to have a good understanding of this step.")
-            if st.button("Proceed to Next Phase →"):
+            st.success("Ótimo! Você parece ter uma boa compreensão desta etapa.")
+            if st.button("Prosseguir para Próxima Fase →"):
                 orchestrator.next_phase()
                 if orchestrator.state == State.PLANNING:
                     intro = orchestrator.start_planning()
@@ -95,25 +81,31 @@ if orchestrator.current_question:
                     st.session_state.messages = []
                 st.session_state.is_phase_complete = False
                 st.rerun()
-
+        
     elif orchestrator.state == State.IMPLEMENTATION:
         col1, col2 = st.columns([1, 1])
         
         with col1:
-            st.info("Read from stdin and print to stdout.")
-            code = st.text_area("Python Code Editor", value="# Read the space-separated input\na, b = map(int, input().split())\nprint(a + b)\n", height=400)
+            st.info("Leia da entrada padrão e imprima na saída padrão.")
+            code = st.text_area("Editor de Código Python", value="# Leia a entrada separada por espaço\na, b = map(int, input().split())\nprint(a + b)\n", height=400)
             
-            if st.button("Submit & Run Tests"):
-                with st.spinner("Evaluating code..."):
+            if st.button("Enviar e Executar Testes"):
+                with st.spinner("Avaliando código..."):
                     result = orchestrator.evaluate_code(code)
                     st.session_state.last_eval = result
-                    if result["is_correct"]:
-                        st.session_state.is_phase_complete = True
-                st.rerun()
 
+                    if result["is_correct"]:
+                        orchestrator.state = State.DONE
+                        st.session_state.test_failed = False
+                    else:
+                        orchestrator.state = State.IMPLEMENTATION
+                        st.session_state.test_failed = True
+
+                st.rerun()
+                
         with col2:
-            st.subheader("Tutor Feedback")
-            chat_container = st.container(height=350)
+            st.subheader("Feedback do Tutor")
+            chat_container = st.container(height=250)
             
             # Show chat history for implementation phase
             if "messages" not in st.session_state:
@@ -127,14 +119,14 @@ if orchestrator.current_question:
                 eval_res = st.session_state.last_eval
                 chat_container.chat_message("assistant").write(eval_res["agent_feedback"])
                 
-                with st.expander("View Detailed Test Results"):
+                with st.expander("Ver Resultados Detalhados dos Testes"):
                     for res in eval_res["test_results"]:
-                        st.text(f"Input: {res.get('input')} | Status: {res.get('status')}")
-                        if res.get("status") != "Accepted":
-                            st.text(f"  Expected: {res.get('expected')}")
-                            st.text(f"  Actual: {res.get('actual')}")
+                        st.text(f"Entrada: {res.get('input')} | Status: {res.get('status')}")
+                        if res.get("status") != "Aceito":
+                            st.text(f"  Esperado: {res.get('expected')}")
+                            st.text(f"  Atual: {res.get('actual')}")
 
-            if prompt := st.chat_input("Ask for a hint..."):
+            if prompt := st.chat_input("Peça uma dica..."):
                 st.session_state.messages.append({"role": "user", "content": prompt})
                 # No code for simple chat
                 res = orchestrator.handle_message(prompt)
@@ -142,8 +134,8 @@ if orchestrator.current_question:
                 st.rerun()
 
         if st.session_state.get("is_phase_complete"):
-            st.success("Congratulations! Your code passed all tests and matches the plan.")
-            if st.button("Finish Solution"):
+            st.success("Parabéns! Seu código passou em todos os testes e corresponde ao plano.")
+            if st.button("Finalizar Solução"):
                 orchestrator.next_phase()
                 st.session_state.is_phase_complete = False
                 st.session_state.messages = []
@@ -153,12 +145,77 @@ if orchestrator.current_question:
 
     elif orchestrator.state == State.DONE:
         st.balloons()
-        st.success("Congratulations! You've solved the problem using the Pólya method.")
-        if st.button("Try another question"):
+        st.success("Parabéns! Você resolveu o problema usando o método de Pólya.")
+        if st.button("Tentar outra questão"):
             orchestrator.state = State.SELECTING_QUESTION
             orchestrator.current_question = None
-            st.session_state.messages = []
+
+            # limpar estados da sessão
+            for key in ["messages", "last_eval", "is_phase_complete", "test_failed"]:
+                if key in st.session_state:
+                    del st.session_state[key]
+
             st.rerun()
 
+    states = [
+        (State.COMPREHENSION, "Compreensão"),
+        (State.PLANNING, "Planejamento"),
+        (State.IMPLEMENTATION, "Implementação"),
+        (State.DONE, "Concluído")
+    ]
+
+    cols = st.columns(len(states))
+
+    state_list = [s[0] for s in states]
+
+    if orchestrator.state not in state_list:
+        st.stop()
+
+    current_index = state_list.index(orchestrator.state)
+    states = [
+        (State.COMPREHENSION, "Compreensão"),
+        (State.PLANNING, "Planejamento"),
+        (State.IMPLEMENTATION, "Implementação"),
+        (State.DONE, "Concluído")
+    ]
+
+    cols = st.columns(len(states))
+
+    current_index = [s[0] for s in states].index(orchestrator.state)
+    test_failed = st.session_state.get("test_failed", False)
+
+    for idx, (state, label) in enumerate(states):
+
+        # Caso final correto
+        if orchestrator.state == State.DONE:
+            display = f"✅ {idx+1}. {label}"
+            button_type = "secondary"
+
+        # Caso erro nos testes
+        elif state == State.DONE and test_failed:
+            display = f"❌ {idx+1}. {label}"
+            button_type = "secondary"
+
+        elif idx < current_index:
+            display = f"✅ {idx+1}. {label}"
+            button_type = "secondary"
+
+        elif idx == current_index:
+            display = f"🔵 {idx+1}. {label}"
+            button_type = "primary"
+
+        else:
+            display = f"⚪ {idx+1}. {label}"
+            button_type = "secondary"
+
+        cols[idx].button(
+            display,
+            key=f"nav_{state}",
+            type=button_type,
+            disabled=True
+        )
+
+    st.divider()
+            
 else:
-    st.info("Please select a question from the sidebar to begin.")
+    st.info("Por favor, selecione uma questão na barra lateral para começar.")

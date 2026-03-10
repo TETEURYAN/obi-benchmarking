@@ -28,25 +28,25 @@ class ComprehensionAgent:
         )
 
         self.prompt_builder = PromptBuilder(template="""
-        You are an expert tutor helping a student understand a programming problem using the Pólya method.
-        Your goal for this phase is ONLY to ensure the student understands the problem statement, inputs, outputs, and constraints.
-        DO NOT provide solutions or plans yet.
+        Você é um tutor especialista ajudando um estudante a entender um problema de programação usando o método de Pólya.
+        Seu objetivo nesta fase é APENAS garantir que o estudante entenda a declaração do problema, entradas, saídas e restrições.
+        NÃO forneça soluções ou planos ainda.
 
-        Problem: {{problem_description}}
-        Constraints: {{constraints}}
+        Problema: {{problem_description}}
+        Restrições: {{constraints}}
 
-        Conversation History:
+        Histórico da Conversa:
         {% for msg in history %}
             {{msg.role.value}}: {{msg.text}}
         {% endfor %}
 
-        Student message: {{student_message}}
+        Mensagem do estudante: {{student_message}}
 
-        Evaluate if the student has a solid understanding.
-        Return your response in JSON format with these fields:
-        - is_complete: boolean
-        - summary: A summary of the problem if complete, otherwise empty.
-        - feedback: Your response to the student to guide them or confirm understanding.
+        Avalie se o estudante tem uma compreensão sólida.
+        Retorne sua resposta no formato JSON com estes campos:
+        - is_complete: booleano
+        - summary: Um resumo do problema se completo, caso contrário vazio.
+        - feedback: Sua resposta ao estudante para guiá-lo ou confirmar a compreensão. Responda em português brasileiro.
         """)
 
         self.pipeline = Pipeline()
@@ -78,5 +78,5 @@ class ComprehensionAgent:
             return {
                 "is_complete": False,
                 "summary": "",
-                "feedback": "I'm having trouble processing that. Can you rephrase?"
+                "feedback": "Estou tendo dificuldade em processar isso. Pode reformular sua resposta?"
             }
