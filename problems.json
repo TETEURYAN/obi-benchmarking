@@ -196,7 +196,7 @@
         ]
     },
     {
-        "id": "2024f3p2_burocracia",
+        "id": "2024f3pj_burocracia",
         "title": "Burocracia",
         "statement": "No reino de Nlogônia, cada nobre possui exatamente um superior direto, formando uma hierarquia em árvore onde o rei é a raiz (índice 1). Nobres frequentemente enviam relatórios para superiores situados k níveis acima. Para reduzir a burocracia, o rei realiza decretos de reestruturação: ao escolher um nobre v, todos os seus subordinados (diretos ou indiretos) tornam-se subordinados diretos de v. Sua tarefa é processar uma série de eventos: consultas sobre quem é o superior k níveis acima de um nobre v, e operações de reestruturação a partir de um nobre v.",
         "input": "A primeira linha contém um inteiro N, o número de nobres. A segunda linha contém N-1 inteiros representando os superiores diretos p[2], p[3], ..., p[N]. A terceira linha contém um inteiro Q, o número de operações. As Q linhas seguintes descrevem as operações: '1 v k' para consultar o superior k níveis acima de v, ou '2 v' para realizar uma reestruturação a partir de v.",
@@ -214,7 +214,7 @@
         ]
     },
     {
-        "id": "2024f3p2_pratos",
+        "id": "2024f3pj_pratos",
         "title": "Jogo de Pratos",
         "statement": "Jonathan deseja obter a maior quantidade de pratos possível através de 'efeitos' (a, b). Se ele tem x pratos, após um efeito ele terá a * x + b. Existem N feitiços (usáveis infinitas vezes, mas limitados a K usos totais de mana) e M refeições (usáveis uma única vez cada). Jonathan deve usar todos os feitiços escolhidos primeiro e, depois, todas as refeições em qualquer ordem. O objetivo é maximizar o resultado final para Q diferentes quantidades iniciais de pratos. Como o valor pode ser imenso, o resultado deve ser impresso em módulo 10^9 + 7, mas a maximização deve ser feita antes de aplicar o módulo.",
         "input": "A primeira linha contém N, M e K. A segunda linha contém os fatores multiplicativos 'a' dos feitiços e a terceira os fatores aditivos 'b'. A quarta linha contém os fatores 'a' das refeições e a quinta os fatores 'b'. A sexta linha contém Q e a sétima contém as Q quantidades iniciais x.",
