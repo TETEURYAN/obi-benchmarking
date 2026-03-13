@@ -36,7 +36,7 @@
         ]
     },
     {
-        "id": "2024f1p2_jogo",
+        "id": "2024f1pj_jogo",
         "title": "Jogo da Vida",
         "statement": "O Jogo da Vida de Conway é um processo de simulação criado pelo matemático britânico John Conway para reproduzir, por meio de uma matriz, processos de mudança em grupos de seres vivos. O jogo acontece em uma matriz quadrada N × N na qual cada célula está viva (1) ou morta (0). Para simular o próximo estado, para cada célula calculamos o seu número de vizinhos vivos (adjacentes diagonalmente, horizontalmente ou verticalmente — até 8 vizinhos). As regras são: 1) uma célula morta com exatamente três vizinhas vivas torna-se viva; 2) uma célula morta com quantidade de vizinhas diferente de três continua morta; 3) uma célula viva com duas ou três vizinhas vivas continua viva; 4) uma célula viva com menos de duas vizinhas vivas morre; 5) uma célula viva com mais de três vizinhas vivas morre. Células fora da matriz são consideradas mortas. As regras são aplicadas simultaneamente em todas as células a cada passo. Dada uma matriz inicial e um inteiro Q, determine o estado da matriz após Q passos.",
         "input": "A primeira linha contém dois números inteiros, N e Q, representando o tamanho da matriz e o número de passos. As próximas N linhas contêm N caracteres cada ('0' para morta, '1' para viva), representando o estado inicial.",
@@ -46,6 +46,188 @@
             {
                 "input": "5 3\n00000\n01110\n01000\n00100\n00000",
                 "output": "01100\n11000\n00100\n00000\n00000"
+            }
+        ]
+    },
+    {
+        "id": "2024f2pj_cubo",
+        "title": "Cubo Preto",
+        "statement": "Ana comprou um cubo de madeira de lado N cm (ou seja, dimensões N × N × N centímetros) e o pintou todo de preto. Depois disso, ela cortou o cubo em N³ cubinhos de lado 1 cm (ou seja, dimensões 1 × 1 × 1 centímetro). Após o corte, alguns cubinhos terão nenhuma face pintada de preto, alguns terão exatamente uma face pintada, alguns terão exatamente duas faces pintadas e outros terão exatamente três faces pintadas. Sua tarefa é: dada a dimensão N do lado do cubo em centímetros, determine quantos cubinhos terão exatamente nenhuma, uma, duas e três faces pintadas de preto após Ana pintar e cortar o cubo.",
+        "input": "A entrada contém uma única linha com um único inteiro N, a dimensão do cubo em centímetros.",
+        "output": "Seu programa deverá imprimir quatro linhas, cada uma contendo um único inteiro:\n- A primeira linha deve conter o número de cubinhos com nenhuma face pintada de preto.\n- A segunda linha deve conter o número de cubinhos com exatamente uma face pintada.\n- A terceira linha deve conter o número de cubinhos com exatamente duas faces pintadas.\n- A quarta e última linha deve conter o número de cubinhos com exatamente três faces pintadas.",
+        "constraints": "2 <= N <= 100",
+        "examples": [
+            {
+                "input": "4",
+                "output": "8\n24\n24\n8"
+            },
+            {
+                "input": "2",
+                "output": "0\n0\n0\n8"
+            }
+        ]
+    },
+    {
+        "id": "2024f2pj_alfabeto",
+        "title": "Alfabeto Alienígena",
+        "statement": "O OBI (Órgão Brasileiro de Inteligência) suspeita que alienígenas infiltrados têm se comunicado secretamente usando o dispositivo oficial do órgão. O dispositivo possui teclas para letras maiúsculas e minúsculas, dígitos, operadores aritméticos (+, -, *, /), hashtag (#) e exclamação (!). Uma mensagem pode ter sido escrita por alienígenas se, e somente se, todos os símbolos que a compõem pertencem a um conjunto específico de símbolos que formam o alfabeto alienígena. Sua tarefa é determinar se uma mensagem enviada poderia ter sido escrita por alienígenas, dado o conjunto de caracteres do alfabeto deles.",
+        "input": "A primeira linha contém dois inteiros K e N, indicando o número de caracteres no alfabeto alienígena e o número de caracteres na mensagem, respectivamente. A segunda linha contém os K caracteres distintos do alfabeto alienígena. A terceira linha contém os N caracteres da mensagem enviada.",
+        "output": "Imprima uma única linha contendo o caractere 'S' se a mensagem puder ter sido escrita usando apenas o alfabeto alienígena, ou 'N' caso contrário.",
+        "constraints": "1 <= K <= 68; 1 <= N <= 1000; Caracteres permitidos: [a-zA-Z0-9+\\-*/#!]",
+        "examples": [
+            {
+                "input": "4 5\n!1ob\nob1!!",
+                "output": "S"
+            },
+            {
+                "input": "1 5\na\naabab",
+                "output": "N"
+            },
+            {
+                "input": "26 32\nabcdefghijklmnopqrstuvwxyz\nolimpiadabrasileiradeinformatica",
+                "output": "S"
+            },
+            {
+                "input": "11 7\n0123+-!ABCD\nOBI!OBI",
+                "output": "N"
+            }
+        ]
+    },
+    {
+        "id": "2024f2pj_concatena",
+        "title": "Concatena Dígitos",
+        "statement": "Beatriz inventou o jogo Concatena Dígitos. Concatenar consiste em pegar dois dígitos e juntá-los para formar um número de dois dígitos (ex: 2 e 9 formam 29). Dada uma lista de N dígitos, o potencial de um intervalo [L, R] é a soma de todas as concatenações possíveis de dois dígitos distintos em posições diferentes dentro desse intervalo. Por exemplo, no intervalo com os dígitos 1, 1, 2, as concatenações possíveis são (1,1), (1,2), (1,1), (1,2), (2,1) e (2,1), cuja soma é 88. Beatriz quer saber o potencial de diversos intervalos contíguos de sua lista.",
+        "input": "A primeira linha contém dois inteiros N e Q, o número de dígitos na lista e a quantidade de perguntas. A segunda linha contém N dígitos entre 1 e 9. As Q linhas seguintes contêm dois inteiros Li e Ri cada, definindo o intervalo da pergunta.",
+        "output": "Para cada pergunta, imprima uma linha contendo um único inteiro representando o potencial do intervalo [Li, Ri].",
+        "constraints": "1 <= N <= 100.000; 1 <= Q <= 100.000; 1 <= Di <= 9; 1 <= Li <= Ri <= N",
+        "examples": [
+            {
+                "input": "5 4\n1 1 2 3 9\n1 3\n1 5\n2 4\n3 3",
+                "output": "88\n704\n132\n0"
+            }
+        ]
+    },
+    {
+        "id": "2024f2pj_poder",
+        "title": "Jogo do Poder",
+        "statement": "Jonathan está jogando o Jogo do Poder em uma matriz N x M. Cada célula (i, j) contém um monstro com poder P[i,j]. Ao escolher um monstro inicial como herói, Jonathan pode movê-lo ortogonalmente pela matriz. Se o poder do herói for maior ou igual ao do monstro na nova célula, o herói vence, o monstro morre e seu poder é somado ao do herói. O objetivo é determinar, para cada posição inicial possível, qual o poder máximo que o herói consegue alcançar jogando de forma ótima.",
+        "input": "A primeira linha contém dois inteiros N e M. As N linhas seguintes contêm M inteiros cada, representando o poder P[i,j] dos monstros na matriz.",
+        "output": "Imprima N linhas, cada uma contendo M inteiros. O j-ésimo inteiro da i-ésima linha deve ser o poder máximo que o herói iniciado naquela célula consegue atingir.",
+        "constraints": "1 <= N, M <= 100.000; 1 <= N x M <= 100.000; 1 <= P[i,j] <= 1.000.000.000.",
+        "examples": [
+            {
+                "input": "2 3\n2 3 9\n1 7 200",
+                "output": "6 6 22\n1 22 222"
+            },
+            {
+                "input": "1 7\n6 3 10 1 20 7 7",
+                "output": "9 3 54 1 54 14 14"
+            }
+        ]
+    },
+    {
+        "id": "2024f3pj_brigadeiros",
+        "title": "Brigadeiros",
+        "statement": "N alunos estão em uma festa de formatura, cada um sentado em frente a um prato de brigadeiros numerado de 1 a N. Cada prato contém entre 0 e 9 brigadeiros. Um subconjunto de K alunos forma um grupo de amigos que deseja maximizar a soma de brigadeiros consumidos por eles. Para isso, os membros do grupo podem trocar de lugar com seus vizinhos imediatos (esquerda ou direita). Cada troca leva 1 segundo e o grupo dispõe de no máximo T segundos antes dos brigadeiros serem servidos. Os alunos que não pertencem ao grupo sempre aceitam as trocas. Determine a quantidade máxima de brigadeiros que o grupo consegue comer no total.",
+        "input": "A primeira linha contém três inteiros N, K e T (quantidade de pratos, quantidade de amigos e tempo disponível). A segunda linha contém N inteiros Pi, representando a quantidade de brigadeiros no i-ésimo prato. A terceira linha contém N inteiros Gi, onde Gi = 1 indica que o aluno na posição i é do grupo, e Gi = 0 caso contrário.",
+        "output": "Imprima uma única linha contendo o número máximo de brigadeiros que o grupo consegue comer.",
+        "constraints": "1 <= N <= 300; 0 <= Pi <= 9; 1 <= K <= N; 0 <= T <= 10^9; Gi em {0, 1}.",
+        "examples": [
+            {
+                "input": "5 2 2\n4 8 1 5 7\n1 0 1 0 0",
+                "output": "13"
+            },
+            {
+                "input": "4 2 3\n8 9 1 5\n0 1 0 1",
+                "output": "17"
+            },
+            {
+                "input": "4 2 2\n8 9 1 5\n0 1 0 1",
+                "output": "14"
+            }
+        ]
+    },
+    {
+        "id": "2024f3pj_construtora",
+        "title": "Construtora",
+        "statement": "Em uma rua existem N prédios adjacentes, onde o i-ésimo possui a[i] andares. Uma construtora deseja igualar a altura de todos os prédios seguindo as regras da Sociedade Brasileira de Construção (SBC): cada fase da obra aumenta em 1 o número de andares de um intervalo contíguo de prédios [L, R], desde que todos os prédios nesse intervalo possuam a mesma altura atual. O objetivo é determinar a quantidade mínima de fases necessárias para que todos os prédios tenham a mesma altura final.",
+        "input": "A primeira linha contém um inteiro N, o número de prédios. A segunda linha contém N inteiros representam a quantidade inicial de andares de cada prédio.",
+        "output": "Um único inteiro representando a menor quantidade de fases necessárias para completar a obra.",
+        "constraints": "2 <= N <= 100; 1 <= a[i] <= 100.",
+        "examples": [
+            {
+                "input": "4\n3 1 1 2",
+                "output": "2"
+            },
+            {
+                "input": "8\n5 4 4 4 5 4 4 7",
+                "output": "4"
+            },
+            {
+                "input": "3\n100 100 100",
+                "output": "0"
+            }
+        ]
+    },
+    {
+        "id": "2024f3pj_retas",
+        "title": "Retas",
+        "statement": "Juan desenha N linhas retas em uma tela infinita, cada uma definida pela equação y = A * x + B. Ele deseja focar em uma região específica delimitada pelos valores X1 e X2 no eixo x. Sua tarefa é determinar quantas interseções entre essas N linhas ocorrem dentro desse intervalo (incluindo as extremidades X1 e X2).",
+        "input": "A primeira linha contém três inteiros N, X1 e X2. As próximas N linhas contêm, cada uma, dois inteiros Ai e Bi, representando a inclinação e a interseção com o eixo y da i-ésima linha.",
+        "output": "A saída deve conter um único número inteiro representando a quantidade de interseções cujo valor da coordenada x está no intervalo [X1, X2].",
+        "constraints": "1 <= N <= 10^5; -10^9 <= X1 <= X2 <= 10^9; -10^9 <= Ai, Bi <= 10^9; Não existem duas retas idênticas.",
+        "examples": [
+            {
+                "input": "4 3 7\n-2 9\n1 -3\n1 2\n0 5",
+                "output": "2"
+            },
+            {
+                "input": "2 2 3\n-2 9\n1 2",
+                "output": "1"
+            },
+            {
+                "input": "5 100 200\n2 213\n2 209\n2 210\n2 410\n4 10",
+                "output": "3"
+            },
+            {
+                "input": "4 1 1\n15 -5\n0 10\n-5 15\n-20 30",
+                "output": "6"
+            }
+        ]
+    },
+    {
+        "id": "2024f3p2_burocracia",
+        "title": "Burocracia",
+        "statement": "No reino de Nlogônia, cada nobre possui exatamente um superior direto, formando uma hierarquia em árvore onde o rei é a raiz (índice 1). Nobres frequentemente enviam relatórios para superiores situados k níveis acima. Para reduzir a burocracia, o rei realiza decretos de reestruturação: ao escolher um nobre v, todos os seus subordinados (diretos ou indiretos) tornam-se subordinados diretos de v. Sua tarefa é processar uma série de eventos: consultas sobre quem é o superior k níveis acima de um nobre v, e operações de reestruturação a partir de um nobre v.",
+        "input": "A primeira linha contém um inteiro N, o número de nobres. A segunda linha contém N-1 inteiros representando os superiores diretos p[2], p[3], ..., p[N]. A terceira linha contém um inteiro Q, o número de operações. As Q linhas seguintes descrevem as operações: '1 v k' para consultar o superior k níveis acima de v, ou '2 v' para realizar uma reestruturação a partir de v.",
+        "output": "Para cada consulta do tipo 1, imprima o índice do nobre que receberá o relatório.",
+        "constraints": "2 <= N <= 10^5; 1 <= Q <= 5 * 10^4; p[i] < i; 1 <= v, k <= N; É garantido que o superior k níveis acima existe.",
+        "examples": [
+            {
+                "input": "9\n1 1 2 2 2 5 5 8\n6\n1 9 3\n1 4 2\n2 5\n1 9 3\n2 2\n1 8 1",
+                "output": "2\n1\n1\n2"
+            },
+            {
+                "input": "5\n1 2 3 4\n5\n1 5 2\n1 3 1\n2 3\n1 5 2\n1 3 1",
+                "output": "3\n2\n2\n2"
+            }
+        ]
+    },
+    {
+        "id": "2024f3p2_pratos",
+        "title": "Jogo de Pratos",
+        "statement": "Jonathan deseja obter a maior quantidade de pratos possível através de 'efeitos' (a, b). Se ele tem x pratos, após um efeito ele terá a * x + b. Existem N feitiços (usáveis infinitas vezes, mas limitados a K usos totais de mana) e M refeições (usáveis uma única vez cada). Jonathan deve usar todos os feitiços escolhidos primeiro e, depois, todas as refeições em qualquer ordem. O objetivo é maximizar o resultado final para Q diferentes quantidades iniciais de pratos. Como o valor pode ser imenso, o resultado deve ser impresso em módulo 10^9 + 7, mas a maximização deve ser feita antes de aplicar o módulo.",
+        "input": "A primeira linha contém N, M e K. A segunda linha contém os fatores multiplicativos 'a' dos feitiços e a terceira os fatores aditivos 'b'. A quarta linha contém os fatores 'a' das refeições e a quinta os fatores 'b'. A sexta linha contém Q e a sétima contém as Q quantidades iniciais x.",
+        "output": "Para cada pergunta, imprima o maior número de pratos alcançável módulo 10^9 + 7.",
+        "constraints": "1 <= N, M, Q <= 10^5; 1 <= K <= 10^9; 1 <= a, b <= 10^9; a + b > 1.",
+        "examples": [
+            {
+                "input": "2 2 2\n2 3\n3 2\n5 2\n5 2\n1\n1",
+                "output": "185"
+            },
+            {
+                "input": "4 3 3\n2 3 1 2\n0 0 2 1\n2 4 7\n3 2 1\n4\n1 2 10000 3",
+                "output": "1611\n3123\n15120099\n4635"
             }
         ]
     }

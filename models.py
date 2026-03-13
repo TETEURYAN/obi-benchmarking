@@ -22,5 +22,4 @@ class EvaluationResult(BaseModel):
     code_text: str
     judge_correctness: bool
     judge_test_cases: int
-    judge_time_complexity: str
-    judge_space_complexity: str
+    total_test_cases: int

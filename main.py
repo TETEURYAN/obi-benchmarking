@@ -114,7 +114,7 @@ def main():
         test_cases = get_test_cases(problem.id, problem.examples)
         print(f"Found {len(test_cases)} test cases for {problem.id}")
         
-        judge_correctness, judge_test_cases, judge_time_complexity, judge_space_complexity = evaluate_code(code_text, test_cases)
+        judge_correctness, judge_test_cases, total_test_cases = evaluate_code(code_text, test_cases)
         
         results.append(EvaluationResult(
             question_id=problem.id,
@@ -124,8 +124,7 @@ def main():
             code_text=code_text,
             judge_correctness=judge_correctness,
             judge_test_cases=judge_test_cases,
-            judge_time_complexity=judge_time_complexity,
-            judge_space_complexity=judge_space_complexity
+            total_test_cases=total_test_cases
         ))
 
     # Save to CSV

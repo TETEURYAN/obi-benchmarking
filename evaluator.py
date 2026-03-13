@@ -31,20 +31,17 @@ def execute_piston(code: str, stdin: str) -> dict:
         print(f"Warning: Failed to connect to Piston API at {PISTON_URL}. Ensure it is running. Error: {e}")
         return {"run": {"stdout": "", "stderr": str(e), "code": 1}, "execution_time": 0.0}
 
-def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, int, str, str]:
+def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, int, int]:
     """
     Evaluates the python code against the provided test cases.
     Each test case is a tuple (input, output).
-    Returns: (judge_correctness, judge_test_cases, judge_time_complexity, judge_space_complexity)
+    Returns: (judge_correctness, test_cases_passed, total_cases)
     """
     if not code.strip():
-        return False, 0, "Fail", "Fail"
+        return False, 0, len(test_cases)
         
     test_cases_passed = 0
     total_cases = len(test_cases)
-    
-    # We will track execution time to estimate time complexity
-    max_execution_time = 0.0
     
     for input_str, expected_output in test_cases:
         result = execute_piston(code, input_str)
@@ -53,18 +50,9 @@ def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, i
         stdout = run_data.get("stdout", "").strip()
         expected = expected_output.strip()
         
-        # execution time in seconds
-        exec_time = result.get("execution_time", 0.0)
-        max_execution_time = max(max_execution_time, exec_time)
-        
         if stdout == expected and run_data.get("code") == 0:
             test_cases_passed += 1
             
     judge_correctness = (test_cases_passed == total_cases) and total_cases > 0
     
-    # Simple heuristics for time and space complexity based on pure execution
-    # Ideally, we would need actual memory limits and execution time limits per problem.
-    judge_time_complexity = "Pass" if max_execution_time < 2.0 else "Fail"
-    judge_space_complexity = "Pass" # Piston API does not easily expose peak memory without a custom engine
-    
-    return judge_correctness, test_cases_passed, judge_time_complexity, judge_space_complexity
+    return judge_correctness, test_cases_passed, total_cases
