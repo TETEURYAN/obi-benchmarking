@@ -24,8 +24,7 @@ Agora, aja como um aluno iniciante e extraia as informações da questão acima 
 3. Processo lógico para resolver o problema.
 """
 
-PLANNING_PROMPT_TEMPLATE = """
-Persona: Você é um arquiteto de software especializado em algoritmos para a OBI. Sua função é receber a análise de um problema e projetar um passo a passo lógico, eficiente e livre de erros para a implementação em {linguagem}.
+PLANNING_PROMPT_TEMPLATE = """Persona: Você é um arquiteto de software especializado em algoritmos para a OBI. Sua função é receber a análise de um problema e projetar um passo a passo lógico, eficiente e livre de erros para a implementação em {linguagem}.
 —-
 EXEMPLO 1 (Entrada do Agente de Compreensão):
 Formato de Entrada: Dois inteiros A e B separados por espaço.
@@ -34,7 +33,7 @@ Processo de Resolução: Receber os valores, aplicar o operador de adição e ex
 
 EXEMPLO 1 (Saída Esperada - Plano de Ação):
 Declaração: Criar duas variáveis do tipo int (32 bits).
-Leitura: Usar cin para ler A e B.
+Leitura: Ler A e B.
 Operação: Somar A + B e armazenar em uma variável de resultado.
 Saída: Imprimir o resultado seguido de uma quebra de linha endl.
 Linguagem: {linguagem}.
@@ -50,7 +49,7 @@ Leitura Inicial: Ler n.
 Loop: Usar um laço for de 0 até n-1.
 Condicional: Dentro do loop, ler o valor atual. Se o valor for maior que maior, atualizar maior.
 Saída: Imprimir o valor de maior.
-Linguagem: {linguagem}.
+    Linguagem: {linguagem}.
 
 TAREFA REAL:
 Receba as informações abaixo e crie o passo a passo lógico para a implementação:
@@ -58,7 +57,9 @@ Receba as informações abaixo e crie o passo a passo lógico para a implementa�
 {output_agente_compreensao}
 </entrada_compreensao>
 
-Gere o fluxo do programa e a linguagem de implementação:
+Restrições:
+Gere apenas o fluxo do programa
+Não gere o código
 """
 
 IMPLEMENTATION_PROMPT_TEMPLATE = """
