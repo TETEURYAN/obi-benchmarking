@@ -19,3 +19,8 @@ class EvaluationResult(BaseModel):
     model: str
     understanding_text: str
     plan_text: str
+    code_text: str
+    judge_correctness: bool
+    judge_test_cases: int
+    judge_time_complexity: str
+    judge_space_complexity: str
