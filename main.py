@@ -2,12 +2,13 @@ import json
 import os
 import re
 import glob
+import argparse
 import pandas as pd
 from typing import List
 from openai import OpenAI
 from dotenv import load_dotenv
 from models import Problem, EvaluationResult
-from prompts import COMPREHENSION_PROMPT_TEMPLATE, PLANNING_PROMPT_TEMPLATE, IMPLEMENTATION_PROMPT_TEMPLATE
+from prompts import COMPREHENSION_PROMPT_TEMPLATE, PLANNING_PROMPT_TEMPLATE, IMPLEMENTATION_PROMPT_TEMPLATE, ZERO_SHOT_PROMPT_TEMPLATE
 from evaluator import evaluate_code
 
 # Load environment variables from .env file
@@ -77,6 +78,10 @@ def get_test_cases(problem_id: str, default_examples: List) -> List[tuple[str, s
     return test_cases
 
 def main():
+    parser = argparse.ArgumentParser(description="Evaluate LLMs on OBI problems.")
+    parser.add_argument("--zero-shot", action="store_true", help="Run with a single zero-shot prompt instead of multi-agent mode.")
+    args = parser.parse_args()
+
     api_key = os.getenv("OPENAI_API_KEY", "sk-no-key-required")
     base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
     model_name = os.getenv("MODEL_NAME", "gpt-4o")
@@ -89,26 +94,37 @@ def main():
     for problem in problems:
         print(f"Processing problem: {problem.title} (ID: {problem.id})...")
         
-        # Step 1: Comprehension
         contexto = f"Problema: \"{problem.title}\". {problem.statement}\nEntrada: {problem.input}\nSaída: {problem.output}\nRestrições: {problem.constraints}"
-        comp_prompt = COMPREHENSION_PROMPT_TEMPLATE.format(contexto=contexto)
-        understanding = get_llm_response(client, model_name, comp_prompt)
         
-        # Step 2: Planning
-        plan_prompt = PLANNING_PROMPT_TEMPLATE.format(
-            linguagem="Python",
-            output_agente_compreensao=understanding
-        )
-        plan = get_llm_response(client, model_name, plan_prompt)
-        
-        # Step 3: Implementation
-        impl_prompt = IMPLEMENTATION_PROMPT_TEMPLATE.format(
-            linguagem="Python",
-            output_agente_planejador=plan
-        )
-        
-        code_response = get_llm_response(client, model_name, impl_prompt)
-        code_text = extract_code(code_response)
+        if args.zero_shot:
+            print("Running in zero-shot mode...")
+            zero_shot_prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(contexto=contexto)
+            code_response = get_llm_response(client, model_name, zero_shot_prompt)
+            code_text = extract_code(code_response)
+            understanding = "N/A (Zero-shot)"
+            plan = "N/A (Zero-shot)"
+        else:
+            # Step 1: Comprehension
+            comp_prompt = COMPREHENSION_PROMPT_TEMPLATE.format(contexto=contexto)
+            understanding = get_llm_response(client, model_name, comp_prompt)
+            
+            # Step 2: Planning
+            plan_prompt = PLANNING_PROMPT_TEMPLATE.format(
+                linguagem="Python",
+                output_agente_compreensao=understanding,
+                contexto=contexto
+            )
+            plan = get_llm_response(client, model_name, plan_prompt)
+            
+            # Step 3: Implementation
+            impl_prompt = IMPLEMENTATION_PROMPT_TEMPLATE.format(
+                linguagem="Python",
+                output_agente_planejador=plan,
+                contexto=contexto
+            )
+            
+            code_response = get_llm_response(client, model_name, impl_prompt)
+            code_text = extract_code(code_response)
         
         # Step 4: Evaluation
         test_cases = get_test_cases(problem.id, problem.examples)
