@@ -68,51 +68,72 @@ Foque no Big-Picture da lógica, descrevendo as estruturas de dados ou o algorit
 Evite microgerenciamento ou detalhar estruturas de fluxo básicas (if/else triviais).
 """
 
-IMPLEMENTATION_PROMPT_TEMPLATE = """
+IMPLEMENTATION_PROMPT_TEMPLATE = IMPLEMENTATION_PROMPT_TEMPLATE = """
 Persona: Você é um Engenheiro de Software Sênior especializado na escrita de código {linguagem} para programação competitiva (OBI).
 Instruções Críticas:
 1. Receba o "Plano Estratégico" fornecido. Use-o como um excelente **GUIA DE ALTO NÍVEL** para a abstração e não como uma algema.
 2. Se você (como engenheiro) identificar que o plano possui falhas matemáticas sutis, omissões lógicas ou propõe complexidade errada, **SINTA-SE LIVRE PARA CORRIGIR E AJUSTAR A LÓGICA** enquanto codifica para garantir que a solução final esteja matematicamente robusta e otimizada (Tempo O(N log N) ou O(N)). 
-3. O código deve ler a entrada e imprimir as respostas padrão perfeitamente formatadas para *Automated Judges* em Python.
+3. O código deve ler a entrada e imprimir as respostas padrão perfeitamente formatadas para *Automated Judges*.
 4. GERAR APENAS CÓDIGO. Não inclua explicação, comentários fora do código.
 —-
 EXEMPLO 1 (Entrada - Plano Estratégico):
 Estratégia: Ler 2 inteiros de linha. Imprimir soma.
-Linguagem: Python.
-EXEMPLO 1 (Saída Esperada):
-import sys
+Linguagem: C++.
+#include <bits/stdc++.h>
 
-def main():
-    entrada = sys.stdin.read().split()
-    if not entrada:
-        return
-    a, b = int(entrada[0]), int(entrada[1])
-    print(a + b)
+using namespace std;
 
-if __name__ == '__main__':
-    main()
+int main() {{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int a, b;
+
+    if (cin >> a >> b) {{
+        cout << a + b << endl;
+    }}
+
+    return 0;
+}}
 —-
 EXEMPLO 2 (Entrada - Plano Estratégico):
 Estratégia: Manter registro do maior int.
-Linguagem: Python.
-EXEMPLO 2 (Saída Esperada):
-import sys
+Linguagem: C++.
+#include <bits/stdc++.h>
 
-def main():
-    entrada = sys.stdin.read().split()
-    if len(entrada) < 2:
-        return
-    n = int(entrada[0])
-    maior = -float('inf')
+using namespace std;
+
+int main() {{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n;
+    if (!(cin >> n)) return 0;
     
-    for i in range(1, n + 1):
-        if int(entrada[i]) > maior:
-            maior = int(entrada[i])
-            
-    print(maior)
+    int maior = INT_MIN;
 
-if __name__ == '__main__':
-    main()
+    for (int i = 0; i < n; i++) {{
+        int atual;
+        cin >> atual;
+        if (atual > maior) {{
+            maior = atual;
+        }}
+    }}
+
+    cout << maior << endl;
+
+    return 0;
+}}
+—-
+TAREFA REAL:
+Traduza o Plano de Ação abaixo para {linguagem}, respeitando todas as instruções críticas.
+—-
+<contexto>
+{contexto}
+</contexto>
+<plano_de_acao>
+{output_agente_planejador}
+</plano_de_acao>
 —-
 TAREFA REAL:
 Traduza o Plano de Ação abaixo para {linguagem}, respeitando todas as instruções críticas.
@@ -127,14 +148,14 @@ Traduza o Plano de Ação abaixo para {linguagem}, respeitando todas as instruç
 """
 
 ZERO_SHOT_PROMPT_TEMPLATE = """
-Persona: Você é um desenvolvedor Python experiente especializado em programação competitiva (OBI).
-Sua tarefa é ler a descrição do problema e gerar APENAS o código Python para resolvê-lo.
+Persona: Você é um desenvolvedor C++ experiente especializado em programação competitiva (OBI).
+Sua tarefa é ler a descrição do problema e gerar APENAS o código C++ para resolvê-lo.
 
 Instruções Críticas:
-1. O código gerado deve ler da entrada padrão (input() ou sys.stdin) e escrever na saída padrão (print() ou sys.stdout).
+1. O código gerado deve ler da entrada e escrever na saída.
 2. GERAR APENAS CÓDIGO. Não inclua nenhuma explicação, comentários fora do código, introdução ou conclusão.
 3. Certifique-se de que o código passa nas restrições de tempo e memória.
-4. O código deve ser Python válido e executável.
+4. O código deve ser C++ válido e executável.
 
 <contexto>
 {contexto}

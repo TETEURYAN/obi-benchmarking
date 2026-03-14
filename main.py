@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 from models import Problem, EvaluationResult
 from prompts import COMPREHENSION_PROMPT_TEMPLATE, PLANNING_PROMPT_TEMPLATE, IMPLEMENTATION_PROMPT_TEMPLATE, ZERO_SHOT_PROMPT_TEMPLATE
 from evaluator import evaluate_code
+from pathlib import Path
+import time
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,13 +21,32 @@ def load_problems(file_path: str) -> List[Problem]:
         data = json.load(f)
     return [Problem(**p) for p in data]
 
-def get_llm_response(client: OpenAI, model: str, prompt: str) -> str:
-    response = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.0
-    )
-    return response.choices[0].message.content
+def create_file(name : str = "test.cpp", path: str = "code_llm", content: str = "test"):
+    
+    Path(path).mkdir(parents=True, exist_ok=True)
+    Path(f"{path}/{name}").touch()
+    file = Path(f"{path}/{name}")
+    file.write_text(content)
+    
+
+def get_llm_response(client: OpenAI, model: str, prompt: str, retries: int = 3, delay: int = 5) -> str:
+    #print(prompt)
+    for attempt in range(retries):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+                timeout=180.0
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            if attempt < retries - 1:
+                print(f"⚠️ Erro de conexão ({e}). Tentando novamente em {delay}s... (Tentativa {attempt + 1}/{retries})")
+                time.sleep(delay)
+            else:
+                print(f"❌ Falha definitiva após {retries} tentativas.")
+                raise e
 
 def split_response(response: str):
     # Basic split based on likely headers. A more robust parser might be needed.
@@ -46,6 +67,10 @@ def split_response(response: str):
 def extract_code(response_text: str) -> str:
     """Extracts python code from markdown block."""
     match = re.search(r'```python\n(.*?)\n```', response_text, re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    
+    match = re.search(r'```cpp\n(.*?)\n```', response_text, re.DOTALL)
     if match:
         return match.group(1).strip()
     
@@ -86,11 +111,16 @@ def main():
     base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
     model_name = os.getenv("MODEL_NAME", "gpt-4o")
     
-    client = OpenAI(api_key=api_key, base_url=base_url)
+    client = OpenAI(api_key=api_key,
+                    base_url=base_url,
+                    timeout=60.0,
+                    max_retries=3)
     
     problems = load_problems("problems.json")
     results = []
-
+    total = 0
+    total_acc = 0
+    
     for problem in problems:
         print(f"Processing problem: {problem.title} (ID: {problem.id})...")
         
@@ -103,6 +133,14 @@ def main():
             code_text = extract_code(code_response)
             understanding = "N/A (Zero-shot)"
             plan = "N/A (Zero-shot)"
+            
+            if (code_text[0] == '`'):
+                code_text = code_text[6: len(code_text) - 3]
+                
+            create_file(name = f"{problem.title}.cpp",
+                    path = f"code_llm/zero-shot/{os.getenv("MODEL_NAME", "test")}",
+                    content=code_text)
+            
         else:
             # Step 1: Comprehension
             comp_prompt = COMPREHENSION_PROMPT_TEMPLATE.format(contexto=contexto)
@@ -110,7 +148,7 @@ def main():
             
             # Step 2: Planning
             plan_prompt = PLANNING_PROMPT_TEMPLATE.format(
-                linguagem="Python",
+                linguagem="C++",
                 output_agente_compreensao=understanding,
                 contexto=contexto
             )
@@ -118,19 +156,31 @@ def main():
             
             # Step 3: Implementation
             impl_prompt = IMPLEMENTATION_PROMPT_TEMPLATE.format(
-                linguagem="Python",
+                linguagem="C++",
                 output_agente_planejador=plan,
                 contexto=contexto
             )
             
             code_response = get_llm_response(client, model_name, impl_prompt)
             code_text = extract_code(code_response)
+            
+            if (code_text[0] == '`'):
+                code_text = code_text[6: len(code_text) - 3]
+            
+            create_file(name = f"{problem.title}.cpp",
+                    path = f"code_llm/multiagentes/{os.getenv("MODEL_NAME", "test")}",
+                    content=code_text)
         
         # Step 4: Evaluation
         test_cases = get_test_cases(problem.id, problem.examples)
         print(f"Found {len(test_cases)} test cases for {problem.id}")
         
         judge_correctness, judge_test_cases, total_test_cases = evaluate_code(code_text, test_cases)
+        
+        total += total_test_cases
+        total_acc += judge_test_cases
+        
+        
         
         results.append(EvaluationResult(
             question_id=problem.id,
@@ -147,6 +197,7 @@ def main():
     df = pd.DataFrame([r.model_dump() for r in results])
     df.to_csv("results.csv", index=False)
     print("Evaluation complete. Results saved to results.csv")
+    print(f"{total_acc}/{total}")
 
 if __name__ == "__main__":
     main()

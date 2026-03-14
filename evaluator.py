@@ -8,16 +8,37 @@ from concurrent.futures import ThreadPoolExecutor
 from models import Problem
 
 def execute_local(code: str, stdin: str, timeout: float = 2.0) -> dict:
-    """Executes code locally using a subprocess."""
+    """Executes C++ code locally using a subprocess."""
     # We use a unique temporary file per execution to avoid collisions in parallel runs
-    fd, temp_file_path = tempfile.mkstemp(suffix='.py', text=True)
+    fd, temp_file_path = tempfile.mkstemp(suffix='.cpp', text=True)
     with os.fdopen(fd, 'w') as f:
         f.write(code)
-        
+    
+    exe_path = temp_file_path.replace('.cpp', '.out')
+    
     try:
+        # Compile the C++ code
+        compile_process = subprocess.run(
+            ['g++', temp_file_path, '-o', exe_path],
+            capture_output=True,
+            text=True,
+            timeout=10.0  # Compilation timeout
+        )
+        
+        if compile_process.returncode != 0:
+            return {
+                "run": {
+                    "stdout": "",
+                    "stderr": f"Compilation error: {compile_process.stderr}",
+                    "code": compile_process.returncode
+                },
+                "execution_time": 0.0
+            }
+        
+        # Execute the compiled binary
         start_time = time.time()
         process = subprocess.run(
-            [sys.executable, temp_file_path],
+            [exe_path],
             input=stdin,
             text=True,
             capture_output=True,
@@ -54,13 +75,20 @@ def execute_local(code: str, stdin: str, timeout: float = 2.0) -> dict:
     finally:
         if os.path.exists(temp_file_path):
             os.remove(temp_file_path)
+        if os.path.exists(exe_path):
+            os.remove(exe_path)
 
 def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, int, int]:
     """
-    Evaluates the python code against the provided test cases in parallel.
+    Evaluates the C++ code against the provided test cases in parallel.
     Each test case is a tuple (input, output).
     Returns: (judge_correctness, test_cases_passed, total_cases)
     """
+    
+    
+    if (code[0] == '`'):
+        code = code[6: len(code) - 3]
+    
     if not code.strip():
         return False, 0, len(test_cases)
         
