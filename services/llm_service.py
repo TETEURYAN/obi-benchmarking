@@ -23,14 +23,13 @@ class LLMService:
             
             if level[0] == "`":
                 level = level.split('\n')[1]
-            
             if level in ['FACIL', 'MEDIO', 'DIFICIL']:
                 return level
             
             return "NÃO CONSEGUIU CLASSIFICAR"
             
         except Exception:
-            print("Erro ao criar o código!")
+            print("Erro ao criar predição do level!")
             return None
     
     def create_code_llm(self, prompt: str) -> str:
@@ -41,10 +40,14 @@ class LLMService:
             return None
 
     def __send_prompt(self, prompt: str):
-        response = self.__client.chat.completions.create(
-            model=self.__model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=self.__temperature
-        )
-        
-        return response.choices[0].message.content
+        print(type(prompt))
+        try:
+            response = self.__client.chat.completions.create(
+                model=self.__model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=self.__temperature
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"Erro na chamada da API OpenAI: {e}")
+            raise

@@ -1,5 +1,5 @@
 from pathlib import Path
-from core import config
+from .config import config
 from services import LLMService, JudgeService
 from models.problem import Problem
 from models.evaluation_result import EvaluationResult
@@ -26,13 +26,17 @@ class Orchestrator:
                     model: str = "test",
                     content: str = "test") -> bool:
         try:
-            Path(f"{base}/{model}/{self.__type}/{self.__language}/").mkdir(parents=True, exist_ok=True)
-            Path(f"{base}/{model}/{self.__type}/{self.__language}/{name}").touch()
-            file = Path(f"{base}/{model}/{self.__type}/{self.__language}/{name}")
-            file.write_text(content)
+            target_dir = Path(base) / model / self.__type / self.__language
+            
+            target_dir.mkdir(parents=True, exist_ok=True)
+            file_path = target_dir / name
+            file_path.write_text(content, encoding="utf-8")
+            
+            print(f"Arquivo criado com sucesso em: {file_path}")
             return True
-        except Exception:
-            print("Erro ao criar o código")
+            
+        except Exception as e:
+            print(f"Erro ao criar o arquivo {name}: {e}")
             return False
             
     def create_csv(self, base: str = "output", results: dict = None):
@@ -121,6 +125,8 @@ class Orchestrator:
         output += "</output format>\n"
 
         output += f"\n{self.get_exemples_of_problem(problem.examples)}"
+        
+        return output
 
     def execute(self, problems: list):
 
@@ -129,6 +135,8 @@ class Orchestrator:
             model = provider.model_name
             base_url = provider.base_url
             api_key = provider.api_key
+            
+            print("[CODIFICADOR]: Modelo LMM: ", model)
             
             llm_service = LLMService(model=model,
                                     base_url=base_url,
@@ -142,7 +150,8 @@ class Orchestrator:
                 print(f"Processando questão: {problem.title}")
                 
                 prompt = LEVEL_PROMPT_TEMPLATE.format(contexto=self.format_problem(problem))
-                level = llm_service.level_question(prompt=problem)
+                level = llm_service.level_question(prompt=prompt)
+                print("level: ", level)
 
                 if self.__type == "zero":
                     prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(
@@ -156,7 +165,7 @@ class Orchestrator:
                 code_response = llm_service.create_code_llm(prompt=prompt)
                 code = self.valid_code(code_response)
                 
-                if self.create_file(name=f"{problem}.{self.__format_file_code}",
+                if self.create_file(name=f"{problem.title}.{self.__format_file_code}",
                                     base="output",
                                     model=model,
                                     content=code):
@@ -164,10 +173,11 @@ class Orchestrator:
                 else:
                     print("Próxima questão...")
                     continue
-
-                all_passed, passed_count, total_cases = judge_service.execute(code=code)
-
                 
+                test_cases = self.get_test_cases(problem.path, problem.title, [])
+                all_passed, passed_count, total_cases = judge_service.execute(code=code,
+                                                                              test_cases=test_cases)
+
                 results.append(EvaluationResult(
                     question_name = problem.title,
                     model = model,
@@ -179,7 +189,8 @@ class Orchestrator:
                 ))
                 
                 del prompt
-                
+            
+            self.create_csv(results=results)
             del llm_service, judge_service
         
         

@@ -4,8 +4,7 @@ class EvaluationResult(BaseModel):
     question_name: str
     model: str
     level_to_llm: str
-    modality: str
-    period: str
+    info: str
     judge_correctness: bool
     correct_test_cases: int
     total_test_cases: int

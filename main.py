@@ -5,12 +5,13 @@ from core import Orchestrator
 
 def load_problem(file_path: Path) -> Problem:
     data = json.loads(file_path.read_text(encoding="utf-8"))
+    print("Carregando file: ", file_path)
     
     return Problem(**data)
 
 def print_partition(text: str):
     print("="*70)
-    print("text")
+    print(text)
     print("="*70)
 
 def get_int_input(text : str = "test") -> int:
@@ -31,6 +32,7 @@ def main():
         for folder in path_database.glob("*/*/*/*/"):
             if folder.is_dir():
                 questions_path.append(folder)
+        
         
         problem_names = []            
         for path in questions_path:
@@ -76,7 +78,7 @@ def main():
             exit(0)
         
         orchestrador = Orchestrator(type=type_prompt, language=language)
-        if orchestrador.execute(problems=problems, questions_path=questions_path):
+        if orchestrador.execute(problems=problems):
             print("Resultado está em output/results/")
             print_partition("REINICIANDO")
         else:

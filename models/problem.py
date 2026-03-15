@@ -4,8 +4,7 @@ from .example import Example
 
 class Problem(BaseModel):
     path: str
-    imgs: Optional[list]
-    id: str
+    imgs: Optional[list] = None
     title: str
     statement: str
     input: str
