@@ -1,6 +1,6 @@
 LEVEL_PROMPT_TEMPLATE = """
 <contexto>
-{problem}
+{contexto}
 </contexto>
 ---
 Persona: Você é um analista de questões em programação competitiva OBI.

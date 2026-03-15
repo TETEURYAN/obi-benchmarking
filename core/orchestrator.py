@@ -35,6 +35,11 @@ class Orchestrator:
             print("Erro ao criar o código")
             return False
             
+    def create_csv(self, base: str = "output", results: dict = None):
+        Path(f"{base}/results/{self.__type}/{self.__language}/").mkdir(parents=True, exist_ok=True)
+        df = pd.DataFrame([r.model_dump() for r in results])
+        df.to_csv("results.csv", index=False)
+    
     def valid_code(self, code: str) -> str:
 
         if code is None:
@@ -136,10 +141,8 @@ class Orchestrator:
             for problem in problems:
                 print(f"Processando questão: {problem.title}")
                 
-                prompt = LEVEL_PROMPT_TEMPLATE.format(context=)
-                
-                level = 
-                
+                prompt = LEVEL_PROMPT_TEMPLATE.format(contexto=self.format_problem(problem))
+                level = llm_service.level_question(prompt=problem)
 
                 if self.__type == "zero":
                     prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(
@@ -176,10 +179,8 @@ class Orchestrator:
                 ))
                 
                 del prompt
+                
+            del llm_service, judge_service
         
-        # Save to CSV
-        df = pd.DataFrame([r.model_dump() for r in results])
-        df.to_csv("results.csv", index=False)
-        del llm_service, judge_service
-
+        
         return True
