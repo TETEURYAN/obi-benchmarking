@@ -1,10 +1,12 @@
 from pathlib import Path
 from core import config
+from services import LLMService, JudgeService
+from models.problem import Problem
+from models.evaluation_result import EvaluationResult
+from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, LEVEL_PROMPT_TEMPLATE
+import pandas as pd
 import os
 import glob
-from services import LLMService, JudgeService
-from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE
-from models.problem import Problem
 
 
 class Orchestrator:
@@ -52,7 +54,7 @@ class Orchestrator:
                        default_examples: list) -> list[tuple[str, str]]:
 
         test_cases = []
-        path_test_cases = f"{path}/{name}/"
+        path_test_cases = f"{path}/{name}/test_cases/"
 
         if os.path.exists(path_test_cases):
             in_files = glob.glob(os.path.join(
@@ -115,48 +117,69 @@ class Orchestrator:
 
         output += f"\n{self.get_exemples_of_problem(problem.examples)}"
 
-    def execute(self, problems: list, questions_path: list):
+    def execute(self, problems: list):
 
-        model = config.GEMINI_MODEL_NAME
-        llm_service = LLMService(model=config.GEMINI_MODEL_NAME,
-                                 base_url=config.GEMINI_BASE_URL,
-                                 api_key=config.GEMINI_API_KEY,
-                                 temperature=0.0)
-
-        judge_service = JudgeService(language=self.__language)
-
-        problem_names = []
-        for path in questions_path:
-            problem_names.append(path.name)
-
-        for problem in problems:
-            print(f"Processando questão: {problem.title}")
-            prompt = "test"
-
-            if self.__type == "zero":
-                prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(
-                    contexto=self.format_problem(problem))
-            elif self.__type == "few":
-                prompt = FEW_SHOT_PROMPT_TEMPLATE.format(
-                    contexto=self.format_problem(problem))
-            else:
-                return False
-
-            code_response = llm_service.create_code_llm(prompt=prompt)
-            code = self.valid_code(code_response)
+        for _, provider in config.list_providers().items():
             
-            if self.create_file(name=f"{problem}.{self.__format_file_code}",
-                                base="output",
-                                model=model,
-                                content=code):
-                print("Arquivo criado com sucesso!!")
-            else:
-                print("Próxima questão...")
-                continue
+            model = provider.model_name
+            base_url = provider.base_url
+            api_key = provider.api_key
+            
+            llm_service = LLMService(model=model,
+                                    base_url=base_url,
+                                    api_key=api_key,
+                                    temperature=0.0)
 
-            judge_service.execute(code=code)
+            judge_service = JudgeService(language=self.__language)
+            
+            results = []
+            for problem in problems:
+                print(f"Processando questão: {problem.title}")
+                
+                prompt = LEVEL_PROMPT_TEMPLATE.format(context=)
+                
+                level = 
+                
 
-            del prompt
+                if self.__type == "zero":
+                    prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(
+                        contexto=self.format_problem(problem))
+                elif self.__type == "few":
+                    prompt = FEW_SHOT_PROMPT_TEMPLATE.format(
+                        contexto=self.format_problem(problem))
+                else:
+                    return False
 
+                code_response = llm_service.create_code_llm(prompt=prompt)
+                code = self.valid_code(code_response)
+                
+                if self.create_file(name=f"{problem}.{self.__format_file_code}",
+                                    base="output",
+                                    model=model,
+                                    content=code):
+                    print("Arquivo criado com sucesso!!")
+                else:
+                    print("Próxima questão...")
+                    continue
+
+                all_passed, passed_count, total_cases = judge_service.execute(code=code)
+
+                
+                results.append(EvaluationResult(
+                    question_name = problem.title,
+                    model = model,
+                    level_to_llm = level,
+                    info = str(problem.path),
+                    judge_correctness = all_passed,
+                    correct_test_cases = passed_count,
+                    total_test_cases = total_cases,
+                ))
+                
+                del prompt
+        
+        # Save to CSV
+        df = pd.DataFrame([r.model_dump() for r in results])
+        df.to_csv("results.csv", index=False)
         del llm_service, judge_service
+
         return True

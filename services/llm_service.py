@@ -17,6 +17,22 @@ class LLMService:
         self.__model = model
         self.__temperature = temperature
 
+    def level_question(self, prompt: str) -> str:
+        try:
+            level = self.__send_prompt(prompt=prompt)
+            
+            if level[0] == "`":
+                level = level.split('\n')[1]
+            
+            if level in ['FACIL', 'MEDIO', 'DIFICIL']:
+                return level
+            
+            return "NÃO CONSEGUIU CLASSIFICAR"
+            
+        except Exception:
+            print("Erro ao criar o código!")
+            return None
+    
     def create_code_llm(self, prompt: str) -> str:
         try:
             return self.__send_prompt(prompt=prompt)

@@ -1,11 +1,7 @@
 import json
-import os
-import pandas as pd
-from models.evaluation_result import EvaluationResult
 from models.problem import Problem
-from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE
 from pathlib import Path
-
+from core import Orchestrator
 
 def load_problem(file_path: Path) -> Problem:
     data = json.loads(file_path.read_text(encoding="utf-8"))
@@ -16,6 +12,13 @@ def print_partition(text: str):
     print("="*70)
     print("text")
     print("="*70)
+
+def get_int_input(text : str = "test") -> int:
+    try:
+        number = int(input(text))
+        return number
+    except Exception:
+        return 0
 
 def main():
     
@@ -43,89 +46,41 @@ def main():
         print("Erro na estrutura database. Verifique o diretorio!")
         exit(1)
     
-    zero_shot_prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(contexto=contexto)
-    
-    results = []
-    total = 0
-    total_acc = 0
-    
-    for problem in problems:
-        print(f"Processing problem: {problem.title} (ID: {problem.id})...")
+    while True:
+        print_partition(text="MENU")
+        print("1. Zero shot prompt;")
+        print("2. Few shot prompt.")
+        print("Se digitar qualquer outra coisa; termina a execução!")
+        op = get_int_input("Digite uma opção para prompt: ")
         
-        contexto = f"Problema: \"{problem.title}\". {problem.statement}\nEntrada: {problem.input}\nSaída: {problem.output}\nRestrições: {problem.constraints}"
+        type_prompt = "" 
         
-        if args.zero_shot:
-            print("Running in zero-shot mode...")
-            
-            code_response = get_llm_response(client, model_name, zero_shot_prompt)
-            code_text = extract_code(code_response)
-            understanding = "N/A (Zero-shot)"
-            plan = "N/A (Zero-shot)"
-            
-            if (code_text[0] == '`'):
-                code_text = code_text[6: len(code_text) - 3]
-                
-            create_file(name = f"{problem.title}.cpp",
-                    path = f"code_llm/zero-shot/{os.getenv("MODEL_NAME", "test")}",
-                    content=code_text)
-            
+        if op == 1:
+            type_prompt = "zero"
+        elif op == 2:
+            type_prompt = "few"
         else:
-            # Step 1: Comprehension
-            comp_prompt = COMPREHENSION_PROMPT_TEMPLATE.format(contexto=contexto)
-            understanding = get_llm_response(client, model_name, comp_prompt)
-            
-            # Step 2: Planning
-            plan_prompt = PLANNING_PROMPT_TEMPLATE.format(
-                linguagem="C++",
-                output_agente_compreensao=understanding,
-                contexto=contexto
-            )
-            plan = get_llm_response(client, model_name, plan_prompt)
-            
-            # Step 3: Implementation
-            impl_prompt = IMPLEMENTATION_PROMPT_TEMPLATE.format(
-                linguagem="C++",
-                output_agente_planejador=plan,
-                contexto=contexto
-            )
-            
-            code_response = get_llm_response(client, model_name, impl_prompt)
-            code_text = extract_code(code_response)
-            
-            if (code_text[0] == '`'):
-                code_text = code_text[6: len(code_text) - 3]
-            
-            create_file(name = f"{problem.title}.cpp",
-                    path = f"code_llm/multiagentes/{os.getenv("MODEL_NAME", "test")}",
-                    content=code_text)
-        
-        # Step 4: Evaluation
-        test_cases = get_test_cases(problem.id, problem.examples)
-        print(f"Found {len(test_cases)} test cases for {problem.id}")
-        
-        judge_correctness, judge_test_cases, total_test_cases = evaluate_code(code_text, test_cases)
-        
-        total += total_test_cases
-        total_acc += judge_test_cases
-        
-        
-        
-        results.append(EvaluationResult(
-            question_id=problem.id,
-            model=model_name,
-            understanding_text=understanding,
-            plan_text=plan,
-            code_text=code_text,
-            judge_correctness=judge_correctness,
-            judge_test_cases=judge_test_cases,
-            total_test_cases=total_test_cases
-        ))
+            exit(0)
 
-    # Save to CSV
-    df = pd.DataFrame([r.model_dump() for r in results])
-    df.to_csv("results.csv", index=False)
-    print("Evaluation complete. Results saved to results.csv")
-    print(f"{total_acc}/{total}")
-
+        print_partition(text="MENU")
+        print("1. Python;")
+        print("2. C++.")
+        print("Se digitar qualquer outra coisa; termina a execução!")
+        op = get_int_input("Escolha uma opção de linguagem: ")
+        
+        if op == 1:
+            language = "python"
+        elif op == 2:
+            language = "cpp"
+        else:
+            exit(0)
+        
+        orchestrador = Orchestrator(type=type_prompt, language=language)
+        if orchestrador.execute(problems=problems, questions_path=questions_path):
+            print("Resultado está em output/results/")
+            print_partition("REINICIANDO")
+        else:
+            exit(1)
+        
 if __name__ == "__main__":
     main()
