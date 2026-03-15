@@ -27,8 +27,11 @@ class JudgeService:
             code = "\n".join(lines)
         return code.strip()
 
-    def __run_single_test(self, code: str, stdin: str, expected: str, timeout: float) -> str:
+    def __run_single_test(self, code: str, stdin: str, expected: str, timeout: float) -> Tuple[str, float]:
+        """Retorna uma tupla (sigla_resultado, tempo_execucao)."""
         suffix = f".{self.__extension}"
+        exec_time = 0.0
+        
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
             source_file = tmp_path / f"code{suffix}"
@@ -42,11 +45,13 @@ class JudgeService:
                         capture_output=True, text=True, timeout=15.0
                     )
                     if compile_res.returncode != 0:
-                        return "CE"
+                        return "CE", 0.0
                     cmd = [str(executable)]
                 else:
                     cmd = [self.__python_cmd, str(source_file)]
 
+                # Medição de tempo precisa
+                start_mark = time.perf_counter()
                 process = subprocess.run(
                     cmd, 
                     input=stdin, 
@@ -54,58 +59,64 @@ class JudgeService:
                     text=True, 
                     timeout=timeout
                 )
+                exec_time = time.perf_counter() - start_mark
 
                 if process.returncode != 0:
-                    return "RE"
+                    return "RE", exec_time
 
                 if process.stdout.strip() == expected.strip():
-                    return "AC"
+                    return "AC", exec_time
                 else:
-                    return "WA"
+                    return "WA", exec_time
 
             except subprocess.TimeoutExpired:
-                return "TLE"
+                return "TLE", timeout
             except Exception:
-                return "RE"
+                return "RE", exec_time
 
-    def execute(self, code: str, test_cases: List[Tuple[str, str]], timeout: float = 2.0) -> Tuple[str, int, int]:
+    def execute(self, code: str, test_cases: List[Tuple[str, str]], timeout: float = 2.0) -> Tuple[str, dict, int, float]:
+        """
+        Retorna: (status_final, contagem_dict, total_casos, maior_tempo_execucao)
+        """
         clean_code = self.__clean_code(code)
         total_cases = len(test_cases)
         
         if not clean_code or not test_cases:
-            return "CE", 0, total_cases
+            return "CE", {}, total_cases, 0.0
 
         print(f"\n--- Iniciando Judge: {self.__language.upper()} ---")
 
+        # worker agora retorna (status, tempo)
         def worker(case):
             inp, exp = case
             return self.__run_single_test(clean_code, inp, exp, timeout)
 
         max_workers = min(32, (os.cpu_count() or 1) * 4)
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            results = list(executor.map(worker, test_cases))
+            results_with_time = list(executor.map(worker, test_cases))
+
+        # Separar os status dos tempos
+        statuses = [r[0] for r in results_with_time]
+        times = [r[1] for r in results_with_time]
+        
+        # O maior tempo entre os casos de teste
+        max_time = max(times) if times else 0.0
 
         counts = {
-            "AC": results.count("AC"),
-            "WA": results.count("WA"),
-            "RE": results.count("RE"),
-            "TLE": results.count("TLE"),
-            "CE": results.count("CE")
+            "AC": statuses.count("AC"),
+            "WA": statuses.count("WA"),
+            "RE": statuses.count("RE"),
+            "TLE": statuses.count("TLE"),
+            "CE": statuses.count("CE")
         }
 
-        # Lógica de Situação Final:
-        # 1. Se houve erro de compilação em qualquer lugar -> CE
-        # 2. Se todos são AC -> AC
-        # 3. Caso contrário, retorna o primeiro erro que não seja AC encontrado na lista
         if counts["CE"] > 0:
             status_final = "CE"
         elif counts["AC"] == total_cases:
             status_final = "AC"
         else:
-            # Pega o primeiro erro que apareceu na ordem dos testes
-            status_final = next(r for r in results if r != "AC")
+            status_final = next(s for s in statuses if s != "AC")
 
-        # --- RELATÓRIO FINAL ---
         print("\n" + "="*30)
         print(f"RESUMO DOS TESTES ({total_cases} casos)")
         print("-" * 30)
@@ -115,7 +126,8 @@ class JudgeService:
         print(f"  Time Limit (TLE):   {counts['TLE']}")
         print(f"  Comp. Error (CE):   {counts['CE']}")
         print("-" * 30)
+        print(f"MAIOR TEMPO: {max_time:.3f}s")
         print(f"SITUAÇÃO: {status_final}")
         print("="*30)
 
-        return status_final, counts["AC"], total_cases
+        return status_final, counts, total_cases, max_time

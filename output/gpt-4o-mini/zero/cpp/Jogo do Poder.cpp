@@ -22,8 +22,8 @@ int main() {
         }
     }
 
-    vector<int> dRow = {0, 0, 1, -1};
-    vector<int> dCol = {1, -1, 0, 0};
+    vector<int> dRow = { -1, 1, 0, 0 };
+    vector<int> dCol = { 0, 0, -1, 1 };
 
     while (!pq.empty()) {
         auto [currPower, x, y] = pq.top();
@@ -36,19 +36,23 @@ int main() {
         for (int k = 0; k < 4; ++k) {
             int newX = x + dRow[k];
             int newY = y + dCol[k];
-            if (newX >= 0 && newX < N && newY >= 0 && newY < M && !visited[newX][newY]) {
+            if (newX >= 0 && newX < N && newY >= 0 && newY < M) {
                 if (currPower >= power[newX][newY]) {
-                    result[newX][newY] = max(result[newX][newY], currPower + power[newX][newY]);
-                    pq.emplace(-result[newX][newY], newX, newY);
+                    long long newPower = currPower + power[newX][newY];
+                    if (newPower > result[newX][newY]) {
+                        result[newX][newY] = newPower;
+                        pq.emplace(-newPower, newX, newY);
+                    }
                 }
             }
         }
     }
 
-    for (const auto& row : result) {
+    for (int i = 0; i < N; ++i) {
         for (int j = 0; j < M; ++j) {
-            cout << row[j] << (j == M - 1 ? '\n' : ' ');
+            cout << result[i][j] << " ";
         }
+        cout << endl;
     }
 
     return 0;

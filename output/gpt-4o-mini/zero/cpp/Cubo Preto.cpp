@@ -6,12 +6,14 @@ int main() {
     int N;
     cin >> N;
 
-    int none = (N - 2) * (N - 2) * (N - 2);
-    int one = 6 * (N - 2) * (N - 2);
-    int two = 12 * (N - 2);
-    int three = 8;
+    int none = 0, one = 0, two = 0, three = 0;
 
-    if (N == 2) {
+    if (N > 2) {
+        none = (N - 2) * (N - 2) * (N - 2);
+        one = 6 * (N - 2) * (N - 2);
+        two = 12 * (N - 2);
+        three = 8;
+    } else if (N == 2) {
         none = 0;
         one = 0;
         two = 0;

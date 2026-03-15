@@ -3,19 +3,19 @@
 #include <vector>
 using namespace std;
 
-vector<int> parent, root;
+vector<int> p, root;
 
-int find(int x) {
+int find_root(int x) {
     if (root[x] != x) {
-        root[x] = find(root[x]);
+        root[x] = find_root(root[x]);
     }
     return root[x];
 }
 
 void restructure(int v) {
-    int new_root = find(v);
-    for (int i = 1; i < root.size(); i++) {
-        if (find(i) == new_root) {
+    int new_root = find_root(v);
+    for (int i = 1; i < p.size(); i++) {
+        if (find_root(i) == v) {
             root[i] = new_root;
         }
     }
@@ -24,10 +24,10 @@ void restructure(int v) {
 int main() {
     int N;
     cin >> N;
-    parent.resize(N + 1);
+    p.resize(N + 1);
     root.resize(N + 1);
     for (int i = 2; i <= N; i++) {
-        cin >> parent[i];
+        cin >> p[i];
         root[i] = i;
     }
     root[1] = 1;
@@ -39,11 +39,10 @@ int main() {
         cin >> type >> v;
         if (type == 1) {
             cin >> k;
-            int current = v;
             for (int i = 0; i < k; i++) {
-                current = parent[find(current)];
+                v = p[find_root(v)];
             }
-            cout << current << endl;
+            cout << v << endl;
         } else {
             restructure(v);
         }

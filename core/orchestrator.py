@@ -7,7 +7,7 @@ from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, LEVEL_P
 import pandas as pd
 import os
 import glob
-
+import time
 
 class Orchestrator:
 
@@ -39,7 +39,7 @@ class Orchestrator:
             print(f"Erro ao criar o arquivo {name}: {e}")
             return False
             
-    def create_csv(self, base: str = "output", results: list = None) -> bool:
+    def create_csv(self, base: str = "output", model: str = "test", results: list = None) -> bool:
         try:
             target_dir = Path(base) / "results"
             target_dir.mkdir(parents=True, exist_ok=True)
@@ -48,7 +48,7 @@ class Orchestrator:
                 print("Aviso: Lista de resultados vazia. CSV não será gerado.")
                 return False
 
-            file_name = f"results_{self.__language}_{self.__type}.csv"
+            file_name = f"results_{model}_{self.__language}_{self.__type}.csv"
             file_path = target_dir / file_name
 
             df = pd.DataFrame([r.model_dump() for r in results])
@@ -82,6 +82,7 @@ class Orchestrator:
 
         test_cases = []
         path_test_cases = f"{path}/{name}/test_cases/"
+        print(path_test_cases)
 
         if os.path.exists(path_test_cases):
             in_files = glob.glob(os.path.join(
@@ -180,7 +181,11 @@ class Orchestrator:
                 else:
                     return False
 
+                start_time = time.perf_counter()
                 code_response = llm_service.create_code_llm(prompt=prompt)
+                end_time = time.perf_counter()
+                duration_create_code = end_time - start_time
+                
                 code = self.valid_code(code_response)
                 
                 if self.create_file(name=f"{problem.title}.{self.__format_file_code}",
@@ -190,25 +195,46 @@ class Orchestrator:
                     print("Arquivo criado com sucesso!!")
                 else:
                     print("Próxima questão...")
+                    
+                    results.append(EvaluationResult(
+                        question_name = problem.title,
+                        level_to_llm = level,
+                        info = str(problem.path),
+                        llm_code_creation_time = duration_create_code,
+                        judge_predict = "NO CODE",
+                        execution_time = 0.0,
+                        AC = 0,
+                        WA = 0,
+                        RE = 0,
+                        TLE = 0,
+                        CE = 0,
+                        total_test_cases = total_cases
+                    ))
+                    
                     continue
                 
                 test_cases = self.get_test_cases(problem.path, problem.title, [])
-                judge_predict, passed_count, total_cases = judge_service.execute(code=code,
+                judge_predict, counts, total_cases, max_time = judge_service.execute(code=code,
                                                                               test_cases=test_cases)
 
                 results.append(EvaluationResult(
                     question_name = problem.title,
-                    model = model,
                     level_to_llm = level,
                     info = str(problem.path),
+                    llm_code_creation_time = duration_create_code,
                     judge_predict = judge_predict,
-                    correct_test_cases = passed_count,
-                    total_test_cases = total_cases,
+                    execution_time = max_time,
+                    AC = counts["AC"],
+                    WA = counts["WA"],
+                    RE = counts["RE"],
+                    TLE = counts["TLE"],
+                    CE = counts["CE"],
+                    total_test_cases = total_cases
                 ))
                 
                 del prompt
             
-            if self.create_csv(results=results):
+            if self.create_csv(results=results, model=model):
                 print("Resultado criado com sucesso!")
             else:
                 print("Erro ao criar o resultado")

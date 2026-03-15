@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <numeric>
 #include <cmath>
-
 using namespace std;
 
 const int MOD = 1e9 + 7;
@@ -55,6 +54,5 @@ int main() {
         long long result = maxPlatesAfterMeals(maxPlatesAfterSpells(x[i], a, b, K), a_prime, b_prime);
         cout << result << endl;
     }
-
     return 0;
 }
