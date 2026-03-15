@@ -4,6 +4,7 @@ import re
 import glob
 import argparse
 import pandas as pd
+from datetime import datetime
 from typing import List
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -110,7 +111,7 @@ def main():
             
             # Step 2: Planning
             plan_prompt = PLANNING_PROMPT_TEMPLATE.format(
-                linguagem="Python",
+                linguagem="python",
                 output_agente_compreensao=understanding,
                 contexto=contexto
             )
@@ -118,7 +119,7 @@ def main():
             
             # Step 3: Implementation
             impl_prompt = IMPLEMENTATION_PROMPT_TEMPLATE.format(
-                linguagem="Python",
+                linguagem="python",
                 output_agente_planejador=plan,
                 contexto=contexto
             )
@@ -130,8 +131,9 @@ def main():
         test_cases = get_test_cases(problem.id, problem.examples)
         print(f"Found {len(test_cases)} test cases for {problem.id}")
         
-        judge_correctness, judge_test_cases, total_test_cases = evaluate_code(code_text, test_cases)
-        
+        # Unpack evaluate_code result (now returns failures list as fourth element)
+        judge_correctness, judge_test_cases, total_test_cases, failures = evaluate_code(code_text, test_cases)
+
         results.append(EvaluationResult(
             question_id=problem.id,
             model=model_name,
@@ -141,12 +143,22 @@ def main():
             judge_correctness=judge_correctness,
             judge_test_cases=judge_test_cases,
             total_test_cases=total_test_cases
+            ,failures=failures
         ))
 
-    # Save to CSV
+    # Save to CSV in structured format
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    shot_status = "zeroshot" if args.zero_shot else "agents"
+    results_dir = os.path.join("resultados", model_name)
+    os.makedirs(results_dir, exist_ok=True)
+    
+    model_name_safe = model_name.replace("/", "_")
+    file_name = f"results_{model_name_safe}_{timestamp}_{shot_status}.csv"
+    output_path = os.path.join(results_dir, file_name)
+    
     df = pd.DataFrame([r.model_dump() for r in results])
-    df.to_csv("results.csv", index=False)
-    print("Evaluation complete. Results saved to results.csv")
+    df.to_csv(output_path, index=False)
+    print(f"Evaluation complete. Results saved to {output_path}")
 
 if __name__ == "__main__":
     main()

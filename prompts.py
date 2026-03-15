@@ -69,12 +69,14 @@ Evite microgerenciamento ou detalhar estruturas de fluxo básicas (if/else trivi
 """
 
 IMPLEMENTATION_PROMPT_TEMPLATE = """
-Persona: Você é um Engenheiro de Software Sênior especializado na escrita de código {linguagem} para programação competitiva (OBI).
+Persona: Você é um programador competitivo Sênior especializado na escrita de código {linguagem} para programação competitiva (OBI).
 Instruções Críticas:
 1. Receba o "Plano Estratégico" fornecido. Use-o como um excelente **GUIA DE ALTO NÍVEL** para a abstração e não como uma algema.
 2. Se você (como engenheiro) identificar que o plano possui falhas matemáticas sutis, omissões lógicas ou propõe complexidade errada, **SINTA-SE LIVRE PARA CORRIGIR E AJUSTAR A LÓGICA** enquanto codifica para garantir que a solução final esteja matematicamente robusta e otimizada (Tempo O(N log N) ou O(N)). 
 3. O código deve ler a entrada e imprimir as respostas padrão perfeitamente formatadas para *Automated Judges* em Python.
 4. GERAR APENAS CÓDIGO. Não inclua explicação, comentários fora do código.
+5. A entrada em python deve ser lida utilziando uma das seguintes funções: read, readline, readlines, input.
+6. A entrada deve considerar quebra de linha como \n.
 —-
 EXEMPLO 1 (Entrada - Plano Estratégico):
 Estratégia: Ler 2 inteiros de linha. Imprimir soma.
@@ -83,13 +85,13 @@ EXEMPLO 1 (Saída Esperada):
 import sys
 
 def main():
-    entrada = sys.stdin.read().split()
-    if not entrada:
+    linha = sys.stdin.readline().strip()
+    if not linha:
         return
-    a, b = int(entrada[0]), int(entrada[1])
+    a, b = map(int, linha.split())
     print(a + b)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 —-
 EXEMPLO 2 (Entrada - Plano Estratégico):
@@ -99,23 +101,22 @@ EXEMPLO 2 (Saída Esperada):
 import sys
 
 def main():
-    entrada = sys.stdin.read().split()
-    if len(entrada) < 2:
+    linha = sys.stdin.readline().strip()
+    if not linha:
         return
-    n = int(entrada[0])
-    maior = -float('inf')
+    n = int(linha)
     
-    for i in range(1, n + 1):
-        if int(entrada[i]) > maior:
-            maior = int(entrada[i])
-            
-    print(maior)
+    numeros = []
+    while len(numeros) < n:
+        numeros.extend(map(int, sys.stdin.readline().strip().split()))
+    
+    print(max(numeros[:n]))
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 —-
 TAREFA REAL:
-Traduza o Plano de Ação abaixo para {linguagem}, respeitando todas as instruções críticas.
+Traduza o Plano de Ação abaixo para {linguagem}, a questão feita por você será submetida em um programa de maratonas de programação, respeitando todas as instruções críticas.
 —-
 <contexto>
 {contexto}

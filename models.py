@@ -1,5 +1,5 @@
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class Example(BaseModel):
     input: str
@@ -23,3 +23,4 @@ class EvaluationResult(BaseModel):
     judge_correctness: bool
     judge_test_cases: int
     total_test_cases: int
+    failures: List[str] = Field(default_factory=list)

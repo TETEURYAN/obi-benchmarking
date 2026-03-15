@@ -55,17 +55,19 @@ def execute_local(code: str, stdin: str, timeout: float = 2.0) -> dict:
         if os.path.exists(temp_file_path):
             os.remove(temp_file_path)
 
-def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, int, int]:
+def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, int, int, list]:
     """
     Evaluates the python code against the provided test cases in parallel.
     Each test case is a tuple (input, output).
-    Returns: (judge_correctness, test_cases_passed, total_cases)
+    Returns: (judge_correctness, test_cases_passed, total_cases, failures_list)
     """
     if not code.strip():
-        return False, 0, len(test_cases)
-        
+        return False, 0, len(test_cases), []
+    
+    print("code:", code )
     total_cases = len(test_cases)
     test_cases_passed = 0
+    failures: list[str] = []
     
     print(f"Starting evaluation of {total_cases} test cases...")
     
@@ -74,8 +76,13 @@ def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, i
         run_data = result.get("run", {})
         stdout = run_data.get("stdout", "").strip()
         expected = expected_output.strip()
-        passed = (stdout == expected and run_data.get("code") == 0)
-        return passed
+        retcode = run_data.get("code")
+        passed = (stdout == expected and retcode == 0)
+        msg = None
+        if not passed:
+            stderr = run_data.get("stderr", "")
+            msg = f"Case {case_idx}: expected: {repr(expected)} got: {repr(stdout)} retcode: {retcode} stderr: {stderr}"
+        return passed, msg
 
     # Use ThreadPoolExecutor for parallel execution
     # Using more workers than CPU cores since it's mostly waiting for subprocesses
@@ -88,8 +95,13 @@ def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, i
         ]
         
         for i, future in enumerate(futures):
-            if future.result():
+            passed, msg = future.result()
+            if passed:
                 test_cases_passed += 1
+            else:
+                if msg:
+                    failures.append(msg[-100:])
+                    print(msg[-100:])
             
             # Progress logging every 10% or every 10 cases
             if (i + 1) % max(1, total_cases // 10) == 0 or (i + 1) == total_cases:
@@ -98,4 +110,4 @@ def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, i
     judge_correctness = (test_cases_passed == total_cases) and total_cases > 0
     print(f"Evaluation complete: {test_cases_passed}/{total_cases} passed.")
     
-    return judge_correctness, test_cases_passed, total_cases
+    return judge_correctness, test_cases_passed, total_cases, failures
