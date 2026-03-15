@@ -3,29 +3,35 @@
 #include <vector>
 using namespace std;
 
-vector<int> p, root;
+vector<int> parent, root;
 
-int find_root(int x) {
+int find(int x) {
     if (root[x] != x) {
-        root[x] = find_root(root[x]);
+        root[x] = find(root[x]);
     }
     return root[x];
+}
+
+void restructure(int v) {
+    int new_root = find(v);
+    for (int i = 1; i < root.size(); i++) {
+        if (find(i) == new_root) {
+            root[i] = new_root;
+        }
+    }
 }
 
 int main() {
     int N;
     cin >> N;
-    p.resize(N + 1);
+    parent.resize(N + 1);
     root.resize(N + 1);
-    
-    for (int i = 2; i <= N; ++i) {
-        cin >> p[i];
-    }
-    
-    for (int i = 1; i <= N; ++i) {
+    for (int i = 2; i <= N; i++) {
+        cin >> parent[i];
         root[i] = i;
     }
-    
+    root[1] = 1;
+
     int Q;
     cin >> Q;
     while (Q--) {
@@ -34,17 +40,12 @@ int main() {
         if (type == 1) {
             cin >> k;
             int current = v;
-            for (int i = 0; i < k; ++i) {
-                current = find_root(p[current]);
+            for (int i = 0; i < k; i++) {
+                current = parent[find(current)];
             }
             cout << current << endl;
         } else {
-            int new_root = find_root(v);
-            for (int i = 1; i <= N; ++i) {
-                if (find_root(i) == v) {
-                    root[i] = new_root;
-                }
-            }
+            restructure(v);
         }
     }
     return 0;

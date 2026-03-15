@@ -40,7 +40,7 @@ class LLMService:
             return None
 
     def __send_prompt(self, prompt: str):
-        print(type(prompt))
+        
         try:
             response = self.__client.chat.completions.create(
                 model=self.__model,

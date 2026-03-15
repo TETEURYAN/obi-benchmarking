@@ -1,0 +1,14 @@
+question_name,model,level_to_llm,info,judge_predict,correct_test_cases,total_test_cases
+Relógio,gpt-4o-mini,FACIL,/database/obi_2024/nível 2/fase 1/,CE,0,0
+Ogro,gpt-4o-mini,MEDIO,/database/obi_2024/nível 2/fase 1/,CE,0,0
+Jogo da vida,gpt-4o-mini,MEDIO,/database/obi_2024/nível 2/fase 1/,CE,0,0
+Ogro,gpt-4o-mini,FACIL,/database/obi_2024/nível 2/fase 1/,CE,0,0
+Construtora,gpt-4o-mini,MEDIO,/database/obi_2024/nível 2/fase 3/,CE,0,0
+Retas,gpt-4o-mini,MEDIO,/database/obi_2024/nível 2/fase 3/,CE,0,0
+Burocracia,gpt-4o-mini,MEDIO,/database/obi_2024/nível 2/fase 3/,CE,0,0
+Brigadeiros,gpt-4o-mini,MEDIO,/database/obi_2024/nível 2/fase 3/,CE,0,0
+Jogo de Pratos,gpt-4o-mini,DIFICIL,/database/obi_2024/nível 2/fase 3/,CE,0,0
+Jogo do Poder,gpt-4o-mini,DIFICIL,/database/obi_2024/nível 2/fase 2/,CE,0,0
+Alfabeto Alienígena,gpt-4o-mini,FACIL,/database/obi_2024/nível 2/fase 2/,CE,0,0
+Concatena Dígitos,gpt-4o-mini,MEDIO,/database/obi_2024/nível 2/fase 2/,CE,0,0
+Cubo Preto,gpt-4o-mini,FACIL,/database/obi_2024/nível 2/fase 2/,CE,0,0

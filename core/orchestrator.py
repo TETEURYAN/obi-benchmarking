@@ -39,10 +39,28 @@ class Orchestrator:
             print(f"Erro ao criar o arquivo {name}: {e}")
             return False
             
-    def create_csv(self, base: str = "output", results: dict = None):
-        Path(f"{base}/results/{self.__type}/{self.__language}/").mkdir(parents=True, exist_ok=True)
-        df = pd.DataFrame([r.model_dump() for r in results])
-        df.to_csv("results.csv", index=False)
+    def create_csv(self, base: str = "output", results: list = None) -> bool:
+        try:
+            target_dir = Path(base) / "results"
+            target_dir.mkdir(parents=True, exist_ok=True)
+            
+            if not results:
+                print("Aviso: Lista de resultados vazia. CSV não será gerado.")
+                return False
+
+            file_name = f"results_{self.__language}_{self.__type}.csv"
+            file_path = target_dir / file_name
+
+            df = pd.DataFrame([r.model_dump() for r in results])
+
+            df.to_csv(file_path, index=False, encoding="utf-8")
+            
+            print(f"Relatório CSV gerado com sucesso em: {file_path}")
+            return True
+        
+        except Exception as e:
+            print(f"Erro ao gerar o CSV de resultados: {e}")
+            return False
     
     def valid_code(self, code: str) -> str:
 
@@ -175,7 +193,7 @@ class Orchestrator:
                     continue
                 
                 test_cases = self.get_test_cases(problem.path, problem.title, [])
-                all_passed, passed_count, total_cases = judge_service.execute(code=code,
+                judge_predict, passed_count, total_cases = judge_service.execute(code=code,
                                                                               test_cases=test_cases)
 
                 results.append(EvaluationResult(
@@ -183,14 +201,18 @@ class Orchestrator:
                     model = model,
                     level_to_llm = level,
                     info = str(problem.path),
-                    judge_correctness = all_passed,
+                    judge_predict = judge_predict,
                     correct_test_cases = passed_count,
                     total_test_cases = total_cases,
                 ))
                 
                 del prompt
             
-            self.create_csv(results=results)
+            if self.create_csv(results=results):
+                print("Resultado criado com sucesso!")
+            else:
+                print("Erro ao criar o resultado")
+                
             del llm_service, judge_service
         
         

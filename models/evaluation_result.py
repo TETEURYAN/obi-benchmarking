@@ -5,6 +5,6 @@ class EvaluationResult(BaseModel):
     model: str
     level_to_llm: str
     info: str
-    judge_correctness: bool
+    judge_predict: str
     correct_test_cases: int
     total_test_cases: int

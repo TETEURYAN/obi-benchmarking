@@ -9,12 +9,12 @@ int main() {
     unordered_set<char> alienAlphabet;
     string alphabet, message;
     
-    cin >> alphabet >> message;
-    
+    cin >> alphabet;
     for (char c : alphabet) {
         alienAlphabet.insert(c);
     }
     
+    cin >> message;
     for (char c : message) {
         if (alienAlphabet.find(c) == alienAlphabet.end()) {
             cout << 'N' << endl;
