@@ -24,3 +24,4 @@ class EvaluationResult(BaseModel):
     judge_test_cases: int
     total_test_cases: int
     failures: List[str] = Field(default_factory=list)
+    classification: Optional[str] = None
