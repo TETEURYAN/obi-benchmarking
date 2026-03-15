@@ -1,0 +1,475 @@
+question_id,model,understanding_text,plan_text,code_text,judge_correctness,judge_test_cases,total_test_cases,failures
+2024f1p2_ogro,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"E = int(input())
+D = int(input())
+if E > D:
+    print(E + D)
+else:
+    print(2 * (D - E))",True,20,20,[]
+2024f1p2_relogio,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"H = int(input())
+M = int(input())
+S = int(input())
+T = int(input())
+
+total = H * 3600 + M * 60 + S
+total += T
+total %= 86400
+
+h = total // 3600
+remaining = total % 3600
+m = remaining // 60
+s = remaining % 60
+
+print(h)
+print(m)
+print(s)",True,52,52,[]
+2024f1p2_jogo,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"n, q = map(int, input().split())
+grid = [list(map(int, list(input().strip()))) for _ in range(n)]
+
+for _ in range(q):
+    new_grid = []
+    for i in range(n):
+        new_row = []
+        for j in range(n):
+            count = 0
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    if dx == 0 and dy == 0:
+                        continue
+                    ni, nj = i + dx, j + dy
+                    if 0 <= ni < n and 0 <= nj < n:
+                        count += grid[ni][nj]
+            if grid[i][j] == 1:
+                new_row.append(1 if count in (2, 3) else 0)
+            else:
+                new_row.append(1 if count == 3 else 0)
+        new_grid.append(new_row)
+    grid = new_grid
+
+for row in grid:
+    print(''.join(map(str, row)))",True,19,19,[]
+2024f2p2_cubo,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"n = int(input())
+print((n - 2) ** 3)
+print(6 * (n - 2) ** 2)
+print(12 * (n - 2))
+print(8)",True,11,11,[]
+2024f2p2_alfabeto,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"k, n = map(int, input().split())
+alien = input().strip()
+msg = input().strip()
+
+allowed = set(alien)
+for c in msg:
+    if c not in allowed:
+        print('N')
+        exit()
+print('S')",True,61,61,[]
+2024f2p2_concatena,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"import sys
+
+n, q = map(int, sys.stdin.readline().split())
+digits = list(map(int, sys.stdin.readline().split()))
+prefix = [0] * (n + 1)
+for i in range(1, n+1):
+    prefix[i] = prefix[i-1] + digits[i-1]
+for _ in range(q):
+    L, R = map(int, sys.stdin.readline().split())
+    total = prefix[R] - prefix[L-1]
+    k = R - L + 1
+    print(11 * total * (k - 1))",True,25,25,[]
+2024f2p2_poder,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"import sys
+sys.setrecursionlimit(1 << 25)
+
+def main():
+    input = sys.stdin.read().split()
+    ptr = 0
+    N = int(input[ptr])
+    ptr +=1
+    M = int(input[ptr])
+    ptr +=1
+    grid = []
+    for _ in range(N):
+        row = list(map(int, input[ptr:ptr+M]))
+        ptr += M
+        grid.append(row)
+    
+    cells = []
+    for i in range(N):
+        for j in range(M):
+            cells.append( (grid[i][j], i, j) )
+    cells.sort()
+    
+    size = N * M
+    parent = list(range(size))
+    sum_uf = [0]*size
+    processed = [False]*size
+    
+    def find(u):
+        while parent[u] != u:
+            parent[u] = parent[parent[u]]
+            u = parent[u]
+        return u
+    
+    for p, i, j in cells:
+        idx = i * M + j
+        if processed[idx]:
+            continue
+        processed[idx] = True
+        sum_uf[idx] = p
+        parent[idx] = idx
+        dirs = [ (-1,0), (1,0), (0,-1), (0,1) ]
+        for di, dj in dirs:
+            ni, nj = i + di, j + dj
+            if 0 <= ni < N and 0 <= nj < M:
+                n_idx = ni * M + nj
+                if processed[n_idx]:
+                    root_n = find(n_idx)
+                    if root_n != idx:
+                        if sum_uf[root_n] >= p:
+                            sum_uf[idx] += sum_uf[root_n]
+                            parent[root_n] = idx
+    
+    result = []
+    for i in range(N):
+        row = []
+        for j in range(M):
+            idx = i * M + j
+            root = find(idx)
+            row.append(sum_uf[root])
+        result.append(row)
+    
+    for row in result:
+        print(' '.join(map(str, row)))
+
+if __name__ == ""__main__"":
+    main()",False,17,150,"[""Case 0: expected: '6 6 22\\n1 22 222' got: '2 3 9\\n1 7 200' retcode: 0 stderr: "", ""420 17300 20 16140 16140 16140 16140 501380 24420 24420 24420 24420 440 440 440' retcode: 0 stderr: "", "" 63 910 63 63 63 67394175 15 404 404 21375 15 945 45 197010 2 8 1 1424 12 66 66' retcode: 0 stderr: "", ""2 6585080100 9 23640 150 1396080 14 3135 75 109301580 3 3180 75 99810 1 3060 15' retcode: 0 stderr: "", ""930 30 8045250 960 960 960 29010 30 1080 30 933720 30 1170 30 28920 960 960 960' retcode: 0 stderr: "", ""83 30 287 3 67283 3 3 3 35680621 3 3 3 1659 14 54 4 35680621 6 6 2 105 15 15 15' retcode: 0 stderr: "", ""029920 90 9750 45 611940 150 9990 180 48292050 105 2520 60 945870 210 11760 180' retcode: 0 stderr: "", "" 359830974 421729575 631701833 401738787 62016531 880660514 596761510 967056260' retcode: 0 stderr: "", ""102960 102960 102960 102960 1234050 1234050 1234050 1234050 1234050 10840 10840' retcode: 0 stderr: "", ""72 1486586 2 525 4 1486586 1 21 3 1486586 18 18 18 18 18 18 18 18 7 7 7 7 7 7 7' retcode: 0 stderr: "", ""6 2 117 3 24 6 21353190 267 267 15 28950 960 960 960 979900 6 21 1 839 15 15 15' retcode: 0 stderr: "", ""0 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30' retcode: 0 stderr: "", ""60 922560 922560 922560 922560 922560 922560 922560 922560 922560 922560 922560' retcode: 0 stderr: "", "" 1 9 2 1044 2 7 1 176 6 6 6 526735 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60' retcode: 0 stderr: "", ""7650 7650 7650 7650 7650 7650 7650 7650 7650 7650 7650 7650 7650 7650 7650 7650' retcode: 0 stderr: "", ""Case 17: expected: '9 3 54 1 54 14 14' got: '6 3 10 1 20 14 14' retcode: 0 stderr: "", ""195 784 784 784 784 91 91 7 57379 1 4 4 12 12 12 12 6909 25 25 25 1722 91 91 91' retcode: 0 stderr: "", ""73\\n265778828\\n997896657\\n713569736\\n779492220\\n346012225\\n443756412\\n834594434' retcode: 0 stderr: "", ""0 14730 14730 14730 14730 14730 14730 14730 14730 14730 14730 14730 14730 14730' retcode: 0 stderr: "", ""8 98 98 98 98 98 98 98 98 70980195 75 75 75 75 75 75 75 75 75 75 75 75 75 75 75' retcode: 0 stderr: "", ""0 11490 11490 11490 11490 11490 11490 11490 11490 11490 11490 11490 11490 11490' retcode: 0 stderr: "", ""73 2 33900 12 1129 1129 62528431 10 307 307 5535 102 102 1 115531 9 9 9 9 9 9 9' retcode: 0 stderr: "", ""5730 12420 13093800 28080 30 33071490 30 40980 930 930 1026420 930 930 32340 30' retcode: 0 stderr: "", ""8 30008 30008 30008 30008 30008 30008 30008 30008 30008 30008 30008 30008 30008' retcode: 0 stderr: "", ""4 14 14 14 14 30523 255 255 255 255 255 255 255 255 255 255 255 255 255 255 255' retcode: 0 stderr: "", ""9450 9450 9450 9450 9450 9450 9450 9450 9450 9450 9450 9450 9450 9450 9450 9450' retcode: 0 stderr: "", ""1709580 1709580 1709580 1709580 1709580 1709580 1709580 1709580 1709580 1709580' retcode: 0 stderr: "", ""\\n500239500 16137000 520050 17220 16507027830 850890 27600 32246040 189870 5700' retcode: 0 stderr: "", ""0 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30' retcode: 0 stderr: "", ""956297288 748267035 954752256 894773258 933141582 770230129 837108459 755449303' retcode: 0 stderr: "", ""30 893730 893730 893730 893730 893730 893730 893730 893730 893730 893730 893730' retcode: 0 stderr: "", ""58 86 78 7 44 100 58 25 50 36 16 228 228 228 228 228 228 36 17 68 49 53 48 55 7' retcode: 0 stderr: "", ""178290 5340 30000000000 25890 13020419610 13532160 436170 14370 419988240 16650' retcode: 0 stderr: "", ""78 78 78 78 78 78 78 78 78 78 2867 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15' retcode: 0 stderr: "", "" 1 7 2 7131935790 45 1860 75 125475 49 707 2 3561585 75 2520 90 97125 1 3555 90' retcode: 0 stderr: "", ""Case 39: expected: '69 69\\n4 69' got: '19 28\\n4 18' retcode: 0 stderr: "", ""7 4627 63 63 63 63 63 63 63 32793570 15 15 15 99 4 6 99 77565 3 3 3 105 32 32 3' retcode: 0 stderr: "", "" 8 8 8 240\\n240 240 240 8 240 240\\n240 240 240 8 240 240\\n240 240 240 240 240 2' retcode: 0 stderr: "", ""14 14 14 14 14 14 14 14 14 14 28493700 2 24 3 78 1 4 4 231 75 75 75 75 75 75 75' retcode: 0 stderr: "", ""7585540 87585540 87585540 87585540 87585540 87585540 87585540 87585540 87585540' retcode: 0 stderr: "", ""Case 45: expected: '6 6 22\\n1 22 222' got: '2 3 9\\n1 7 200' retcode: 0 stderr: "", ""Case 46: expected: '9 3 54 1 54 14 14' got: '6 3 10 1 20 14 14' retcode: 0 stderr: "", "" 8 8 8 240\\n240 240 240 8 240 240\\n240 240 240 8 240 240\\n240 240 240 240 240 2' retcode: 0 stderr: "", ""Case 48: expected: '6 6 22\\n1 22 222' got: '2 3 9\\n1 7 200' retcode: 0 stderr: "", ""866 18218001920866 18218001920866 18218001920866 18218001' retcode: 124 stderr: Execution timed out."", ""914 49914 49914 4713832 10944 10944 10944 10944 10944 109' retcode: 124 stderr: Execution timed out."", ""3 273 273 273 273 273 273 273 273 273 273 273 273' got: '' retcode: 124 stderr: Execution timed out."", ""155316277 51007155316277 51007155316277 641613380' got: '' retcode: 124 stderr: Execution timed out."", ""471341976 2205471341976 2205471341976 2205471341976 2205471341976 2205471341976' retcode: 0 stderr: "", ""40208275430 340208275430 340208275430 340208275430 340208' retcode: 124 stderr: Execution timed out."", ""38800 150553638800 150553638800 150553638800 150553638800' retcode: 124 stderr: Execution timed out."", "" 234 1366274 33917 45 881579599 156 79677 1833 39' got: '' retcode: 124 stderr: Execution timed out."", ""06789361118 3906789361118 3906789361118 3906789361118 390' retcode: 124 stderr: Execution timed out."", ""988 36 1469950999500 9 1368 1368 1368 184256 38 3693 7 19' retcode: 124 stderr: Execution timed out."", ""75900 87152 87152\\n25000 25001626775900 87152 87152\\n2500' retcode: 124 stderr: Execution timed out."", ""35347662500 34435347662500 34435347662500 2775000' got: '' retcode: 124 stderr: Execution timed out."", ""0 2418750 2418750 2418750 2418750 2418750 2418750' got: '' retcode: 124 stderr: Execution timed out."", ""7238 83925213693436 83925213693436 83925213693436' got: '' retcode: 124 stderr: Execution timed out."", ""41 102541 102541 102541 102541 102541 102541 102541 102541 102541 102541 102541' retcode: 0 stderr: "", ""9\\n94998429057199\\n94998429057199\\n94998429057199' got: '' retcode: 124 stderr: Execution timed out."", ""Case 65: expected: '9 3 54 1 54 14 14' got: '6 3 10 1 20 14 14' retcode: 0 stderr: "", ""4609688 34609688 34609688 34609688 34609688 34609688 34609688 34609688 34609688' retcode: 0 stderr: "", ""6772645 1256996772645 1256996772645 1256996772645' got: '' retcode: 124 stderr: Execution timed out."", ""21 9 1521 1521 24 1 17 1 11 18 28 2 26 1 18 7 25 10 24 27 8 23 9 8 8 30 13 18 8' retcode: 0 stderr: "", ""500 62500\\n18747 25004967600073 781262500 62500\\n18747 25' retcode: 124 stderr: Execution timed out."", ""54 6 6 4594327032389 12 12 12 12 12 12 12 12 12 438782 8 8 8 8 3627 8 322 24 24' retcode: 0 stderr: "", "" 66264 88 98824 98824 98824 98824 9077904 88 102080 102080 102080 102080 102080' retcode: 0 stderr: "", ""8 29388 29388 29388 29388 29388 29388 29388 29388' got: '' retcode: 124 stderr: Execution timed out."", ""0 324510910920 324510910920 324510910920 324510910920 324510910920 324510910920' retcode: 0 stderr: "", "" 815074590 940157951 753776238 741783638 891683569 719520' retcode: 124 stderr: Execution timed out."", ""7180300 27180300 27180300 27180300 27180300 27180300 27180300 27180300 27180300' retcode: 0 stderr: "", ""4810480 524804810480 524804810480 524804810480 5248048104' retcode: 124 stderr: Execution timed out."", ""000 10000 2000900050000 100030000 10000\\n5001600110000 50' retcode: 124 stderr: Execution timed out."", ""636553 365512586 386768482 75120411 510104406 507166243 7' retcode: 124 stderr: Execution timed out."", ""58 86 78 7 44 100 58 25 50 36 16 228 228 228 228 228 228 36 17 68 49 53 48 55 7' retcode: 0 stderr: "", ""5000 1679975000 1679975000 1679975000 1679975000 16799750' retcode: 124 stderr: Execution timed out."", ""250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250 250' retcode: 0 stderr: "", ""81351 81351 6318537 62997 62997 62997 223686063 69 3196080 69 45609 45609 45609' retcode: 0 stderr: "", ""14798387208 11814798387208 11814798387208 11814798387208 5882 43397396 43397396' retcode: 0 stderr: "", ""7 7210802477352 5022 155 449159 1455 90 7210802477352 1395 90 51825 15 1845 105' retcode: 0 stderr: "", ""00 400 225798906708 600 100500 400 19250500 300 90100 600' retcode: 124 stderr: Execution timed out."", ""80959 43633021180959 504252 43633021180959 849114' got: '' retcode: 124 stderr: Execution timed out."", "" 8 8 8 240\\n240 240 240 8 240 240\\n240 240 240 8 240 240\\n240 240 240 240 240 2' retcode: 0 stderr: "", ""643643000 643643000 643643000 643643000 643643000' got: '' retcode: 124 stderr: Execution timed out."", ""1461876 190877234\\n194923480 200746941 233819483\\n522623322 328686816 525804562' retcode: 0 stderr: "", ""056310816 33875 33875 33875 250 250 4266000 310 310 196375 196375 196375 196375' retcode: 0 stderr: "", ""Case 95: expected: '9 3 54 1 54 14 14' got: '6 3 10 1 20 14 14' retcode: 0 stderr: "", ""10 1 11 23 5 1 6 2 2 88 6 6 6 6 1 17 1 130 8 1 9 49 1 7 8 6 5 1 2819 1 4 4 4 14' retcode: 0 stderr: "", ""9 29 12 18 11 11 11 17 16 17 14 15 6 18 13 27 24 22 20 23 15 18 2 23 1000000000' retcode: 0 stderr: "", ""3 12079 100 100 2643 665 1145 299 138 4865 439 2505 1216 319 1284 708 216 1 152' retcode: 0 stderr: "", ""589 2732 2102 2102 2102 630 630 10639 1866 1866 60 60 522 62 330 2132 2132 2132' retcode: 0 stderr: "", ""7 18 28 16 17 9 26 29 21 22 23 22 5 28 6 30 26 8 30 17 3 13 27 2 12 14 5 4 6 15' retcode: 0 stderr: "", ""2968 1118 204883 10325 4337 72985 8029 23796 2334' got: '' retcode: 124 stderr: Execution timed out."", ""6245000 6245000 6245000 6245000 6245000 6245000 6245000 6245000 6245000 6245000' retcode: 0 stderr: "", ""5317 160659856 488023785 49990308550860 497888579' got: '' retcode: 124 stderr: Execution timed out."", ""58 86 78 7 44 100 58 25 50 36 16 228 228 228 228 228 228 36 17 68 49 53 48 55 7' retcode: 0 stderr: "", ""33 1397 254 765 927 134 5333 645 808 6728 746 1590 2336 29349 1601 757 2358 411' retcode: 0 stderr: "", ""828079406 865122247 995326075 769876652 846220798 978676698 968994964 716050375' retcode: 0 stderr: "", "" 2524 2524 2524 23072 5716 4442 4442 4442 4442 4442 1274 1274 11432 208 208 208' retcode: 0 stderr: "", ""48 848 848 1932 1932 6272 5829 5829 5829 5829 5829 5829 784 784 784 897 570 570' retcode: 0 stderr: "", "" 4660 4660 577448 813 577448 577448 8181 1501 295' got: '' retcode: 124 stderr: Execution timed out."", ""1808 1220 1197 1101 1787 1814 1267 1820 1915 1869 1515 1958 1184 1121 1151 1157' retcode: 0 stderr: "", ""7426 17426 256 256 256 17682 17162 17162 1312 486 486 826' retcode: 124 stderr: Execution timed out."", "" 22 29 7 30 11 19 22 9 5 3 26 7 18 9 27 14 10 14 23 30 23 3 22 20 3 26 28 24 12' retcode: 0 stderr: "", ""72773602 882341815 353191940 417122721 220842577 13614395' retcode: 124 stderr: Execution timed out."", ""3 611 70443 720 3213 1246 621 576 141075 11 95 779884 295' retcode: 124 stderr: Execution timed out."", ""6 18 15 22 3 22 2 15 5 20 8 13 30 15 14 11 26 2 8 3 14 24 11 13 52 52 6 4 13 19' retcode: 0 stderr: "", "" 252 252 1078 1078 6178 4776 4776 4776 4776 4776 4776 1836 1836 388 178 178 210' retcode: 0 stderr: "", ""3452 6120 696 1137 191 946 946 2970 21427 732 732 7172 7172 7172 7172 7172 7172' retcode: 0 stderr: "", ""4681 22470 144 2425 2425 2425 2425 2425 11170 422 422 1374 969 4684 517 506 506' retcode: 0 stderr: "", ""136 119 107 184 197 174 114 137 144 137 152 147 195 152 185 135 200 116 172 175' retcode: 0 stderr: "", ""Case 122: expected: '9 3 54 1 54 14 14' got: '6 3 10 1 20 14 14' retcode: 0 stderr: "", "" 669 126937 3967 710 1970 584 640 7889 18203 1235 139 164 888 37741 336 336 916' retcode: 0 stderr: "", ""892620886 874225574 711158192 926921626 795412123 957511677 907800258 867414912' retcode: 0 stderr: "", "" 5051 10639 866 51652 8245 17147 7784 151775 463 2329 823 25080 4869 11412 2228' retcode: 0 stderr: "", "" 12 808 808 808 808 828 162 3336 5072 150 150 6092 6092 6092 6092 6092 6092 983' retcode: 0 stderr: "", ""49 6 2 2 17 1 4 2 2 10 543 3 3 3 18 5 5 5 5 5 7 1 34 140 1 11 10 6 1 24 8 3 4 1' retcode: 0 stderr: "", "" 3938 6775 10713 9030 4188 4188 43906 43906 43906 43906 43906 43906 43906 43906' retcode: 0 stderr: "", ""58 86 78 7 44 100 58 25 50 36 16 228 228 228 228 228 228 36 17 68 49 53 48 55 7' retcode: 0 stderr: "", ""9992 9181 8357 7920 15658 2050 2883 6412 36315 6 3748 7376 11981 3208 3419 5354' retcode: 0 stderr: "", ""48 2848 2848 1024 1024 4646 7947 1508 1508 742 566 566 3377 1287 1287 1287 1287' retcode: 0 stderr: "", ""155 5676 857 1097 38 38 2699 266 11351 947 719 2343 54 3149 1048 1048 1505 6137' retcode: 0 stderr: "", ""1 442 442 9366 883 840 840 7185 7185 7185 7185 7185 2 2 752 2426 2426 2426 2426' retcode: 0 stderr: "", ""0 634 8811 588 588 815 3329 3329 3329 3329 3343 2441 2441 2441 2441 578 324 324' retcode: 0 stderr: "", ""9 15109 15109 2276 2276 2276 3544 2310 2310 2310 13680 7272 6408 6408 6408 6408' retcode: 0 stderr: "", "" 26 24 2 25 3 28 13 80 80 80 80 1 30 17 2 18 29 4 56 56 23 6 21 11 5 15 23 2 20' retcode: 0 stderr: "", ""720691264 776675673 979149468 443702713 758021456 549367702 668783965 785972072' retcode: 0 stderr: "", ""4 1154 12814 257 712 1771 447 1324 28933 160 5952 1552 1552 1638 1190 1190 1572' retcode: 0 stderr: "", ""448948643 116051478 462869604 970316478 956381357 318195924 791298108 440300381' retcode: 0 stderr: "", ""197 21436 510 510 5306 390 390 683 371 2098 340 1020 1020 10718 5779646 688 141' retcode: 0 stderr: "", ""1 11 11 11 11 11 1 8 8 8 8 1 11 11 11 11 11 11 11 1 6 6 6 6 1 2 1 6 6 6 1 2 1 2' retcode: 0 stderr: "", ""2 1 13 13 13 13 13 13 13 13 13 1 2 1 2 1 2 1 2 1 11 11 11 11 11 11 11 1 8 8 8 8' retcode: 0 stderr: "", ""6 26 26 26 26 26 26 26 26 1 8 8 8 8 1 6 6 6 1 2 1 20 20 20 20 20 20 20 20 20 20' retcode: 0 stderr: ""]"
+2024f3p2_brigadeiros,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"def main():
+    import sys
+    input = sys.stdin.read().split()
+    idx = 0
+    N = int(input[idx]); idx +=1
+    K = int(input[idx]); idx +=1
+    T = int(input[idx]); idx +=1
+    
+    P = list(map(int, input[idx:idx+N]))
+    idx += N
+    G = list(map(int, input[idx:idx+N]))
+    idx += N
+    
+    # Collect initial positions of friends
+    friends = [i+1 for i in range(N) if G[i] ==1]
+    sorted_S = sorted(friends)
+    if K != len(sorted_S):
+        print(0)
+        return  # shouldn't happen according to input constraints
+    
+    if K ==0:
+        print(0)
+        return
+    
+    # Initialize DP table
+    INF = -10**18
+    dp = [[(INF, 0) for _ in range(N+2)] for __ in range(K)]
+    
+    # For first friend (i=0)
+    for j in range(1, N+1):
+        swap_cost = abs(j - sorted_S[0])
+        if swap_cost > T:
+            continue
+        p = P[j-1]
+        if p > dp[0][j][0]:
+            dp[0][j] = (p, swap_cost)
+    
+    # For friends 1..K-1
+    for i in range(1, K):
+        current_S = sorted_S[i]
+        # For each possible current position j
+        for j in range(1, N+1):
+            max_p = INF
+            best_swap = 0
+            # Check all previous positions k < j
+            for k in range(1, j):
+                prev_p, prev_swap = dp[i-1][k]
+                if prev_p == INF:
+                    continue
+                new_swap = prev_swap + abs(j - current_S)
+                if new_swap > T:
+                    continue
+                new_p = prev_p + P[j-1]
+                if new_p > max_p:
+                    max_p = new_p
+                    best_swap = new_swap
+                elif new_p == max_p and new_swap < best_swap:
+                    best_swap = new_swap
+            if max_p != INF:
+                dp[i][j] = (max_p, best_switch)
+    
+    # Find the maximum total
+    max_total = 0
+    for j in range(1, N+1):
+        current_p, current_swap = dp[K-1][j]
+        if current_swap <= T and current_p > max_total:
+            max_total = current_p
+    print(max_total)
+
+if __name__ == ""__main__"":
+    main()",False,1,67,"[""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n"", ""max_p, best_switch)\n                       ^^^^^^^^^^^\nNameError: name 'best_switch' is not defined\n""]"
+2024f3p2_construtora,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"n = int(input())
+a = list(map(int, input().split()))
+max_h = max(a)
+deltas = [max_h - x for x in a]
+total = sum(deltas)
+sum_mins = 0
+for i in range(n-1):
+    sum_mins += min(deltas[i], deltas[i+1])
+print(total - sum_mins)",True,38,38,[]
+2024f3p2_retas,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"import sys
+from bisect import bisect_right, bisect_left
+
+class FenwickTree:
+    def __init__(self, size):
+        self.size = size
+        self.tree = [[] for _ in range(size + 1)]
+    
+    def update(self, idx, value):
+        while idx <= self.size:
+            self.tree[idx].append(value)
+            idx += idx & -idx
+    
+    def query(self, idx, d):
+        res = 0
+        while idx > 0:
+            lst = self.tree[idx]
+            res += len(lst) - bisect_left(lst, d)
+            idx -= idx & -idx
+        return res
+
+def main():
+    input = sys.stdin.read().split()
+    ptr = 0
+    N = int(input[ptr]); ptr +=1
+    X1 = int(input[ptr]); ptr +=1
+    X2 = int(input[ptr]); ptr +=1
+    lines = []
+    for _ in range(N):
+        A = int(input[ptr]); ptr +=1
+        B = int(input[ptr]); ptr +=1
+        C = B - X1 * A
+        D = B - X2 * A
+        lines.append((A, B, C, D))
+    
+    # Case 1: A_i > A_j, count pairs where C_j >= C_i and D_j <= D_i
+    sorted_case1 = sorted(lines, key=lambda x: (-x[0], x[1]))
+    all_C_case1 = sorted({c for (_, _, c, _) in sorted_case1})
+    c_rank_case1 = {c: i+1 for i, c in enumerate(all_C_case1)}
+    ft_case1 = FenwickTree(len(all_C_case1))
+    count1 = 0
+    for line in sorted_case1:
+        A_j, B_j, C_j, D_j = line
+        cr = bisect_right(all_C_case1, C_j)
+        cnt = ft_case1.query(cr, D_j)
+        count1 += cnt
+        cr_insert = bisect_left(all_C_case1, C_j) + 1
+        ft_case1.update(cr_insert, D_j)
+    
+    # Case 2: A_i < A_j, count pairs where C_j <= C_i and D_j >= D_i
+    sorted_case2 = sorted(lines, key=lambda x: (x[0], x[1]))
+    all_C_case2 = sorted({c for (_, _, c, _) in sorted_case2}, reverse=True)
+    c_rank_case2 = {c: i+1 for i, c in enumerate(all_C_case2)}
+    ft_case2 = FenwickTree(len(all_C_case2))
+    count2 = 0
+    for line in sorted_case2:
+        A_j, B_j, C_j, D_j = line
+        idx = bisect_left(all_C_case2, C_j, lo=0, hi=len(all_C_case2), key=lambda x: -x)
+        cr = idx + 1
+        cnt = ft_case2.query(cr, D_j)
+        count2 += cnt
+        cr_insert = bisect_left(all_C_case2, C_j, lo=0, hi=len(all_C_case2), key=lambda x: -x) + 1
+        ft_case2.update(cr_insert, -D_j)
+    
+    print(count1 + count2)
+
+if __name__ == ""__main__"":
+    main()",False,3,43,"[""Case 0: expected: '6796' got: '803551911' retcode: 0 stderr: "", ' 17, in query\n    lst = self.tree[idx]\n          ~~~~~~~~~^^^^^\nIndexError: list index out of range\n', ""Case 2: expected: '78' got: '' retcode: 124 stderr: Execution timed out."", ""Case 3: expected: '91' got: '' retcode: 124 stderr: Execution timed out."", ""Case 4: expected: '1109228551' got: '' retcode: 124 stderr: Execution timed out."", ' 17, in query\n    lst = self.tree[idx]\n          ~~~~~~~~~^^^^^\nIndexError: list index out of range\n', ' 17, in query\n    lst = self.tree[idx]\n          ~~~~~~~~~^^^^^\nIndexError: list index out of range\n', ' 17, in query\n    lst = self.tree[idx]\n          ~~~~~~~~~^^^^^\nIndexError: list index out of range\n', ""Case 8: expected: '3' got: '6' retcode: 0 stderr: "", ""Case 9: expected: '3' got: '6' retcode: 0 stderr: "", ""Case 10: expected: '2016089859' got: '' retcode: 124 stderr: Execution timed out."", ""Case 11: expected: '53628' got: '' retcode: 124 stderr: Execution timed out."", ""Case 12: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 13: expected: '1' got: '' retcode: 124 stderr: Execution timed out."", ""Case 14: expected: '3992296' got: '' retcode: 124 stderr: Execution timed out."", ""Case 15: expected: '347780755' got: '' retcode: 124 stderr: Execution timed out."", ""Case 16: expected: '416644249' got: '' retcode: 124 stderr: Execution timed out."", ""Case 17: expected: '2917659' got: '' retcode: 124 stderr: Execution timed out."", ""Case 18: expected: '3916436286' got: '' retcode: 124 stderr: Execution timed out."", ""Case 19: expected: '391157' got: '' retcode: 124 stderr: Execution timed out."", ""Case 20: expected: '107855' got: '' retcode: 124 stderr: Execution timed out."", ""Case 21: expected: '2851587' got: '' retcode: 124 stderr: Execution timed out."", ""Case 22: expected: '2918071' got: '' retcode: 124 stderr: Execution timed out."", ""Case 23: expected: '20424' got: '' retcode: 124 stderr: Execution timed out."", ""Case 24: expected: '3' got: '6' retcode: 0 stderr: "", ""Case 25: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 26: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 27: expected: '42762' got: '' retcode: 124 stderr: Execution timed out."", ""Case 28: expected: '52174' got: '' retcode: 124 stderr: Execution timed out."", ""Case 29: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 30: expected: '3' got: '6' retcode: 0 stderr: "", ' 17, in query\n    lst = self.tree[idx]\n          ~~~~~~~~~^^^^^\nIndexError: list index out of range\n', ""Case 32: expected: '2' got: '499500' retcode: 0 stderr: "", ' 17, in query\n    lst = self.tree[idx]\n          ~~~~~~~~~^^^^^\nIndexError: list index out of range\n', ' 17, in query\n    lst = self.tree[idx]\n          ~~~~~~~~~^^^^^\nIndexError: list index out of range\n', ""Case 35: expected: '74645' got: '364089' retcode: 0 stderr: "", ""Case 36: expected: '1' got: '0' retcode: 0 stderr: "", ""Case 38: expected: '1' got: '0' retcode: 0 stderr: "", ""Case 40: expected: '1' got: '0' retcode: 0 stderr: "", ""Case 41: expected: '1' got: '0' retcode: 0 stderr: ""]"
+2024f3p2_burocracia,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"import sys
+sys.setrecursionlimit(1 << 25)
+
+def main():
+    import sys
+    input = sys.stdin.read
+    data = input().split()
+    idx = 0
+    N = int(data[idx])
+    idx +=1
+    parent = [0]*(N+1)
+    parent[1] = 1
+    for i in range(2, N+1):
+        parent[i] = int(data[idx])
+        idx +=1
+    LOG = 20
+    up = [[0]*(LOG) for _ in range(N+1)]
+    for i in range(1, N+1):
+        up[i][0] = parent[i]
+    for k in range(1, LOG):
+        for i in range(1, N+1):
+            up[i][k] = up[up[i][k-1]][k-1]
+    Q = int(data[idx])
+    idx +=1
+    for _ in range(Q):
+        t = data[idx]
+        if t == '1':
+            v = int(data[idx+1])
+            k = int(data[idx+2])
+            idx +=3
+            current = v
+            for i in range(LOG-1, -1, -1):
+                if k >= (1<<i):
+                    current = up[current][i]
+                    k -= (1<<i)
+            print(current)
+        else:
+            v = int(data[idx+1])
+            idx +=2
+            parent[v] = v
+            up[v][0] = v
+            for k in range(1, LOG):
+                up[v][k] = up[up[v][k-1]][k-1]
+
+if __name__ == ""__main__"":
+    main()",False,2,53,"[""7\\n8218\\n67907\\n1\\n1\\n61314\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n43696\\n1\\n1\\n1' retcode: 0 stderr: "", ""253\\n65528\\n2932\\n24365\\n67945\\n42605\\n17388\\n26109\\n11459\\n37204\\n39962\\n16477' retcode: 0 stderr: "", ""9511\\n15141\\n21345\\n962\\n48161\\n51451\\n66418\\n51093\\n19715\\n39244\\n62197\\n63226' retcode: 0 stderr: "", ""\\n6950\\n16299\\n9280\\n24951\\n6261\\n17778\\n37666\\n4171\\n2784\\n41132\\n23753\\n15416' retcode: 0 stderr: "", ""227\\n28383\\n54537\\n17306\\n49266\\n7805\\n10816\\n19461\\n15228\\n13303\\n14205\\n54846' retcode: 0 stderr: "", ""545\\n26350\\n86828\\n46659\\n35569\\n80128\\n8746\\n47528\\n53752\\n18140\\n59248\\n35086' retcode: 0 stderr: "", ""328\\n49698\\n37305\\n30678\\n32059\\n25229\\n32419\\n34533\\n48881\\n36890\\n13975\\n2020' retcode: 0 stderr: "", ""7684\\n63634\\n72094\\n48186\\n73322\\n11900\\n52243\\n15051\\n7512\\n13417\\n9704\\n47046' retcode: 0 stderr: "", ""62\\n67224\\n81031\\n57949\\n51314\\n57975\\n52800\\n59564\\n73144\\n55004\\n22131\\n83516' retcode: 0 stderr: "", ""994\\n14552\\n1267\\n74426\\n38053\\n12567\\n19568\\n24419\\n17551\\n51363\\n69659\\n74074' retcode: 0 stderr: "", ""66\\n49052\\n34872\\n27376\\n35795\\n14299\\n64459\\n16235\\n38144\\n15723\\n23174\\n29212' retcode: 0 stderr: "", ""291\\n1\\n1\\n1\\n1\\n61099\\n1\\n1\\n1\\n1\\n1\\n30283\\n61099\\n61099\\n1\\n1\\n1\\n1\\n1\\n1\\n1' retcode: 0 stderr: "", ""441\\n5623\\n63491\\n80098\\n49347\\n26374\\n48203\\n20522\\n1119' retcode: 124 stderr: Execution timed out."", ""47232\\n48171\\n71555\\n17371\\n16065\\n61129\\n9430\\n72343\\n69692\\n16786\\n146\\n40468' retcode: 0 stderr: "", ""Case 14: expected: '2\\n1\\n1\\n2' got: '2\\n1\\n5\\n5' retcode: 0 stderr: "", ""Case 15: expected: '3\\n2\\n2\\n2' got: '3\\n2\\n3\\n3' retcode: 0 stderr: "", ""Case 16: expected: '2\\n3\\n1\\n1' got: '2\\n3\\n2\\n3' retcode: 0 stderr: "", ""Case 17: expected: '3\\n1\\n5\\n2' got: '3\\n3\\n5\\n5' retcode: 0 stderr: "", ""\\n1\\n1\\n1\\n1\\n954\\n1\\n1\\n1\\n1\\n1\\n954\\n954\\n1\\n1\\n1\\n1\\n1\\n1\\n71943\\n1\\n1\\n1\\n1' retcode: 0 stderr: "", ""347\\n5\\n86948\\n1\\n2\\n16\\n2\\n89656\\n2\\n1\\n82528\\n3015\\n88000\\n91148\\n41450\\n2\\n2' retcode: 0 stderr: "", ""0\\n50949\\n84758\\n19543\\n11703\\n67129\\n67383\\n72467\\n21521' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n1\\n2\\n1\\n1\\n2\\n1\\n1\\n1\\n2\\n1\\n1\\n1\\n2\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""4515\\n5572\\n52074\\n21668\\n2309\\n54452\\n32918\\n46535\\n61314\\n14411\\n51797\\n30853' retcode: 0 stderr: "", ""15027\\n37411\\n656\\n11041\\n19751\\n51668\\n6639\\n59791\\n47342\\n20282\\n19721\\n63066' retcode: 0 stderr: "", ""7909\\n13142\\n1664\\n11351\\n31906\\n2874\\n563\\n35372' got: '' retcode: 124 stderr: Execution timed out."", ""\\n2\\n52783\\n51018\\n2\\n1\\n2\\n1\\n2\\n1\\n1\\n33984\\n604\\n2\\n2\\n2\\n1\\n23470\\n29\\n2\\n2' retcode: 0 stderr: "", ""n38159\\n45205\\n37495\\n8160\\n26184\\n34228\\n35412\\n4739\\n14433\\n29484\\n50052\\n517' retcode: 0 stderr: "", ""54300\\n12049\\n13317\\n41329\\n28061\\n6621\\n2956\\n36294\\n2\\n51699\\n1\\n11293\\n48586' retcode: 0 stderr: "", ""56\\n51832\\n71781\\n56651\\n51601\\n49728\\n76237\\n43152\\n62454\\n38685\\n22166\\n14231' retcode: 0 stderr: "", ""n44319\\n22042\\n18669\\n34876\\n35013\\n30507\\n38242\\n18831\\n5786\\n5560\\n9876\\n5234' retcode: 0 stderr: "", ""3440\\n31763\\n2239\\n3313\\n25548\\n36673\\n31321\\n47999\\n14244\\n56745\\n30931\\n43295' retcode: 0 stderr: "", ""628\\n1\\n6052\\n5012\\n49951\\n2\\n77359\\n1900\\n4400\\n20603\\n68539\\n67603\\n614\\n1584' retcode: 0 stderr: "", ""332\\n52776\\n6162\\n28692\\n24192\\n36727\\n41283\\n42302\\n1488' retcode: 124 stderr: Execution timed out."", ""209\\n63717\\n61029\\n1303\\n64712\\n36409\\n56776\\n16072\\n66879\\n33110\\n23280\\n35215' retcode: 0 stderr: "", ""27\\n11\\n24\\n11\\n6\\n13\\n30\\n31\\n10\\n28\\n31\\n7\\n3\\n28\\n11\\n23\\n24\\n2\\n3\\n3\\n23\\n3' retcode: 0 stderr: "", ""5144\\n1739\\n11146\\n14936\\n3\\n1291\\n266\\n986\\n4459\\n25\\n3608\\n212\\n59\\n7\\n8\\n411' retcode: 0 stderr: "", ""7762\\n892\\n2\\n10106\\n10638\\n1\\n10496\\n28138\\n379\\n30\\n1204\\n375\\n14\\n6538\\n3031' retcode: 0 stderr: "", ""32\\n25919\\n6615\\n29827\\n24391\\n65524\\n258\\n4030\\n1382\\n20323\\n2507\\n11601\\n2902' retcode: 0 stderr: "", ""8022\\n2855\\n7988\\n328\\n2545\\n7500\\n91\\n395\\n1184\\n27299\\n9788\\n608\\n3238\\n14841' retcode: 0 stderr: "", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n54\\n1\\n749\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' retcode: 0 stderr: "", ""8\\n635\\n552\\n27\\n272\\n138\\n458\\n649\\n307\\n645\\n137\\n458\\n599\\n206\\n52\\n266\\n159' retcode: 0 stderr: "", ""1\\n12\\n21\\n11\\n12\\n20\\n1\\n12\\n4\\n7\\n1\\n1\\n23\\n21\\n2\\n12\\n1\\n1\\n10\\n20\\n7\\n12\\n2' retcode: 0 stderr: "", ""03\\n145\\n317\\n36\\n322\\n519\\n48\\n380\\n581\\n84\\n202\\n599\\n276\\n122\\n504\\n202\\n501' retcode: 0 stderr: "", ""\\n4\\n20\\n8\\n9\\n26\\n1\\n9\\n31\\n31\\n26\\n11\\n8\\n20\\n11\\n8\\n15\\n15\\n1\\n20\\n14\\n8\\n16' retcode: 0 stderr: "", ""427\\n294\\n284\\n422\\n46\\n443\\n351\\n182\\n244\\n225\\n212\\n319\\n32\\n330\\n15\\n51\\n197' retcode: 0 stderr: "", ""\\n1\\n2\\n6\\n1\\n1\\n2\\n6\\n7\\n1\\n3\\n13\\n3\\n1\\n16\\n3\\n7\\n19\\n3\\n2\\n1\\n1\\n2\\n35\\n3\\n1' retcode: 0 stderr: "", ""36\\n493\\n36\\n597\\n513\\n484\\n228\\n58\\n586\\n52\\n500\\n139\\n152\\n490\\n127\\n390\\n291' retcode: 0 stderr: "", ""n12\\n9\\n9\\n2\\n16\\n24\\n20\\n19\\n20\\n12\\n12\\n22\\n23\\n17\\n12\\n16\\n32\\n19\\n7\\n19\\n29' retcode: 0 stderr: "", ""42795\\n3890\\n62783\\n40788\\n34279\\n24722\\n58406\\n81370\\n8409\\n14784\\n1812\\n54564' retcode: 0 stderr: "", ""777\\n35563\\n2466\\n37548\\n14682\\n42381\\n22065\\n40269\\n22105\\n35448\\n27995\\n12251' retcode: 0 stderr: "", ""1749\\n757\\n4925\\n28258\\n19103\\n35\\n5362\\n3617\\n29473\\n19661\\n3089\\n21480\\n13743' retcode: 0 stderr: ""]"
+2024f3p2_pratos,deepseek/deepseek-r1,N/A (Zero-shot),N/A (Zero-shot),"import sys
+import bisect
+MOD = 10**9 +7
+
+def main():
+    input = sys.stdin.read().split()
+    ptr =0
+    N,M,K = map(int, input[ptr:ptr+3])
+    ptr +=3
+    a_spells = list(map(int, input[ptr:ptr+N]))
+    ptr +=N
+    b_spells = list(map(int, input[ptr:ptr+N]))
+    ptr +=N
+    a_meals = list(map(int, input[ptr:ptr+M]))
+    ptr +=M
+    b_meals = list(map(int, input[ptr:ptr+M]))
+    ptr +=M
+    Q = int(input[ptr])
+    ptr +=1
+    queries = list(map(int, input[ptr:ptr+Q]))
+    
+    # Process meals
+    meals = list(zip(a_meals, b_meals))
+    from functools import cmp_to_key
+    def meal_compare(m1, m2):
+        a1, b1 = m1
+        a2, b2 = m2
+        left = (a1 -1)*b2
+        right = (a2 -1)*b1
+        if left < right:
+            return -1
+        elif left > right:
+            return 1
+        return 0
+    meals_sorted = sorted(meals, key=cmp_to_key(meal_compare))
+    suffix_prod = [1]*(M+1)
+    for i in range(M-1, -1, -1):
+        suffix_prod[i] = (suffix_prod[i+1] * meals_sorted[i][0]) % MOD
+    A_meals = suffix_prod[0]
+    B_meals = 0
+    for i in range(M):
+        b = meals_sorted[i][1]
+        B_meals = (B_meals + b * suffix_prod[i+1]) % MOD
+    
+    # Process spells
+    spells = []
+    for a, b in zip(a_spells, b_spells):
+        if a ==1:
+            Ak = 1
+            Bk = (b * K) % MOD
+        else:
+            Ak = pow(a, K, MOD)
+            numerator = (Ak -1) % MOD
+            denominator = (a -1) % MOD
+            inv_denominator = pow(denominator, MOD-2, MOD)
+            Bk = (b * numerator) % MOD
+            Bk = (Bk * inv_denominator) % MOD
+        spells.append( (Ak, Bk) )
+    
+    # Sort spells by Ak descending, break ties with Bk descending
+    spells.sort(key=lambda x: (-x[0], -x[1]))
+    # Remove duplicates and lower Bk for same Ak
+    unique_spells = []
+    prev_A = -1
+    for a, b in spells:
+        if a == prev_A:
+            continue
+        unique_spells.append( (a,b) )
+        prev_A = a
+    
+    # Build convex hull
+    hull = []
+    for a, b in unique_spells:
+        while len(hull)>=2:
+            a1, b1 = hull[-2]
+            a2, b2 = hull[-1]
+            x1 = (b2 - b1) // (a1 - a2) if (a1 -a2) !=0 else -float('inf')
+            x2 = (b - b1) // (a1 -a) if (a1 -a) !=0 else -float('inf')
+            if x2 <= x1:
+                hull.pop()
+            else:
+                break
+        if len(hull)>=1:
+            a_prev, b_prev = hull[-1]
+            if a == a_prev:
+                if b <= b_prev:
+                    continue
+                else:
+                    hull.pop()
+        hull.append( (a,b) )
+    
+    # Transform hull lines with meals' A_meals and B_meals
+    transformed = []
+    for a, b in hull:
+        new_a = (a * A_meals) % MOD
+        new_b = (b * A_meals + B_meals) % MOD
+        transformed.append( (new_a, new_b) )
+    
+    # Compute intersections for convex hull of transformed lines
+    intersections = []
+    for i in range(len(transformed)-1):
+        a1, b1 = transformed[i]
+        a2, b2 = transformed[i+1]
+        if a1 == a2:
+            continue
+        num = (b2 - b1)
+        den = (a1 - a2)
+        if den <0:
+            num *= -1
+            den *= -1
+        x = num // den if den !=0 else 0
+        if den !=0 and num % den !=0:
+            x = (num // den) +1  # use ceiling for integer x
+            # but using fractions may be necessary, but perhaps we can use fractions for precision
+            # However, in Python, fractions can be handled with numerator and denominator.
+            # But for the purposes of binary search, we can represent intersections as tuples and handle them precisely.
+            # So perhaps compute the intersection as a fraction.
+        else:
+            x = num // den
+        intersections.append(x)
+    
+    # Process queries
+    results = []
+    for x in queries:
+        if not transformed:
+            res = (0 * x + 0) % MOD
+        elif len(transformed) ==1:
+            a, b = transformed[0]
+            res = (a * x + b) % MOD
+        else:
+            idx = bisect.bisect_left(intersections, x)
+            a, b = transformed[idx]
+            res = (a * x + b) % MOD
+        results.append(res)
+    
+    print('\n'.join(map(str, results)))
+
+if __name__ == '__main__':
+    main()",False,11,73,"[""37\\n178201526\\n706588817\\n505856390\\n370445009\\n438330056\\n817246275\\n137691930' retcode: 0 stderr: "", ""31\\n999672975\\n385220353\\n568062844\\n896371078\\n620582247\\n185193386\\n990037113' retcode: 0 stderr: "", ""682\\n815160212\\n86126735\\n357093265\\n628059795\\n899026325\\n169992848\\n440959378' retcode: 0 stderr: "", ""79\\n302449873\\n418285814\\n510585284\\n238424378\\n477818866\\n494620370\\n359329501' retcode: 0 stderr: "", ""99\\n170999853\\n101865316\\n950601480\\n300077093\\n390044670\\n642541228\\n440184252' retcode: 0 stderr: "", ""41\\n645698210\\n274571872\\n903445541\\n532319203\\n161192865\\n790066534\\n418940196' retcode: 0 stderr: "", ""044\\n833619271\\n94459468\\n974207597\\n459470101\\n950723829\\n379898973\\n694402920' retcode: 0 stderr: "", ""258\\n634143890\\n936091000\\n600326137\\n581016718\\n795994654\\n815304073\\n59274421' retcode: 0 stderr: "", ""34\\n224358772\\n713013017\\n201667255\\n690321500\\n178975738\\n667629983\\n156284221' retcode: 0 stderr: "", ""1: expected: '1\\n100\\n200000001\\n200000002' got: '29\\n128\\n200000029\\n200000030' retcode: 0 stderr: "", ""Case 13: expected: '1611\\n3123\\n15120099\\n4635' got: '1611\\n547\\n560435\\n603' retcode: 0 stderr: "", ""62399\\n552626018\\n425161850\\n913870905\\n156256116' got: '' retcode: 124 stderr: Execution timed out."", ""81473\\n984481614\\n965681748\\n946881882\\n928082016' got: '' retcode: 124 stderr: Execution timed out."", ""78731\\n280842010\\n485416722\\n499430850\\n980501499' got: '' retcode: 124 stderr: Execution timed out."", ""07010\\n526088602\\n503555949\\n795044448\\n453423761' got: '' retcode: 124 stderr: Execution timed out."", ""52698\\n160626658\\n424300625\\n687974592\\n951648559' got: '' retcode: 124 stderr: Execution timed out."", ""6661153\\n815321561\\n568465089\\n94421075\\n84190505' got: '' retcode: 124 stderr: Execution timed out."", ""35996\\n973596666\\n638957329\\n304317992\\n969678662' got: '' retcode: 124 stderr: Execution timed out."", ""99256\\n442250924\\n529020246\\n936079007\\n390805714' got: '' retcode: 124 stderr: Execution timed out."", ""5923040\\n800253090\\n264403850\\n179064791\\n8719460' got: '' retcode: 124 stderr: Execution timed out."", ""22564\\n648436059\\n459958421\\n885244969\\n537652540' got: '' retcode: 124 stderr: Execution timed out."", ""38746\\n355333703\\n180831740\\n873213690\\n907322961' got: '' retcode: 124 stderr: Execution timed out."", ""13717\\n970043551\\n640873378\\n311703205\\n982533039' got: '' retcode: 124 stderr: Execution timed out."", ""53183\\n769451985\\n283915280\\n720564734\\n181262532' got: '' retcode: 124 stderr: Execution timed out."", ""440471\\n393226041\\n429932155\\n189193568\\n69888432' got: '' retcode: 124 stderr: Execution timed out."", ""074\\n912845199\\n76991921\\n537008979\\n188452894\\n271022517\\n903205539\\n976135502' retcode: 0 stderr: "", ""96178\\n1402117\\n971985971\\n435542529\\n630295997\\n15376123\\n681536650\\n381910294' retcode: 0 stderr: "", ""24\\n593207005\\n764988686\\n936770367\\n108552041\\n280333722\\n452115403\\n623897084' retcode: 0 stderr: "", ""23\\n195978587\\n466416916\\n520455597\\n810610179\\n258330661\\n625703846\\n998647269' retcode: 0 stderr: "", ""22\\n851975680\\n952715640\\n955885169\\n725492199\\n332180893\\n681316050\\n755462045' retcode: 0 stderr: "", ""156\\n824857296\\n931232436\\n37607569\\n143982709\\n250357849\\n356732989\\n463108129' retcode: 0 stderr: "", ""0708\\n531849872\\n266367614\\n458103214\\n83130799\\n175628145\\n850270105\\n12609295' retcode: 0 stderr: "", ""84\\n669194011\\n272324101\\n970700131\\n328966435\\n177686407\\n122353779\\n781677042' retcode: 0 stderr: "", ""4465\\n592267104\\n13275839\\n679378992\\n360750440\\n26396199\\n210659850\\n887179449' retcode: 0 stderr: "", ""91\\n364809894\\n955262004\\n545714107\\n136166210\\n726618320\\n317070423\\n907522533' retcode: 0 stderr: "", ""44\\n685651465\\n703268670\\n825039319\\n461809917\\n627214538\\n621811178\\n904583121' retcode: 0 stderr: "", ""862\\n94030020\\n770025645\\n367546625\\n500086727\\n191896188\\n458618388\\n593748411' retcode: 0 stderr: "", ""1029\\n157010464\\n28894380\\n145846760\\n210557334\\n208325776\\n26938973\\n891259677' retcode: 0 stderr: "", ""6502\\n430105042\\n476877247\\n655347027\\n480647755\\n21243275\\n825963604\\n23892134' retcode: 0 stderr: "", ""30\\n334617136\\n939857949\\n545098755\\n150339561\\n755580374\\n360821180\\n966061993' retcode: 0 stderr: "", ""158973\\n981414041\\n466150194\\n932341364\\n70804883\\n773077\\n357444553\\n332903148' retcode: 0 stderr: "", ""n23249189\\n24249996\\n22760490\\n23496284\\n22598072\\n23771990\\n24766150\\n23460159' retcode: 0 stderr: "", ""57793\\n314866507\\n9875221\\n704883942\\n399892656\\n94901370\\n789910091\\n484918805' retcode: 0 stderr: "", ""Case 47: expected: '1094' got: '84' retcode: 0 stderr: "", ""Case 49: expected: '767' got: '18' retcode: 0 stderr: "", ""Case 50: expected: '17089844' got: '52' retcode: 0 stderr: "", ""Case 51: expected: '8746' got: '16' retcode: 0 stderr: "", ""Case 52: expected: '199979798' got: '394' retcode: 0 stderr: "", ""Case 53: expected: '653100287' got: '39956635' retcode: 0 stderr: "", ""Case 54: expected: '11' got: '6' retcode: 0 stderr: "", ""Case 55: expected: '199528596' got: '19820' retcode: 0 stderr: "", ""Case 56: expected: '130100617' got: '192' retcode: 0 stderr: "", ""Case 57: expected: '17089844' got: '52' retcode: 0 stderr: "", ""Case 58: expected: '199845921' got: '16100' retcode: 0 stderr: "", ""Case 59: expected: '198939394' got: '370' retcode: 0 stderr: "", ""Case 61: expected: '9' got: '4' retcode: 0 stderr: "", ""Case 62: expected: '130100617' got: '197' retcode: 0 stderr: "", ""68\\n629390187\\n792119710\\n376976144\\n688868930\\n250287199\\n708084061\\n849400079' retcode: 0 stderr: "", ""n29397889\\n29398183\\n29398477\\n29398771\\n29399065\\n29399359\\n29399653\\n29399947' retcode: 0 stderr: "", ""n29397895\\n29398189\\n29398483\\n29398777\\n29399071\\n29399365\\n29399659\\n29399953' retcode: 0 stderr: "", ""343\\n8798983\\n24946439\\n5378567\\n20693767\\n11089671\\n22084615\\n2214407\\n1402887' retcode: 0 stderr: "", ""n24083152\\n17009152\\n58036777\\n23958277\\n58845652\\n81310777\\n32924527\\n57094027' retcode: 0 stderr: ""]"

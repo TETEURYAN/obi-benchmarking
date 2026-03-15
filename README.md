@@ -1,125 +1,64 @@
-# Problem Understanding Service
+# Polya Evaluation Script
 
-Microsserviço (agente de compreensão) para avaliar se o usuário entendeu corretamente um problema de programação competitiva. Parte de uma plataforma educacional baseada em agentes de IA para maratonas de programação.
+This script evaluates LLM models based on Polya's method (multi-agent approach) or a standard Zero-Shot approach. It is primarily designed for solving OBI (Olimpíada Brasileira de Informática) problems.
 
-## Arquitetura (Clean Architecture)
+> [!IMPORTANT]
+> Os resultados contidos na pasta `resultados` foram obtidos utilizando **apenas a abordagem Zero-Shot**.
 
-- **domain/** – Entidades (`Problem`, `UserAnswer`) e interface do serviço de avaliação
-- **application/** – Caso de uso `EvaluateUnderstandingUseCase`
-- **infrastructure/** – Implementação com PydanticAI (dois agentes: avaliação + feedback pedagógico)
-- **interfaces/api/** – FastAPI (rotas e schemas Pydantic)
-- **config/** – Configuração via ambiente (pydantic-settings)
+## Setup
 
-## Requisitos
+1. Install `uv` if you haven't already:
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
 
-- Python 3.11+
-- [uv](https://docs.astral.sh/uv/) (gerenciador de ambiente e dependências)
+2. Install dependencies:
+   ```bash
+   uv sync
+   ```
 
-## Setup com UV
+3. Set your API configuration:
+   Create a `.env` file based on `.env.example`:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your actual values (OPENAI_API_KEY, OPENAI_BASE_URL, etc.)
+   ```
 
+## Usage
+
+### Single Model Execution
+To run a single model defined in your `.env` or using the default:
 ```bash
-cd problem_understanding_service
-uv sync
-cp .env.example .env
-# Edite .env e configure OPENAI_API_KEY (ou outro provider) e LLM_MODEL
+uv run main.py
 ```
 
-## Executar
-
+### Multi-Model Execution
+To run multiple models sequentially from a text file:
 ```bash
-uv run python main.py
+uv run main.py --models-file models/models.txt
 ```
 
-Ou com uvicorn diretamente:
-
+### Zero-Shot Mode
+To run using a single zero-shot prompt instead of the multi-agent Polya approach:
 ```bash
-uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uv run main.py --zero-shot
 ```
 
-API disponível em `http://localhost:8000`. Documentação interativa: `http://localhost:8000/docs`.
+## Results Structure
 
-## Endpoint
+Evaluation results are saved in the `resultados` directory with the following structure:
 
-### POST /evaluate-understanding
+- `resultados/`: Base results folder.
+    - `<model_name>/`: Model-specific folder.
+        - `results_<model_name_safe>_<timestamp>_<shot_status>.csv`: Detailed execution results for each test case.
+    - `summary_results_<run_timestamp>_<shot_status>.csv`: Consolidated metrics for all models evaluated in a single run.
 
-Avalia a compreensão do usuário. Corpo da requisição:
+## Project Structure
 
-```json
-{
-  "problema": {
-    "titulo": "...",
-    "descricao": "...",
-    "objetivo": { ... },
-    "entrada": { ... },
-    "saida": { ... },
-    "restricoes": { ... },
-    "conceitos_envolvidos": [ ... ],
-    "exemplos": [ ... ]
-  },
-  "resposta_usuario": {
-    "ideia": "Resumo da ideia do usuário",
-    "interpretacao_entrada": "Como o usuário entende a entrada",
-    "interpretacao_saida": "Como o usuário entende a saída"
-  }
-}
-```
-
-Resposta (apenas duas possibilidades):
-
-- `{ "result": "CORRETO" }`
-- `{ "result": "ERRADO" }`
-
-Quando a resposta é **ERRADO**, o sistema gera internamente um feedback pedagógico estruturado (o que está incorreto, conceitos mal compreendidos, correção, dicas) e registra em log; esse feedback não é retornado na API e pode ser usado depois pelo agente de feedback.
-
-## Exemplo com curl
-
-```bash
-curl -X POST http://localhost:8000/evaluate-understanding \
-  -H "Content-Type: application/json" \
-  -d '{
-    "problema": {
-      "titulo": "Soma de Dois Números",
-      "descricao": "Dados dois números inteiros, calcule a soma.",
-      "objetivo": {"descricao": "Retornar a soma de A e B"},
-      "entrada": {"formato": "Dois inteiros A e B em uma linha", "exemplo": "2 3"},
-      "saida": {"formato": "Um inteiro: A + B", "exemplo": "5"},
-      "restricoes": {},
-      "conceitos_envolvidos": ["aritmética básica"],
-      "exemplos": [{"entrada": "2 3", "saida": "5"}]
-    },
-    "resposta_usuario": {
-      "ideia": "O problema pede a soma de dois números lidos da entrada.",
-      "interpretacao_entrada": "Dois inteiros na mesma linha, separados por espaço.",
-      "interpretacao_saida": "Um único inteiro: a soma dos dois números."
-    }
-  }'
-```
-
-## Docker
-
-```bash
-docker build -t problem-understanding-service .
-docker run -p 8000:8000 --env-file .env problem-understanding-service
-```
-
-## Testes com Bruno
-
-A pasta `bruno/` contém uma coleção para testar a API no [Bruno](https://www.usebruno.com/). Abra a pasta como coleção e execute as requisições **Health Check** e **Evaluate Understanding**. Veja `bruno/README.md`.
-
-## Configuração (.env)
-
-| Variável       | Descrição                          | Default              |
-|----------------|------------------------------------|----------------------|
-| `LLM_MODEL`    | Modelo PydanticAI (ex.: openai:gpt-4o-mini) | openai:gpt-4o-mini |
-| `API_HOST`     | Host do servidor                   | 0.0.0.0              |
-| `API_PORT`     | Porta do servidor                  | 8000                 |
-| `ENVIRONMENT`  | development / staging / production | development          |
-
-Para modelos OpenAI, defina `OPENAI_API_KEY` no ambiente ou no `.env`.
-
-## Troubleshooting — "Serviço de avaliação temporariamente indisponível"
-
-## Extensibilidade
-
-- **Troca de LLM:** implemente `EvaluationService` em outra classe (ex.: outro provider) e injete no use case; o modelo padrão é definido em `LLM_MODEL` / `get_settings().llm_model`.
-- **Reuso por outros agentes:** a pasta `infrastructure/llm` e os schemas em `interfaces/api/schemas.py` podem ser referência para os demais agentes (planejamento, implementação, testes).
+- `main.py`: Main entry point and orchestration script.
+- `src/`: Core logic and configurations.
+    - `models.py`: Pydantic data models for problems and evaluation results.
+    - `prompts.py`: Prompt templates for Polya steps and zero-shot mode.
+    - `evaluator.py`: Logic for code execution and correctness verification.
+- `test_cases/`: Directory containing input and solution files for the problems.
+- `problems.json`: Dataset of problem statements and examples.

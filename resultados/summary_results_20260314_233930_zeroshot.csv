@@ -1,0 +1,5 @@
+model,shot_status,total_problems,problems_passed,success_rate_problems,total_cases,cases_passed,success_rate_cases,timestamp
+openai/gpt-oss-120b,zeroshot,12,7,0.5833333333333334,612,433,0.7075163398692811,20260314_235205
+anthropic/claude-opus-4.6,zeroshot,12,7,0.5833333333333334,612,341,0.5571895424836601,20260315_000505
+meta-llama/llama-guard-4-12b,zeroshot,12,0,0.0,612,0,0.0,20260315_000520
+x-ai/grok-4.20-multi-agent-beta,zeroshot,12,7,0.5833333333333334,612,456,0.7450980392156863,20260315_001737

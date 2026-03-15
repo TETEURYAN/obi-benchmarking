@@ -1,0 +1,547 @@
+question_id,model,understanding_text,plan_text,code_text,judge_correctness,judge_test_cases,total_test_cases,failures
+2024f1p2_ogro,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"e = int(input())
+d = int(input())
+if e > d:
+    print(e + d)
+else:
+    print(2 * (d - e))",True,20,20,[]
+2024f1p2_relogio,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"h = int(input())
+m = int(input())
+s = int(input())
+t = int(input())
+total = h * 3600 + m * 60 + s + t
+total %= 86400
+nh = total // 3600
+nm = (total % 3600) // 60
+ns = total % 60
+print(nh)
+print(nm)
+print(ns)",True,52,52,[]
+2024f1p2_jogo,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+
+data = sys.stdin.read().splitlines()
+first = data[0].split()
+N = int(first[0])
+Q = int(first[1])
+grid = []
+for i in range(1, N + 1):
+    row = [int(c) for c in data[i]]
+    grid.append(row)
+
+deltas = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+
+def count_neighbors(g, x, y):
+    count = 0
+    for dx, dy in deltas:
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < N and 0 <= ny < N:
+            count += g[nx][ny]
+    return count
+
+for _ in range(Q):
+    new_grid = [[0] * N for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            live = count_neighbors(grid, i, j)
+            if grid[i][j] == 1:
+                if live == 2 or live == 3:
+                    new_grid[i][j] = 1
+            else:
+                if live == 3:
+                    new_grid[i][j] = 1
+    grid = new_grid
+
+for row in grid:
+    print(''.join(map(str, row)))",True,19,19,[]
+2024f2p2_cubo,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"N = int(input())
+zero = (N - 2) ** 3
+one = 6 * (N - 2) ** 2
+two = 12 * (N - 2)
+three = 8
+print(zero)
+print(one)
+print(two)
+print(three)",True,11,11,[]
+2024f2p2_alfabeto,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"k, n = map(int, input().split())
+alf = set(input().strip())
+msg = input().strip()
+if all(c in alf for c in msg):
+    print('S')
+else:
+    print('N')",True,61,61,[]
+2024f2p2_concatena,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+input = sys.stdin.read
+data = input().split()
+N = int(data[0])
+Q = int(data[1])
+D = [0] + [int(x) for x in data[2:2+N]]
+prefix = [0] * (N + 1)
+for i in range(1, N + 1):
+    prefix[i] = prefix[i - 1] + D[i]
+index = 2 + N
+for _ in range(Q):
+    L = int(data[index])
+    R = int(data[index + 1])
+    index += 2
+    S = prefix[R] - prefix[L - 1]
+    M1 = R - L
+    ans = 11 * M1 * S
+    print(ans)",True,25,25,[]
+2024f2p2_poder,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+import bisect
+
+data = sys.stdin.read().split()
+idx = 0
+N = int(data[idx]); idx += 1
+M = int(data[idx]); idx += 1
+K = N * M
+grid = [0] * K
+for i in range(K):
+    grid[i] = int(data[idx]); idx += 1
+cells = [(grid[i], i) for i in range(K)]
+cells.sort()
+P_sorted = [c[0] for c in cells]
+parent_hist = [[] for _ in range(K)]
+sum_hist = [[] for _ in range(K)]
+current_parent = list(range(K))
+current_sum = [0] * K
+current_rank = [0] * K
+init_sum_list = [0] * K
+add_time = [-1] * K
+
+def find(x):
+    while current_parent[x] != x:
+        x = current_parent[x]
+    return x
+
+def union(x, y, t):
+    if x == y:
+        return
+    if current_rank[x] < current_rank[y]:
+        current_parent[x] = y
+        current_sum[y] += current_sum[x]
+        parent_hist[x].append((t, y))
+        sum_hist[y].append((t, current_sum[y]))
+    elif current_rank[x] > current_rank[y]:
+        current_parent[y] = x
+        current_sum[x] += current_sum[y]
+        parent_hist[y].append((t, x))
+        sum_hist[x].append((t, current_sum[x]))
+    else:
+        current_parent[y] = x
+        current_sum[x] += current_sum[y]
+        parent_hist[y].append((t, x))
+        sum_hist[x].append((t, current_sum[x]))
+        current_rank[x] += 1
+
+for t in range(K):
+    p, iid = cells[t]
+    add_time[iid] = t
+    row = iid // M
+    col = iid % M
+    current_parent[iid] = iid
+    current_sum[iid] = p
+    current_rank[iid] = 0
+    parent_hist[iid].append((t, iid))
+    sum_hist[iid].append((t, p))
+    for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+        nr = row + dr
+        nc = col + dc
+        if 0 <= nr < N and 0 <= nc < M:
+            nid = nr * M + nc
+            if current_sum[nid] != 0:
+                r1 = find(iid)
+                r2 = find(nid)
+                if r1 != r2:
+                    union(r1, r2, t)
+    r = find(iid)
+    init_sum_list[iid] = current_sum[r]
+
+def get_parent(node, tm):
+    hist = parent_hist[node]
+    for i in range(len(hist) - 1, -1, -1):
+        if hist[i][0] <= tm:
+            return hist[i][1]
+    return node
+
+def get_sumv(node, tm):
+    hist = sum_hist[node]
+    for i in range(len(hist) - 1, -1, -1):
+        if hist[i][0] <= tm:
+            return hist[i][1]
+    return 0
+
+def get_comp_sum(node, tm):
+    cur = node
+    while True:
+        p = get_parent(cur, tm)
+        if p == cur:
+            return get_sumv(cur, tm)
+        cur = p
+
+ans = [0] * K
+for iid in range(K):
+    ts = add_time[iid]
+    cur_sum = init_sum_list[iid]
+    cur_tm = ts
+    while True:
+        u = bisect.bisect_right(P_sorted, cur_sum) - 1
+        if u <= cur_tm:
+            break
+        new_sum = get_comp_sum(iid, u)
+        if new_sum <= cur_sum:
+            break
+        cur_sum = new_sum
+        cur_tm = u
+    ans[iid] = cur_sum
+
+for i in range(N):
+    row_ans = [str(ans[i * M + j]) for j in range(M)]
+    print(' '.join(row_ans))",False,85,150,"[""0866 18218001920866 18218001920866 18218001920866' got: '' retcode: 124 stderr: Execution timed out."", ""10 4289296 2 2 4289296 8 8 8 8 8 24 2 2 81 5 26 5' got: '' retcode: 124 stderr: Execution timed out."", ""3 273 273 273 273 273 273 273 273 273 273 273 273' got: '' retcode: 124 stderr: Execution timed out."", ""155316277 51007155316277 51007155316277 641613380' got: '' retcode: 124 stderr: Execution timed out."", ""0437056 2206760437056 2206760437056 2206760437056' got: '' retcode: 124 stderr: Execution timed out."", ""3 513 513 513 513 513 513 513 513 513 513 513 513' got: '' retcode: 124 stderr: Execution timed out."", ""0 85800 85800 85800 85800 85800 85800 85800 85800' got: '' retcode: 124 stderr: Execution timed out."", "" 234 1366274 33917 45 881579599 156 79677 1833 39' got: '' retcode: 124 stderr: Execution timed out."", ""2475773 3906962475773 3906962475773 3906962475773' got: '' retcode: 124 stderr: Execution timed out."", ""3 19 921 18 18 637193 26 986 26 2 986 20 20 20 20' got: '' retcode: 124 stderr: Execution timed out."", "" 17151508\\n25000 25002440188846 17151508 17151508' got: '' retcode: 124 stderr: Execution timed out."", ""35347662500 34435347662500 34435347662500 2775000' got: '' retcode: 124 stderr: Execution timed out."", ""0 2418750 2418750 2418750 2418750 2418750 2418750' got: '' retcode: 124 stderr: Execution timed out."", ""7238 83925213693436 83925213693436 83925213693436' got: '' retcode: 124 stderr: Execution timed out."", "" 102857 102857 102857 102857 102857 102857 102857' got: '' retcode: 124 stderr: Execution timed out."", ""9\\n94998429057199\\n94998429057199\\n94998429057199' got: '' retcode: 124 stderr: Execution timed out."", ""9688 34609688 34609688 34609688 34609688 34609688' got: '' retcode: 124 stderr: Execution timed out."", ""6772645 1256996772645 1256996772645 1256996772645' got: '' retcode: 124 stderr: Execution timed out."", ""50610 1550610 8 8 1550610 1550610 1550610 1550610' got: '' retcode: 124 stderr: Execution timed out."", ""325000 62500\\n3124 25005751476610 781325000 62500' got: '' retcode: 124 stderr: Execution timed out."", "" 12 12 12 12 178615369 8 8 8 8 4461 8 398 398 398' got: '' retcode: 124 stderr: Execution timed out."", ""26594661496 88 102168 102168 102168 102168 102168' got: '' retcode: 124 stderr: Execution timed out."", ""8 29388 29388 29388 29388 29388 29388 29388 29388' got: '' retcode: 124 stderr: Execution timed out."", "" 418756 418756 418756 418756 418756 418756 418756' got: '' retcode: 124 stderr: Execution timed out."", ""7503\\n187503 187503\\n187503 187503\\n187503 187503' got: '' retcode: 124 stderr: Execution timed out."", ""7228 13343799837228 13343799837228 13343799837228' got: '' retcode: 124 stderr: Execution timed out."", ""884488138 84027884488138 725180479 84027884488138' got: '' retcode: 124 stderr: Execution timed out."", ""0300 27180300 27180300 27180300 27180300 27180300' got: '' retcode: 124 stderr: Execution timed out."", ""4753768 3615974753768 3615974753768 3615974753768' got: '' retcode: 124 stderr: Execution timed out."", ""000 100050000 10000 7002700250000 100040000 10000' got: '' retcode: 124 stderr: Execution timed out."", ""765766317 49905834152941 49905834152941 183558185' got: '' retcode: 124 stderr: Execution timed out."", ""42191 1680042191 1680042191 1680042191 1680042191' got: '' retcode: 124 stderr: Execution timed out."", ""0 250 250 250 250 250 250 250 250 250 250 250 250' got: '' retcode: 124 stderr: Execution timed out."", ""74173220942 69 6174173220942 69 45678 45678 45678' got: '' retcode: 124 stderr: Execution timed out."", "" 100000000000000\\n100000000000000 100000000000000' got: '' retcode: 124 stderr: Execution timed out."", ""1200 14306496811200 14306496811200 14306496811200' got: '' retcode: 124 stderr: Execution timed out."", ""18457908080 12018457908080 5882 43403278 43403278' got: '' retcode: 124 stderr: Execution timed out."", ""4 1545 90 9067391356069 1485 90 55275 15 1965 105' got: '' retcode: 124 stderr: Execution timed out."", ""45631430122 600 101500 400 19443000 300 91000 600' got: '' retcode: 124 stderr: Execution timed out."", ""80959 43633021180959 504252 43633021180959 849114' got: '' retcode: 124 stderr: Execution timed out."", ""643643000 643643000 643643000 643643000 643643000' got: '' retcode: 124 stderr: Execution timed out."", ""650\\n45821974339650 45821974339650 45821974339650' got: '' retcode: 124 stderr: Execution timed out."", ""0 4497936 310 310 4497936 4497936 4497936 4497936' got: '' retcode: 124 stderr: Execution timed out."", ""1 426 18 1 18 95 1 28 28 28 28 1 61940 1 5 5 5 19' got: '' retcode: 124 stderr: Execution timed out."", ""547992 20 1547992 15 1547992 2 1547992 1001547992' got: '' retcode: 124 stderr: Execution timed out."", ""38 40273 439 40273 40273 319 40273 1077 369 1 153' got: '' retcode: 124 stderr: Execution timed out."", ""882064 4972 4972 60 60 4972 62 392 4972 4972 4972' got: '' retcode: 124 stderr: Execution timed out."", ""54227 2 1554227 1554227 1554227 4 1554227 1554227' got: '' retcode: 124 stderr: Execution timed out."", ""2968 1118 204883 10325 4337 72985 8029 23796 2334' got: '' retcode: 124 stderr: Execution timed out."", ""0 6245000 6245000 6245000 6245000 6245000 6245000' got: '' retcode: 124 stderr: Execution timed out."", ""5317 160659856 488023785 49990308550860 497888579' got: '' retcode: 124 stderr: Execution timed out."", ""1453 23519 746 4672 4672 246772 5127 757 5127 411' got: '' retcode: 124 stderr: Execution timed out."", ""748600383 84007748600383 84007748600383 716050375' got: '' retcode: 124 stderr: Execution timed out."", ""014 86014 86014 86014 1274 1274 86014 208 208 208' got: '' retcode: 124 stderr: Execution timed out."", ""7148937 7107148937 784 784 784 7107148937 570 570' got: '' retcode: 124 stderr: Execution timed out."", "" 4660 4660 577448 813 577448 577448 8181 1501 295' got: '' retcode: 124 stderr: Execution timed out."", ""1515 144793046 144793046 1121 144793046 144793046' got: '' retcode: 124 stderr: Execution timed out."", ""6386675 33346386675 33346386675 2624 486 486 2624' got: '' retcode: 124 stderr: Execution timed out."", "" 966545 3 966545 966545 3 966545 966545 966545 12' got: '' retcode: 124 stderr: Execution timed out."", ""54975 353191940 49963385254975 234456972 13614395' got: '' retcode: 124 stderr: Execution timed out."", "" 720 6376 2443 1197 576 282053 11 106 1559707 295' got: '' retcode: 124 stderr: Execution timed out."", ""2 11 1546482 1546482 1546482 10 4 1546482 1546482' got: '' retcode: 124 stderr: Execution timed out."", "" 7132867296 7132867296 7132867296 776 178 178 776' got: '' retcode: 124 stderr: Execution timed out."", ""5940 105433 732 732 7904 7904 7904 7904 7904 7904' got: '' retcode: 124 stderr: Execution timed out."", ""9 2569 2569 2569 22211 422 422 2765 969 8472 1023 506 506' retcode: 124 stderr: Execution timed out.""]"
+2024f3p2_brigadeiros,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+
+input = sys.stdin.read
+data = input().split()
+
+index = 0
+N = int(data[index]); index += 1
+K = int(data[index]); index += 1
+T = int(data[index]); index += 1
+
+P = [0] * (N + 1)
+for i in range(1, N + 1):
+    P[i] = int(data[index]); index += 1
+
+S = []
+for i in range(N):
+    g = int(data[index]); index += 1
+    if g == 1:
+        S.append(i + 1)
+
+if K == 0:
+    print(0)
+    sys.exit(0)
+
+S = [0] + S
+
+max_c = N * K
+if T >= max_c:
+    ps = sorted(P[1:], reverse=True)
+    print(sum(ps[:K]))
+    sys.exit(0)
+
+Vmax = 9 * K
+INF = T + 1
+dp = [[INF] * (Vmax + 1) for _ in range(K + 1)]
+dp[0][0] = 0
+
+for i in range(1, N + 1):
+    pval = P[i]
+    for j in range(K - 1, -1, -1):
+        addc = abs(S[j + 1] - i)
+        for v in range(Vmax - pval, -1, -1):
+            if dp[j][v] < INF:
+                newc = dp[j][v] + addc
+                if newc < dp[j + 1][v + pval]:
+                    dp[j + 1][v + pval] = newc
+
+ans = 0
+for v in range(Vmax + 1):
+    if dp[K][v] <= T:
+        ans = max(ans, v)
+print(ans)",False,55,67,"[""Case 14: expected: '1369' got: '' retcode: 124 stderr: Execution timed out."", ""Case 16: expected: '1280' got: '' retcode: 124 stderr: Execution timed out."", ""Case 17: expected: '768' got: '' retcode: 124 stderr: Execution timed out."", ""Case 18: expected: '1157' got: '' retcode: 124 stderr: Execution timed out."", ""Case 20: expected: '1354' got: '' retcode: 124 stderr: Execution timed out."", ""Case 21: expected: '1505' got: '' retcode: 124 stderr: Execution timed out."", ""Case 22: expected: '1287' got: '' retcode: 124 stderr: Execution timed out."", ""Case 23: expected: '1611' got: '' retcode: 124 stderr: Execution timed out."", ""Case 24: expected: '1014' got: '' retcode: 124 stderr: Execution timed out."", ""Case 29: expected: '2228' got: '' retcode: 124 stderr: Execution timed out."", ""Case 32: expected: '2007' got: '' retcode: 124 stderr: Execution timed out."", ""Case 34: expected: '533' got: '' retcode: 124 stderr: Execution timed out.""]"
+2024f3p2_construtora,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+input = sys.stdin.read
+data = input().split()
+index = 0
+N = int(data[index])
+index += 1
+a = [int(data[index + i]) for i in range(N)]
+M = max(a)
+ans = 0
+for k in range(1, M + 1):
+    in_group = False
+    for i in range(N):
+        if a[i] <= M - k:
+            if not in_group:
+                ans += 1
+                in_group = True
+        else:
+            in_group = False
+print(ans)",True,38,38,[]
+2024f3p2_retas,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+
+input = sys.stdin.read
+data = input().split()
+
+index = 0
+N = int(data[index]); index += 1
+X1 = int(data[index]); index += 1
+X2 = int(data[index]); index += 1
+
+lines = []
+for i in range(N):
+    A = int(data[index]); index += 1
+    B = int(data[index]); index += 1
+    y1 = A * X1 + B
+    y2 = A * X2 + B
+    lines.append((y1, y2))
+
+lines.sort()
+
+all_y2 = sorted(set([y2 for y1, y2 in lines]))
+rank = {val: i + 1 for i, val in enumerate(all_y2)}
+M = len(all_y2)
+
+class Fenwick:
+    def __init__(self, size):
+        self.size = size
+        self.tree = [0] * (size + 1)
+    def update(self, idx, delta):
+        while idx <= self.size:
+            self.tree[idx] += delta
+            idx += idx & -idx
+    def query(self, idx):
+        res = 0
+        while idx > 0:
+            res += self.tree[idx]
+            idx -= idx & -idx
+        return res
+    def query_range(self, left, right):
+        return self.query(right) - self.query(left - 1)
+
+ft = Fenwick(M)
+
+ans = 0
+i = 0
+while i < N:
+    curr_y1 = lines[i][0]
+    group = []
+    while i < N and lines[i][0] == curr_y1:
+        group.append(lines[i][1])
+        i += 1
+    for y2 in group:
+        r = rank[y2]
+        cnt = ft.query_range(r, M)
+        ans += cnt
+    K = len(group)
+    ans += K * (K - 1) // 2
+    for y2 in group:
+        r = rank[y2]
+        ft.update(r, 1)
+
+print(ans)",False,29,43,"[""Case 2: expected: '78' got: '' retcode: 124 stderr: Execution timed out."", ""Case 3: expected: '91' got: '' retcode: 124 stderr: Execution timed out."", ""Case 11: expected: '53628' got: '' retcode: 124 stderr: Execution timed out."", ""Case 12: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 13: expected: '1' got: '' retcode: 124 stderr: Execution timed out."", ""Case 14: expected: '3992296' got: '' retcode: 124 stderr: Execution timed out."", ""Case 16: expected: '416644249' got: '' retcode: 124 stderr: Execution timed out."", ""Case 17: expected: '2917659' got: '' retcode: 124 stderr: Execution timed out."", ""Case 18: expected: '3916436286' got: '' retcode: 124 stderr: Execution timed out."", ""Case 25: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 26: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 27: expected: '42762' got: '' retcode: 124 stderr: Execution timed out."", ""Case 28: expected: '52174' got: '' retcode: 124 stderr: Execution timed out."", ""Case 29: expected: '0' got: '' retcode: 124 stderr: Execution timed out.""]"
+2024f3p2_burocracia,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+sys.setrecursionlimit(100010)
+input = sys.stdin.read
+data = input().split()
+index = 0
+N = int(data[index])
+index += 1
+p = [0] * (N + 1)
+for i in range(2, N + 1):
+    p[i] = int(data[index])
+    index += 1
+Q = int(data[index])
+index += 1
+children = [[] for _ in range(N + 1)]
+for i in range(2, N + 1):
+    children[p[i]].append(i)
+depth = [0] * (N + 1)
+dfn = [0] * (N + 1)
+outt = [0] * (N + 1)
+timer = 0
+def dfs(u, d):
+    global timer
+    depth[u] = d
+    dfn[u] = timer
+    timer += 1
+    for v in children[u]:
+        dfs(v, d + 1)
+    outt[u] = timer
+dfs(1, 0)
+LOG = 18
+anc = [[0] * LOG for _ in range(N + 1)]
+for i in range(2, N + 1):
+    anc[i][0] = p[i]
+for j in range(1, LOG):
+    for i in range(1, N + 1):
+        mid = anc[i][j - 1]
+        if mid != 0:
+            anc[i][j] = anc[mid][j - 1]
+def get_kth(u, k):
+    for j in range(LOG):
+        if (k & (1 << j)) != 0:
+            u = anc[u][j]
+    return u
+INF = 10**9 + 5
+val = [(INF, 0) for _ in range(N)]
+TS = 1 << 20
+lazy = [(INF, 0) for _ in range(TS)]
+def update(node, start, end, l, r, offer):
+    if lazy[node] != (INF, 0):
+        if start == end:
+            val[start] = min(val[start], lazy[node])
+        else:
+            lazy[2 * node] = min(lazy[2 * node], lazy[node])
+            lazy[2 * node + 1] = min(lazy[2 * node + 1], lazy[node])
+        lazy[node] = (INF, 0)
+    if start > r or end < l or start > end:
+        return
+    if l <= start and end <= r:
+        if start == end:
+            val[start] = min(val[start], offer)
+        else:
+            lazy[2 * node] = min(lazy[2 * node], offer)
+            lazy[2 * node + 1] = min(lazy[2 * node + 1], offer)
+        return
+    mid = (start + end) // 2
+    update(2 * node, start, mid, l, r, offer)
+    update(2 * node + 1, mid + 1, end, l, r, offer)
+def get_val(node, start, end, pos):
+    if lazy[node] != (INF, 0):
+        if start == end:
+            val[start] = min(val[start], lazy[node])
+        else:
+            lazy[2 * node] = min(lazy[2 * node], lazy[node])
+            lazy[2 * node + 1] = min(lazy[2 * node + 1], lazy[node])
+        lazy[node] = (INF, 0)
+    if start == end:
+        return val[start]
+    mid = (start + end) // 2
+    if pos <= mid:
+        return get_val(2 * node, start, mid, pos)
+    else:
+        return get_val(2 * node + 1, mid + 1, end, pos)
+marked = [False] * (N + 1)
+answers = []
+for _ in range(Q):
+    tp = int(data[index])
+    index += 1
+    v = int(data[index])
+    index += 1
+    if tp == 2:
+        if not marked[v]:
+            marked[v] = True
+            l = dfn[v] + 1
+            r = outt[v] - 1
+            if l <= r:
+                offer = (depth[v], v)
+                update(1, 0, N - 1, l, r, offer)
+    else:
+        k = int(data[index])
+        index += 1
+        pos = dfn[v]
+        best = get_val(1, 0, N - 1, pos)
+        if best[0] == INF:
+            ans = get_kth(v, k)
+        else:
+            m = best[1]
+            if k == 1:
+                ans = m
+            else:
+                ans = get_kth(m, k - 1)
+        answers.append(str(ans))
+print('\n'.join(answers))",False,2,53,"[""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""\\n214\\n214\\n214\\n214\\n214\\n214\\n11\\n214\\n214\\n214' got: '' retcode: 124 stderr: Execution timed out."", ""\\n12864\\n12864\\n12843\\n12934\\n12841\\n12838\\n12837' got: '' retcode: 124 stderr: Execution timed out."", ""4\\n14\\n14\\n14\\n14\\n14\\n14\\n14\\n14\\n14\\n14\\n14\\n14' got: '' retcode: 124 stderr: Execution timed out."", ""3\\n2261\\n2256\\n2256\\n2255\\n2250\\n2247\\n2244\\n2237' got: '' retcode: 124 stderr: Execution timed out."", ""9\\n1209\\n1209\\n1209\\n1209\\n1209\\n1209\\n1209\\n1209' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""322\\n10395\\n40682\\n15051\\n7512\\n9507\\n9704\\n31765' got: '' retcode: 124 stderr: Execution timed out."", ""\\n50893\\n52800\\n49731\\n56674\\n52400\\n22131\\n56674' got: '' retcode: 124 stderr: Execution timed out."", ""8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8' got: '' retcode: 124 stderr: Execution timed out."", ""0\\n50\\n50\\n50\\n50\\n50\\n50\\n50\\n50\\n50\\n50\\n50\\n50' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n30283\\n61099\\n61099\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""8\\n2618\\n2618\\n2618\\n2618\\n2618\\n2618\\n4942\\n5162' got: '' retcode: 124 stderr: Execution timed out."", ""9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9' got: '' retcode: 124 stderr: Execution timed out."", ""Case 14: expected: '2\\n1\\n1\\n2' got: '2\\n1\\n1\\n2' retcode: 124 stderr: Execution timed out."", ""Case 17: expected: '3\\n1\\n5\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n1\\n1\\n2\\n2\\n2\\n2\\n2\\n1\\n1\\n2\\n2\\n1\\n1\\n2\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""42\\n15\\n66\\n73\\n152\\n106\\n1\\n106\\n136\\n106\\n99\\n7' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n1\\n2\\n1\\n1\\n2\\n1\\n1\\n1\\n2\\n1\\n1\\n1\\n2\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""n247\\n193\\n236\\n197\\n1649\\n259\\n29\\n3\\n3657\\n4393' got: '' retcode: 124 stderr: Execution timed out."", ""3\\n2\\n1\\n3\\n3\\n1\\n3\\n3\\n1\\n3\\n2\\n1\\n2\\n2\\n3\\n2\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""7909\\n13142\\n1664\\n11351\\n31906\\n2874\\n563\\n35372' got: '' retcode: 124 stderr: Execution timed out."", ""2\\n1\\n2\\n1\\n2\\n1\\n1\\n2\\n1\\n2\\n2\\n2\\n1\\n2\\n2\\n1\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n2\\n1\\n1\\n1\\n1\\n1\\n2\\n2\\n2\\n2\\n1\\n1\\n1\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""3\\n1\\n1\\n2\\n2\\n3\\n1\\n1\\n1\\n1\\n3\\n1\\n1\\n3\\n2\\n2\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""\\n21\\n28\\n74\\n958\\n906\\n1\\n20\\n81\\n5\\n352\\n81\\n89' got: '' retcode: 124 stderr: Execution timed out."", ""\\n78\\n17\\n93\\n17\\n212\\n93\\n534\\n62\\n212\\n212\\n511' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n2\\n1\\n1\\n2\\n1\\n2\\n1\\n1\\n2\\n2\\n1\\n2\\n2\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""15793\\n3898\\n30249\\n70\\n19922\\n34341\\n14825\\n7658' got: '' retcode: 124 stderr: Execution timed out."", ""37\\n30\\n35\\n35\\n104\\n1\\n1\\n30\\n3\\n145\\n3\\n104\\n32' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""n58\\n3\\n2\\n266\\n986\\n69\\n1\\n3608\\n3\\n1\\n7\\n8\\n411' got: '' retcode: 124 stderr: Execution timed out."", ""\\n10496\\n28138\\n379\\n30\\n1204\\n375\\n3\\n6538\\n3031' got: '' retcode: 124 stderr: Execution timed out."", ""7\\n8\\n3\\n1\\n1\\n1524\\n7\\n4\\n3\\n10\\n1270\\n19\\n22\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""n1\\n1\\n3\\n5\\n3\\n2\\n1\\n3\\n1\\n1\\n2\\n26\\n4\\n1\\n12\\n7' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""2\\n1\\n2\\n2\\n1\\n1\\n1\\n2\\n1\\n2\\n1\\n1\\n2\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""\\n1\\n1\\n2\\n1\\n1\\n10\\n2\\n2\\n2\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""2\\n2\\n2\\n1\\n2\\n1\\n2\\n1\\n1\\n2\\n1\\n2\\n2\\n2\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""\\n1\\n2\\n1\\n6\\n3\\n16\\n11\\n3\\n15\\n2\\n1\\n16\\n1\\n3\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""2\\n11\\n19\\n1\\n11\\n14\\n19\\n14\\n6\\n15\\n11\\n1\\n6\\n19' got: '' retcode: 124 stderr: Execution timed out."", ""n3\\n1\\n3\\n1\\n16\\n3\\n7\\n19\\n3\\n2\\n1\\n1\\n2\\n6\\n3\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n2\\n2\\n2\\n1\\n1\\n1\\n2\\n1\\n1\\n1\\n2\\n2\\n2\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""\\n36628\\n38227\\n24322\\n24946\\n32602\\n36799\\n14383' got: '' retcode: 124 stderr: Execution timed out."", ""n133\\n90\\n10\\n4\\n130\\n116\\n152\\n152\\n137\\n77\\n157' got: '' retcode: 124 stderr: Execution timed out."", ""n2\\n3\\n6\\n1\\n4\\n3\\n4\\n3\\n6\\n2\\n1\\n2\\n10\\n1\\n8\\n10' got: '' retcode: 124 stderr: Execution timed out."", ""4958\\n80\\n21295\\n19227\\n26297\\n23766\\n37650\\n5187' got: '' retcode: 124 stderr: Execution timed out."", ""n35\\n5362\\n3617\\n29473\\n19661\\n3089\\n21480\\n13743' got: '' retcode: 124 stderr: Execution timed out.""]"
+2024f3p2_pratos,x-ai/grok-4.20-multi-agent-beta,N/A (Zero-shot),N/A (Zero-shot),"import sys
+from functools import cmp_to_key
+from collections import defaultdict
+
+MOD = 10**9 + 7
+
+def is_bad(l1, l2, l3):
+    a1, b1 = l1
+    a2, b2 = l2
+    a3, b3 = l3
+    return (b3 - b1) * (a1 - a2) <= (b2 - b1) * (a1 - a3)
+
+def apply_best(k, z, ma, mb, mod):
+    if k == 0:
+        return z
+    am = ma % mod
+    bm = mb % mod
+    if am == 1:
+        return (z + (k % mod) * bm % mod) % mod
+    else:
+        pk = pow(ma, k, mod)
+        iden = (ma - 1) % mod
+        inv = pow(iden, mod - 2, mod)
+        tmp = ((pk - 1 + mod) % mod) * inv % mod
+        return (pk * z % mod + bm * tmp % mod) % mod
+
+def meal_cmp(m1, m2):
+    a1, b1 = m1
+    a2, b2 = m2
+    if a1 == 1 and a2 == 1:
+        return 0
+    if a1 == 1:
+        return -1
+    if a2 == 1:
+        return 1
+    if b1 * (a2 - 1) > b2 * (a1 - 1):
+        return -1
+    elif b1 * (a2 - 1) < b2 * (a1 - 1):
+        return 1
+    return 0
+
+data = sys.stdin.read().split()
+idx = 0
+N = int(data[idx]); idx += 1
+M = int(data[idx]); idx += 1
+K = int(data[idx]); idx += 1
+sp_a = [int(data[idx + i]) for i in range(N)]; idx += N
+sp_b = [int(data[idx + i]) for i in range(N)]; idx += N
+me_a = [int(data[idx + i]) for i in range(M)]; idx += M
+me_b = [int(data[idx + i]) for i in range(M)]; idx += M
+Q = int(data[idx]); idx += 1
+queries = [int(data[idx + i]) for i in range(Q)]; idx += Q
+
+maxb_d = defaultdict(lambda: -1)
+for i in range(N):
+    maxb_d[sp_a[i]] = max(maxb_d[sp_a[i]], sp_b[i])
+lines = sorted([(aa, maxb_d[aa]) for aa in maxb_d])
+
+hull = []
+for ln in lines:
+    while len(hull) >= 2 and is_bad(hull[-2], hull[-1], ln):
+        hull.pop()
+    hull.append(ln)
+
+best_a, best_b = hull[-1] if hull else (1, 0)
+
+meals = [(me_a[i], me_b[i]) for i in range(M)]
+meals.sort(key=cmp_to_key(meal_cmp))
+
+p = 1
+q = 0
+for a, b in meals:
+    p = (p * a) % MOD
+    q = (a * q + b) % MOD
+
+ans = []
+for x in queries:
+    if K == 0 or not hull:
+        ymod = x % MOD
+    else:
+        lo = 0
+        hi = len(hull) - 1
+        while lo < hi:
+            mid = (lo + hi) // 2
+            v1 = hull[mid][0] * x + hull[mid][1]
+            v2 = hull[mid + 1][0] * x + hull[mid + 1][1]
+            if v1 >= v2:
+                hi = mid
+            else:
+                lo = mid + 1
+        ca, cb = hull[lo]
+        maxv = ca * x + cb
+        bestv = best_a * x + best_b
+        if maxv > bestv:
+            zmod = ((ca % MOD) * (x % MOD) + (cb % MOD)) % MOD
+            ymod = apply_best(K - 1, zmod, best_a, best_b, MOD)
+        else:
+            ymod = apply_best(K, x % MOD, best_a, best_b, MOD)
+    final = (p * ymod + q) % MOD
+    ans.append(str(final))
+
+print('\n'.join(ans))",False,59,73,"[""62399\\n552626018\\n425161850\\n913870905\\n156256116' got: '' retcode: 124 stderr: Execution timed out."", ""81473\\n984481614\\n965681748\\n946881882\\n928082016' got: '' retcode: 124 stderr: Execution timed out."", ""78731\\n280842010\\n485416722\\n499430850\\n980501499' got: '' retcode: 124 stderr: Execution timed out."", ""07010\\n526088602\\n503555949\\n795044448\\n453423761' got: '' retcode: 124 stderr: Execution timed out."", ""52698\\n160626658\\n424300625\\n687974592\\n951648559' got: '' retcode: 124 stderr: Execution timed out."", ""6661153\\n815321561\\n568465089\\n94421075\\n84190505' got: '' retcode: 124 stderr: Execution timed out."", ""35996\\n973596666\\n638957329\\n304317992\\n969678662' got: '' retcode: 124 stderr: Execution timed out."", ""99256\\n442250924\\n529020246\\n936079007\\n390805714' got: '' retcode: 124 stderr: Execution timed out."", ""5923040\\n800253090\\n264403850\\n179064791\\n8719460' got: '' retcode: 124 stderr: Execution timed out."", ""22564\\n648436059\\n459958421\\n885244969\\n537652540' got: '' retcode: 124 stderr: Execution timed out."", ""38746\\n355333703\\n180831740\\n873213690\\n907322961' got: '' retcode: 124 stderr: Execution timed out."", ""13717\\n970043551\\n640873378\\n311703205\\n982533039' got: '' retcode: 124 stderr: Execution timed out."", ""53183\\n769451985\\n283915280\\n720564734\\n181262532' got: '' retcode: 124 stderr: Execution timed out."", ""440471\\n393226041\\n429932155\\n189193568\\n69888432' got: '' retcode: 124 stderr: Execution timed out.""]"
