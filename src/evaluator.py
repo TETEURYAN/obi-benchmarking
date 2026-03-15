@@ -5,7 +5,7 @@ import tempfile
 import os
 import sys
 from concurrent.futures import ThreadPoolExecutor
-from models import Problem
+# from models import Problem
 
 def execute_local(code: str, stdin: str, timeout: float = 2.0) -> dict:
     """Executes code locally using a subprocess."""
@@ -55,16 +55,16 @@ def execute_local(code: str, stdin: str, timeout: float = 2.0) -> dict:
         if os.path.exists(temp_file_path):
             os.remove(temp_file_path)
 
-def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, int, int, list]:
+def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, int, int, list, str]:
     """
     Evaluates the python code against the provided test cases in parallel.
     Each test case is a tuple (input, output).
-    Returns: (judge_correctness, test_cases_passed, total_cases, failures_list)
+    Returns: (judge_correctness, test_cases_passed, total_cases, failures_list, classification)
     """
     if not code.strip():
-        return False, 0, len(test_cases), []
+        return False, 0, len(test_cases), [], "CE"
     
-    print("code:", code )
+    # print("code:", code )
     total_cases = len(test_cases)
     test_cases_passed = 0
     failures: list[str] = []
@@ -77,16 +77,29 @@ def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, i
         stdout = run_data.get("stdout", "").strip()
         expected = expected_output.strip()
         retcode = run_data.get("code")
+        stderr = run_data.get("stderr", "")
+        
         passed = (stdout == expected and retcode == 0)
+        classification = "AC"
         msg = None
+        
         if not passed:
-            stderr = run_data.get("stderr", "")
+            if retcode == 124:
+                classification = "TLE"
+            elif "SyntaxError" in stderr or "IndentationError" in stderr:
+                classification = "CE"
+            elif retcode != 0:
+                classification = "RE"
+            else:
+                classification = "WA"
+            
             msg = f"Case {case_idx}: expected: {repr(expected)} got: {repr(stdout)} retcode: {retcode} stderr: {stderr}"
-        return passed, msg
+        return passed, msg, classification
 
     # Use ThreadPoolExecutor for parallel execution
-    # Using more workers than CPU cores since it's mostly waiting for subprocesses
     max_workers = min(32, (os.cpu_count() or 1) * 4)
+    
+    final_classification = "AC"
     
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [
@@ -95,10 +108,12 @@ def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, i
         ]
         
         for i, future in enumerate(futures):
-            passed, msg = future.result()
+            passed, msg, classification = future.result()
             if passed:
                 test_cases_passed += 1
             else:
+                if final_classification == "AC":
+                    final_classification = classification
                 if msg:
                     failures.append(msg[-100:])
                     print(msg[-100:])
@@ -108,6 +123,6 @@ def evaluate_code(code: str, test_cases: list[tuple[str, str]]) -> tuple[bool, i
                 print(f"Progress: {i+1}/{total_cases} cases evaluated...")
 
     judge_correctness = (test_cases_passed == total_cases) and total_cases > 0
-    print(f"Evaluation complete: {test_cases_passed}/{total_cases} passed.")
+    print(f"Evaluation complete: {test_cases_passed}/{total_cases} passed. Result: {final_classification}")
     
-    return judge_correctness, test_cases_passed, total_cases, failures
+    return judge_correctness, test_cases_passed, total_cases, failures, final_classification

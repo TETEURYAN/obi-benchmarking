@@ -82,7 +82,57 @@ def main():
     parser = argparse.ArgumentParser(description="Evaluate LLMs on OBI problems.")
     parser.add_argument("--zero-shot", action="store_true", help="Run with a single zero-shot prompt instead of multi-agent mode.")
     parser.add_argument("--models-file", type=str, help="Path to a .txt file with one model name per line.")
+    parser.add_argument("--re-evaluate-results", action="store_true", help="Re-evaluate already generated code in existing results.")
     args = parser.parse_args()
+
+    problems = load_problems("problems.json")
+    
+    if args.re_evaluate_results:
+        print("Re-evaluating existing results...")
+        # Dictionary for quick lookup of problem samples/info
+        problems_map = {p.id: p for p in problems}
+        
+        # Find all CSV files in resultados, excluding summaries
+        result_files = glob.glob(os.path.join("resultados", "**", "results_*.csv"), recursive=True)
+        
+        for file_path in result_files:
+            print(f"Processing {file_path}...")
+            df = pd.read_csv(file_path)
+            
+            # If the CSV is empty, skip
+            if df.empty:
+                continue
+                
+            new_rows = []
+            for _, row in df.iterrows():
+                p_id = row['question_id']
+                code = str(row['code_text'])
+                
+                if p_id in problems_map:
+                    problem = problems_map[p_id]
+                    test_cases = get_test_cases(problem.id, problem.examples)
+                    
+                    print(f"  Re-evaluating {p_id} ({len(test_cases)} cases)...")
+                    judge_correctness, judge_test_cases, total_test_cases, failures, classification = evaluate_code(code, test_cases)
+                    
+                    # Update row data
+                    row['judge_correctness'] = judge_correctness
+                    row['judge_test_cases'] = judge_test_cases
+                    row['total_test_cases'] = total_test_cases
+                    row['failures'] = json.dumps(failures)
+                    row['classification'] = classification
+                else:
+                    print(f"  Warning: Problem ID {p_id} not found in problems.json")
+                
+                new_rows.append(row)
+            
+            # Save updated CSV
+            df_updated = pd.DataFrame(new_rows)
+            df_updated.to_csv(file_path, index=False)
+            print(f"Finished updating {file_path}")
+            
+        print("\nRe-evaluation of all files complete.")
+        return
 
     api_key = os.getenv("OPENAI_API_KEY", "sk-no-key-required")
     base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
@@ -95,7 +145,6 @@ def main():
         model_names = [os.getenv("MODEL_NAME", "gpt-4o")]
     
     client = OpenAI(api_key=api_key, base_url=base_url)
-    problems = load_problems("problems.json")
     
     all_summaries = []
     run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -145,8 +194,8 @@ def main():
             test_cases = get_test_cases(problem.id, problem.examples)
             print(f"Found {len(test_cases)} test cases for {problem.id}")
             
-            # Unpack evaluate_code result (now returns failures list as fourth element)
-            judge_correctness, judge_test_cases, total_test_cases, failures = evaluate_code(code_text, test_cases)
+            # Unpack evaluate_code result (now returns 5 values)
+            judge_correctness, judge_test_cases, total_test_cases, failures, classification = evaluate_code(code_text, test_cases)
 
             results.append(EvaluationResult(
                 question_id=problem.id,
@@ -156,8 +205,9 @@ def main():
                 code_text=code_text,
                 judge_correctness=judge_correctness,
                 judge_test_cases=judge_test_cases,
-                total_test_cases=total_test_cases
-                ,failures=failures
+                total_test_cases=total_test_cases,
+                failures=failures,
+                classification=classification
             ))
 
         # Save to CSV in structured format
