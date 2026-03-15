@@ -1,0 +1,26 @@
+{
+    "path": "/database/obi_2024/nível 2/fase 3/",
+    "title": "Jogo de Pratos",
+    "statement": "Depois de perder tudo no Jogo do Poder, só resta uma coisa para Jonathan: O Jogo de Pratos. O objetivo do jogo é muito simples: obter a maior quantidade de pratos possível. Entretanto, para atingir esse objetivo será necessário muito planejamento. A principal maneira de obter mais pratos no jogo é através de \"efeitos\". Cada efeito pode ser representado por um par de inteiros (a, b). Se o jogador possui x pratos antes de um efeito entrar em ação, ele passa a possuir a * x + b pratos depois do efeito. Dizemos que a é o fator multiplicativo do efeito e b é o fator aditivo do efeito. Existem dois tipos de efeitos: feitiços e refeições. Jonathan possui N feitiços e M refeições. Cada feitiço pode ser usado quantas vezes o Jonathan quiser, mas ele só tem mana para usar feitiços K vezes no total. Enquanto isso, refeições podem ser usadas uma vez cada, mas Jonathan pode escolher a ordem que elas são utilizadas. Note que tanto feitiços quanto refeições são efeitos, e portanto funcionam da maneira descrita acima quando ativados. A fim de obter uma quantidade insana de pratos, Jonathan irá fazer um \"combo\", combinando vários desses efeitos. Sendo assim, Jonathan irá utilizar todos os feitiços que decidir e logo depois usará todas as refeições em certa ordem. Por exemplo, se os feitiços disponíveis forem (2,0), (3,0), (1, 2), (2, 1), as refeições disponíveis forem (2, 3), (4, 2), (7,1) e Jonathan pode usar 3 feitiços, ele poderia escolher utilizar os feitiços 4, 2, 4 e depois usar as refeições 2, 1, 3. Sendo assim, caso ele começasse com 1 prato, esse seria o processo que sua quantidade de pratos passaria: Jonathan começa com 1 prato. Ao usar o feitiço 4 representado por (2, 1) ele fica com 2 * 1 + 1 = 3 pratos. Jonathan está com 3 pratos. Ao usar o feitiço 2 representado por (3,0) ele fica com 3 * 3 + 0 = 9 pratos. Jonathan está com 9 pratos. Ao usar o feitiço 4 representado por (2, 1) ele fica com 2 * 9 + 1 = 19 pratos. Jonathan está com 19 pratos. Ao usar a refeição 2 representada por (4, 2) ele fica com 4 * 19 + 2 = 78 pratos. Jonathan está com 78 pratos. Ao usar a refeição 1 representada por (2, 3) ele fica com 2 * 78 + 3 = 159 pratos. Jonathan está com 159 pratos. Ao usar a refeição 3 representada por (7,1) ele fica com 7 * 159 + 1 = 1114 pratos. Sendo assim, Jonathan termina com 1114 pratos. Note que essa não necessariamente é a decisão que maximiza a quantidade de pratos. Como há muitas possibilidades de cumprir sua tarefa, Jonathan pediu sua ajuda! Ele te fará Q perguntas, e em cada uma delas ele quer saber qual é o maior número de pratos alcançável a partir de alguma estratégia válida ao começar com uma quantidade x de pratos. Lembre-se que em uma estratégia válida, Jonathan usará refeições apenas depois dos feitiços. Como essa resposta pode ser muito grande, imprima ela módulo 10^9 + 7.",
+    "input": "A primeira linha de entrada possui 3 inteiros N, M e K, o número de feitiços, o número de refeições e a quantidade de feitiços que Jonathan pode utilizar. A segunda linha de entrada possui N inteiros: a_1, a_2, ..., a_N, os fatores multiplicativos dos feitiços. A terceira linha de entrada possui N inteiros: b_1, b_2, ..., b_N, os fatores aditivos dos feitiços. A quarta linha de entrada possui M inteiros: a'_1, a'_2, ..., a'_M, os fatores multiplicativos das refeições. A quinta linha de entrada possui M inteiros: b'_1, b'_2, ..., b'_M, os fatores aditivos das refeições. A sexta linha de entrada possui um único inteiro Q, o número de perguntas que Jonathan fará para você. A sétima linha de entrada possui Q inteiros x_1, x_2, ..., x_Q, a quantidade de pratos inicial para cada pergunta.",
+    "output": "Seu programa deve imprimir Q linhas, cada uma com um único inteiro: a resposta para cada uma das perguntas de Jonathan, módulo 10^9 + 7.",
+    "constraints": "1 <= N <= 10^5; 1 <= M <= 10^5; 1 <= K <= 10^9; 1 <= a_i, a'_i <= 10^9; 0 <= b_i, b'_i <= 10^9; a_i + b_i > 1, a'_i + b'_i > 1; 1 <= Q <= 10^5; 1 <= x_i <= 10^9.",
+    "examples": [
+        {
+            "input": "2 2 2\n2 3\n3 2\n5 2\n5 2\n1\n1",
+            "output": "185"
+        },
+        {
+            "input": "1 1 1000000000\n1\n1\n5\n1\n4\n1 100 200000001 200000002",
+            "output": "100\n200000001\n200000002\n1"
+        },
+        {
+            "input": "4 3 3\n2 3 1 2\n0 0 2 1\n2 4 7\n3 2 1\n4\n1 2 10000 3",
+            "output": "1611\n3123\n15120099\n4635"
+        },
+        {
+            "input": "2 2 2\n1000000 2000000\n32 57\n32 32\n5 9\n5\n1 2 3 4 5",
+            "output": "707385849\n678713849\n650041849\n621369849\n592697849"
+        }
+    ]
+}

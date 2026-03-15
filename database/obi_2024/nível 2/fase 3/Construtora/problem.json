@@ -1,0 +1,22 @@
+{
+    "path": "/database/obi_2024/nível 2/fase 3/",
+    "title": "Construtora",
+    "statement": "Em uma rua existem N prédios adjacentes, o i-ésimo entre eles (da esquerda para a direita) possui a_i andares. Uma construtora acabou de comprar todos os prédios da rua, e fará uma obra para que eles tenham a mesma altura (quantidade de andares), porém, para realizar esta obra ela deve seguir as regras definidas pela Sociedade Brasileira de Construção (SBC). Segundo as regras da SBC, cada fase da obra só pode aumentar em uma unidade a quantidade de andares de prédios consecutivos que já possuam uma mesma quantidade de andares. Sendo mais específico, para cada fase: A construtora deve definir um índice inicial L; A construtora deve definir um índice final R; Todos os prédios entre L e R (incluindo L e R) devem possuir a mesma quantidade de andares, digamos a; Ao final desta fase da obra, todos os prédios entre L e R (incluindo L e R) vão possuir a+1 andares. Por exemplo, suponha que N seja igual a 8, e que as alturas iniciais sejam: a_1=5, a_2=4, a_3=4, a_4=4, a_5=5, a_6=4, a_7=4 e a_8=7 perceba que: A construtora não pode definir L=2 e R=7 para a primeira fase, pois nem todas as quantidades de andares nesse intervalo de prédios são iguais; A construtora não pode definir L=1 e R=5 para a primeira fase, pois nem todas as quantidades de andares nesse intervalo de prédios são iguais; A construtora pode definir L=8 e R=8 para a primeira fase, e a quantidade de andares final seria: a_1=5, a_2=4, a_3=4, a_4=4, a_5=5, a_6=4, a_7=4 e a_8=8; A construtora pode definir L=2 e R=4 para a primeira fase, e a quantidade de andares final seria: a_1=5, a_2=5, a_3=5, a_4=5, a_5=5, a_6=4, a_7=4 e a_8=7. Para cada fase da obra, a construtora deve pagar impostos para a prefeitura, portanto, ela deseja completar a tarefa usando a menor quantidade possível de fases. No exemplo mostrado anteriormente a menor quantidade de fases é 4, você consegue enxergar como? Dadas a quantidade inicial de andares de cada um dos N prédios, sua tarefa é determinar a quantidade mínima de fases para completar a obra.",
+    "input": "A primeira linha da entrada contém um único inteiro N, o número de prédios da rua. A segunda linha contém N inteiros, o i-ésimo entre esses inteiros é a_i, a quantidade de andares do i-ésimo prédio.",
+    "output": "A saída deve conter um único número inteiro, a menor quantidade de fases necessárias para a construtora completar a obra, ou seja, deixar todos os prédios com a mesma altura.",
+    "constraints": "2 <= N <= 100; 1 <= a_i <= 100.",
+    "examples": [
+        {
+            "input": "4\n3 1 1 2",
+            "output": "2"
+        },
+        {
+            "input": "8\n5 4 4 4 5 4 4 7",
+            "output": "4"
+        },
+        {
+            "input": "3\n100 100 100",
+            "output": "0"
+        }
+    ]
+}

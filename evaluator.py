@@ -5,7 +5,7 @@ import tempfile
 import os
 import sys
 from concurrent.futures import ThreadPoolExecutor
-from models import Problem
+from models.evaluation_result import Problem
 
 def execute_local(code: str, stdin: str, timeout: float = 2.0) -> dict:
     """Executes C++ code locally using a subprocess."""

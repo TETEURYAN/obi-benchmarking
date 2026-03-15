@@ -7,7 +7,7 @@ import pandas as pd
 from typing import List
 from openai import OpenAI
 from dotenv import load_dotenv
-from models import Problem, EvaluationResult
+from models.evaluation_result import Problem, EvaluationResult
 from prompts import COMPREHENSION_PROMPT_TEMPLATE, PLANNING_PROMPT_TEMPLATE, IMPLEMENTATION_PROMPT_TEMPLATE, ZERO_SHOT_PROMPT_TEMPLATE
 from evaluator import evaluate_code
 from pathlib import Path
