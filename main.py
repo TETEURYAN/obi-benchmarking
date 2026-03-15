@@ -1,122 +1,50 @@
 import json
 import os
-import re
-import glob
-import argparse
 import pandas as pd
-from typing import List
-from openai import OpenAI
-from dotenv import load_dotenv
-from models.evaluation_result import Problem, EvaluationResult
-from prompts import COMPREHENSION_PROMPT_TEMPLATE, PLANNING_PROMPT_TEMPLATE, IMPLEMENTATION_PROMPT_TEMPLATE, ZERO_SHOT_PROMPT_TEMPLATE
-from evaluator import evaluate_code
+from models.evaluation_result import EvaluationResult
+from models.problem import Problem
+from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE
 from pathlib import Path
-import time
 
-# Load environment variables from .env file
-load_dotenv()
 
-def load_problems(file_path: str) -> List[Problem]:
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-    return [Problem(**p) for p in data]
+def load_problem(file_path: Path) -> Problem:
+    data = json.loads(file_path.read_text(encoding="utf-8"))
+    
+    return Problem(**data)
 
-def create_file(name : str = "test.cpp", path: str = "code_llm", content: str = "test"):
-    
-    Path(path).mkdir(parents=True, exist_ok=True)
-    Path(f"{path}/{name}").touch()
-    file = Path(f"{path}/{name}")
-    file.write_text(content)
-    
-
-def get_llm_response(client: OpenAI, model: str, prompt: str, retries: int = 3, delay: int = 5) -> str:
-    #print(prompt)
-    for attempt in range(retries):
-        try:
-            response = client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.0,
-                timeout=180.0
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            if attempt < retries - 1:
-                print(f"⚠️ Erro de conexão ({e}). Tentando novamente em {delay}s... (Tentativa {attempt + 1}/{retries})")
-                time.sleep(delay)
-            else:
-                print(f"❌ Falha definitiva após {retries} tentativas.")
-                raise e
-
-def split_response(response: str):
-    # Basic split based on likely headers. A more robust parser might be needed.
-    understanding = ""
-    plan = ""
-    
-    if "Understanding" in response and "Plan" in response:
-        parts = response.split("Plan", 1)
-        understanding = parts[0].replace("Understanding", "").strip("# ").strip()
-        plan = parts[1].strip("# ").strip()
-    else:
-        # Fallback if headers are not found
-        understanding = response
-        plan = "Failed to parse plan from response."
-        
-    return understanding, plan
-
-def extract_code(response_text: str) -> str:
-    """Extracts python code from markdown block."""
-    match = re.search(r'```python\n(.*?)\n```', response_text, re.DOTALL)
-    if match:
-        return match.group(1).strip()
-    
-    match = re.search(r'```cpp\n(.*?)\n```', response_text, re.DOTALL)
-    if match:
-        return match.group(1).strip()
-    
-    # Fallback: check generic code block
-    match = re.search(r'```\n(.*?)\n```', response_text, re.DOTALL)
-    if match:
-        return match.group(1).strip()
-        
-    return response_text.strip()
-
-def get_test_cases(problem_id: str, default_examples: List) -> List[tuple[str, str]]:
-    """Discovers test cases in the test_cases directory."""
-    test_cases = []
-    problem_path = os.path.join("test_cases", problem_id)
-    
-    if os.path.exists(problem_path):
-        in_files = glob.glob(os.path.join(problem_path, "**", "*.in"), recursive=True)
-        for in_file in in_files:
-            sol_file = in_file.replace(".in", ".sol")
-            if os.path.exists(sol_file):
-                with open(in_file, 'r') as f:
-                    in_content = f.read()
-                with open(sol_file, 'r') as f:
-                    sol_content = f.read()
-                test_cases.append((in_content, sol_content))
-    
-    if not test_cases:
-        test_cases = [(e.input, e.output) for e in default_examples]
-    
-    return test_cases
+def print_partition(text: str):
+    print("="*70)
+    print("text")
+    print("="*70)
 
 def main():
-    parser = argparse.ArgumentParser(description="Evaluate LLMs on OBI problems.")
-    parser.add_argument("--zero-shot", action="store_true", help="Run with a single zero-shot prompt instead of multi-agent mode.")
-    args = parser.parse_args()
-
-    api_key = os.getenv("OPENAI_API_KEY", "sk-no-key-required")
-    base_url = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
-    model_name = os.getenv("MODEL_NAME", "gpt-4o")
     
-    client = OpenAI(api_key=api_key,
-                    base_url=base_url,
-                    timeout=60.0,
-                    max_retries=3)
+    try:
+        print_partition("CRIANDO DATABASE")
+        
+        path_database = Path("database")
+        questions_path = []
+        
+        for folder in path_database.glob("*/*/*/*/"):
+            if folder.is_dir():
+                questions_path.append(folder)
+        
+        problem_names = []            
+        for path in questions_path:
+            problem_names.append(path.name)
+        
+        problems = []
+        for question_path in questions_path:
+            problems.append(load_problem(Path(question_path / "problem.json")))
+        
+        print_partition("FIM DA CRIANÇÃO DATABASE")
+        
+    except Exception:    
+        print("Erro na estrutura database. Verifique o diretorio!")
+        exit(1)
     
-    problems = load_problems("problems.json")
+    zero_shot_prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(contexto=contexto)
+    
     results = []
     total = 0
     total_acc = 0
@@ -128,7 +56,7 @@ def main():
         
         if args.zero_shot:
             print("Running in zero-shot mode...")
-            zero_shot_prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(contexto=contexto)
+            
             code_response = get_llm_response(client, model_name, zero_shot_prompt)
             code_text = extract_code(code_response)
             understanding = "N/A (Zero-shot)"

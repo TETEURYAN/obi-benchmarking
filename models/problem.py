@@ -1,8 +1,10 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 from .example import Example
 
 class Problem(BaseModel):
+    path: str
+    imgs: Optional[list]
     id: str
     title: str
     statement: str
