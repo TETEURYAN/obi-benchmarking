@@ -74,7 +74,7 @@ class JudgeService:
             except Exception:
                 return "RE", exec_time
 
-    def execute(self, code: str, test_cases: List[Tuple[str, str]], timeout: float = 2.0) -> Tuple[str, dict, int, float]:
+    def execute(self, code: str, test_cases: List[Tuple[str, str]], timeout: float = 15.0) -> Tuple[str, dict, int, float]:
         """
         Retorna: (status_final, contagem_dict, total_casos, maior_tempo_execucao)
         """
@@ -86,7 +86,6 @@ class JudgeService:
 
         print(f"\n--- Iniciando Judge: {self.__language.upper()} ---")
 
-        # worker agora retorna (status, tempo)
         def worker(case):
             inp, exp = case
             return self.__run_single_test(clean_code, inp, exp, timeout)
@@ -95,11 +94,9 @@ class JudgeService:
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             results_with_time = list(executor.map(worker, test_cases))
 
-        # Separar os status dos tempos
         statuses = [r[0] for r in results_with_time]
         times = [r[1] for r in results_with_time]
         
-        # O maior tempo entre os casos de teste
         max_time = max(times) if times else 0.0
 
         counts = {

@@ -3,7 +3,7 @@ from .config import config
 from services import LLMService, JudgeService
 from models.problem import Problem
 from models.evaluation_result import EvaluationResult
-from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, LEVEL_PROMPT_TEMPLATE
+from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, LEVEL_PROMPT_TEMPLATE, EXAMPLES_BY_LANGUAGE
 import pandas as pd
 import os
 import glob
@@ -81,7 +81,7 @@ class Orchestrator:
                        default_examples: list) -> list[tuple[str, str]]:
 
         test_cases = []
-        path_test_cases = f"{path}/{name}/test_cases/"
+        path_test_cases = f"{path}{name}/test_cases/"
         print(path_test_cases)
 
         if os.path.exists(path_test_cases):
@@ -101,7 +101,7 @@ class Orchestrator:
 
         return test_cases
 
-    def get_exemples_of_problem(self, examples: list[Problem]) -> str:
+    def get_examples_of_problem(self, examples: list[Problem]) -> str:
         output = "<test cases>\n"
         i = 1
 
@@ -143,10 +143,21 @@ class Orchestrator:
         output += f"{problem.output}\n"
         output += "</output format>\n"
 
-        output += f"\n{self.get_exemples_of_problem(problem.examples)}"
+        output += f"\n{self.get_examples_of_problem(problem.examples)}"
         
         return output
 
+    def get_exemplos(self):
+        
+        examples_list = EXAMPLES_BY_LANGUAGE.get(self.__language, [])
+        
+        output = "<exemplos>\n"        
+        for example in examples_list:
+            output += f"{example}"
+        output += "<exemplos>\n"
+
+        return output
+    
     def execute(self, problems: list):
 
         for _, provider in config.list_providers().items():
@@ -173,11 +184,12 @@ class Orchestrator:
                 print("level: ", level)
 
                 if self.__type == "zero":
-                    prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(
-                        contexto=self.format_problem(problem))
+                    prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(linguagem=self.__language,
+                                                              contexto=self.format_problem(problem))
                 elif self.__type == "few":
-                    prompt = FEW_SHOT_PROMPT_TEMPLATE.format(
-                        contexto=self.format_problem(problem))
+                    prompt = FEW_SHOT_PROMPT_TEMPLATE.format(linguagem=self.__language,
+                                                             contexto=self.format_problem(problem),
+                                                             examplos=self.get_exemplos())
                 else:
                     return False
 
