@@ -17,24 +17,25 @@ def main():
         for j in range(i, N - (K - i) + 1):
             cost = abs(s - j)
             best = -INF
-            prev_row = dp[i - 1]
-            for p in range(i - 1, j):
-                val = prev_row[p]
-                if val > best:
-                    best = val
-            if best > -INF:
-                dp[i][j] = best + P[j - 1] - cost
+            prev = dp[i - 1]
+            for pj in range(i - 1, j):
+                val = prev[pj]
+                if val != -INF:
+                    cand = val - cost + P[j - 1]
+                    if cand > best:
+                        best = cand
+            dp[i][j] = best
 
     ans = 0
     last = dp[K]
     for j in range(K, N + 1):
         val = last[j]
-        if val >= -INF // 2 and val + T > ans:
+        if val != -INF and val + T > ans:
             ans = val + T
 
-    total_p = sum(P)
-    if ans > total_p:
-        ans = total_p
+    total = sum(P)
+    if ans > total:
+        ans = total
 
     print(ans)
 

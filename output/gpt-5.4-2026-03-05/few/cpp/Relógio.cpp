@@ -11,10 +11,11 @@ int main() {
     long long total = H * 3600 + M * 60 + S;
     total = (total + T) % 86400;
 
-    cout << total / 3600 << '\n';
+    long long nh = total / 3600;
     total %= 3600;
-    cout << total / 60 << '\n';
-    cout << total % 60 << '\n';
+    long long nm = total / 60;
+    long long ns = total % 60;
 
+    cout << nh << '\n' << nm << '\n' << ns << '\n';
     return 0;
 }

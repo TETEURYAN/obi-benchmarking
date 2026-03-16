@@ -5,11 +5,11 @@ if not data:
     exit()
 
 n, q = data[0], data[1]
-digits = data[2:2 + n]
+d = data[2:2 + n]
 
-prefix = [0] * (n + 1)
+pref = [0] * (n + 1)
 for i in range(n):
-    prefix[i + 1] = prefix[i] + digits[i]
+    pref[i + 1] = pref[i] + d[i]
 
 out = []
 idx = 2 + n
@@ -18,11 +18,11 @@ for _ in range(q):
     r = data[idx + 1]
     idx += 2
 
-    length = r - l + 1
-    if length < 2:
+    m = r - l + 1
+    if m <= 1:
         out.append("0")
     else:
-        s = prefix[r] - prefix[l - 1]
-        out.append(str(11 * (length - 1) * s))
+        s = pref[r] - pref[l - 1]
+        out.append(str(11 * (m - 1) * s))
 
 sys.stdout.write("\n".join(out))

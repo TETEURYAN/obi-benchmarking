@@ -20,11 +20,13 @@ def main():
         idx += 2
 
         m = r - l + 1
-        if m < 2:
+        if m <= 1:
             out.append("0")
-        else:
-            s = pref[r] - pref[l - 1]
-            out.append(str(11 * (m - 1) * s))
+            continue
+
+        s = pref[r] - pref[l - 1]
+        ans = 11 * (m - 1) * s
+        out.append(str(ans))
 
     sys.stdout.write("\n".join(out))
 

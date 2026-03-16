@@ -6,9 +6,9 @@ if not data:
 
 n = int(data[0])
 
-zero = max(n - 2, 0) ** 3
-one = 6 * max(n - 2, 0) ** 2
-two = 12 * max(n - 2, 0)
+zero = (n - 2) ** 3
+one = 6 * (n - 2) ** 2
+two = 12 * (n - 2)
 three = 8
 
 print(zero)

@@ -31,7 +31,7 @@ int main() {
                 }
             }
         }
-        grid = next;
+        grid.swap(next);
     }
 
     for (int i = 0; i < N; ++i) {

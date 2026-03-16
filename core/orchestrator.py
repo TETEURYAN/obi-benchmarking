@@ -177,6 +177,7 @@ class Orchestrator:
             
             results = []
             for problem in problems:
+                test_cases = self.get_test_cases(problem.path, problem.title, [])
                 print(f"Processando questão: {problem.title}")
                 
                 prompt = LEVEL_PROMPT_TEMPLATE.format(contexto=self.format_problem(problem))
@@ -220,12 +221,11 @@ class Orchestrator:
                         RE = 0,
                         TLE = 0,
                         CE = 0,
-                        total_test_cases = 0
+                        total_test_cases = len(test_cases)
                     ))
                     
                     continue
                 
-                test_cases = self.get_test_cases(problem.path, problem.title, [])
                 judge_predict, counts, total_cases, max_time = judge_service.execute(code=code,
                                                                               test_cases=test_cases)
 

@@ -20,8 +20,8 @@ for length in range(2, n + 1):
         best = 10**9
         for k in range(l, r):
             val = dp[l][k] + dp[k + 1][r]
-            if a[k] == a[k + 1]:
-                val -= max_h - max(a[k], a[k + 1])
+            if a[k] == a[r]:
+                val -= 1
             if val < best:
                 best = val
         dp[l][r] = best

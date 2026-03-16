@@ -12,7 +12,7 @@ class LLMService:
         self.__client = OpenAI(
             api_key=api_key,
             base_url=base_url,
-            timeout=300.0
+            timeout=500.0
         )
 
         self.__model = model

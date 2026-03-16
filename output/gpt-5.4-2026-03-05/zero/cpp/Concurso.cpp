@@ -7,11 +7,17 @@ int main() {
 
     int N, K;
     cin >> N >> K;
+
     vector<int> a(N);
     for (int i = 0; i < N; ++i) cin >> a[i];
 
     sort(a.begin(), a.end(), greater<int>());
-    cout << a[K - 1] << '\n';
+
+    if (K == 0) {
+        cout << 101 << '\n';
+    } else {
+        cout << a[K - 1] << '\n';
+    }
 
     return 0;
 }

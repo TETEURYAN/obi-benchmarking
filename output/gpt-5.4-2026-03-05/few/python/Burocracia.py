@@ -1,21 +1,21 @@
 import sys
 
 def main():
-    data = list(map(int, sys.stdin.buffer.read().split()))
+    data = list(map(int, sys.stdin.read().split()))
     if not data:
         return
 
-    idx = 0
-    n = data[idx]
-    idx += 1
+    it = 0
+    n = data[it]
+    it += 1
 
-    parent = [0] * (n + 1)
+    parent0 = [0] * (n + 1)
     children = [[] for _ in range(n + 1)]
-    parent[1] = 0
+    parent0[1] = 0
     for i in range(2, n + 1):
-        p = data[idx]
-        idx += 1
-        parent[i] = p
+        p = data[it]
+        it += 1
+        parent0[i] = p
         children[p].append(i)
 
     tin = [0] * (n + 1)
@@ -39,117 +39,147 @@ def main():
         else:
             tout[v] = timer
 
-    q = data[idx]
-    idx += 1
+    q = data[it]
+    it += 1
 
     ops = []
     restruct = []
     for _ in range(q):
-        t = data[idx]
-        idx += 1
+        t = data[it]
+        it += 1
         if t == 1:
-            v = data[idx]
-            k = data[idx + 1]
-            idx += 2
+            v = data[it]
+            k = data[it + 1]
+            it += 2
             ops.append((1, v, k))
         else:
-            v = data[idx]
-            idx += 1
+            v = data[it]
+            it += 1
             ops.append((2, v))
             restruct.append(v)
 
-    restruct = sorted(set(restruct), key=lambda x: tin[x])
     m = len(restruct)
+    if m == 0:
+        LOG = n.bit_length()
+        up = [[0] * (n + 1) for _ in range(LOG)]
+        up[0] = parent0[:]
+        for j in range(1, LOG):
+            uj = up[j]
+            prev = up[j - 1]
+            for v in range(1, n + 1):
+                uj[v] = prev[prev[v]]
 
-    is_special = [False] * (n + 1)
-    for v in restruct:
-        is_special[v] = True
+        out = []
+        for op in ops:
+            if op[0] == 1:
+                v, k = op[1], op[2]
+                b = 0
+                while k:
+                    if k & 1:
+                        v = up[b][v]
+                    k >>= 1
+                    b += 1
+                out.append(str(v))
+        sys.stdout.write("\n".join(out))
+        return
 
-    special_anc = [0] * (n + 1)
-    stack = [1]
-    while stack:
-        v = stack.pop()
-        cur = v if is_special[v] else special_anc[parent[v]]
-        special_anc[v] = cur
-        for u in children[v]:
-            stack.append(u)
+    restruct.sort(key=lambda x: tin[x])
 
-    bit = [0] * (m + 2)
-
-    def bit_add(i, delta):
-        while i <= m:
-            bit[i] += delta
-            i += i & -i
-
-    def bit_sum(i):
-        s = 0
-        while i > 0:
-            s += bit[i]
-            i -= i & -i
-        return s
-
-    def bit_kth(k):
-        pos = 0
-        step = 1 << (m.bit_length())
-        while step:
-            nxt = pos + step
-            if nxt <= m and bit[nxt] < k:
-                k -= bit[nxt]
-                pos = nxt
-            step >>= 1
-        return pos + 1
-
-    special_tin = [0] * (n + 1)
+    parent_virtual = [0] * (m + 1)
+    node_of = [0] * (m + 1)
+    idx_of_node = {}
     for i, v in enumerate(restruct, 1):
-        special_tin[v] = i
+        node_of[i] = v
+        idx_of_node[v] = i
 
-    active = [False] * (n + 1)
+    stack_nodes = []
+    for i, v in enumerate(restruct, 1):
+        while stack_nodes and tout[node_of[stack_nodes[-1]]] < tin[v]:
+            stack_nodes.pop()
+        parent_virtual[i] = stack_nodes[-1] if stack_nodes else 0
+        stack_nodes.append(i)
 
-    up = [[0] * (n + 1) for _ in range((n).bit_length())]
-    for v in range(1, n + 1):
-        up[0][v] = parent[v]
-    for j in range(1, len(up)):
-        prev = up[j - 1]
-        cur = up[j]
-        for v in range(1, n + 1):
-            cur[v] = prev[prev[v]]
+    LOGM = (m + 1).bit_length()
+    upv = [[0] * (m + 1) for _ in range(LOGM)]
+    upv[0] = parent_virtual[:]
+    for j in range(1, LOGM):
+        prev = upv[j - 1]
+        cur = upv[j]
+        for i in range(1, m + 1):
+            cur[i] = prev[prev[i]]
 
-    def kth_ancestor_original(v, k):
-        b = 0
-        while k:
-            if k & 1:
-                v = up[b][v]
-            k >>= 1
-            b += 1
-        return v
+    starts = [tin[v] for v in restruct]
+    ends = [tout[v] for v in restruct]
+
+    def deepest_restruct_ancestor(v):
+        x = tin[v]
+        lo, hi = 0, m - 1
+        pos = -1
+        while lo <= hi:
+            mid = (lo + hi) >> 1
+            if starts[mid] <= x:
+                pos = mid
+                lo = mid + 1
+            else:
+                hi = mid - 1
+        if pos == -1:
+            return 0
+        if x <= ends[pos]:
+            return pos + 1
+        return 0
 
     out = []
-
     for op in ops:
         if op[0] == 2:
-            v = op[1]
-            if not active[v]:
-                active[v] = True
-                bit_add(special_tin[v], 1)
-        else:
-            _, v, k = op
-            s = special_anc[v]
-            if s == 0:
-                out.append(str(kth_ancestor_original(v, k)))
-                continue
+            continue
 
-            cnt = bit_sum(special_tin[s])
-            if cnt == 0:
-                out.append(str(kth_ancestor_original(v, k)))
-                continue
+        v, k = op[1], op[2]
+        a = deepest_restruct_ancestor(v)
 
-            target = depth0[v] - k
-            if target >= depth0[s]:
-                out.append(str(kth_ancestor_original(v, k)))
+        if a == 0:
+            if k <= depth0[v]:
+                cur = v
+                kk = k
+                while kk:
+                    cur = parent0[cur]
+                    kk -= 1
+                out.append(str(cur))
             else:
-                need = target + 1
-                pos = bit_kth(need)
-                out.append(str(restruct[pos - 1]))
+                rem = k - depth0[v]
+                cur_idx = 0
+                cur = 1
+                out.append(str(cur))
+        else:
+            va = node_of[a]
+            dist_to_a = 1 if v != va else 0
+            if k <= dist_to_a:
+                if k == 0:
+                    out.append(str(v))
+                else:
+                    out.append(str(va))
+                continue
+
+            rem = k - dist_to_a
+            cur_idx = a
+
+            b = 0
+            while b < LOGM:
+                anc = upv[b][cur_idx]
+                if anc != 0:
+                    d = depth0[node_of[cur_idx]] - depth0[node_of[anc]]
+                    if d < rem:
+                        rem -= d
+                        cur_idx = anc
+                b += 1
+
+            if rem == 0:
+                out.append(str(node_of[cur_idx]))
+            else:
+                target_depth = depth0[node_of[cur_idx]] - rem
+                cur = node_of[cur_idx]
+                while depth0[cur] > target_depth:
+                    cur = parent0[cur]
+                out.append(str(cur))
 
     sys.stdout.write("\n".join(out))
 

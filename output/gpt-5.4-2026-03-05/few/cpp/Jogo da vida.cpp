@@ -2,17 +2,19 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
     int N, Q;
     if (!(cin >> N >> Q)) return 0;
 
-    vector<string> grid(N), nextGrid(N, string(N, '0'));
+    vector<string> grid(N);
     for (int i = 0; i < N; i++) cin >> grid[i];
 
-    int dx[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
-    int dy[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    const int dx[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    const int dy[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    vector<string> nextGrid(N, string(N, '0'));
 
     for (int step = 0; step < Q; step++) {
         for (int i = 0; i < N; i++) {

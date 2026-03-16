@@ -2,28 +2,23 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
     int N;
     if (!(cin >> N)) return 0;
-    vector<int> a(N);
-    for (int i = 0; i < N; i++) cin >> a[i];
 
-    int mx = *max_element(a.begin(), a.end());
+    vector<int> a(N + 1);
+    int mx = 0;
+    for (int i = 1; i <= N; i++) {
+        cin >> a[i];
+        mx = max(mx, a[i]);
+    }
+
     int ans = 0;
-
-    for (int h = 0; h < mx; h++) {
-        int i = 0;
-        while (i < N) {
-            if (a[i] <= h) {
-                int j = i;
-                while (j < N && a[j] <= h) j++;
-                ans++;
-                i = j;
-            } else {
-                i++;
-            }
+    for (int h = 1; h <= mx; h++) {
+        for (int i = 1; i <= N; i++) {
+            if (a[i] == h && (i == 1 || a[i - 1] > h)) ans++;
         }
     }
 

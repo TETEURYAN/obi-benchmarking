@@ -10,86 +10,71 @@ def main():
     M = next(it)
     K = next(it)
 
-    a_sp = [next(it) for _ in range(N)]
-    b_sp = [next(it) for _ in range(N)]
-    a_me = [next(it) for _ in range(M)]
-    b_me = [next(it) for _ in range(M)]
+    sa = [next(it) for _ in range(N)]
+    sb = [next(it) for _ in range(N)]
+    ma = [next(it) for _ in range(M)]
+    mb = [next(it) for _ in range(M)]
 
     Q = next(it)
     xs = [next(it) for _ in range(Q)]
 
-    # Best spell: maximize a*x+b for all x>=1
-    # Since all a,b >=0 and x>=1, dominance by larger a, tie larger b.
-    best_a = a_sp[0]
-    best_b = b_sp[0]
-    for a, b in zip(a_sp, b_sp):
-        if a > best_a or (a == best_a and b > best_b):
-            best_a, best_b = a, b
+    # Best spell for repeated use:
+    # maximize a*x+b for all x>=1
+    # Since all a,b >=0 and x>=1, if a1>=a2 and b1>=b2 then 1 dominates 2.
+    # The global optimum is the spell with maximum (a+b), tie by larger a.
+    best_idx = 0
+    best_sum = sa[0] + sb[0]
+    best_a = sa[0]
+    for i in range(1, N):
+        s = sa[i] + sb[i]
+        if s > best_sum or (s == best_sum and sa[i] > best_a):
+            best_sum = s
+            best_a = sa[i]
+            best_idx = i
 
-    # Meals: sort by decreasing b/(a-1), with a=1 first among themselves by larger b.
-    meals = list(zip(a_me, b_me))
+    A = sa[best_idx]
+    B = sb[best_idx]
 
-    def cmp_key(item):
-        a, b = item
-        if a == 1:
-            return (0, -b)
-        return (1, 0)
+    # Meals: sort by comparator of affine composition
+    meals = list(zip(ma, mb))
+    meals.sort(key=lambda p: (0,))  # placeholder to avoid lint
 
-    ones = []
-    others = []
+    from functools import cmp_to_key
+    def cmp(e1, e2):
+        a1, b1 = e1
+        a2, b2 = e2
+        v = b1 * (a2 - 1) - b2 * (a1 - 1)
+        if v > 0:
+            return -1
+        if v < 0:
+            return 1
+        return 0
+
+    meals.sort(key=cmp_to_key(cmp))
+
+    # Compose all meals into y = P*x + Qc
+    P = 1
+    Qc = 0
     for a, b in meals:
-        if a == 1:
-            ones.append((a, b))
-        else:
-            others.append((a, b))
+        P = (a * P) % MOD
+        Qc = (a * Qc + b) % MOD
 
-    ones.sort(key=lambda x: -x[1])
-
-    def less(u, v):
-        a1, b1 = u
-        a2, b2 = v
-        return b1 * (a2 - 1) > b2 * (a1 - 1)
-
-    if others:
-        import functools
-        def cmp(u, v):
-            a1, b1 = u
-            a2, b2 = v
-            left = b1 * (a2 - 1)
-            right = b2 * (a1 - 1)
-            if left > right:
-                return -1
-            if left < right:
-                return 1
-            return 0
-        others.sort(key=functools.cmp_to_key(cmp))
-
-    ordered = ones + others
-
-    A_meal = 1
-    B_meal = 0
-    for a, b in ordered:
-        A_meal = (a % MOD) * A_meal % MOD
-        B_meal = ((a % MOD) * B_meal + b) % MOD
-
-    # Spell composition repeated K times:
-    # f(x)=a*x+b
-    # f^K(x)=a^K*x + b*(a^(K-1)+...+1)
-    if best_a == 1:
-        A_spell = 1
-        B_spell = (best_b % MOD) * (K % MOD) % MOD
+    # Spell repeated K times:
+    # if A == 1: x -> x + K*B
+    # else: x -> A^K * x + B*(A^K - 1)/(A-1)
+    if A == 1:
+        spell_mul = 1
+        spell_add = (K % MOD) * (B % MOD) % MOD
     else:
-        A_spell = pow(best_a % MOD, K, MOD)
-        inv = pow((best_a - 1) % MOD, MOD - 2, MOD)
-        geom = (A_spell - 1) % MOD * inv % MOD
-        B_spell = (best_b % MOD) * geom % MOD
-
-    A_total = A_meal * A_spell % MOD
-    B_total = (A_meal * B_spell + B_meal) % MOD
+        spell_mul = pow(A % MOD, K, MOD)
+        denom_inv = pow((A - 1) % MOD, MOD - 2, MOD)
+        spell_add = (B % MOD) * ((spell_mul - 1) % MOD) % MOD * denom_inv % MOD
 
     out = []
     for x in xs:
-        out.append(str((A_total * (x % MOD) + B_total) % MOD))
+        y = (spell_mul * (x % MOD) + spell_add) % MOD
+        ans = (P * y + Qc) % MOD
+        out.append(str(ans))
 
     sys.stdout.write("\n".join(out))
 

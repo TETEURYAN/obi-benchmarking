@@ -2,14 +2,14 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
     int N, Q;
-    cin >> N >> Q;
+    if (!(cin >> N >> Q)) return 0;
 
     vector<long long> pref(N + 1, 0);
-    for (int i = 1; i <= N; ++i) {
+    for (int i = 1; i <= N; i++) {
         int d;
         cin >> d;
         pref[i] = pref[i - 1] + d;

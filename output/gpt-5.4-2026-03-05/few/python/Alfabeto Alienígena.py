@@ -6,11 +6,11 @@ if not data:
 
 k = int(data[0])
 n = int(data[1])
-alphabet = set(data[2])
+alien = set(data[2])
 message = data[3]
 
 for ch in message:
-    if ch not in alphabet:
+    if ch not in alien:
         print('N')
         break
 else:

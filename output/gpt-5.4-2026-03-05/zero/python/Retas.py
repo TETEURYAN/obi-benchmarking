@@ -2,6 +2,8 @@ import sys
 
 def count_inversions(arr):
     n = len(arr)
+    if n <= 1:
+        return 0
     temp = [0] * n
 
     def sort_count(l, r):
@@ -42,8 +44,8 @@ def main():
         y2 = A * X2 + B
         lines.append((y1, y2, idx))
 
-    lines.sort(key=lambda x: (x[0], x[1], x[2]))
-    arr = [t[1] for t in lines]
+    lines.sort(key=lambda x: (x[0], x[1]))
+    arr = [y2 for y1, y2, idx in lines]
     print(count_inversions(arr))
 
 if __name__ == "__main__":

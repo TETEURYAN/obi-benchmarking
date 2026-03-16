@@ -18,9 +18,9 @@ int main() {
     for (int h = 1; h <= mx; ++h) {
         bool prev = false;
         for (int i = 0; i < N; ++i) {
-            bool need = (a[i] < h);
-            if (need && !prev) ans++;
-            prev = need;
+            bool cur = (a[i] < h);
+            if (cur && !prev) ans++;
+            prev = cur;
         }
     }
 

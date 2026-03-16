@@ -28,43 +28,44 @@ int main() {
     cin >> N;
 
     vector<int> parent(N + 1, 0);
-    vector<vector<int>> g(N + 1);
+    vector<vector<int>> children(N + 1);
     parent[1] = 0;
     for (int i = 2; i <= N; i++) {
         cin >> parent[i];
-        g[parent[i]].push_back(i);
+        children[parent[i]].push_back(i);
     }
 
     vector<int> tin(N + 1), tout(N + 1), depth(N + 1), euler(N + 1);
     int timer = 0;
-    vector<int> st;
-    st.push_back(1);
-    vector<int> it(N + 1, 0);
+    vector<pair<int,int>> st;
+    st.reserve(2 * N);
+    st.push_back({1, 0});
     depth[1] = 0;
 
     while (!st.empty()) {
-        int v = st.back();
-        if (it[v] == 0) {
-            tin[v] = ++timer;
-            euler[timer] = v;
-        }
-        if (it[v] < (int)g[v].size()) {
-            int u = g[v][it[v]++];
-            depth[u] = depth[v] + 1;
-            st.push_back(u);
+        auto [u, state] = st.back();
+        st.pop_back();
+        if (state == 0) {
+            tin[u] = ++timer;
+            euler[timer] = u;
+            st.push_back({u, 1});
+            for (int i = (int)children[u].size() - 1; i >= 0; i--) {
+                int v = children[u][i];
+                depth[v] = depth[u] + 1;
+                st.push_back({v, 0});
+            }
         } else {
-            tout[v] = timer;
-            st.pop_back();
+            tout[u] = timer;
         }
     }
 
     int LOG = 1;
     while ((1 << LOG) <= N) LOG++;
     vector<vector<int>> up(LOG, vector<int>(N + 1, 0));
-    for (int v = 1; v <= N; v++) up[0][v] = parent[v];
+    for (int i = 1; i <= N; i++) up[0][i] = parent[i];
     for (int j = 1; j < LOG; j++) {
-        for (int v = 1; v <= N; v++) {
-            up[j][v] = up[j - 1][ up[j - 1][v] ];
+        for (int i = 1; i <= N; i++) {
+            up[j][i] = up[j - 1][ up[j - 1][i] ];
         }
     }
 
@@ -75,63 +76,58 @@ int main() {
         return v;
     };
 
-    Fenwick bit(N);
-    vector<int> restructured(N + 1, 0);
+    vector<vector<int>> byDepth(N + 1);
+    for (int i = 1; i <= N; i++) byDepth[depth[i]].push_back(tin[i]);
 
     int Q;
     cin >> Q;
+
+    Fenwick fw(N);
+    vector<char> active(N + 1, 0);
+    active[1] = 1;
+    fw.add(tin[1], 1);
+
+    auto countActiveAnc = [&](int v) {
+        return fw.sumPrefix(tin[v]);
+    };
+
+    auto findKthActiveAncestor = [&](int v, int k) {
+        int target = countActiveAnc(v) - k;
+        int cur = v;
+        for (int j = LOG - 1; j >= 0; j--) {
+            int a = up[j][cur];
+            if (a != 0 && countActiveAnc(a) > target) {
+                cur = a;
+            }
+        }
+        return up[0][cur];
+    };
+
     while (Q--) {
         int type;
         cin >> type;
-        if (type == 2) {
-            int v;
-            cin >> v;
-            if (!restructured[v]) {
-                restructured[v] = 1;
-                bit.add(tin[v], 1);
-                bit.add(tout[v] + 1, -1);
-            }
-        } else {
+        if (type == 1) {
             int v, k;
             cin >> v >> k;
-
-            int x = v;
-            while (k > 0) {
-                int cnt = bit.sumPrefix(tin[x]);
-                int lo = 1, hi = depth[x], best = 0;
-                while (lo <= hi) {
-                    int mid = (lo + hi) >> 1;
-                    int a = kthAncestorOriginal(x, mid);
-                    int c = bit.sumPrefix(tin[a]);
-                    if (c == cnt) {
-                        best = mid;
-                        lo = mid + 1;
-                    } else {
-                        hi = mid - 1;
+            cout << findKthActiveAncestor(v, k) << '\n';
+        } else {
+            int v;
+            cin >> v;
+            int dv = depth[v];
+            int l = tin[v], r = tout[v];
+            for (int d = dv + 1; d <= N; d++) {
+                auto &vec = byDepth[d];
+                if (vec.empty()) continue;
+                auto it1 = lower_bound(vec.begin(), vec.end(), l);
+                auto it2 = upper_bound(vec.begin(), vec.end(), r);
+                for (auto it = it1; it != it2; ++it) {
+                    int u = euler[*it];
+                    if (!active[u]) {
+                        active[u] = 1;
+                        fw.add(*it, 1);
                     }
-                }
-
-                if (best >= k) {
-                    x = kthAncestorOriginal(x, k);
-                    k = 0;
-                } else {
-                    x = kthAncestorOriginal(x, best);
-                    k -= best;
-                    if (k == 0) break;
-                    int y = x;
-                    while (true) {
-                        int p = parent[y];
-                        if (bit.sumPrefix(tin[p]) < bit.sumPrefix(tin[y])) {
-                            x = p;
-                            break;
-                        }
-                        y = p;
-                    }
-                    k--;
                 }
             }
-
-            cout << x << '\n';
         }
     }
 

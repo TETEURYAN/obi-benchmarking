@@ -46,31 +46,31 @@ int main() {
     }
 
     auto cmpX1 = [&](const Line& p, const Line& q) {
-        i128 yp = valueAt(p, X1);
-        i128 yq = valueAt(q, X1);
-        if (yp != yq) return yp < yq;
+        i128 vp = valueAt(p, X1);
+        i128 vq = valueAt(q, X1);
+        if (vp != vq) return vp < vq;
         return p.id < q.id;
     };
 
     auto cmpX2 = [&](const Line& p, const Line& q) {
-        i128 yp = valueAt(p, X2);
-        i128 yq = valueAt(q, X2);
-        if (yp != yq) return yp < yq;
+        i128 vp = valueAt(p, X2);
+        i128 vq = valueAt(q, X2);
+        if (vp != vq) return vp < vq;
         return p.id < q.id;
     };
 
-    vector<Line> s1 = lines, s2 = lines;
-    sort(s1.begin(), s1.end(), cmpX1);
-    sort(s2.begin(), s2.end(), cmpX2);
+    vector<Line> ord1 = lines, ord2 = lines;
+    sort(ord1.begin(), ord1.end(), cmpX1);
+    sort(ord2.begin(), ord2.end(), cmpX2);
 
-    vector<int> pos2(N);
-    for (int i = 0; i < N; ++i) pos2[s2[i].id] = i + 1;
+    vector<int> posInOrd2(N);
+    for (int i = 0; i < N; ++i) posInOrd2[ord2[i].id] = i + 1;
 
     Fenwick fw(N);
     long long ans = 0;
-    for (int i = N - 1; i >= 0; --i) {
-        int p = pos2[s1[i].id];
-        ans += fw.sumPrefix(p - 1);
+    for (int i = 0; i < N; ++i) {
+        int p = posInOrd2[ord1[i].id];
+        ans += i - fw.sumPrefix(p);
         fw.add(p, 1);
     }
 

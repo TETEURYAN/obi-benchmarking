@@ -6,21 +6,13 @@ def main():
         return
 
     n, m = data[0], data[1]
-    vals = data[2:]
-    k = n * m
+    total = n * m
+    vals = data[2:2 + total]
 
-    parent = list(range(k))
-    size = [1] * k
-    active = [False] * k
-    comp_sum = [0] * k
-    comp_ans = [0] * k
-    comp_min = [0] * k
-    comp_max = [0] * k
-
-    for i, v in enumerate(vals):
-        comp_sum[i] = v
-        comp_min[i] = v
-        comp_max[i] = v
+    parent = list(range(total))
+    size = [1] * total
+    sum_power = vals[:]
+    active = [False] * total
 
     def find(x):
         while parent[x] != x:
@@ -37,21 +29,18 @@ def main():
             ra, rb = rb, ra
         parent[rb] = ra
         size[ra] += size[rb]
-        comp_sum[ra] += comp_sum[rb]
-        if comp_min[rb] < comp_min[ra]:
-            comp_min[ra] = comp_min[rb]
-        if comp_max[rb] > comp_max[ra]:
-            comp_max[ra] = comp_max[rb]
+        sum_power[ra] += sum_power[rb]
         return ra
 
-    order = sorted(range(k), key=vals.__getitem__)
-    pos = 0
+    order = sorted(range(total), key=vals.__getitem__)
+    ans = [0] * total
 
-    while pos < k:
-        v = vals[order[pos]]
-        start = pos
-        while pos < k and vals[order[pos]] == v:
-            idx = order[pos]
+    i = 0
+    while i < total:
+        v = vals[order[i]]
+        j = i
+        while j < total and vals[order[j]] == v:
+            idx = order[j]
             active[idx] = True
             r = idx // m
             c = idx - r * m
@@ -72,75 +61,70 @@ def main():
                 nb = idx + 1
                 if active[nb]:
                     union(idx, nb)
-
-            pos += 1
-
-        roots = []
-        seen = set()
-        for t in range(start, pos):
-            rt = find(order[t])
-            if rt not in seen:
-                seen.add(rt)
-                roots.append(rt)
+            j += 1
 
         changed = True
         while changed:
             changed = False
-            for r in roots:
-                rr = find(r)
-                if rr != r:
-                    continue
-                if comp_ans[rr] == 0 and comp_sum[rr] >= comp_max[rr]:
-                    comp_ans[rr] = comp_sum[rr]
-                    changed = True
+            k = i
+            while k < j:
+                idx = order[k]
+                root = find(idx)
+                if sum_power[root] >= 2 * v:
+                    r = idx // m
+                    c = idx - r * m
 
-            if not changed:
-                break
+                    if r > 0:
+                        nb = idx - m
+                        if active[nb]:
+                            ra = find(idx)
+                            rb = find(nb)
+                            if ra != rb:
+                                if vals[rb] <= sum_power[ra]:
+                                    union(ra, rb)
+                                    changed = True
+                    if r + 1 < n:
+                        nb = idx + m
+                        if active[nb]:
+                            ra = find(idx)
+                            rb = find(nb)
+                            if ra != rb:
+                                if vals[rb] <= sum_power[ra]:
+                                    union(ra, rb)
+                                    changed = True
+                    if c > 0:
+                        nb = idx - 1
+                        if active[nb]:
+                            ra = find(idx)
+                            rb = find(nb)
+                            if ra != rb:
+                                if vals[rb] <= sum_power[ra]:
+                                    union(ra, rb)
+                                    changed = True
+                    if c + 1 < m:
+                        nb = idx + 1
+                        if active[nb]:
+                            ra = find(idx)
+                            rb = find(nb)
+                            if ra != rb:
+                                if vals[rb] <= sum_power[ra]:
+                                    union(ra, rb)
+                                    changed = True
+                k += 1
 
-            for r in roots:
-                rr = find(r)
-                if rr != r:
-                    continue
-                if comp_ans[rr] == 0:
-                    continue
-                mn = comp_min[rr]
-                if mn == 1:
-                    continue
+        k = i
+        while k < j:
+            idx = order[k]
+            ans[idx] = sum_power[find(idx)]
+            k += 1
 
-                while True:
-                    target = mn - 1
-                    if target < 0 or not active[target]:
-                        break
-                    rt = find(target)
-                    rr2 = find(rr)
-                    if rt == rr2:
-                        break
-                    if comp_ans[rt] == 0:
-                        break
-                    newr = union(rr2, rt)
-                    comp_ans[newr] = comp_sum[newr]
-                    rr = newr
-                    mn = comp_min[rr]
-                    changed = True
-                    if mn == 1:
-                        break
-
-        # compress roots list representatives after possible merges
-        # no action needed here
-
-    root_to_answer = {}
-    ans = [0] * k
-    for i in range(k):
-        r = find(i)
-        if r not in root_to_answer:
-            root_to_answer[r] = comp_ans[r] if comp_ans[r] != 0 else vals[i]
-        ans[i] = root_to_answer[r]
+        i = j
 
     out = []
-    for i in range(n):
-        row = ans[i*m:(i+1)*m]
-        out.append(' '.join(map(str, row)))
-    sys.stdout.write('\n'.join(out))
+    for r in range(n):
+        row = ans[r * m:(r + 1) * m]
+        out.append(" ".join(map(str, row)))
+    sys.stdout.write("\n".join(out))
 
 if __name__ == "__main__":
     main()

@@ -6,7 +6,7 @@ s = int(sys.stdin.readline())
 t = int(sys.stdin.readline())
 
 total = h * 3600 + m * 60 + s
-total = (total + t) % (24 * 3600)
+total = (total + t) % 86400
 
 nh = total // 3600
 total %= 3600
