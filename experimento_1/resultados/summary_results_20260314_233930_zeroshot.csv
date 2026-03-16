@@ -1,0 +1,10 @@
+model,shot_status,total_problems,problems_passed,success_rate_problems,total_cases,cases_passed,success_rate_cases,timestamp,AC,TLE,CE,RTE,WA
+openai/gpt-oss-120b,zeroshot,12,7,0.5833333333333334,612,420,0.6862745098039216,20260314_235205,7,4,0,0,1
+anthropic/claude-opus-4.6,zeroshot,12,7,0.5833333333333334,612,338,0.5522875816993464,20260315_000505,7,2,1,0,2
+meta-llama/llama-guard-4-12b,zeroshot,12,0,0.0,612,0,0.0,20260315_000520,0,0,0,0,0
+x-ai/grok-4.20-multi-agent-beta,zeroshot,12,7,0.5833333333333334,612,451,0.7369281045751634,20260315_001737,7,5,0,0,0
+deepseek/deepseek-r1,zeroshot,12,7,0.5833333333333334,612,261,0.4264705882352941,20260314_224914,7,0,0,0,4
+google/gemini-3-flash-preview,zeroshot,12,7,0.5833333333333334,612,337,0.5506535947712419,20260314_225057,7,1,0,0,4
+google/gemma-2-12b-it,,0,0,0.0,0,0,0.0,,0,0,0,0,0
+qwen/qwen3-coder,,0,0,0.0,0,0,0.0,,5,1,0,0,4
+qwen/qwen3.5-9b,,0,0,0.0,0,0,0.0,,0,0,0,0,0

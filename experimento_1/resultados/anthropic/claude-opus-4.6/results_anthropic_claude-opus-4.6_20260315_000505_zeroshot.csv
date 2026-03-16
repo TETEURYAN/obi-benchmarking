@@ -1,0 +1,531 @@
+question_id,model,understanding_text,plan_text,code_text,judge_correctness,judge_test_cases,total_test_cases,failures,classification
+2024f1p2_ogro,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"E = int(input())
+D = int(input())
+if E > D:
+    print(E + D)
+else:
+    print(2 * (D - E))",True,20,20,[],AC
+2024f1p2_relogio,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"H = int(input())
+M = int(input())
+S = int(input())
+T = int(input())
+
+total = H * 3600 + M * 60 + S + T
+total = total % 86400
+
+new_H = total // 3600
+total %= 3600
+new_M = total // 60
+new_S = total % 60
+
+print(new_H)
+print(new_M)
+print(new_S)",True,52,52,[],AC
+2024f1p2_jogo,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+
+def solve():
+    input_data = sys.stdin.read().split()
+    idx = 0
+    N = int(input_data[idx]); idx += 1
+    Q = int(input_data[idx]); idx += 1
+    
+    grid = []
+    for i in range(N):
+        row = list(input_data[idx])
+        grid.append([int(c) for c in row])
+        idx += 1
+    
+    for _ in range(Q):
+        new_grid = [[0]*N for _ in range(N)]
+        for i in range(N):
+            for j in range(N):
+                neighbors = 0
+                for di in (-1, 0, 1):
+                    for dj in (-1, 0, 1):
+                        if di == 0 and dj == 0:
+                            continue
+                        ni, nj = i + di, j + dj
+                        if 0 <= ni < N and 0 <= nj < N:
+                            neighbors += grid[ni][nj]
+                if grid[i][j] == 1:
+                    if neighbors == 2 or neighbors == 3:
+                        new_grid[i][j] = 1
+                    else:
+                        new_grid[i][j] = 0
+                else:
+                    if neighbors == 3:
+                        new_grid[i][j] = 1
+                    else:
+                        new_grid[i][j] = 0
+        grid = new_grid
+    
+    out = []
+    for i in range(N):
+        out.append(''.join(str(c) for c in grid[i]))
+    print('\n'.join(out))
+
+solve()",True,19,19,[],AC
+2024f2p2_cubo,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"N = int(input())
+print((N - 2) ** 3)
+print(6 * (N - 2) ** 2)
+print(12 * (N - 2))
+print(8)",True,11,11,[],AC
+2024f2p2_alfabeto,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"K, N = map(int, input().split())
+alfabeto = set(input().strip())
+mensagem = input().strip()
+print('S' if all(c in alfabeto for c in mensagem) else 'N')",True,61,61,[],AC
+2024f2p2_concatena,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+input = sys.stdin.readline
+
+def main():
+    N, Q = map(int, input().split())
+    D = list(map(int, input().split()))
+    
+    # For a subarray of length n, the potential is the sum over all ordered pairs (i,j) where i != j
+    # of (10 * D[i] + D[j]).
+    #
+    # Sum = sum_{i != j} (10 * D[i] + D[j])
+    #     = 10 * sum_{i != j} D[i] + sum_{i != j} D[j]
+    #     = 10 * (n-1) * S + (n-1) * S
+    #     = 11 * (n-1) * S
+    #
+    # where S = sum of all digits in the interval and n = R - L + 1.
+    #
+    # Wait, let me verify with the example: digits 1 1 2, S = 4, n = 3
+    # 11 * 2 * 4 = 88. Yes! That matches.
+    #
+    # And for 1 1 2 3 9: S = 16, n = 5
+    # 11 * 4 * 16 = 704. Yes!
+    
+    # Prefix sums
+    prefix = [0] * (N + 1)
+    for i in range(N):
+        prefix[i + 1] = prefix[i] + D[i]
+    
+    out = []
+    for _ in range(Q):
+        L, R = map(int, input().split())
+        n = R - L + 1
+        S = prefix[R] - prefix[L - 1]
+        out.append(str(11 * (n - 1) * S))
+    
+    sys.stdout.write('\n'.join(out) + '\n')
+
+main()",True,25,25,[],AC
+2024f2p2_poder,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+from collections import defaultdict
+
+def solve():
+    input_data = sys.stdin.buffer.read().split()
+    idx = 0
+    N = int(input_data[idx]); idx += 1
+    M = int(input_data[idx]); idx += 1
+    
+    P = []
+    cells = []
+    for i in range(N):
+        row = []
+        for j in range(M):
+            val = int(input_data[idx]); idx += 1
+            row.append(val)
+            cells.append((val, i, j))
+        P.append(row)
+    
+    # Sort all cells by power value
+    cells.sort()
+    
+    # For each cell, we need to find the maximum power achievable starting from it.
+    # Key insight: if the hero starts at cell (i,j) with power P[i][j], they can defeat
+    # adjacent monsters with power <= current power, gaining their power, and so on.
+    
+    # This is essentially: starting from a cell, greedily kill reachable monsters in order
+    # of increasing power (always kill the weakest reachable one first).
+    
+    # But we need to compute this for ALL starting cells efficiently.
+    
+    # Alternative approach using Union-Find:
+    # Process cells in order of increasing power. When processing cell with power p,
+    # we try to union it with all neighbors that have power <= p.
+    # 
+    # For a connected component, the total power is the sum of all cells in it.
+    # A hero can clear the entire component if they start from the minimum power cell
+    # in the component? Not exactly...
+    #
+    # Actually: if we process in increasing order and union, then when we add cell c with
+    # power p, we merge it with neighbors already processed (power <= p). The hero starting
+    # at any cell in a component can defeat all monsters in that component because they can
+    # always find a path killing monsters in non-decreasing order of power.
+    #
+    # Wait, more carefully: a component formed during this process means all cells are
+    # reachable by killing in sorted order. So starting from ANY cell in the component,
+    # the hero can kill all other cells in the component (by visiting them in sorted order).
+    #
+    # So the answer for each cell = sum of all cells in its final component where the
+    # component is built by processing cells in increasing power order and merging with
+    # already-processed neighbors.
+    #
+    # Actually this IS correct because the hero can always choose to kill the weakest
+    # available neighbor first, and the union-find captures exactly which cells are reachable.
+    
+    parent = list(range(N * M))
+    rank = [0] * (N * M)
+    comp_sum = [0] * (N * M)
+    
+    for i in range(N):
+        for j in range(M):
+            comp_sum[i * M + j] = P[i][j]
+    
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra == rb:
+            return
+        if rank[ra] < rank[rb]:
+            ra, rb = rb, ra
+        parent[rb] = ra
+        comp_sum[ra] += comp_sum[rb]
+        if rank[ra] == rank[rb]:
+            rank[ra] += 1
+    
+    processed = [False] * (N * M)
+    dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    
+    # Process cells in increasing order of power
+    for val, i, j in cells:
+        idx_cell = i * M + j
+        processed[idx_cell] = True
+        for di, dj in dirs:
+            ni, nj = i + di, j + dj
+            if 0 <= ni < N and 0 <= nj < M:
+                n_idx = ni * M + nj
+                if processed[n_idx]:
+                    union(idx_cell, n_idx)
+    
+    # The answer for each cell is the sum of its component
+    # But wait - can the hero always collect the entire component?
+    # Yes, because the component was built by adding cells in increasing order,
+    # so there's always a path from any cell to kill all others in non-decreasing order.
+    
+    out = []
+    for i in range(N):
+        row_out = []
+        for j in range(M):
+            row_out.append(str(comp_sum[find(i * M + j)]))
+        out.append(' '.join(row_out))
+    
+    sys.stdout.write('\n'.join(out) + '\n')
+
+solve()",False,18,150,"[""Case 0: expected: '6 6 22\\n1 22 222' got: '222 222 222\\n222 222 222' retcode: 0 stderr: "", ""20 580320 580320 580320 580320 580320 580320 580320 580320 580320 580320 580320' retcode: 0 stderr: "", ""0359687 70359687 70359687 70359687 70359687 70359687 70359687 70359687 70359687' retcode: 0 stderr: "", ""67 6804582767 6804582767 6804582767 6804582767 6804582767 6804582767 6804582767' retcode: 0 stderr: "", ""9309386 9309386 9309386 9309386 9309386 9309386 9309386 9309386 9309386 9309386' retcode: 0 stderr: "", ""6913015 36913015 36913015 36913015 36913015 36913015 36913015 36913015 36913015' retcode: 0 stderr: "", ""83 4131297583 4131297583 4131297583 4131297583 4131297583 4131297583 4131297583' retcode: 0 stderr: "", ""1 445764073991 445764073991 445764073991 445764073991 445764073991 445764073991' retcode: 0 stderr: "", ""2100000 22100000 22100000 22100000 22100000 22100000 22100000 22100000 22100000' retcode: 0 stderr: "", ""7396401 57396401 57396401 57396401 57396401 57396401 57396401 57396401 57396401' retcode: 0 stderr: "", ""3091272 23091272 23091272 23091272 23091272 23091272 23091272 23091272 23091272' retcode: 0 stderr: "", ""9464220 9464220 9464220 9464220 9464220 9464220 9464220 9464220 9464220 9464220' retcode: 0 stderr: "", ""5885500 85885500 85885500 85885500 85885500 85885500 85885500 85885500 85885500' retcode: 0 stderr: "", ""0208909 30208909 30208909 30208909 30208909 30208909 30208909 30208909 30208909' retcode: 0 stderr: "", ""0 208819026030 208819026030 208819026030 208819026030 208819026030 208819026030' retcode: 0 stderr: "", ""Case 17: expected: '9 3 54 1 54 14 14' got: '54 54 54 54 54 54 54' retcode: 0 stderr: "", ""0384132 60384132 60384132 60384132 60384132 60384132 60384132 60384132 60384132' retcode: 0 stderr: "", ""9\\n18573534749\\n18573534749\\n18573534749\\n18573534749\\n18573534749\\n18573534749' retcode: 0 stderr: "", ""8520427 18520427 18520427 18520427 18520427 18520427 18520427 18520427 18520427' retcode: 0 stderr: "", ""40 4194726740 4194726740 4194726740 4194726740 4194726740 4194726740 4194726740' retcode: 0 stderr: "", ""50 691350 691350 691350 691350 691350 691350 691350 691350 691350 691350 691350' retcode: 0 stderr: "", ""4685241 64685241 64685241 64685241 64685241 64685241 64685241 64685241 64685241' retcode: 0 stderr: "", ""4691950 84691950 84691950 84691950 84691950 84691950 84691950 84691950 84691950' retcode: 0 stderr: "", ""0591452 30591452 30591452 30591452 30591452 30591452 30591452 30591452 30591452' retcode: 0 stderr: "", ""5735995 5735995 5735995 5735995 5735995 5735995 5735995 5735995 5735995 5735995' retcode: 0 stderr: "", ""0 101674603290 101674603290 101674603290 101674603290 101674603290 101674603290' retcode: 0 stderr: "", ""62 3420349362 3420349362 3420349362 3420349362 3420349362 3420349362 3420349362' retcode: 0 stderr: "", ""7261700 17057261700 17057261700 17057261700 17057261700 17057261700 17057261700' retcode: 0 stderr: "", ""5949862 87155949862 87155949862 87155949862 87155949862 87155949862 87155949862' retcode: 0 stderr: "", ""5970947 25405970947 25405970947 25405970947 25405970947 25405970947 25405970947' retcode: 0 stderr: "", ""112725300 112725300 112725300 112725300 112725300 112725300 112725300 112725300' retcode: 0 stderr: "", ""1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405' retcode: 0 stderr: "", ""0 150861871980 150861871980 150861871980 150861871980 150861871980 150861871980' retcode: 0 stderr: "", ""390778682 390778682 390778682 390778682 390778682 390778682 390778682 390778682' retcode: 0 stderr: "", ""79 7369666979 7369666979 7369666979 7369666979 7369666979 7369666979 7369666979' retcode: 0 stderr: "", ""Case 39: expected: '69 69\\n4 69' got: '69 69\\n69 69' retcode: 0 stderr: "", ""5059949 35059949 35059949 35059949 35059949 35059949 35059949 35059949 35059949' retcode: 0 stderr: "", "" 250\\n250 250 250 250 250 250\\n250 250 250 250 250 250\\n250 250 250 250 250 250' retcode: 0 stderr: "", ""9581088 29581088 29581088 29581088 29581088 29581088 29581088 29581088 29581088' retcode: 0 stderr: "", ""7586470 87586470 87586470 87586470 87586470 87586470 87586470 87586470 87586470' retcode: 0 stderr: "", ""Case 45: expected: '6 6 22\\n1 22 222' got: '222 222 222\\n222 222 222' retcode: 0 stderr: "", ""Case 46: expected: '9 3 54 1 54 14 14' got: '54 54 54 54 54 54 54' retcode: 0 stderr: "", "" 250\\n250 250 250 250 250 250\\n250 250 250 250 250 250\\n250 250 250 250 250 250' retcode: 0 stderr: "", ""Case 48: expected: '6 6 22\\n1 22 222' got: '222 222 222\\n222 222 222' retcode: 0 stderr: "", ""745306022 1599745306022 1599745306022 1599745306022 1599745306022 1599745306022' retcode: 0 stderr: "", ""6 9078801015156 9078801015156 9078801015156 9078801015156' retcode: 124 stderr: Execution timed out."", ""155316277 51007155316277 51007155316277 641613380' got: '' retcode: 124 stderr: Execution timed out."", ""760437056 2206760437056 2206760437056 2206760437056 2206760437056 2206760437056' retcode: 0 stderr: "", ""515929034 3977515929034 3977515929034 3977515929034 3977515929034 3977515929034' retcode: 0 stderr: "", ""662 22727497982662 22727497982662 22727497982662 22727497' retcode: 124 stderr: Execution timed out."", ""40044853 9742540044853 9742540044853 9742540044853 974254' retcode: 124 stderr: Execution timed out."", ""962475773 3906962475773 3906962475773 3906962475773 3906962475773 3906962475773' retcode: 0 stderr: "", ""3 19 921 18 18 637193 26 986 26 2 986 20 20 20 20' got: '' retcode: 124 stderr: Execution timed out."", ""846 25002440188846\\n25002440188846 25002440188846 25002440188846 25002440188846' retcode: 0 stderr: "", ""35347662500 34435347662500 34435347662500 2775000' got: '' retcode: 124 stderr: Execution timed out."", ""32450 48424960932450 48424960932450 48424960932450 484249' retcode: 124 stderr: Execution timed out."", ""7238 83925213693436 83925213693436 83925213693436' got: '' retcode: 124 stderr: Execution timed out."", ""210779011 4542210779011 4542210779011 4542210779011 4542210779011 4542210779011' retcode: 0 stderr: "", ""9\\n94998429057199\\n94998429057199\\n94998429057199\\n949984' retcode: 124 stderr: Execution timed out."", ""Case 65: expected: '9 3 54 1 54 14 14' got: '54 54 54 54 54 54 54' retcode: 0 stderr: "", ""986767032 6109986767032 6109986767032 6109986767032 6109986767032 6109986767032' retcode: 0 stderr: "", ""5 1256996772645 1256996772645 1256996772645 1256996772645' retcode: 124 stderr: Execution timed out."", ""0 1550610 1550610 1550610 1550610 1550610 1550610 1550610' retcode: 124 stderr: Execution timed out."", ""0 25005751476610 25005751476610\\n25005751476610 250057514' retcode: 124 stderr: Execution timed out."", ""6459277297 4606459277297 4606459277297 4606459277297 4606' retcode: 124 stderr: Execution timed out."", ""6594661496 1826594661496 1826594661496 1826594661496 1826' retcode: 124 stderr: Execution timed out."", ""8 668892009018 668892009018 668892009018 668892009018 668892009018 668892009018' retcode: 0 stderr: "", "" 13343799837228 13343799837228 13343799837228 13343799837' retcode: 124 stderr: Execution timed out."", ""38 84027884488138 84027884488138 84027884488138 840278844' retcode: 124 stderr: Execution timed out."", ""522020228 8814522020228 8814522020228 8814522020228 8814522020228 8814522020228' retcode: 0 stderr: "", ""974753768 3615974753768 3615974753768 3615974753768 3615974753768 3615974753768' retcode: 0 stderr: "", ""700250000 7002700250000 7002700250000 7002700250000 7002700250000 7002700250000' retcode: 0 stderr: "", ""765766317 49905834152941 49905834152941 183558185' got: '' retcode: 124 stderr: Execution timed out."", ""1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405' retcode: 0 stderr: "", ""91 1680042191 1680042191 1680042191 1680042191 1680042191 1680042191 1680042191' retcode: 0 stderr: "", ""793047403 3280793047403 3280793047403 3280793047403 3280793047403 3280793047403' retcode: 0 stderr: "", ""173220942 6174173220942 6174173220942 6174173220942 6174173220942 6174173220942' retcode: 0 stderr: "", ""8080 12018457908080 12018457908080 12018457908080 12018457908080 12018457908080' retcode: 0 stderr: "", ""391356069 9067391356069 9067391356069 9067391356069 9067391356069 9067391356069' retcode: 0 stderr: "", ""631430122 7945631430122 7945631430122 7945631430122 7945631430122 7945631430122' retcode: 0 stderr: "", ""80959 43633021180959 504252 43633021180959 849114' got: '' retcode: 124 stderr: Execution timed out."", "" 250\\n250 250 250 250 250 250\\n250 250 250 250 250 250\\n250 250 250 250 250 250' retcode: 0 stderr: "", ""8000 15460122028000 15460122028000 15460122028000 15460122028000 15460122028000' retcode: 0 stderr: "", ""650\\n45821974339650 45821974339650 45821974339650' got: '' retcode: 124 stderr: Execution timed out."", ""779703630 4793779703630 4793779703630 4793779703630 4793779703630 4793779703630' retcode: 0 stderr: "", ""Case 95: expected: '9 3 54 1 54 14 14' got: '54 54 54 54 54 54 54' retcode: 0 stderr: "", ""405813143 405813143 405813143 405813143 405813143 405813143 405813143 405813143' retcode: 0 stderr: "", ""92 1001547992 1001547992 1001547992 1001547992 1001547992 1001547992 1001547992' retcode: 0 stderr: "", ""0922624 84780922624 84780922624 84780922624 84780922624 84780922624 84780922624' retcode: 0 stderr: "", ""0630544 41030630544 41030630544 41030630544 41030630544 41030630544 41030630544' retcode: 0 stderr: "", ""1554227 1554227 1554227 1554227 1554227 1554227 1554227 1554227 1554227 1554227' retcode: 0 stderr: "", ""3 240367425523 240367425523 240367425523 240367425523 240367425523 240367425523' retcode: 0 stderr: "", ""99 1099998999 1099998999 1099998999 1099998999 1099998999 1099998999 1099998999' retcode: 0 stderr: "", ""0860 49990308550860 49990308550860 49990308550860 49990308550860 49990308550860' retcode: 0 stderr: "", ""1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405' retcode: 0 stderr: "", ""1286439 35421286439 35421286439 35421286439 35421286439 35421286439 35421286439' retcode: 0 stderr: "", ""0383 84007748600383 84007748600383 84007748600383 84007748600383 84007748600383' retcode: 0 stderr: "", ""5051361 16375051361 16375051361 16375051361 16375051361 16375051361 16375051361' retcode: 0 stderr: "", ""37 7107148937 7107148937 7107148937 7107148937 7107148937 7107148937 7107148937' retcode: 0 stderr: "", ""6610219 31996610219 31996610219 31996610219 31996610219 31996610219 31996610219' retcode: 0 stderr: "", ""99 1149974899 1149974899 1149974899 1149974899 1149974899 1149974899 1149974899' retcode: 0 stderr: "", ""6386675 33346386675 33346386675 33346386675 33346386675 33346386675 33346386675' retcode: 0 stderr: "", ""99 1001548699 1001548699 1001548699 1001548699 1001548699 1001548699 1001548699' retcode: 0 stderr: "", ""4975 49963385254975 49963385254975 49963385254975 49963385254975 49963385254975' retcode: 0 stderr: "", ""7 269587014357 269587014357 269587014357 269587014357 269587014357 269587014357' retcode: 0 stderr: "", ""82 1001546482 1001546482 1001546482 1001546482 1001546482 1001546482 1001546482' retcode: 0 stderr: "", ""96 7132867296 7132867296 7132867296 7132867296 7132867296 7132867296 7132867296' retcode: 0 stderr: "", ""3629951 52023629951 52023629951 52023629951 52023629951 52023629951 52023629951' retcode: 0 stderr: "", ""39 5837147039 5837147039 5837147039 5837147039 5837147039 5837147039 5837147039' retcode: 0 stderr: "", ""82 1014990482 1014990482 1014990482 1014990482 1014990482 1014990482 1014990482' retcode: 0 stderr: "", ""Case 122: expected: '9 3 54 1 54 14 14' got: '54 54 54 54 54 54 54' retcode: 0 stderr: "", ""15 1585127915 1585127915 1585127915 1585127915 1585127915 1585127915 1585127915' retcode: 0 stderr: "", ""8 842753467858 842753467858 842753467858 842753467858 842753467858 842753467858' retcode: 0 stderr: "", ""31 1452266531 1452266531 1452266531 1452266531 1452266531 1452266531 1452266531' retcode: 0 stderr: "", ""5996135 5996135 5996135 5996135 5996135 5996135 5996135 5996135 5996135 5996135' retcode: 0 stderr: "", ""9 98119 98119 98119 98119 98119 98119 98119 98119 98119 98119 98119 98119 98119' retcode: 0 stderr: "", ""7761643 57761643 57761643 57761643 57761643 57761643 57761643 57761643 57761643' retcode: 0 stderr: "", ""1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405 1405' retcode: 0 stderr: "", ""8160378 78160378 78160378 78160378 78160378 78160378 78160378 78160378 78160378' retcode: 0 stderr: "", ""3534794 53534794 53534794 53534794 53534794 53534794 53534794 53534794 53534794' retcode: 0 stderr: "", ""124656496 124656496 124656496 124656496 124656496 124656496 124656496 124656496' retcode: 0 stderr: "", ""5800459 5800459 5800459 5800459 5800459 5800459 5800459 5800459 5800459 5800459' retcode: 0 stderr: "", ""5721620 5721620 5721620 5721620 5721620 5721620 5721620 5721620 5721620 5721620' retcode: 0 stderr: "", ""6910982 16910982 16910982 16910982 16910982 16910982 16910982 16910982 16910982' retcode: 0 stderr: "", ""1 15531 15531 15531 15531 15531 15531 15531 15531 15531 15531 15531 15531 15531' retcode: 0 stderr: "", ""1 495987769461 495987769461 495987769461 495987769461 495987769461 495987769461' retcode: 0 stderr: "", ""4189265 34189265 34189265 34189265 34189265 34189265 34189265 34189265 34189265' retcode: 0 stderr: "", ""7 503698163197 503698163197 503698163197 503698163197 503698163197 503698163197' retcode: 0 stderr: "", ""6116537 46116537 46116537 46116537 46116537 46116537 46116537 46116537 46116537' retcode: 0 stderr: "", ""1497 1497 1497 1497 1497 1497 1497 1497 1497 1497 1497 1497 1497 1497 1497 1497' retcode: 0 stderr: "", ""1517 1517 1517 1517 1517 1517 1517 1517 1517 1517 1517 1517 1517 1517 1517 1517' retcode: 0 stderr: "", ""1811 1811 1811 1811 1811 1811 1811 1811 1811 1811 1811 1811 1811 1811 1811 1811' retcode: 0 stderr: ""]",WA
+2024f3p2_brigadeiros,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+
+def main():
+    input_data = sys.stdin.buffer.read().split()
+    idx = 0
+    N = int(input_data[idx]); idx+=1
+    K = int(input_data[idx]); idx+=1
+    T = int(input_data[idx]); idx+=1
+    P = [int(input_data[idx+i]) for i in range(N)]; idx+=N
+    G = [int(input_data[idx+i]) for i in range(N)]; idx+=N
+    
+    positions = [i for i in range(N) if G[i]==1]  # 0-indexed
+    
+    INF = float('inf')
+    max_val = 9*K
+    # dp[k][v] = min cost to assign k members with total value v
+    dp = [[INF]*(max_val+1) for _ in range(K+1)]
+    dp[0][0] = 0
+    
+    for j in range(N):
+        for k in range(min(K, j+1), 0, -1):
+            cost_add = abs(j - positions[k-1])
+            pj = P[j]
+            prev = dp[k-1]
+            curr = dp[k]
+            for v in range(pj, max_val+1):
+                val = prev[v-pj] + cost_add
+                if val < curr[v]:
+                    curr[v] = val
+    
+    ans = 0
+    for v in range(max_val+1):
+        if dp[K][v] <= T:
+            ans = v
+    print(ans)
+
+main()",False,50,67,"[""Case 12: expected: '1215' got: '' retcode: 124 stderr: Execution timed out."", ""Case 14: expected: '1369' got: '' retcode: 124 stderr: Execution timed out."", ""Case 15: expected: '1122' got: '' retcode: 124 stderr: Execution timed out."", ""Case 16: expected: '1280' got: '' retcode: 124 stderr: Execution timed out."", ""Case 17: expected: '768' got: '' retcode: 124 stderr: Execution timed out."", ""Case 18: expected: '1157' got: '' retcode: 124 stderr: Execution timed out."", ""Case 20: expected: '1354' got: '' retcode: 124 stderr: Execution timed out."", ""Case 21: expected: '1505' got: '' retcode: 124 stderr: Execution timed out."", ""Case 22: expected: '1287' got: '' retcode: 124 stderr: Execution timed out."", ""Case 23: expected: '1611' got: '' retcode: 124 stderr: Execution timed out."", ""Case 24: expected: '1014' got: '' retcode: 124 stderr: Execution timed out."", ""Case 25: expected: '1093' got: '' retcode: 124 stderr: Execution timed out."", ""Case 26: expected: '1435' got: '' retcode: 124 stderr: Execution timed out."", ""Case 29: expected: '2228' got: '' retcode: 124 stderr: Execution timed out."", ""Case 31: expected: '1439' got: '' retcode: 124 stderr: Execution timed out."", ""Case 32: expected: '2007' got: '' retcode: 124 stderr: Execution timed out."", ""Case 34: expected: '533' got: '' retcode: 124 stderr: Execution timed out.""]",TLE
+2024f3p2_construtora,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+from functools import lru_cache
+
+def solve():
+    N = int(input())
+    a = list(map(int, input().split()))
+    
+    target = max(a)
+    
+    # We need to raise all buildings to 'target' height.
+    # Each operation picks a contiguous range [L,R] where all buildings have the same height,
+    # and increases them by 1.
+    # We want minimum number of operations.
+    
+    # Key insight: think of the ""work"" needed as layers. For each building i, we need to add
+    # (target - a[i]) floors. 
+    # 
+    # Consider the problem as: we have a bar chart of heights h[i] = target - a[i] (work needed).
+    # We need to ""paint"" this bar chart using horizontal strokes, where each stroke is a 
+    # contiguous segment at the same level. This is equivalent to the classic ""minimum number 
+    # of horizontal brush strokes"" problem.
+    #
+    # Wait, but the constraint is more specific: at each operation, the buildings in [L,R] must
+    # all have the SAME current height. So the order matters and it's not just simple painting.
+    #
+    # Actually, let's think about it differently. The operations build up layers from the bottom.
+    # Consider the ""deficit"" array d[i] = target - a[i]. We need to fill these deficits.
+    #
+    # At each layer (height level), we can think of which buildings still need work at that level.
+    # For a given level, the buildings that need work form some set of contiguous groups.
+    # But the constraint is that when we do an operation, all buildings in the range must have
+    # the same current height.
+    #
+    # If we process layers bottom-up: at each height level h (from min(a) to target-1), 
+    # we look at which buildings have original height <= h (i.e., they need to be raised through
+    # level h+1). These buildings form contiguous groups. Each contiguous group at this level
+    # requires exactly one operation (we can raise the whole group together since they all have
+    # height h at this point... wait, not necessarily).
+    #
+    # Actually, let me reconsider. If we always process from the bottom up, buildings that 
+    # start at the same height and are contiguous can be raised together. The key insight is:
+    #
+    # Think of it as painting rows. For each height level from min(a) to target-1, count the 
+    # number of contiguous groups of buildings that need to pass through this level.
+    # That's exactly the number of operations needed at this level.
+    #
+    # This works because: at level h, all buildings that need to go through this level currently
+    # have height h (they were raised to h by previous operations or started at h). Contiguous
+    # groups of such buildings can each be raised in one operation.
+    
+    # For each level h (0-indexed: h from 0 to target-1, meaning the actual floor level),
+    # count contiguous groups of buildings with a[i] <= h (i.e., buildings that need floor h+1).
+    
+    # Actually: building i needs to be raised from a[i] to target. So it needs operations at
+    # levels a[i], a[i]+1, ..., target-1. At level h, building i participates if a[i] <= h.
+    
+    total = 0
+    min_a = min(a)
+    
+    for h in range(min_a, target):
+        # Count contiguous groups of buildings where a[i] <= h
+        groups = 0
+        in_group = False
+        for i in range(N):
+            if a[i] <= h:
+                if not in_group:
+                    groups += 1
+                    in_group = True
+            else:
+                in_group = False
+        total += groups
+    
+    print(total)
+
+solve()",True,38,38,[],AC
+2024f3p2_retas,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+from fractions import Fraction
+
+def merge_count(arr, x1, x2):
+    if len(arr) <= 1:
+        return arr, 0
+    mid = len(arr) // 2
+    left, cnt_left = merge_count(arr[:mid], x1, x2)
+    right, cnt_right = merge_count(arr[mid:], x1, x2)
+    
+    # Count inversions between left and right
+    # left and right are sorted by value at x1
+    # We need to count pairs where left[i] > right[j] at x2 (inversions in x2 ordering)
+    # But we want total intersections in [x1, x2], which equals inversions between
+    # the ordering at x1 and ordering at x2.
+    
+    # Actually, we use a different approach:
+    # Sort by value at x1. Count how many pairs have swapped order at x2.
+    # That's the number of inversions when we look at the x2 values.
+    
+    # Merge by x2 value and count inversions
+    merged = []
+    inv = cnt_left + cnt_right
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i][1] <= right[j][1]:
+            merged.append(left[i])
+            i += 1
+        else:
+            inv += len(left) - i
+            merged.append(right[j])
+            j += 1
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged, inv
+
+def solve():
+    input_data = sys.stdin.buffer.read().split()
+    idx = 0
+    N = int(input_data[idx]); idx += 1
+    X1 = int(input_data[idx]); idx += 1
+    X2 = int(input_data[idx]); idx += 1
+    
+    lines = []
+    for i in range(N):
+        a = int(input_data[idx]); idx += 1
+        b = int(input_data[idx]); idx += 1
+        lines.append((a, b))
+    
+    # Remove duplicate slopes - lines with same slope but different b never intersect
+    # Group by slope
+    # For lines with same slope (parallel), they never intersect, so no contribution.
+    # For lines with different slopes, intersection x = (b2-b1)/(a1-a2)
+    # We need x in [X1, X2].
+    
+    # Approach: evaluate each line at x1 and x2, sort by value at x1 (with tiebreak by x2),
+    # then count inversions in the x2 ordering.
+    
+    # But we need to be careful with ties. If two lines have the same value at x1,
+    # they intersect at x1 (which is included). If they cross between x1 and x2, count it.
+    # If same value at x1: intersection is at x1, which is in range, so it counts IF they are different lines.
+    # Wait, same value at x1 means they intersect at x=x1 only if they actually cross there.
+    # Two lines with same value at x1: a1*x1+b1 = a2*x1+b2. If a1 != a2, they cross at x1.
+    # If a1 == a2 and b1 == b2, same line (excluded by constraints). If a1==a2, b1!=b2, they never cross.
+    
+    # For the merge sort inversion count approach:
+    # Compute val_at_x1 and val_at_x2 for each line.
+    # Sort by val_at_x1 (tiebreak: val_at_x2).
+    # Count inversions in val_at_x2 sequence.
+    
+    # Use Fraction or multiply out to avoid floating point issues.
+    # val_at_x1 = a*X1 + b, val_at_x2 = a*X2 + b — these are integers!
+    
+    vals = []
+    for a, b in lines:
+        v1 = a * X1 + b
+        v2 = a * X2 + b
+        vals.append((v1, v2))
+    
+    # Sort by v1, tiebreak by v2
+    vals.sort()
+    
+    # Now count inversions in the v2 sequence
+    # An inversion means v2[i] > v2[j] for i < j, meaning the lines crossed between x1 and x2
+    # (or at x1 if v1 values are equal but v2 swapped, meaning they cross at x1)
+    
+    v2_arr = [(vals[i][1],) for i in range(N)]
+    
+    # Merge sort count inversions on v2 values
+    def merge_inv(arr):
+        if len(arr) <= 1:
+            return arr, 0
+        mid = len(arr) // 2
+        left, cl = merge_inv(arr[:mid])
+        right, cr = merge_inv(arr[mid:])
+        merged = []
+        inv = cl + cr
+        i = j = 0
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                merged.append(left[i])
+                i += 1
+            else:
+                inv += len(left) - i
+                merged.append(right[j])
+                j += 1
+        merged.extend(left[i:])
+        merged.extend(right[j:])
+        return merged, inv
+    
+    sys.setrecursionlimit(400000)
+    v2_list = [v[0] for v in v2_arr]
+    _, answer = merge_inv(v2_list)
+    print(answer)
+
+solve()",False,11,43,"[""Case 0: expected: '6796' got: '0' retcode: 0 stderr: "", ""Case 1: expected: '9962' got: '0' retcode: 0 stderr: "", ""Case 2: expected: '78' got: '' retcode: 124 stderr: Execution timed out."", ""Case 3: expected: '91' got: '' retcode: 124 stderr: Execution timed out."", ""Case 4: expected: '1109228551' got: '' retcode: 124 stderr: Execution timed out."", ""Case 5: expected: '2' got: '1' retcode: 0 stderr: "", ""Case 7: expected: '6' got: '0' retcode: 0 stderr: "", ""Case 8: expected: '3' got: '1' retcode: 0 stderr: "", ""Case 9: expected: '3' got: '1' retcode: 0 stderr: "", ""Case 10: expected: '2016089859' got: '' retcode: 124 stderr: Execution timed out."", ""Case 11: expected: '53628' got: '' retcode: 124 stderr: Execution timed out."", ""Case 12: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 13: expected: '1' got: '' retcode: 124 stderr: Execution timed out."", ""Case 14: expected: '3992296' got: '' retcode: 124 stderr: Execution timed out."", ""Case 15: expected: '347780755' got: '' retcode: 124 stderr: Execution timed out."", ""Case 16: expected: '416644249' got: '' retcode: 124 stderr: Execution timed out."", ""Case 17: expected: '2917659' got: '2399321' retcode: 0 stderr: "", ""Case 18: expected: '3916436286' got: '' retcode: 124 stderr: Execution timed out."", ""Case 19: expected: '391157' got: '' retcode: 124 stderr: Execution timed out."", ""Case 20: expected: '107855' got: '' retcode: 124 stderr: Execution timed out."", ""Case 21: expected: '2851587' got: '' retcode: 124 stderr: Execution timed out."", ""Case 22: expected: '2918071' got: '' retcode: 124 stderr: Execution timed out."", ""Case 23: expected: '20424' got: '0' retcode: 0 stderr: "", ""Case 24: expected: '3' got: '1' retcode: 0 stderr: "", ""Case 25: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 26: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 27: expected: '42762' got: '' retcode: 124 stderr: Execution timed out."", ""Case 28: expected: '52174' got: '' retcode: 124 stderr: Execution timed out."", ""Case 29: expected: '0' got: '' retcode: 124 stderr: Execution timed out."", ""Case 30: expected: '3' got: '1' retcode: 0 stderr: "", ""Case 40: expected: '1' got: '0' retcode: 0 stderr: "", ""Case 41: expected: '1' got: '0' retcode: 0 stderr: ""]",WA
+2024f3p2_burocracia,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+from sys import setrecursionlimit
+
+def main():
+    input_data = sys.stdin.buffer.read().split()
+    idx = 0
+    
+    N = int(input_data[idx]); idx += 1
+    
+    parent = [0] * (N + 1)
+    children = [[] for _ in range(N + 1)]
+    
+    for i in range(2, N + 1):
+        p = int(input_data[idx]); idx += 1
+        parent[i] = p
+        children[p].append(i)
+    
+    Q = int(input_data[idx]); idx += 1
+    
+    output = []
+    
+    for _ in range(Q):
+        op = int(input_data[idx]); idx += 1
+        if op == 1:
+            v = int(input_data[idx]); idx += 1
+            k = int(input_data[idx]); idx += 1
+            # Walk up k levels from v
+            cur = v
+            for _ in range(k):
+                cur = parent[cur]
+            output.append(str(cur))
+        else:
+            # op == 2: restructure from v
+            v = int(input_data[idx]); idx += 1
+            # All direct and indirect subordinates of v should have parent = v
+            # BFS/DFS from v through children
+            # We need to set parent[u] = v for all descendants u of v
+            # and update children[v] to be all descendants
+            # Also clear children of intermediate nodes
+            
+            # Collect all descendants via BFS
+            stack = []
+            # Start with current children of v
+            for c in children[v]:
+                stack.append(c)
+            
+            new_children_of_v = []
+            
+            while stack:
+                u = stack.pop()
+                new_children_of_v.append(u)
+                parent[u] = v
+                for c in children[u]:
+                    stack.append(c)
+                children[u] = []
+            
+            children[v] = new_children_of_v
+    
+    sys.stdout.write('\n'.join(output) + '\n' if output else '')
+
+main()",False,33,53,"[""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""\\n12864\\n12864\\n12843\\n12934\\n12841\\n12838\\n12837' got: '' retcode: 124 stderr: Execution timed out."", ""3\\n2261\\n2256\\n2256\\n2255\\n2250\\n2247\\n2244\\n2237' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""\\n50893\\n52800\\n49731\\n56674\\n52400\\n22131\\n56674' got: '' retcode: 124 stderr: Execution timed out."", ""8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8\\n8' got: '' retcode: 124 stderr: Execution timed out."", ""9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9\\n9' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n1\\n1\\n2\\n2\\n2\\n2\\n2\\n1\\n1\\n2\\n2\\n1\\n1\\n2\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""42\\n15\\n66\\n73\\n152\\n106\\n1\\n106\\n136\\n106\\n99\\n7' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n1\\n2\\n1\\n1\\n2\\n1\\n1\\n1\\n2\\n1\\n1\\n1\\n2\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""7909\\n13142\\n1664\\n11351\\n31906\\n2874\\n563\\n35372' got: '' retcode: 124 stderr: Execution timed out."", ""2\\n1\\n2\\n1\\n2\\n1\\n1\\n2\\n1\\n2\\n2\\n2\\n1\\n2\\n2\\n1\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n2\\n1\\n1\\n1\\n1\\n1\\n2\\n2\\n2\\n2\\n1\\n1\\n1\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""3\\n1\\n1\\n2\\n2\\n3\\n1\\n1\\n1\\n1\\n3\\n1\\n1\\n3\\n2\\n2\\n1' got: '' retcode: 124 stderr: Execution timed out."", ""1\\n2\\n2\\n2\\n1\\n1\\n2\\n1\\n2\\n1\\n1\\n2\\n2\\n1\\n2\\n2\\n2' got: '' retcode: 124 stderr: Execution timed out."", ""15793\\n3898\\n30249\\n70\\n19922\\n34341\\n14825\\n7658' got: '' retcode: 124 stderr: Execution timed out."", ""\\n36628\\n38227\\n24322\\n24946\\n32602\\n36799\\n14383' got: '' retcode: 124 stderr: Execution timed out."", ""4958\\n80\\n21295\\n19227\\n26297\\n23766\\n37650\\n5187' got: '' retcode: 124 stderr: Execution timed out."", ""n35\\n5362\\n3617\\n29473\\n19661\\n3089\\n21480\\n13743' got: '' retcode: 124 stderr: Execution timed out.""]",TLE
+2024f3p2_pratos,anthropic/claude-opus-4.6,N/A (Zero-shot),N/A (Zero-shot),"import sys
+from functools import cmp_to_key
+
+def upper_envelope(lines):
+    lines.sort(key=lambda l: (l[0], l[1]))
+    hull = []
+    for a, b in lines:
+        while len(hull) >= 2:
+            a1, b1 = hull[-2]
+            a2, b2 = hull[-1]
+            if (b - b2) * (a1 - a2) >= (b2 - b1) * (a2 - a):<br>                hull.pop()
+            else:
+                break
+        if hull and hull[-1][0] == a and hull[-1][1] <= b:
+            hull.pop()
+        hull.append((a, b))
+    return hull
+
+# ... (full implementation follows)",False,0,73,"[""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n"", ""       hull.pop()\n                                                    ^\nSyntaxError: invalid syntax\n""]",CE
