@@ -4,31 +4,37 @@ using namespace std;
 using ll = long long;
 using i128 = __int128_t;
 
-struct Line {
-    ll a, b;
-    int id;
-};
-
 struct Fenwick {
     int n;
-    vector<long long> bit;
+    vector<ll> bit;
     Fenwick(int n = 0) { init(n); }
     void init(int n_) {
         n = n_;
         bit.assign(n + 1, 0);
     }
-    void add(int idx, long long val) {
+    void add(int idx, ll val) {
         for (; idx <= n; idx += idx & -idx) bit[idx] += val;
     }
-    long long sumPrefix(int idx) const {
-        long long r = 0;
+    ll sumPrefix(int idx) const {
+        ll r = 0;
         for (; idx > 0; idx -= idx & -idx) r += bit[idx];
         return r;
     }
 };
 
-static inline i128 valueAt(const Line& l, ll x) {
-    return (i128)l.a * (i128)x + (i128)l.b;
+struct Line {
+    ll a, b;
+    i128 y1, y2;
+};
+
+static bool cmpY1(const Line& p, const Line& q) {
+    if (p.y1 != q.y1) return p.y1 < q.y1;
+    return p.y2 < q.y2;
+}
+
+static bool cmpY2(const Line& p, const Line& q) {
+    if (p.y2 != q.y2) return p.y2 < q.y2;
+    return p.y1 < q.y1;
 }
 
 int main() {
@@ -39,39 +45,39 @@ int main() {
     ll X1, X2;
     cin >> N >> X1 >> X2;
 
-    vector<Line> lines(N);
+    vector<Line> v(N);
     for (int i = 0; i < N; ++i) {
-        cin >> lines[i].a >> lines[i].b;
-        lines[i].id = i;
+        ll a, b;
+        cin >> a >> b;
+        v[i] = {a, b, (i128)a * X1 + b, (i128)a * X2 + b};
     }
 
-    auto cmpX1 = [&](const Line& p, const Line& q) {
-        i128 vp = valueAt(p, X1);
-        i128 vq = valueAt(q, X1);
-        if (vp != vq) return vp < vq;
-        return p.id < q.id;
-    };
+    sort(v.begin(), v.end(), cmpY1);
 
-    auto cmpX2 = [&](const Line& p, const Line& q) {
-        i128 vp = valueAt(p, X2);
-        i128 vq = valueAt(q, X2);
-        if (vp != vq) return vp < vq;
-        return p.id < q.id;
-    };
+    vector<i128> vals;
+    vals.reserve(N);
+    for (auto &ln : v) vals.push_back(ln.y2);
+    sort(vals.begin(), vals.end());
+    vals.erase(unique(vals.begin(), vals.end()), vals.end());
 
-    vector<Line> ord1 = lines, ord2 = lines;
-    sort(ord1.begin(), ord1.end(), cmpX1);
-    sort(ord2.begin(), ord2.end(), cmpX2);
-
-    vector<int> posInOrd2(N);
-    for (int i = 0; i < N; ++i) posInOrd2[ord2[i].id] = i + 1;
-
-    Fenwick fw(N);
+    Fenwick fw((int)vals.size());
     long long ans = 0;
-    for (int i = 0; i < N; ++i) {
-        int p = posInOrd2[ord1[i].id];
-        ans += i - fw.sumPrefix(p);
-        fw.add(p, 1);
+
+    int i = 0;
+    while (i < N) {
+        int j = i;
+        while (j < N && v[j].y1 == v[i].y1) j++;
+
+        for (int k = i; k < j; ++k) {
+            int pos = lower_bound(vals.begin(), vals.end(), v[k].y2) - vals.begin() + 1;
+            ans += fw.sumPrefix(pos);
+        }
+        for (int k = i; k < j; ++k) {
+            int pos = lower_bound(vals.begin(), vals.end(), v[k].y2) - vals.begin() + 1;
+            fw.add(pos, 1);
+        }
+
+        i = j;
     }
 
     cout << ans << '\n';

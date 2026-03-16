@@ -18,14 +18,14 @@ int main() {
     string message;
     cin >> message;
 
-    vector<bool> valid(256, false);
+    vector<bool> is_alien(256, false);
     for (char c : alphabet) {
-        valid[(unsigned char)c] = true;
+        is_alien[(unsigned char)c] = true;
     }
 
     bool possible = true;
     for (char c : message) {
-        if (!valid[(unsigned char)c]) {
+        if (!is_alien[(unsigned char)c]) {
             possible = false;
             break;
         }

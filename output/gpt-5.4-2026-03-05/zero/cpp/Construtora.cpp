@@ -15,12 +15,15 @@ int main() {
     }
 
     int ans = 0;
-    for (int h = 1; h <= mx; ++h) {
-        bool prev = false;
-        for (int i = 0; i < N; ++i) {
-            bool cur = (a[i] < h);
-            if (cur && !prev) ans++;
-            prev = cur;
+    for (int h = 0; h < mx; ++h) {
+        int i = 0;
+        while (i < N) {
+            if (a[i] <= h) {
+                ++i;
+            } else {
+                ++ans;
+                while (i < N && a[i] > h) ++i;
+            }
         }
     }
 

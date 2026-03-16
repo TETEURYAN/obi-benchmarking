@@ -3,8 +3,8 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
     int n, q;
     if (!(cin >> n >> q)) return 0;
@@ -19,9 +19,8 @@ int main() {
     for (int i = 0; i < q; i++) {
         int l, r;
         cin >> l >> r;
-        long long k = r - l + 1;
-        long long s = pref[r] - pref[l - 1];
-        long long ans = 11LL * (k - 1) * s;
+        long long sum = pref[r] - pref[l - 1];
+        long long ans = 11LL * (r - l) * sum;
         cout << ans << "\n";
     }
 

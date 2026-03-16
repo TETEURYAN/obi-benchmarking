@@ -6,10 +6,10 @@ def solve():
         return
     n = int(input_data[0])
     k = int(input_data[1])
-    a = [int(x) for x in input_data[2:2+n]]
+    a = sorted((int(x) for x in input_data[2:]), reverse=True)
     
-    a.sort(reverse=True)
-    print(a[k-1])
+    if k > 0:
+        print(a[k-1])
 
 if __name__ == '__main__':
     solve()

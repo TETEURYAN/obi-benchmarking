@@ -10,24 +10,19 @@ struct Line {
     }
 };
 
-int tree[100005];
-int M;
-
-void add(int idx, int val) {
-    while (idx <= M) {
-        tree[idx] += val;
-        idx += idx & -idx;
+struct Fenwick {
+    int n;
+    vector<int> tree;
+    Fenwick(int n) : n(n), tree(n + 1, 0) {}
+    void add(int i, int delta) {
+        for (; i <= n; i += i & -i) tree[i] += delta;
     }
-}
-
-int query(int idx) {
-    int sum = 0;
-    while (idx > 0) {
-        sum += tree[idx];
-        idx -= idx & -idx;
+    int query(int i) {
+        int sum = 0;
+        for (; i > 0; i -= i & -i) sum += tree[i];
+        return sum;
     }
-    return sum;
-}
+};
 
 int main() {
     ios::sync_with_stdio(0);
@@ -44,28 +39,24 @@ int main() {
         cin >> a >> b;
         lines[i].y1 = a * x1 + b;
         lines[i].y2 = a * x2 + b;
-    }
-
-    sort(lines.begin(), lines.end());
-
-    for (int i = 0; i < n; i++) {
         y2_vals[i] = lines[i].y2;
     }
 
-    vector<long long> unique_y2 = y2_vals;
-    sort(unique_y2.begin(), unique_y2.end());
-    unique_y2.erase(unique(unique_y2.begin(), unique_y2.end()), unique_y2.end());
+    sort(lines.begin(), lines.end());
+    sort(y2_vals.begin(), y2_vals.end());
+    y2_vals.erase(unique(y2_vals.begin(), y2_vals.end()), y2_vals.end());
 
-    M = unique_y2.size();
+    int k = y2_vals.size();
+    Fenwick fenw(k);
 
-    long long total_intersections = 0;
+    long long intersections = 0;
     for (int i = 0; i < n; i++) {
-        int rank = lower_bound(unique_y2.begin(), unique_y2.end(), lines[i].y2) - unique_y2.begin() + 1;
-        total_intersections += i - query(rank - 1);
-        add(rank, 1);
+        int comp_y2 = lower_bound(y2_vals.begin(), y2_vals.end(), lines[i].y2) - y2_vals.begin() + 1;
+        intersections += i - fenw.query(comp_y2 - 1);
+        fenw.add(comp_y2, 1);
     }
 
-    cout << total_intersections << "\n";
+    cout << intersections << "\n";
 
     return 0;
 }

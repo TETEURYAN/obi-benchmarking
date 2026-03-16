@@ -4,23 +4,22 @@ input_data = sys.stdin.read().split()
 if not input_data:
     exit()
 
-N = int(input_data[0])
-Q = int(input_data[1])
+n = int(input_data[0])
+q = int(input_data[1])
 
-P = [0] * (N + 1)
-for i in range(N):
-    P[i + 1] = P[i] + int(input_data[2 + i])
+pref = [0] * (n + 1)
+for i in range(n):
+    pref[i+1] = pref[i] + int(input_data[2+i])
 
-idx = 2 + N
 out = []
-for _ in range(Q):
-    L = int(input_data[idx])
-    R = int(input_data[idx + 1])
+idx = 2 + n
+for _ in range(q):
+    l = int(input_data[idx])
+    r = int(input_data[idx+1])
     idx += 2
     
-    k = R - L + 1
-    S = P[R] - P[L - 1]
-    ans = 11 * (k - 1) * S
-    out.append(str(ans))
+    k = r - l + 1
+    s = pref[r] - pref[l-1]
+    out.append(str(11 * (k - 1) * s))
 
 print('\n'.join(out))

@@ -8,11 +8,16 @@ int main() {
     int N, K;
     if (!(cin >> N >> K)) return 0;
 
-    vector<int> A(N);
-    for (int i = 0; i < N; i++) cin >> A[i];
+    vector<int> a(N);
+    for (int i = 0; i < N; i++) cin >> a[i];
 
-    sort(A.begin(), A.end(), greater<int>());
+    sort(a.begin(), a.end(), greater<int>());
 
-    cout << A[K - 1] << '\n';
+    if (K == 0) {
+        cout << 101 << '\n';
+    } else {
+        cout << a[K - 1] << '\n';
+    }
+
     return 0;
 }

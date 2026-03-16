@@ -3,10 +3,12 @@ using namespace std;
 
 struct DSU {
     vector<int> p, sz;
-    DSU(int n = 0) { init(n); }
-    void init(int n) {
+    vector<long long> sum;
+    DSU() {}
+    DSU(int n, const vector<long long>& w) {
         p.resize(n);
         sz.assign(n, 1);
+        sum = w;
         iota(p.begin(), p.end(), 0);
     }
     int find(int x) {
@@ -17,11 +19,13 @@ struct DSU {
         return x;
     }
     int unite(int a, int b) {
-        a = find(a); b = find(b);
+        a = find(a);
+        b = find(b);
         if (a == b) return a;
         if (sz[a] < sz[b]) swap(a, b);
         p[b] = a;
         sz[a] += sz[b];
+        sum[a] += sum[b];
         return a;
     }
 };
@@ -35,106 +39,129 @@ int main() {
     int K = N * M;
 
     vector<long long> P(K);
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < M; j++) {
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < M; ++j) {
             cin >> P[i * M + j];
         }
     }
 
-    vector<vector<int>> byValue;
-    {
-        vector<long long> vals = P;
-        sort(vals.begin(), vals.end());
-        vals.erase(unique(vals.begin(), vals.end()), vals.end());
-        byValue.assign(vals.size(), {});
-        for (int i = 0; i < K; i++) {
-            int id = lower_bound(vals.begin(), vals.end(), P[i]) - vals.begin();
-            byValue[id].push_back(i);
+    vector<int> ord(K);
+    iota(ord.begin(), ord.end(), 0);
+    sort(ord.begin(), ord.end(), [&](int a, int b) {
+        if (P[a] != P[b]) return P[a] < P[b];
+        return a < b;
+    });
+
+    DSU dsu(K, P);
+    vector<char> active(K, 0);
+    vector<long long> ans(K, -1);
+
+    auto try_union = [&](int u, int v) {
+        if (!active[v]) return;
+        int ru = dsu.find(u), rv = dsu.find(v);
+        if (ru == rv) return;
+        dsu.unite(ru, rv);
+    };
+
+    int ptr = 0;
+    while (ptr < K) {
+        int l = ptr;
+        long long val = P[ord[ptr]];
+        while (ptr < K && P[ord[ptr]] == val) ptr++;
+        int r = ptr;
+
+        for (int t = l; t < r; ++t) {
+            int u = ord[t];
+            active[u] = 1;
         }
 
-        DSU dsu(K);
-        vector<char> active(K, 0);
-        vector<long long> compSum(K, 0);
-        vector<long long> compNeed(K, 0);
-        vector<vector<int>> members(K);
-        vector<long long> ans(K, -1);
+        for (int t = l; t < r; ++t) {
+            int u = ord[t];
+            int x = u / M, y = u % M;
+            if (x > 0) try_union(u, u - M);
+            if (x + 1 < N) try_union(u, u + M);
+            if (y > 0) try_union(u, u - 1);
+            if (y + 1 < M) try_union(u, u + 1);
+        }
 
-        auto try_finalize = [&](int root) {
-            root = dsu.find(root);
-            if (compNeed[root] == -1) return;
-            if (compSum[root] >= compNeed[root]) {
-                long long finalSum = compSum[root];
-                queue<int> q;
+        unordered_map<int, vector<int>> groups;
+        groups.reserve((r - l) * 2 + 1);
+        for (int t = l; t < r; ++t) {
+            int u = ord[t];
+            groups[dsu.find(u)].push_back(u);
+        }
+
+        queue<int> q;
+        for (auto &it : groups) {
+            int root = it.first;
+            if (ans[root] != -1) continue;
+            if (dsu.sum[root] >= val) {
+                ans[root] = dsu.sum[root];
                 q.push(root);
-                compNeed[root] = -1;
-                while (!q.empty()) {
-                    int r = q.front();
-                    q.pop();
-                    for (int v : members[r]) ans[v] = finalSum;
-                }
             }
-        };
+        }
 
-        for (int gid = 0; gid < (int)vals.size(); gid++) {
-            long long curVal = vals[gid];
-
-            for (int v : byValue[gid]) {
-                active[v] = 1;
-                dsu.p[v] = v;
-                dsu.sz[v] = 1;
-                compSum[v] = P[v];
-                compNeed[v] = 2 * P[v];
-                members[v].clear();
-                members[v].push_back(v);
-            }
-
-            for (int v : byValue[gid]) {
-                int x = v / M, y = v % M;
-                const int dx[4] = {-1, 1, 0, 0};
-                const int dy[4] = {0, 0, -1, 1};
-                for (int d = 0; d < 4; d++) {
-                    int nx = x + dx[d], ny = y + dy[d];
-                    if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
-                    int u = nx * M + ny;
-                    if (!active[u]) continue;
-                    int a = dsu.find(v), b = dsu.find(u);
-                    if (a == b) continue;
-
-                    int nr = dsu.unite(a, b);
-                    int oroot = (nr == a ? b : a);
-
-                    compSum[nr] = compSum[a] + compSum[b];
-
-                    long long needA = compNeed[a];
-                    long long needB = compNeed[b];
-                    if (needA == -1 || needB == -1) compNeed[nr] = -1;
-                    else compNeed[nr] = min(needA, needB);
-
-                    if (members[nr].size() < members[oroot].size()) {
-                        members[nr].swap(members[oroot]);
+        while (!q.empty()) {
+            int root = q.front();
+            q.pop();
+            long long cur = ans[root];
+            for (int u : groups[root]) {
+                int x = u / M, y = u % M;
+                if (x > 0) {
+                    int v = u - M;
+                    if (active[v]) {
+                        int rv = dsu.find(v);
+                        if (rv != root && ans[rv] == -1 && cur >= P[rv]) {
+                            ans[rv] = cur + dsu.sum[rv];
+                            q.push(rv);
+                        }
                     }
-                    for (int node : members[oroot]) members[nr].push_back(node);
-                    vector<int>().swap(members[oroot]);
+                }
+                if (x + 1 < N) {
+                    int v = u + M;
+                    if (active[v]) {
+                        int rv = dsu.find(v);
+                        if (rv != root && ans[rv] == -1 && cur >= P[rv]) {
+                            ans[rv] = cur + dsu.sum[rv];
+                            q.push(rv);
+                        }
+                    }
+                }
+                if (y > 0) {
+                    int v = u - 1;
+                    if (active[v]) {
+                        int rv = dsu.find(v);
+                        if (rv != root && ans[rv] == -1 && cur >= P[rv]) {
+                            ans[rv] = cur + dsu.sum[rv];
+                            q.push(rv);
+                        }
+                    }
+                }
+                if (y + 1 < M) {
+                    int v = u + 1;
+                    if (active[v]) {
+                        int rv = dsu.find(v);
+                        if (rv != root && ans[rv] == -1 && cur >= P[rv]) {
+                            ans[rv] = cur + dsu.sum[rv];
+                            q.push(rv);
+                        }
+                    }
                 }
             }
-
-            unordered_set<int> roots;
-            roots.reserve(byValue[gid].size() * 2 + 1);
-            for (int v : byValue[gid]) roots.insert(dsu.find(v));
-            for (int r : roots) try_finalize(r);
         }
+    }
 
-        for (int i = 0; i < K; i++) {
-            if (ans[i] == -1) ans[i] = P[i];
-        }
+    for (int i = 0; i < K; ++i) {
+        int r = dsu.find(i);
+        if (ans[r] == -1) ans[r] = dsu.sum[r];
+    }
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (j) cout << ' ';
-                cout << ans[i * M + j];
-            }
-            cout << '\n';
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < M; ++j) {
+            if (j) cout << ' ';
+            cout << ans[dsu.find(i * M + j)];
         }
+        cout << '\n';
     }
 
     return 0;

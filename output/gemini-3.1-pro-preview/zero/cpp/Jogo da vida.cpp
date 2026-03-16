@@ -24,22 +24,22 @@ int main() {
         vector<string> next_grid = grid;
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
-                int live_neighbors = 0;
+                int alive_neighbors = 0;
                 for (int k = 0; k < 8; ++k) {
                     int ni = i + dr[k];
                     int nj = j + dc[k];
                     if (ni >= 0 && ni < n && nj >= 0 && nj < n) {
                         if (grid[ni][nj] == '1') {
-                            live_neighbors++;
+                            alive_neighbors++;
                         }
                     }
                 }
                 if (grid[i][j] == '1') {
-                    if (live_neighbors < 2 || live_neighbors > 3) {
+                    if (alive_neighbors < 2 || alive_neighbors > 3) {
                         next_grid[i][j] = '0';
                     }
                 } else {
-                    if (live_neighbors == 3) {
+                    if (alive_neighbors == 3) {
                         next_grid[i][j] = '1';
                     }
                 }

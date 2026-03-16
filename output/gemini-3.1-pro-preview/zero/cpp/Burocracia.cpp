@@ -1,71 +1,61 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 const int MAXN = 100005;
-const int INF = 1e9;
-
-int N, Q;
-int p[MAXN];
+int up[17][MAXN];
 vector<int> adj[MAXN];
-
-int up[MAXN][20];
-int depth[MAXN];
-int in[MAXN], out[MAXN];
+int in[MAXN], out[MAXN], depth[MAXN];
 int timer = 0;
+pair<int, int> tree[4 * MAXN];
 
-int tree[4 * MAXN];
-
-void dfs(int u, int p_node, int d) {
+void dfs(int u, int d) {
     in[u] = ++timer;
     depth[u] = d;
-    up[u][0] = p_node;
-    for (int i = 1; i < 20; i++) {
-        up[u][i] = up[up[u][i-1]][i-1];
-    }
     for (int v : adj[u]) {
-        if (v != p_node) {
-            dfs(v, u, d + 1);
-        }
+        dfs(v, d + 1);
     }
     out[u] = timer;
 }
 
-void update(int node, int l, int r, int ql, int qr, int u) {
-    if (ql > r || qr < l) return;
-    if (ql <= l && r <= qr) {
-        if (depth[u] < depth[tree[node]]) {
-            tree[node] = u;
-        }
-        return;
-    }
-    int mid = (l + r) / 2;
-    update(2 * node, l, mid, ql, qr, u);
-    update(2 * node + 1, mid + 1, r, ql, qr, u);
+void build(int node, int l, int r) {
+    tree[node] = {1e9, -1};
+    if (l == r) return;
+    int mid = l + (r - l) / 2;
+    build(2 * node, l, mid);
+    build(2 * node + 1, mid + 1, r);
 }
 
-int query(int node, int l, int r, int pos) {
-    int res = tree[node];
-    if (l == r) return res;
-    int mid = (l + r) / 2;
-    int child_res;
-    if (pos <= mid) {
-        child_res = query(2 * node, l, mid, pos);
-    } else {
-        child_res = query(2 * node + 1, mid + 1, r, pos);
+void update(int node, int l, int r, int ql, int qr, pair<int, int> val) {
+    if (ql > r || qr < l) return;
+    if (ql <= l && r <= qr) {
+        tree[node] = min(tree[node], val);
+        return;
     }
-    if (depth[child_res] < depth[res]) {
-        res = child_res;
+    int mid = l + (r - l) / 2;
+    update(2 * node, l, mid, ql, qr, val);
+    update(2 * node + 1, mid + 1, r, ql, qr, val);
+}
+
+pair<int, int> query(int node, int l, int r, int pos) {
+    if (l == r) return tree[node];
+    int mid = l + (r - l) / 2;
+    pair<int, int> res = tree[node];
+    if (pos <= mid) {
+        res = min(res, query(2 * node, l, mid, pos));
+    } else {
+        res = min(res, query(2 * node + 1, mid + 1, r, pos));
     }
     return res;
 }
 
 int get_kth_ancestor(int u, int k) {
-    for (int j = 0; j < 20; j++) {
-        if (k & (1 << j)) {
-            u = up[u][j];
+    for (int i = 0; i < 17; ++i) {
+        if ((k >> i) & 1) {
+            u = up[i][u];
         }
     }
     return u;
@@ -75,16 +65,28 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+    int N;
     if (!(cin >> N)) return 0;
 
-    for (int i = 2; i <= N; i++) {
-        cin >> p[i];
-        adj[p[i]].push_back(i);
+    for (int i = 2; i <= N; ++i) {
+        int p;
+        cin >> p;
+        adj[p].push_back(i);
+        up[0][i] = p;
+    }
+    up[0][1] = 0;
+
+    dfs(1, 0);
+
+    for (int i = 1; i < 17; ++i) {
+        for (int j = 1; j <= N; ++j) {
+            up[i][j] = up[i-1][up[i-1][j]];
+        }
     }
 
-    depth[0] = INF;
-    dfs(1, 1, 0);
+    build(1, 1, N);
 
+    int Q;
     cin >> Q;
     while (Q--) {
         int type;
@@ -92,21 +94,18 @@ int main() {
         if (type == 1) {
             int v, k;
             cin >> v >> k;
-            int h = query(1, 1, N, in[v]);
-            if (h == 0) {
-                cout << get_kth_ancestor(v, k) << "\n";
+            pair<int, int> h = query(1, 1, N, in[v]);
+            if (h.first != 1e9) {
+                int highest_ancestor = h.second;
+                cout << get_kth_ancestor(highest_ancestor, k - 1) << "\n";
             } else {
-                if (k == 1) {
-                    cout << h << "\n";
-                } else {
-                    cout << get_kth_ancestor(h, k - 1) << "\n";
-                }
+                cout << get_kth_ancestor(v, k) << "\n";
             }
         } else {
             int v;
             cin >> v;
             if (in[v] + 1 <= out[v]) {
-                update(1, 1, N, in[v] + 1, out[v], v);
+                update(1, 1, N, in[v] + 1, out[v], {depth[v], v});
             }
         }
     }

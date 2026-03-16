@@ -1,11 +1,11 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
     int e, d;
     if (cin >> e >> d) {
         if (e > d) {
@@ -14,6 +14,6 @@ int main() {
             cout << 2 * (d - e) << "\n";
         }
     }
-
+    
     return 0;
 }

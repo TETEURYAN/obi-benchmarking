@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -6,10 +7,8 @@ int main() {
     cin.tie(nullptr);
 
     int K, N;
-    cin >> K >> N;
-
     string alfabeto, mensagem;
-    cin >> alfabeto >> mensagem;
+    cin >> K >> N >> alfabeto >> mensagem;
 
     vector<bool> existe(256, false);
     for (char c : alfabeto) existe[(unsigned char)c] = true;

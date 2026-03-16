@@ -1,53 +1,63 @@
 import sys
 
-class Fenwick:
-    def __init__(self, n):
-        self.n = n
-        self.bit = [0] * (n + 1)
-
-    def add(self, i, v):
-        while i <= self.n:
-            self.bit[i] += v
-            i += i & -i
-
-    def sum(self, i):
-        s = 0
-        while i > 0:
-            s += self.bit[i]
-            i -= i & -i
-        return s
-
-def count_inversions(arr):
-    vals = sorted(set(arr))
-    comp = {v: i + 1 for i, v in enumerate(vals)}
-    fw = Fenwick(len(vals))
-    inv = 0
-    seen = 0
-    for x in arr:
-        cx = comp[x]
-        inv += seen - fw.sum(cx)
-        fw.add(cx, 1)
-        seen += 1
-    return inv
-
-data = sys.stdin.read().split()
+data = list(map(int, sys.stdin.read().split()))
 if not data:
     sys.exit()
 
-it = iter(data)
-n = int(next(it))
-x1 = int(next(it))
-x2 = int(next(it))
+n, x1, x2 = data[0], data[1], data[2]
 
 lines = []
-for _ in range(n):
-    a = int(next(it))
-    b = int(next(it))
+idx = 3
+for i in range(n):
+    a = data[idx]
+    b = data[idx + 1]
+    idx += 2
     y1 = a * x1 + b
     y2 = a * x2 + b
-    lines.append((y1, y2))
+    lines.append((y1, y2, i))
 
-lines.sort(key=lambda p: (p[0], p[1]))
-arr = [p[1] for p in lines]
+lines.sort(key=lambda t: (t[0], t[1], t[2]))
 
-print(count_inversions(arr))
+arr = [0] * n
+for pos, (_, y2, _) in enumerate(lines):
+    arr[pos] = (y2, pos)
+
+arr.sort()
+
+bit = [0] * (n + 2)
+
+def add(i, v):
+    i += 1
+    while i <= n:
+        bit[i] += v
+        i += i & -i
+
+def sum_prefix(i):
+    s = 0
+    i += 1
+    while i > 0:
+        s += bit[i]
+        i -= i & -i
+    return s
+
+ans = 0
+processed = 0
+j = 0
+while j < n:
+    k = j
+    y = arr[j][0]
+    while k < n and arr[k][0] == y:
+        k += 1
+
+    for t in range(j, k):
+        pos = arr[t][1]
+        ans += processed - sum_prefix(pos)
+
+    for t in range(j, k):
+        pos = arr[t][1]
+        add(pos, 1)
+        processed += 1
+
+    j = k
+
+print(ans)

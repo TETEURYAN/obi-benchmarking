@@ -6,7 +6,7 @@ int main() {
     cin.tie(0);
 
     int N, Q;
-    if (!(cin >> N >> Q)) return 0;
+    cin >> N >> Q;
 
     vector<long long> pref(N + 1, 0);
     for (int i = 1; i <= N; i++) {

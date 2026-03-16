@@ -2,20 +2,19 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
     long long H, M, S, T;
     if (!(cin >> H >> M >> S >> T)) return 0;
 
-    long long total = H * 3600 + M * 60 + S;
-    total = (total + T) % 86400;
+    long long total = H * 3600LL + M * 60LL + S;
+    total = (total + T) % 86400LL;
 
-    long long nh = total / 3600;
-    total %= 3600;
-    long long nm = total / 60;
-    long long ns = total % 60;
+    cout << total / 3600LL << '\n';
+    total %= 3600LL;
+    cout << total / 60LL << '\n';
+    cout << total % 60LL << '\n';
 
-    cout << nh << '\n' << nm << '\n' << ns << '\n';
     return 0;
 }

@@ -2,14 +2,14 @@ import sys
 
 data = list(map(int, sys.stdin.read().split()))
 if not data:
-    exit()
+    sys.exit()
 
 n, k = data[0], data[1]
-scores = data[2:2 + n]
+a = data[2:2 + n]
 
-scores.sort(reverse=True)
+a.sort(reverse=True)
 
 if k == 0:
     print(101)
 else:
-    print(scores[k - 1])
+    print(a[k - 1])

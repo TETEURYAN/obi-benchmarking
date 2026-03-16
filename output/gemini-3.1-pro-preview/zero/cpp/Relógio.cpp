@@ -7,16 +7,15 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    long long h, m, s, t;
-    if (cin >> h >> m >> s >> t) {
-        long long total_seconds = h * 3600 + m * 60 + s + t;
-        total_seconds %= 86400;
-
-        long long new_h = total_seconds / 3600;
-        long long new_m = (total_seconds % 3600) / 60;
-        long long new_s = total_seconds % 60;
-
-        cout << new_h << "\n" << new_m << "\n" << new_s << "\n";
+    long long H, M, S, T;
+    if (cin >> H >> M >> S >> T) {
+        long long total_seconds = H * 3600 + M * 60 + S + T;
+        
+        long long new_S = total_seconds % 60;
+        long long new_M = (total_seconds / 60) % 60;
+        long long new_H = (total_seconds / 3600) % 24;
+        
+        cout << new_H << "\n" << new_M << "\n" << new_S << "\n";
     }
 
     return 0;

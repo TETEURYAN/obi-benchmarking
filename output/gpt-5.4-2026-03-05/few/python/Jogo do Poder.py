@@ -1,130 +1,128 @@
 import sys
 
-def main():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
+data = list(map(int, sys.stdin.read().split()))
+if not data:
+    sys.exit()
 
-    n, m = data[0], data[1]
-    total = n * m
-    vals = data[2:2 + total]
+n, m = data[0], data[1]
+vals = data[2:]
+k = n * m
 
-    parent = list(range(total))
-    size = [1] * total
-    sum_power = vals[:]
-    active = [False] * total
+parent = list(range(k))
+size = [1] * k
+sum_power = vals[:]
+active = [False] * k
+ans = [0] * k
 
-    def find(x):
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
+def find(x):
+    while parent[x] != x:
+        parent[x] = parent[parent[x]]
+        x = parent[x]
+    return x
 
-    def union(a, b):
-        ra = find(a)
-        rb = find(b)
-        if ra == rb:
-            return ra
-        if size[ra] < size[rb]:
-            ra, rb = rb, ra
-        parent[rb] = ra
-        size[ra] += size[rb]
-        sum_power[ra] += sum_power[rb]
+def union(a, b):
+    ra = find(a)
+    rb = find(b)
+    if ra == rb:
         return ra
+    if size[ra] < size[rb]:
+        ra, rb = rb, ra
+    parent[rb] = ra
+    size[ra] += size[rb]
+    sum_power[ra] += sum_power[rb]
+    return ra
 
-    order = sorted(range(total), key=vals.__getitem__)
-    ans = [0] * total
+order = sorted(range(k), key=lambda i: vals[i])
+i = 0
 
-    i = 0
-    while i < total:
-        v = vals[order[i]]
-        j = i
-        while j < total and vals[order[j]] == v:
-            idx = order[j]
-            active[idx] = True
-            r = idx // m
-            c = idx - r * m
+while i < k:
+    v = vals[order[i]]
+    j = i
+    while j < k and vals[order[j]] == v:
+        idx = order[j]
+        active[idx] = True
+        r = idx // m
+        c = idx - r * m
 
-            if r > 0:
+        if r > 0:
+            nb = idx - m
+            if active[nb]:
+                union(idx, nb)
+        if r + 1 < n:
+            nb = idx + m
+            if active[nb]:
+                union(idx, nb)
+        if c > 0:
+            nb = idx - 1
+            if active[nb]:
+                union(idx, nb)
+        if c + 1 < m:
+            nb = idx + 1
+            if active[nb]:
+                union(idx, nb)
+        j += 1
+
+    changed = True
+    while changed:
+        changed = False
+        t = i
+        while t < j:
+            idx = order[t]
+            r0 = find(idx)
+            s = sum_power[r0]
+            rr = idx // m
+            cc = idx - rr * m
+
+            if rr > 0:
                 nb = idx - m
                 if active[nb]:
-                    union(idx, nb)
-            if r + 1 < n:
+                    rb = find(nb)
+                    if rb != r0 and vals[rb] <= s:
+                        r0 = union(r0, rb)
+                        s = sum_power[r0]
+                        changed = True
+            if rr + 1 < n:
                 nb = idx + m
                 if active[nb]:
-                    union(idx, nb)
-            if c > 0:
+                    rb = find(nb)
+                    if rb != r0 and vals[rb] <= s:
+                        r0 = union(r0, rb)
+                        s = sum_power[r0]
+                        changed = True
+            if cc > 0:
                 nb = idx - 1
                 if active[nb]:
-                    union(idx, nb)
-            if c + 1 < m:
+                    rb = find(nb)
+                    if rb != r0 and vals[rb] <= s:
+                        r0 = union(r0, rb)
+                        s = sum_power[r0]
+                        changed = True
+            if cc + 1 < m:
                 nb = idx + 1
                 if active[nb]:
-                    union(idx, nb)
-            j += 1
+                    rb = find(nb)
+                    if rb != r0 and vals[rb] <= s:
+                        r0 = union(r0, rb)
+                        s = sum_power[r0]
+                        changed = True
+            t += 1
 
-        changed = True
-        while changed:
-            changed = False
-            k = i
-            while k < j:
-                idx = order[k]
-                root = find(idx)
-                if sum_power[root] >= 2 * v:
-                    r = idx // m
-                    c = idx - r * m
+    roots_done = set()
+    t = i
+    while t < j:
+        r0 = find(order[t])
+        roots_done.add(r0)
+        t += 1
+    for r0 in roots_done:
+        ans[r0] = sum_power[r0]
 
-                    if r > 0:
-                        nb = idx - m
-                        if active[nb]:
-                            ra = find(idx)
-                            rb = find(nb)
-                            if ra != rb:
-                                if vals[rb] <= sum_power[ra]:
-                                    union(ra, rb)
-                                    changed = True
-                    if r + 1 < n:
-                        nb = idx + m
-                        if active[nb]:
-                            ra = find(idx)
-                            rb = find(nb)
-                            if ra != rb:
-                                if vals[rb] <= sum_power[ra]:
-                                    union(ra, rb)
-                                    changed = True
-                    if c > 0:
-                        nb = idx - 1
-                        if active[nb]:
-                            ra = find(idx)
-                            rb = find(nb)
-                            if ra != rb:
-                                if vals[rb] <= sum_power[ra]:
-                                    union(ra, rb)
-                                    changed = True
-                    if c + 1 < m:
-                        nb = idx + 1
-                        if active[nb]:
-                            ra = find(idx)
-                            rb = find(nb)
-                            if ra != rb:
-                                if vals[rb] <= sum_power[ra]:
-                                    union(ra, rb)
-                                    changed = True
-                k += 1
+    i = j
 
-        k = i
-        while k < j:
-            idx = order[k]
-            ans[idx] = sum_power[find(idx)]
-            k += 1
+for idx in range(k):
+    ans[idx] = ans[find(idx)]
 
-        i = j
-
-    out = []
-    for r in range(n):
-        row = ans[r * m:(r + 1) * m]
-        out.append(" ".join(map(str, row)))
-    sys.stdout.write("\n".join(out))
-
-if __name__ == "__main__":
-    main()
+out = []
+for r in range(n):
+    base = r * m
+    out.append(' '.join(str(ans[base + c]) for c in range(m)))
+sys.stdout.write('\n'.join(out))

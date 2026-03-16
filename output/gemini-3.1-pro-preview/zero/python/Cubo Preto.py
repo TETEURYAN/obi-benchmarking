@@ -1,15 +1,14 @@
-
 import sys
 
 def main():
     input_data = sys.stdin.read().split()
     if not input_data:
         return
-    n = int(input_data[0])
+    N = int(input_data[0])
     
-    zero_faces = (n - 2) ** 3
-    one_face = 6 * ((n - 2) ** 2)
-    two_faces = 12 * (n - 2)
+    zero_faces = (N - 2) ** 3
+    one_face = 6 * ((N - 2) ** 2)
+    two_faces = 12 * (N - 2)
     three_faces = 8
     
     print(zero_faces)

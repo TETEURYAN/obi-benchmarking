@@ -6,7 +6,11 @@ if not input_data:
 
 n = int(input_data[0])
 k = int(input_data[1])
-a = [int(x) for x in input_data[2:2+n]]
+scores = [int(x) for x in input_data[2:2+n]]
 
-a.sort(reverse=True)
-print(a[k-1])
+scores.sort(reverse=True)
+
+if k > 0:
+    print(scores[k-1])
+else:
+    print(100)

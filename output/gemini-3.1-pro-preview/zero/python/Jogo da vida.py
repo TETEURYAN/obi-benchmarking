@@ -1,7 +1,7 @@
 
 import sys
 
-def solve():
+def main():
     input_data = sys.stdin.read().split()
     if not input_data:
         return
@@ -9,31 +9,31 @@ def solve():
     N = int(input_data[0])
     Q = int(input_data[1])
     
-    grid = [list(row) for row in input_data[2:2+N]]
+    grid = [[int(c) for c in s] for s in input_data[2:2+N]]
     
     for _ in range(Q):
-        new_grid = [['0'] * N for _ in range(N)]
-        for r in range(N):
-            for c in range(N):
-                alive_neighbors = 0
-                for dr in (-1, 0, 1):
-                    for dc in (-1, 0, 1):
-                        if dr == 0 and dc == 0:
+        new_grid = [[0] * N for _ in range(N)]
+        for i in range(N):
+            for j in range(N):
+                alive = 0
+                for di in (-1, 0, 1):
+                    for dj in (-1, 0, 1):
+                        if di == 0 and dj == 0:
                             continue
-                        nr, nc = r + dr, c + dc
-                        if 0 <= nr < N and 0 <= nc < N and grid[nr][nc] == '1':
-                            alive_neighbors += 1
+                        ni, nj = i + di, j + dj
+                        if 0 <= ni < N and 0 <= nj < N:
+                            alive += grid[ni][nj]
                 
-                if grid[r][c] == '1':
-                    if alive_neighbors == 2 or alive_neighbors == 3:
-                        new_grid[r][c] = '1'
+                if grid[i][j] == 1:
+                    if alive == 2 or alive == 3:
+                        new_grid[i][j] = 1
                 else:
-                    if alive_neighbors == 3:
-                        new_grid[r][c] = '1'
+                    if alive == 3:
+                        new_grid[i][j] = 1
         grid = new_grid
         
     for row in grid:
-        print("".join(row))
+        print("".join(map(str, row)))
 
 if __name__ == '__main__':
-    solve()
+    main()

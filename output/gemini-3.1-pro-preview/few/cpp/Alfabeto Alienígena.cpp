@@ -7,28 +7,28 @@ int main() {
     cin.tie(0);
 
     int k, n;
-    if (!(cin >> k >> n)) return 0;
+    if (cin >> k >> n) {
+        string alphabet, message;
+        cin >> alphabet >> message;
 
-    string alphabet, message;
-    cin >> alphabet >> message;
-
-    bool is_alien[256] = {false};
-    for (char c : alphabet) {
-        is_alien[(unsigned char)c] = true;
-    }
-
-    bool possible = true;
-    for (char c : message) {
-        if (!is_alien[(unsigned char)c]) {
-            possible = false;
-            break;
+        vector<bool> valid(256, false);
+        for (char c : alphabet) {
+            valid[(unsigned char)c] = true;
         }
-    }
 
-    if (possible) {
-        cout << "S\n";
-    } else {
-        cout << "N\n";
+        bool possible = true;
+        for (char c : message) {
+            if (!valid[(unsigned char)c]) {
+                possible = false;
+                break;
+            }
+        }
+
+        if (possible) {
+            cout << "S\n";
+        } else {
+            cout << "N\n";
+        }
     }
 
     return 0;

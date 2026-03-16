@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -9,38 +10,25 @@ int main() {
     cin.tie(NULL);
     
     int n;
-    if (!(cin >> n)) return 0;
-    
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-
-    int ops = 0;
-    while (true) {
-        int min_val = a[0];
-        int max_val = a[0];
-        for (int i = 1; i < n; ++i) {
-            if (a[i] < min_val) min_val = a[i];
-            if (a[i] > max_val) max_val = a[i];
-        }
-
-        if (min_val == max_val) break;
-
-        int start = -1;
-        for (int i = 0; i < n; ++i) {
-            if (a[i] == min_val) {
-                start = i;
-                break;
+    if (cin >> n) {
+        vector<int> a(n + 1);
+        int max_a = 0;
+        for (int i = 1; i <= n; ++i) {
+            cin >> a[i];
+            if (a[i] > max_a) {
+                max_a = a[i];
             }
         }
-
-        for (int i = start; i < n && a[i] == min_val; ++i) {
-            a[i]++;
+        
+        a[0] = max_a;
+        int ans = 0;
+        for (int i = 1; i <= n; ++i) {
+            if (a[i - 1] > a[i]) {
+                ans += a[i - 1] - a[i];
+            }
         }
-        ops++;
+        
+        cout << ans << "\n";
     }
-
-    cout << ops << "\n";
     return 0;
 }

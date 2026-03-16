@@ -8,34 +8,31 @@ int main() {
     int N, Q;
     if (!(cin >> N >> Q)) return 0;
 
-    vector<string> grid(N);
+    vector<string> grid(N), nxt(N, string(N, '0'));
     for (int i = 0; i < N; i++) cin >> grid[i];
 
-    const int dx[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
-    const int dy[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    int dx[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int dy[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-    vector<string> nextGrid(N, string(N, '0'));
-
-    for (int step = 0; step < Q; step++) {
+    while (Q--) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 int alive = 0;
                 for (int k = 0; k < 8; k++) {
-                    int ni = i + dx[k];
-                    int nj = j + dy[k];
+                    int ni = i + dx[k], nj = j + dy[k];
                     if (ni >= 0 && ni < N && nj >= 0 && nj < N && grid[ni][nj] == '1') {
                         alive++;
                     }
                 }
 
                 if (grid[i][j] == '1') {
-                    nextGrid[i][j] = (alive == 2 || alive == 3) ? '1' : '0';
+                    nxt[i][j] = (alive == 2 || alive == 3) ? '1' : '0';
                 } else {
-                    nextGrid[i][j] = (alive == 3) ? '1' : '0';
+                    nxt[i][j] = (alive == 3) ? '1' : '0';
                 }
             }
         }
-        grid.swap(nextGrid);
+        grid.swap(nxt);
     }
 
     for (int i = 0; i < N; i++) {

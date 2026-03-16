@@ -1,18 +1,14 @@
 import sys
 
-h = int(sys.stdin.readline())
-m = int(sys.stdin.readline())
-s = int(sys.stdin.readline())
-t = int(sys.stdin.readline())
+data = list(map(int, sys.stdin.read().split()))
+H, M, S, T = data
 
-total = h * 3600 + m * 60 + s
-total = (total + t) % 86400
-
-nh = total // 3600
+total = (H * 3600 + M * 60 + S + T) % 86400
+h = total // 3600
 total %= 3600
-nm = total // 60
-ns = total % 60
+m = total // 60
+s = total % 60
 
-print(nh)
-print(nm)
-print(ns)
+print(h)
+print(m)
+print(s)

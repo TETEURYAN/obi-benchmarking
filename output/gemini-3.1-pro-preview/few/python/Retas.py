@@ -15,22 +15,22 @@ def solve():
         A = int(input_data[idx])
         B = int(input_data[idx+1])
         idx += 2
-        
         Y1 = A * X1 + B
         Y2 = A * X2 + B
-        lines.append((Y1, -Y2, Y2))
+        lines.append((Y1, Y2))
         
-    lines.sort()
+    lines.sort(key=lambda x: (x[0], -x[1]))
     
-    arr = [line[2] for line in lines]
+    Y2_arr = [x[1] for x in lines]
     
-    sorted_unique = sorted(list(set(arr)))
+    sorted_unique = sorted(list(set(Y2_arr)))
     rank = {val: i + 1 for i, val in enumerate(sorted_unique)}
     
-    bit = [0] * (len(rank) + 1)
+    max_rank = len(rank)
+    bit = [0] * (max_rank + 1)
     
     def add(i, delta):
-        while i < len(bit):
+        while i <= max_rank:
             bit[i] += delta
             i += i & (-i)
             
@@ -40,14 +40,14 @@ def solve():
             s += bit[i]
             i -= i & (-i)
         return s
-        
+
     inv = 0
-    current_size = 0
-    for val in arr:
-        r = rank[val]
-        inv += current_size - query(r - 1)
+    total_inserted = 0
+    for y in Y2_arr:
+        r = rank[y]
+        inv += total_inserted - query(r - 1)
         add(r, 1)
-        current_size += 1
+        total_inserted += 1
         
     print(inv)
 

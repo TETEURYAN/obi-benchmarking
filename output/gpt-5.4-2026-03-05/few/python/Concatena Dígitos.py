@@ -2,7 +2,7 @@ import sys
 
 data = list(map(int, sys.stdin.read().split()))
 if not data:
-    exit()
+    sys.exit()
 
 n, q = data[0], data[1]
 d = data[2:2 + n]
@@ -18,11 +18,11 @@ for _ in range(q):
     r = data[idx + 1]
     idx += 2
 
-    m = r - l + 1
-    if m <= 1:
+    s = pref[r] - pref[l - 1]
+    k = r - l + 1
+    if k <= 1:
         out.append("0")
     else:
-        s = pref[r] - pref[l - 1]
-        out.append(str(11 * (m - 1) * s))
+        out.append(str(11 * (k - 1) * s))
 
 sys.stdout.write("\n".join(out))

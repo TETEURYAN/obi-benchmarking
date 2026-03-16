@@ -2,78 +2,120 @@ import sys
 
 MOD = 10**9 + 7
 
+def better(f1, f2):
+    a1, b1 = f1
+    a2, b2 = f2
+    if a1 == a2:
+        return b1 > b2
+    if a1 > a2:
+        return b1 * (a2 - 1) >= b2 * (a1 - 1)
+    else:
+        return b2 * (a1 - 1) <= b1 * (a2 - 1)
+
+def compose(f, g):
+    a1, b1 = f
+    a2, b2 = g
+    return (a2 * a1, a2 * b1 + b2)
+
+def mat_mul(A, B):
+    return [
+        [
+            A[0][0] * B[0][0] + A[0][1] * B[1][0],
+            A[0][0] * B[0][1] + A[0][1] * B[1][1],
+        ],
+        [
+            A[1][0] * B[0][0] + A[1][1] * B[1][0],
+            A[1][0] * B[0][1] + A[1][1] * B[1][1],
+        ],
+    ]
+
+def mat_vec(A, v):
+    return (
+        A[0][0] * v[0] + A[0][1] * v[1],
+        A[1][0] * v[0] + A[1][1] * v[1],
+    )
+
+def mat_mul_mod(A, B):
+    return [
+        [
+            (A[0][0] * B[0][0] + A[0][1] * B[1][0]) % MOD,
+            (A[0][0] * B[0][1] + A[0][1] * B[1][1]) % MOD,
+        ],
+        [
+            (A[1][0] * B[0][0] + A[1][1] * B[1][0]) % MOD,
+            (A[1][0] * B[0][1] + A[1][1] * B[1][1]) % MOD,
+        ],
+    ]
+
+def mat_pow_mod(base, exp):
+    res = [[1, 0], [0, 1]]
+    while exp:
+        if exp & 1:
+            res = mat_mul_mod(res, base)
+        base = mat_mul_mod(base, base)
+        exp >>= 1
+    return res
+
 def main():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    it = iter(data)
+    input = sys.stdin.readline
+    N, M, K = map(int, input().split())
+    sa = list(map(int, input().split()))
+    sb = list(map(int, input().split()))
+    ma = list(map(int, input().split()))
+    mb = list(map(int, input().split()))
+    Q = int(input())
+    xs = list(map(int, input().split()))
 
-    N = next(it)
-    M = next(it)
-    K = next(it)
-
-    sa = [next(it) for _ in range(N)]
-    sb = [next(it) for _ in range(N)]
-    ma = [next(it) for _ in range(M)]
-    mb = [next(it) for _ in range(M)]
-
-    Q = next(it)
-    xs = [next(it) for _ in range(Q)]
-
-    # Best spell for repeated use:
-    # maximize a*x+b for all x>=1
-    # Since all a,b >=0 and x>=1, if a1>=a2 and b1>=b2 then 1 dominates 2.
-    # The global optimum is the spell with maximum (a+b), tie by larger a.
-    best_idx = 0
-    best_sum = sa[0] + sb[0]
-    best_a = sa[0]
+    best_spell = (sa[0], sb[0])
     for i in range(1, N):
-        s = sa[i] + sb[i]
-        if s > best_sum or (s == best_sum and sa[i] > best_a):
-            best_sum = s
-            best_a = sa[i]
-            best_idx = i
+        cur = (sa[i], sb[i])
+        if better(cur, best_spell):
+            best_spell = cur
 
-    A = sa[best_idx]
-    B = sb[best_idx]
-
-    # Meals: sort by comparator of affine composition
     meals = list(zip(ma, mb))
-    meals.sort(key=lambda p: (0,))  # placeholder to avoid lint
+    meals.sort(key=lambda p: (p[0] - 1) / p[1] if p[0] == 1 and p[1] > 0 else 0)
+
+    def meal_cmp_key(item):
+        a, b = item
+        return (a, b)
 
     from functools import cmp_to_key
-    def cmp(e1, e2):
-        a1, b1 = e1
-        a2, b2 = e2
-        v = b1 * (a2 - 1) - b2 * (a1 - 1)
-        if v > 0:
+    def cmp(x, y):
+        a1, b1 = x
+        a2, b2 = y
+        left = b1 * (a2 - 1)
+        right = b2 * (a1 - 1)
+        if left > right:
             return -1
-        if v < 0:
+        if left < right:
             return 1
         return 0
 
     meals.sort(key=cmp_to_key(cmp))
 
-    # Compose all meals into y = P*x + Qc
-    P = 1
-    Qc = 0
-    for a, b in meals:
-        P = (a * P) % MOD
-        Qc = (a * Qc + b) % MOD
+    meal_total = (1, 0)
+    for f in meals:
+        meal_total = compose(meal_total, f)
 
-    # Spell repeated K times:
-    # if A == 1: x -> x + K*B
-    # else: x -> A^K * x + B*(A^K - 1)/(A-1)
-    if A == 1:
-        spell_mul = 1
-        spell_add = (K % MOD) * (B % MOD) % MOD
+    a_s, b_s = best_spell
+    spell_mat = [[a_s, b_s], [0, 1]]
+    spell_pow_mod = mat_pow_mod(spell_mat, K)
+
+    if a_s == 1:
+        spell_total = (1, b_s * K)
     else:
-        spell_mul = pow(A % MOD, K, MOD)
-        denom_inv = pow((A - 1) % MOD, MOD - 2, MOD)
-        spell_add = (B % MOD) * ((spell_mul - 1) % MOD) % MOD * denom_inv % MOD
+        spell_total = None
+
+    meal_a_mod = meal_total[0] % MOD
+    meal_b_mod = meal_total[1] % MOD
 
     out = []
     for x in xs:
-        y = (spell_mul * (x % MOD) + spell_add) % MOD
-        ans = (P * y + Qc) % MOD
+        if a_s == 1:
+            y_mod = (x + (b_s % MOD) * (K % MOD)) % MOD
+        else:
+            y_mod = (spell_pow_mod[0][0] * (x % MOD) + spell_pow_mod[0][1]) % MOD
+        ans = (meal_a_mod * y_mod + meal_b_mod) % MOD
         out.append(str(ans))
 
     sys.stdout.write("\n".join(out))

@@ -3,6 +3,7 @@ from .config import config
 from services import LLMService, JudgeService
 from models.problem import Problem
 from models.evaluation_result import EvaluationResult
+from models.level import Level
 from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, LEVEL_PROMPT_TEMPLATE, EXAMPLES_BY_LANGUAGE
 import pandas as pd
 import os
@@ -176,13 +177,21 @@ class Orchestrator:
             judge_service = JudgeService(language=self.__language)
             
             results = []
+            levels = []
+            csv_level = os.path.exists(f"output/results/level_to_questions_{model}.csv")
+            
             for problem in problems:
                 test_cases = self.get_test_cases(problem.path, problem.title, [])
                 print(f"Processando questão: {problem.title}")
                 
-                prompt = LEVEL_PROMPT_TEMPLATE.format(contexto=self.format_problem(problem))
-                level = llm_service.level_question(prompt=prompt)
-                print("level: ", level)
+                if not csv_level:
+                    prompt = LEVEL_PROMPT_TEMPLATE.format(contexto=self.format_problem(problem))
+                    level = llm_service.level_question(prompt=prompt)
+                    levels.append(Level(
+                        question_name=problem.title,
+                        level_to_llm=level
+                    ))
+                    print("level: ", level)
 
                 if self.__type == "zero":
                     prompt = ZERO_SHOT_PROMPT_TEMPLATE.format(linguagem=self.__language,
@@ -211,7 +220,6 @@ class Orchestrator:
                     
                     results.append(EvaluationResult(
                         question_name = problem.title,
-                        level_to_llm = level,
                         info = str(problem.path),
                         llm_code_creation_time = duration_create_code,
                         judge_predict = "NO CODE",
@@ -231,7 +239,6 @@ class Orchestrator:
 
                 results.append(EvaluationResult(
                     question_name = problem.title,
-                    level_to_llm = level,
                     info = str(problem.path),
                     llm_code_creation_time = duration_create_code,
                     judge_predict = judge_predict,
@@ -246,6 +253,22 @@ class Orchestrator:
                 
                 del prompt
             
+            if not csv_level:
+                try:
+                    target_dir = Path("output") / "results"
+                    target_dir.mkdir(parents=True, exist_ok=True)
+                    
+                    file_path = target_dir / f"level_to_questions_{model}.csv"
+                    
+                    df = pd.DataFrame([r.model_dump() for r in levels])
+
+                    df.to_csv(file_path, index=False, encoding="utf-8")
+                    
+                    print(f"Relatório CSV gerado com sucesso em: {file_path}")
+
+                except Exception as e:
+                    print(f"Erro ao gerar o CSV de resultados: {e}")
+                    
             if self.create_csv(results=results, model=model):
                 print("Resultado criado com sucesso!")
             else:

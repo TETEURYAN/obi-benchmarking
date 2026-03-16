@@ -4,6 +4,12 @@ using namespace std;
 using ll = long long;
 using i128 = __int128_t;
 
+struct Line {
+    ll a, b;
+    ll y1, y2;
+    int id;
+};
+
 struct Fenwick {
     int n;
     vector<ll> bit;
@@ -20,26 +26,11 @@ struct Fenwick {
         for (; idx > 0; idx -= idx & -idx) r += bit[idx];
         return r;
     }
+    ll sumRange(int l, int r) const {
+        if (l > r) return 0;
+        return sumPrefix(r) - sumPrefix(l - 1);
+    }
 };
-
-struct Line {
-    ll a, b;
-    ll y1, y2;
-};
-
-static bool cmpY1(const Line& p, const Line& q) {
-    if (p.y1 != q.y1) return p.y1 < q.y1;
-    if (p.y2 != q.y2) return p.y2 < q.y2;
-    if (p.a != q.a) return p.a < q.a;
-    return p.b < q.b;
-}
-
-static bool cmpY2(const Line& p, const Line& q) {
-    if (p.y2 != q.y2) return p.y2 < q.y2;
-    if (p.y1 != q.y1) return p.y1 < q.y1;
-    if (p.a != q.a) return p.a < q.a;
-    return p.b < q.b;
-}
 
 int main() {
     ios::sync_with_stdio(false);
@@ -50,46 +41,62 @@ int main() {
     if (!(cin >> N >> X1 >> X2)) return 0;
 
     vector<Line> lines(N);
-    for (int i = 0; i < N; i++) {
+    vector<ll> vals;
+    vals.reserve(2 * N);
+
+    for (int i = 0; i < N; ++i) {
         ll a, b;
         cin >> a >> b;
-        lines[i] = {a, b, a * X1 + b, a * X2 + b};
+        i128 v1 = (i128)a * X1 + b;
+        i128 v2 = (i128)a * X2 + b;
+        lines[i] = {a, b, (ll)v1, (ll)v2, i};
+        vals.push_back((ll)v2);
     }
 
-    vector<Line> by1 = lines, by2 = lines;
-    sort(by1.begin(), by1.end(), cmpY1);
-    sort(by2.begin(), by2.end(), cmpY2);
+    sort(vals.begin(), vals.end());
+    vals.erase(unique(vals.begin(), vals.end()), vals.end());
 
-    map<pair<ll,ll>, vector<int>> posBy2;
-    for (int i = 0; i < N; i++) {
-        posBy2[{by2[i].y1, by2[i].y2}].push_back(i + 1);
-    }
+    auto getPos = [&](ll v) {
+        return (int)(lower_bound(vals.begin(), vals.end(), v) - vals.begin()) + 1;
+    };
 
-    map<pair<ll,ll>, int> used;
-    vector<int> perm(N);
-    for (int i = 0; i < N; i++) {
-        auto key = make_pair(by1[i].y1, by1[i].y2);
-        int &u = used[key];
-        perm[i] = posBy2[key][u++];
-    }
+    sort(lines.begin(), lines.end(), [&](const Line& p, const Line& q) {
+        if (p.y1 != q.y1) return p.y1 < q.y1;
+        return p.y2 < q.y2;
+    });
 
-    Fenwick fw(N);
-    ll inv = 0;
-    for (int i = N - 1; i >= 0; i--) {
-        inv += fw.sumPrefix(perm[i] - 1);
-        fw.add(perm[i], 1);
-    }
+    ll ans = 0;
+    Fenwick fw((int)vals.size());
 
-    ll equalAtBoth = 0;
     int i = 0;
     while (i < N) {
         int j = i;
-        while (j < N && by1[j].y1 == by1[i].y1 && by1[j].y2 == by1[i].y2) j++;
-        ll k = j - i;
-        equalAtBoth += k * (k - 1) / 2;
+        while (j < N && lines[j].y1 == lines[i].y1) j++;
+
+        unordered_map<ll, int> freq;
+        freq.reserve((j - i) * 2 + 1);
+        for (int k = i; k < j; ++k) freq[lines[k].y2]++;
+
+        ll processed = 0;
+        for (auto &it : freq) {
+            ll c = it.second;
+            ans += c * processed;
+            processed += c;
+        }
+
+        for (int k = i; k < j; ++k) {
+            int pos = getPos(lines[k].y2);
+            ans += fw.sumRange(pos, (int)vals.size());
+        }
+
+        for (int k = i; k < j; ++k) {
+            int pos = getPos(lines[k].y2);
+            fw.add(pos, 1);
+        }
+
         i = j;
     }
 
-    cout << (inv + equalAtBoth) << '\n';
+    cout << ans << '\n';
     return 0;
 }

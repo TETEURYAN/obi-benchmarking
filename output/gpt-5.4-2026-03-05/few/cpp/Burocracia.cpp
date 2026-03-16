@@ -1,63 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct SegTree {
+struct Fenwick {
     int n;
-    vector<int> mx, lazy;
-
-    SegTree() {}
-    SegTree(int n_) { init(n_); }
-
-    void init(int n_) {
-        n = n_;
-        mx.assign(4 * n + 4, 0);
-        lazy.assign(4 * n + 4, 0);
+    vector<int> bit;
+    Fenwick() {}
+    Fenwick(int n) : n(n), bit(n + 1, 0) {}
+    void add(int idx, int val) {
+        for (; idx <= n; idx += idx & -idx) bit[idx] += val;
     }
-
-    void build(int node, int l, int r, const vector<int>& base) {
-        if (l == r) {
-            mx[node] = base[l];
-            return;
-        }
-        int mid = (l + r) >> 1;
-        build(node << 1, l, mid, base);
-        build(node << 1 | 1, mid + 1, r, base);
-        mx[node] = max(mx[node << 1], mx[node << 1 | 1]);
+    int sumPrefix(int idx) const {
+        int r = 0;
+        for (; idx > 0; idx -= idx & -idx) r += bit[idx];
+        return r;
     }
-
-    void apply(int node, int val) {
-        mx[node] = max(mx[node], val);
-        lazy[node] = max(lazy[node], val);
-    }
-
-    void push(int node) {
-        if (lazy[node]) {
-            apply(node << 1, lazy[node]);
-            apply(node << 1 | 1, lazy[node]);
-            lazy[node] = 0;
-        }
-    }
-
-    void range_chmax(int node, int l, int r, int ql, int qr, int val) {
-        if (ql > r || qr < l || mx[node] >= val) return;
-        if (ql <= l && r <= qr) {
-            apply(node, val);
-            return;
-        }
-        push(node);
-        int mid = (l + r) >> 1;
-        if (ql <= mid) range_chmax(node << 1, l, mid, ql, qr, val);
-        if (qr > mid) range_chmax(node << 1 | 1, mid + 1, r, ql, qr, val);
-        mx[node] = min(max(mx[node << 1], mx[node << 1 | 1]), max(mx[node << 1], mx[node << 1 | 1]));
-        mx[node] = max(mx[node << 1], mx[node << 1 | 1]);
-    }
-
-    int point_query(int node, int l, int r, int pos) {
-        if (l == r) return mx[node];
-        push(node);
-        int mid = (l + r) >> 1;
-        if (pos <= mid) return point_query(node << 1, l, mid, pos);
-        return point_query(node << 1 | 1, mid + 1, r, pos);
+    int rangeSum(int l, int r) const {
+        if (l > r) return 0;
+        return sumPrefix(r) - sumPrefix(l - 1);
     }
 };
 
@@ -68,78 +27,120 @@ int main() {
     int N;
     if (!(cin >> N)) return 0;
 
-    vector<int> p(N + 1, 0);
+    vector<int> parent(N + 1, 0);
     vector<vector<int>> children(N + 1);
+    parent[1] = 0;
     for (int i = 2; i <= N; i++) {
-        cin >> p[i];
-        children[p[i]].push_back(i);
+        cin >> parent[i];
+        children[parent[i]].push_back(i);
     }
 
-    vector<int> tin(N + 1), tout(N + 1), depth(N + 1), euler(N + 1), parent(N + 1);
+    vector<int> tin(N + 1), tout(N + 1), depth(N + 1);
+    vector<vector<int>> up(18, vector<int>(N + 1, 0));
     int timer = 0;
 
-    vector<int> st;
-    st.push_back(1);
-    vector<int> it(N + 1, 0);
-    parent[1] = 0;
+    vector<pair<int,int>> st;
+    st.reserve(2 * N);
+    st.push_back({1, 0});
     depth[1] = 0;
+    up[0][1] = 0;
 
     while (!st.empty()) {
-        int u = st.back();
-        if (it[u] == 0) {
-            tin[u] = ++timer;
-            euler[timer] = u;
-        }
-        if (it[u] < (int)children[u].size()) {
-            int v = children[u][it[u]++];
-            parent[v] = u;
-            depth[v] = depth[u] + 1;
-            st.push_back(v);
+        auto [v, state] = st.back();
+        st.pop_back();
+        if (state == 0) {
+            tin[v] = ++timer;
+            st.push_back({v, 1});
+            for (int i = (int)children[v].size() - 1; i >= 0; i--) {
+                int u = children[v][i];
+                depth[u] = depth[v] + 1;
+                up[0][u] = v;
+                for (int j = 1; j < 18; j++) up[j][u] = up[j - 1][up[j - 1][u]];
+                st.push_back({u, 0});
+            }
         } else {
-            tout[u] = timer;
-            st.pop_back();
+            tout[v] = timer;
         }
     }
 
-    int LOG = 1;
-    while ((1 << LOG) <= N) LOG++;
-    vector<vector<int>> up(LOG, vector<int>(N + 1, 0));
-    for (int i = 1; i <= N; i++) up[0][i] = parent[i];
-    for (int j = 1; j < LOG; j++) {
-        for (int i = 1; i <= N; i++) {
-            up[j][i] = up[j - 1][up[j - 1][i]];
-        }
-    }
+    auto isAncestor = [&](int a, int b) -> bool {
+        return tin[a] <= tin[b] && tout[b] <= tout[a];
+    };
 
-    auto kth_ancestor_original = [&](int v, int k) {
-        for (int j = 0; j < LOG; j++) {
+    auto lca = [&](int a, int b) -> int {
+        if (isAncestor(a, b)) return a;
+        if (isAncestor(b, a)) return b;
+        for (int j = 17; j >= 0; j--) {
+            int x = up[j][a];
+            if (x != 0 && !isAncestor(x, b)) a = x;
+        }
+        return up[0][a];
+    };
+
+    auto kthAncestorOriginal = [&](int v, int k) -> int {
+        for (int j = 0; j < 18; j++) {
             if (k & (1 << j)) v = up[j][v];
         }
         return v;
     };
 
-    vector<int> base(N + 1);
-    for (int i = 1; i <= N; i++) base[tin[i]] = depth[i];
-
-    SegTree seg(N);
-    seg.build(1, 1, N, base);
-
     int Q;
     cin >> Q;
+
+    Fenwick bit(N + 2);
+    vector<int> marked(N + 1, 0);
+
+    auto activeCountOnPath = [&](int v) -> int {
+        return bit.sumPrefix(tin[v]);
+    };
+
+    auto nearestActiveAncestor = [&](int v) -> int {
+        if (activeCountOnPath(v) == 0) return 1;
+        int cur = v;
+        for (int j = 17; j >= 0; j--) {
+            int x = up[j][cur];
+            if (x != 0 && activeCountOnPath(x) > 0) cur = x;
+        }
+        return cur;
+    };
+
+    auto compressedParent = [&](int v) -> int {
+        if (v == 1) return 0;
+        int a = nearestActiveAncestor(v);
+        if (a == 1 && !marked[1]) return 1;
+        return a;
+    };
+
+    auto jumpCompressed = [&](int v, int k) -> int {
+        while (k > 0) {
+            int a = nearestActiveAncestor(v);
+            int d = depth[v] - depth[a];
+            if (d >= k) return kthAncestorOriginal(v, k);
+            k -= d;
+            v = a;
+            if (k == 0) return v;
+            if (v == 1) return 1;
+            v = parent[a];
+            k--;
+        }
+        return v;
+    };
+
     while (Q--) {
         int type;
         cin >> type;
         if (type == 1) {
             int v, k;
             cin >> v >> k;
-            int dcur = seg.point_query(1, 1, N, tin[v]);
-            int targetDepth = dcur - k;
-            int anc = kth_ancestor_original(v, depth[v] - targetDepth);
-            cout << anc << '\n';
+            cout << jumpCompressed(v, k) << '\n';
         } else {
             int v;
             cin >> v;
-            seg.range_chmax(1, 1, N, tin[v], tout[v], depth[v] + 1);
+            if (!marked[v]) {
+                marked[v] = 1;
+                bit.add(tin[v], 1);
+                bit.add(tout[v] + 1, -1);
+            }
         }
     }
 

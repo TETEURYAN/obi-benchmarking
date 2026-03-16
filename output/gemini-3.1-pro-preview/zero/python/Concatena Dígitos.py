@@ -1,4 +1,3 @@
-
 import sys
 
 def solve():
@@ -9,23 +8,20 @@ def solve():
     N = int(input_data[0])
     Q = int(input_data[1])
     
-    A = [int(x) for x in input_data[2:N+2]]
-    
-    pref = [0] * (N + 1)
+    prefix_sum = [0] * (N + 1)
     for i in range(N):
-        pref[i+1] = pref[i] + A[i]
+        prefix_sum[i+1] = prefix_sum[i] + int(input_data[2+i])
         
     out = []
-    idx = N + 2
+    idx = 2 + N
     for _ in range(Q):
         L = int(input_data[idx])
         R = int(input_data[idx+1])
         idx += 2
         
-        k = R - L + 1
-        S = pref[R] - pref[L-1]
-        
-        ans = 11 * (k - 1) * S
+        K = R - L + 1
+        S = prefix_sum[R] - prefix_sum[L-1]
+        ans = 11 * (K - 1) * S
         out.append(str(ans))
         
     sys.stdout.write('\n'.join(out) + '\n')

@@ -2,23 +2,19 @@ import sys
 sys.setrecursionlimit(1_000_000)
 
 def main():
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
-    N, M = data[0], data[1]
-    A = data[2:]
-    n = N * M
+    input = sys.stdin.readline
+    N, M = map(int, input().split())
+    A = []
+    for _ in range(N):
+        A.extend(map(int, input().split()))
+    K = N * M
 
-    parent = list(range(n))
-    size = [1] * n
-    active = [False] * n
-    comp_sum = [0] * n
-    comp_ans = [0] * n
-    comp_nodes = [[] for _ in range(n)]
-
-    for i, v in enumerate(A):
-        comp_sum[i] = v
-        comp_nodes[i].append(i)
+    parent = list(range(K))
+    size = [1] * K
+    active = [False] * K
+    comp_sum = [0] * K
+    comp_ans = [0] * K
+    members = [[] for _ in range(K)]
 
     def find(x):
         while parent[x] != x:
@@ -36,117 +32,100 @@ def main():
         parent[rb] = ra
         size[ra] += size[rb]
         comp_sum[ra] += comp_sum[rb]
-        if len(comp_nodes[ra]) < len(comp_nodes[rb]):
-            comp_nodes[ra], comp_nodes[rb] = comp_nodes[rb], comp_nodes[ra]
-        comp_nodes[ra].extend(comp_nodes[rb])
-        comp_nodes[rb] = []
+        if len(members[ra]) < len(members[rb]):
+            members[ra], members[rb] = members[rb], members[ra]
+        members[ra].extend(members[rb])
+        members[rb].clear()
         return ra
 
-    order = sorted(range(n), key=A.__getitem__)
-    ans = [0] * n
+    order = sorted(range(K), key=lambda i: A[i])
+    idx = 0
 
-    i = 0
-    while i < n:
-        v = A[order[i]]
-        j = i
-        while j < n and A[order[j]] == v:
-            idx = order[j]
-            active[idx] = True
-            r = idx // M
-            c = idx - r * M
+    while idx < K:
+        v = A[order[idx]]
+        j = idx
+        while j < K and A[order[j]] == v:
+            x = order[j]
+            active[x] = True
+            parent[x] = x
+            size[x] = 1
+            comp_sum[x] = v
+            members[x] = [x]
+            r = x // M
+            c = x % M
             if r > 0:
-                nb = idx - M
-                if active[nb]:
-                    union(idx, nb)
+                y = x - M
+                if active[y]:
+                    union(x, y)
             if r + 1 < N:
-                nb = idx + M
-                if active[nb]:
-                    union(idx, nb)
+                y = x + M
+                if active[y]:
+                    union(x, y)
             if c > 0:
-                nb = idx - 1
-                if active[nb]:
-                    union(idx, nb)
+                y = x - 1
+                if active[y]:
+                    union(x, y)
             if c + 1 < M:
-                nb = idx + 1
-                if active[nb]:
-                    union(idx, nb)
+                y = x + 1
+                if active[y]:
+                    union(x, y)
             j += 1
-
-        roots = set()
-        for k in range(i, j):
-            roots.add(find(order[k]))
 
         changed = True
         while changed:
             changed = False
-            root_list = list(roots)
-            for r in root_list:
-                rr = find(r)
-                if rr != r:
-                    roots.discard(r)
-                    roots.add(rr)
+            roots = set()
+            for t in range(idx, j):
+                roots.add(find(order[t]))
+            for r in list(roots):
+                if find(r) != r:
                     continue
-                total = comp_sum[rr]
-                nodes = comp_nodes[rr]
-                merged = False
-                for idx in nodes:
-                    row = idx // M
-                    col = idx - row * M
-                    if row > 0:
-                        nb = idx - M
-                        if not active[nb] and A[nb] <= total:
-                            active[nb] = True
-                            nr = union(rr, nb)
-                            roots.discard(rr)
-                            roots.add(find(nr))
-                            changed = True
-                            merged = True
-                    if row + 1 < N:
-                        nb = idx + M
-                        if not active[nb] and A[nb] <= total:
-                            active[nb] = True
-                            nr = union(rr, nb)
-                            roots.discard(rr)
-                            roots.add(find(nr))
-                            changed = True
-                            merged = True
-                    if col > 0:
-                        nb = idx - 1
-                        if not active[nb] and A[nb] <= total:
-                            active[nb] = True
-                            nr = union(rr, nb)
-                            roots.discard(rr)
-                            roots.add(find(nr))
-                            changed = True
-                            merged = True
-                    if col + 1 < M:
-                        nb = idx + 1
-                        if not active[nb] and A[nb] <= total:
-                            active[nb] = True
-                            nr = union(rr, nb)
-                            roots.discard(rr)
-                            roots.add(find(nr))
-                            changed = True
-                            merged = True
-                    if merged:
-                        break
-                if changed:
-                    break
+                if comp_sum[r] >= 2 * v:
+                    comp_ans[r] = comp_sum[r]
+                    changed = True
+                    cur = members[r][:]
+                    for x in cur:
+                        rr = x // M
+                        cc = x % M
+                        if rr > 0:
+                            y = x - M
+                            if active[y]:
+                                nr = find(y)
+                                if nr != find(r):
+                                    union(r, nr)
+                        if rr + 1 < N:
+                            y = x + M
+                            if active[y]:
+                                nr = find(y)
+                                if nr != find(r):
+                                    union(r, nr)
+                        if cc > 0:
+                            y = x - 1
+                            if active[y]:
+                                nr = find(y)
+                                if nr != find(r):
+                                    union(r, nr)
+                        if cc + 1 < M:
+                            y = x + 1
+                            if active[y]:
+                                nr = find(y)
+                                if nr != find(r):
+                                    union(r, nr)
+        idx = j
 
-        for r in roots:
-            rr = find(r)
-            val = comp_sum[rr]
-            for idx in comp_nodes[rr]:
-                if ans[idx] == 0:
-                    ans[idx] = val
-
-        i = j
+    ans = [0] * K
+    seen = {}
+    for i in range(K):
+        r = find(i)
+        if r not in seen:
+            total = comp_sum[r]
+            for x in members[r]:
+                ans[x] = total
 
     out = []
-    for r in range(N):
-        base = r * M
-        out.append(' '.join(map(str, ans[base:base + M])))
-    sys.stdout.write('\n'.join(out))
+    for i in range(N):
+        out.append(" ".join(map(str, ans[i*M:(i+1)*M])))
+    sys.stdout.write("\n".join(out))
 
 if __name__ == "__main__":
     main()

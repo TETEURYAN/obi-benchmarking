@@ -1,18 +1,22 @@
 
 import sys
 
-def solve():
-    data = sys.stdin.read().split()
-    if len(data) < 4:
+def main():
+    input_data = sys.stdin.read().split()
+    if len(input_data) < 4:
         return
     
-    alphabet = set(data[2])
-    message = data[3]
+    K = int(input_data[0])
+    N = int(input_data[1])
+    alphabet = set(input_data[2])
+    message = input_data[3]
     
-    if all(c in alphabet for c in message):
-        print('S')
-    else:
-        print('N')
+    for char in message:
+        if char not in alphabet:
+            print("N")
+            return
+            
+    print("S")
 
 if __name__ == '__main__':
-    solve()
+    main()
