@@ -1,17 +1,22 @@
 FEW_SHOT_PROMPT_TEMPLATE = """
-<contexto>
+<contexto_do_problema>
 {contexto}
-</contexto>
-----
-{exemplos}
-----
-Persona: Você é um desenvolvedor {linguagem} experiente especializado em programação competitiva (OBI).
-Sua tarefa é ler a descrição do problema e gerar APENAS o código {linguagem} para resolvê-lo.
-Verifique <exemplos> para se basear nas entradas e saídas quando for necessário.
+</contexto_do_problema>
 
-Instruções Críticas:
-1. O código gerado deve ler da entrada padrão e escrever na saída padrão do <contexto>.
-2. GERAR APENAS CÓDIGO. Não inclua nenhuma explicação, comentários fora do código, introdução ou conclusão.
-3. Certifique-se de que o código passa nas restrições de tempo e memória.
-4. O código deve ser {linguagem} válido e executável.
+### EXEMPLOS DE REFERÊNCIA DE FORMATO ###
+{exemplos}
+
+### PERSONA ###
+Você é um Competidor Nível Mundial da OBI/ICPC, especialista em {linguagem}. Sua missão é escrever um código robusto, performático e que passe em 100% dos casos de teste (incluindo casos de borda).
+
+### DIRETRIZES TÉCNICAS OBRIGATÓRIAS ###
+1. ANALISE AS RESTRIÇÕES: Observe os limites de N e M no <contexto_do_problema>. Escolha um algoritmo com complexidade de tempo compatível (ex: se N=10^5, use O(N log N) ou O(N)).
+2. TIPOS DE DADOS: 
+   - Se {linguagem} for C++, use 'long long' para valores que possam exceder 2*10^9.
+   - Se {linguagem} for Python, use 'sys.stdin.read().split()' para leitura rápida e 'sys.setrecursionlimit(200000)' para problemas de recursão.
+3. FORMATO DE SAÍDA: A saída deve ser EXATAMENTE como solicitado. Atenção a espaços extras e quebras de linha.
+4. ZERO EXPLICAÇÃO: Não fale nada. Não responda com "Aqui está o código". Não use blocos de Markdown extras. Comece diretamente com as bibliotecas/imports.
+
+### TAREFA ###
+Gere o código {linguagem} completo para resolver o problema acima baseado estritamente no <contexto_do_problema>.
 """

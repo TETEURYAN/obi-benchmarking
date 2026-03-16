@@ -9,38 +9,38 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int N, Q;
-    if (!(cin >> N >> Q)) return 0;
+    int n, q;
+    if (!(cin >> n >> q)) return 0;
 
-    vector<string> grid(N);
-    for (int i = 0; i < N; ++i) {
+    vector<string> grid(n);
+    for (int i = 0; i < n; ++i) {
         cin >> grid[i];
     }
 
-    int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-    int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    int dr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int dc[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-    for (int q = 0; q < Q; ++q) {
+    for (int step = 0; step < q; ++step) {
         vector<string> next_grid = grid;
-        for (int r = 0; r < N; ++r) {
-            for (int c = 0; c < N; ++c) {
-                int alive = 0;
-                for (int i = 0; i < 8; ++i) {
-                    int nr = r + dx[i];
-                    int nc = c + dy[i];
-                    if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
-                        if (grid[nr][nc] == '1') {
-                            alive++;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                int live_neighbors = 0;
+                for (int k = 0; k < 8; ++k) {
+                    int ni = i + dr[k];
+                    int nj = j + dc[k];
+                    if (ni >= 0 && ni < n && nj >= 0 && nj < n) {
+                        if (grid[ni][nj] == '1') {
+                            live_neighbors++;
                         }
                     }
                 }
-                if (grid[r][c] == '1') {
-                    if (alive < 2 || alive > 3) {
-                        next_grid[r][c] = '0';
+                if (grid[i][j] == '1') {
+                    if (live_neighbors < 2 || live_neighbors > 3) {
+                        next_grid[i][j] = '0';
                     }
                 } else {
-                    if (alive == 3) {
-                        next_grid[r][c] = '1';
+                    if (live_neighbors == 3) {
+                        next_grid[i][j] = '1';
                     }
                 }
             }
@@ -48,7 +48,7 @@ int main() {
         grid = next_grid;
     }
 
-    for (int i = 0; i < N; ++i) {
+    for (int i = 0; i < n; ++i) {
         cout << grid[i] << "\n";
     }
 

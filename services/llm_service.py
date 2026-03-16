@@ -11,7 +11,8 @@ class LLMService:
 
         self.__client = OpenAI(
             api_key=api_key,
-            base_url=base_url
+            base_url=base_url,
+            timeout=300.0
         )
 
         self.__model = model
@@ -23,14 +24,14 @@ class LLMService:
             
             if level[0] == "`":
                 level = level.split('\n')[1]
-            if level in ['FACIL', 'MEDIO', 'DIFICIL']:
+            if level in ['FÁCIL', 'MÉDIO', 'DIFÍCIL']:
                 return level
             
             return "NÃO CONSEGUIU CLASSIFICAR"
             
         except Exception:
             print("Erro ao criar predição do level!")
-            return None
+            return "NÃO CONSEGUIU CLASSIFICAR"
     
     def create_code_llm(self, prompt: str) -> str:
         try:

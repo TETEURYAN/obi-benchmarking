@@ -50,7 +50,6 @@ class JudgeService:
                 else:
                     cmd = [self.__python_cmd, str(source_file)]
 
-                # Medição de tempo precisa
                 start_mark = time.perf_counter()
                 process = subprocess.run(
                     cmd, 

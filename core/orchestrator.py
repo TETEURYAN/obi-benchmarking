@@ -189,7 +189,7 @@ class Orchestrator:
                 elif self.__type == "few":
                     prompt = FEW_SHOT_PROMPT_TEMPLATE.format(linguagem=self.__language,
                                                              contexto=self.format_problem(problem),
-                                                             examplos=self.get_exemplos())
+                                                             exemplos=self.get_exemplos())
                 else:
                     return False
 
@@ -220,7 +220,7 @@ class Orchestrator:
                         RE = 0,
                         TLE = 0,
                         CE = 0,
-                        total_test_cases = total_cases
+                        total_test_cases = 0
                     ))
                     
                     continue

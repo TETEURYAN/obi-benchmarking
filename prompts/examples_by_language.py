@@ -67,11 +67,11 @@ Escreva um programa que leia dois inteiros e imprima a soma.
 Resposta esperada:
 #include <bits/stdc++.h>
 using namespace std;
-int main() {
+int main() {{
     int a, b;
     if (cin >> a >> b) cout << a + b << endl;
     return 0;
-}
+}}
 """, """
 Exemplo de entrada (Problema: Contar células ocupadas):
 <contexto>
@@ -83,7 +83,7 @@ Resposta esperada:
 
 using namespace std;
 
-int main() {
+int main() {{
     ios::sync_with_stdio(0);
     cin.tie(0);
 
@@ -91,17 +91,17 @@ int main() {
     if (!(cin >> n >> m)) return 0;
 
     int count = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {{
         string row;
         cin >> row;
-        for (char c : row) {
+        for (char c : row) {{
             if (c == '1') count++;
-        }
-    }
+        }}
+    }}
 
     cout << count << endl;
     return 0;
-}
+}}
 """, """
 Exemplo de entrada (Problema: Grafo/Conectividade):
 <contexto>
@@ -113,7 +113,7 @@ Resposta esperada:
 
 using namespace std;
 
-int main() {
+int main() {{
     ios::sync_with_stdio(0);
     cin.tie(0);
 
@@ -121,21 +121,21 @@ int main() {
     if (!(cin >> n >> m)) return 0;
 
     vector<vector<int>> adj(n + 1);
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < m; i++) {{
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
         adj[v].push_back(u);
-    }
+    }}
 
     sort(adj[1].begin(), adj[1].end());
 
-    for (int i = 0; i < (int)adj[1].size(); i++) {
+    for (int i = 0; i < (int)adj[1].size(); i++) {{
         cout << adj[1][i] << (i == (int)adj[1].size() - 1 ? "" : " ");
-    }
+    }}
     cout << endl;
 
     return 0;
-}
+}}
 """]
 }

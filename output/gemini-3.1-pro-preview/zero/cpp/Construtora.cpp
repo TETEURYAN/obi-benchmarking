@@ -12,48 +12,35 @@ int main() {
     if (!(cin >> n)) return 0;
     
     vector<int> a(n);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         cin >> a[i];
     }
-    
-    int ans = 0;
+
+    int ops = 0;
     while (true) {
-        bool all_equal = true;
-        for (int i = 1; i < n; i++) {
-            if (a[i] != a[0]) {
-                all_equal = false;
-                break;
-            }
-        }
-        if (all_equal) break;
-        
         int min_val = a[0];
-        for (int i = 1; i < n; i++) {
-            if (a[i] < min_val) {
-                min_val = a[i];
-            }
+        int max_val = a[0];
+        for (int i = 1; i < n; ++i) {
+            if (a[i] < min_val) min_val = a[i];
+            if (a[i] > max_val) max_val = a[i];
         }
-        
-        int l = -1;
-        for (int i = 0; i < n; i++) {
+
+        if (min_val == max_val) break;
+
+        int start = -1;
+        for (int i = 0; i < n; ++i) {
             if (a[i] == min_val) {
-                l = i;
+                start = i;
                 break;
             }
         }
-        
-        int r = l;
-        while (r + 1 < n && a[r + 1] == min_val) {
-            r++;
-        }
-        
-        for (int i = l; i <= r; i++) {
+
+        for (int i = start; i < n && a[i] == min_val; ++i) {
             a[i]++;
         }
-        ans++;
+        ops++;
     }
-    
-    cout << ans << "\n";
-    
+
+    cout << ops << "\n";
     return 0;
 }

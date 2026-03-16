@@ -1,0 +1,14 @@
+question_name,level_to_llm,llm_code_creation_time,info,judge_predict,execution_time,AC,WA,RE,TLE,CE,total_test_cases
+Relógio,FÁCIL,2.033441337000113,database/obi_2024/nível 2/fase 1/,AC,0.16415203399083111,52,0,0,0,0,52
+Concurso,FÁCIL,1.6495393160003005,database/obi_2024/nível 2/fase 1/,AC,0.01672695299203042,4,0,0,0,0,4
+Jogo da vida,FÁCIL,4.49665188799554,database/obi_2024/nível 2/fase 1/,AC,0.03548694199707825,19,0,0,0,0,19
+Ogro,FÁCIL,1.5697070940077538,database/obi_2024/nível 2/fase 1/,AC,0.022941552990232594,20,0,0,0,0,20
+Construtora,MÉDIO,3.238118499997654,database/obi_2024/nível 2/fase 3/,TLE,15.0,33,0,0,5,0,38
+Retas,DIFÍCIL,7.37936575099593,database/obi_2024/nível 2/fase 3/,TLE,15.0,23,18,0,2,0,43
+Burocracia,DIFÍCIL,10.529691705000005,database/obi_2024/nível 2/fase 3/,TLE,15.0,5,35,0,13,0,53
+Brigadeiros,DIFÍCIL,6.4080052219942445,database/obi_2024/nível 2/fase 3/,TLE,15.0,33,18,0,16,0,67
+Jogo de Pratos,DIFÍCIL,13.813148735003779,database/obi_2024/nível 2/fase 3/,WA,15.0,0,57,0,16,0,73
+Jogo do Poder,DIFÍCIL,17.339870594994863,database/obi_2024/nível 2/fase 2/,WA,15.0,7,57,0,86,0,150
+Alfabeto Alienígena,FÁCIL,2.951435864000814,database/obi_2024/nível 2/fase 2/,TLE,15.0,48,0,0,13,0,61
+Concatena Dígitos,MÉDIO,2.736222398991231,database/obi_2024/nível 2/fase 2/,AC,0.24024790799012408,25,0,0,0,0,25
+Cubo Preto,FÁCIL,2.3015367449988844,database/obi_2024/nível 2/fase 2/,AC,0.006714363000355661,11,0,0,0,0,11
