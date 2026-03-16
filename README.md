@@ -1,93 +1,111 @@
-# Polya Evaluation Script
+# Polya Framework: LLM Evaluation for Competitive Programming
 
-This script evaluates LLM models using two distinct approaches for solving OBI (Olimpíada Brasileira de Informática) problems:
-1. **Multi-Agent (Polya's method):** A multi-step pipeline (Comprehension, Planning, Implementation).
-2. **Zero-Shot:** A direct, single-prompt code generation.
+Este repositório contém dois projetos experimentais para avaliação de Large Language Models (LLMs) em tarefas de programação competitiva, especificamente problemas da Olimpíada Brasileira de Informática (OBI). Os projetos implementam metodologias baseadas no método de resolução de problemas de Polya.
 
+## Projetos
 
-> [!IMPORTANT]
-> The results currently in the `resultados` folder were obtained using the **Zero-Shot** approach.
+### Experimento 1: Comprehensive Multi-Agent Polya Evaluator
 
-## Features
+Um framework completo para avaliação de LLMs em problemas OBI usando duas abordagens:
+- **Método Completo de Polya**: Pipeline de três etapas (Compreensão → Planejamento → Implementação)
+- **Zero-Shot**: Geração direta de código com um único prompt
 
-- **Multi-Model Support:** Evaluate several models sequentially from a configuration file.
-- **Granular Judging:** Classifies solutions into AC (Accepted), WA (Wrong Answer), CE (Compilation Error), RE (Runtime Error), and TLE (Time Limit Exceeded).
-- **Result Re-evaluation:** Capability to re-run the judge on existing generated code without calling the LLM again.
-- **Parallel Testing:** Uses multi-threading to speed up test case execution.
-- **Consolidated Metrics:** Automatically aggregates results into a summary CSV.
+**Características principais:**
+- Avaliação sequencial de múltiplos modelos LLM
+- Julgamento abrangente de código (AC/WA/CE/RE/TLE)
+- Execução paralela de casos de teste
+- Capacidade de reavaliação sem chamar LLM novamente
+- Agregação automática de resultados em CSVs
 
-## Setup
+**Tecnologias:** OpenAI API, Python (openai, pandas, pydantic, python-dotenv)
 
-1. Install `uv` if you haven't already:
+### Experimento 2: Polya's Understanding & Planning Evaluator
+
+Focado nas primeiras duas etapas do método de Polya: Compreensão e Planejamento. Avalia a capacidade dos LLMs de entender e planejar soluções para problemas de programação.
+
+**Características principais:**
+- Organização por níveis de dificuldade (OBI 2023/2024, nível 2)
+- Estratégias Zero-shot e Few-shot
+- Suporte a múltiplas linguagens (Python e C++)
+- Suporte a múltiplos provedores (OpenAI e Gemini)
+- Métricas abrangentes com notebook Jupyter para análise
+- Interface interativa orientada a menu
+
+**Tecnologias:** OpenAI e Gemini APIs, Python (pydantic, openai, pandas, numpy, jupyter)
+
+## Diferenças Principais
+
+| Aspecto | Experimento 1 | Experimento 2 |
+|---------|---------------|---------------|
+| **Escopo** | Geração completa + julgamento | Análise de planejamento e compreensão |
+| **Etapas de Polya** | Todas 3 etapas | Primeiras 2 etapas |
+| **Provedores LLM** | Apenas OpenAI | OpenAI + Gemini |
+| **Linguagens** | Apenas Python | Python e C++ |
+| **Execução** | Batch automatizado | Menu interativo |
+| **Julgamento** | Completo (compilar, executar, classificar) | Apenas resultados de avaliação |
+| **Organização** | Pasta única test_cases | Hierárquica por ano/nível |
+| **Saída** | CSVs + métricas detalhadas | CSVs por modelo/estratégia + notebook |
+
+## Instalação e Execução
+
+### Experimento 1
+
+1. Entre no diretório:
    ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
+   cd experimento_1
    ```
 
-2. Install dependencies:
+2. Instale as dependências:
    ```bash
-   uv sync
+   pip install -r requirements.txt
    ```
 
-3. Set your API configuration:
-   Create a `.env` file based on `.env.example`:
+3. Copie `.env.example` e edite para `.env`:
    ```bash
    cp .env.example .env
-   # Edit .env with your actual values (OPENAI_API_KEY, OPENAI_BASE_URL, etc.)
    ```
 
-## Usage
+4. Adicione as informações no `.env`:
+   ```
+   OPENAI_API_KEY=sua-chave-api-aqui
+   OPENAI_BASE_URL=https://api.openai.com/v1
+   MODEL_NAME=gpt-4o
+   ```
 
-### Single Model Execution
-To run a single model defined in your `.env` or using the default:
-```bash
-uv run main.py
-```
+5. Execute a aplicação:
+   ```bash
+   python main.py
+   ```
 
-### Multi-Model Execution
-To run multiple models sequentially from a text file:
-```bash
-uv run main.py --models-file models/models.txt
-```
+### Experimento 2
 
-### Zero-Shot Mode
-To run using a single zero-shot prompt instead of the multi-agent Polya approach:
-```bash
-uv run main.py --zero-shot
-```
+1. Entre no diretório:
+   ```bash
+   cd experimento_2
+   ```
 
-### Re-evaluate Existing Results
-To re-run the judge on results already stored in the `resultados` directory:
-```bash
-uv run main.py --re-evaluate-results
-```
+2. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## Judging Classifications
+3. Copie `.env.example` e edite para `.env`:
+   ```bash
+   cp .env.example .env
+   ```
 
-The evaluator classifies each problem execution based on standard competitive programming outcomes:
+4. Adicione as informações no `.env`, substituindo `EXAMPLE` pelo nome do provedor (ex: `OPENAI`):
+   ```
+   OPENAI__API_KEY=sua-chave-api-aqui
+   OPENAI__BASE_URL=https://api.openai.com/v1
+   OPENAI__MODEL_NAME=gpt-4o
+   ```
 
-| Code | Meaning | Description |
-| :--- | :--- | :--- |
-| **AC** | Accepted | The code passed all test cases correctly within the time limit. |
-| **WA** | Wrong Answer | The code produced an output different from the expected one. |
-| **CE** | Compilation Error | The generated code failed to run (e.g., syntax errors). |
-| **RE** | Runtime Error | The code crashed during execution. |
-| **TLE** | Time Limit Exceeded | The code took longer than the allowed time per case (default 2s). |
+5. Execute a aplicação:
+   ```bash
+   python main.py
+   ```
 
-## Results Structure
+## Mais Informações
 
-Evaluation results are saved in the `resultados` directory:
-
-- `resultados/`: Base results folder.
-    - `<model_name>/`: Model-specific folder.
-        - `results_<model_name_safe>_<timestamp>_<shot_status>.csv`: Detailed results per test case.
-    - `summary_results_<run_timestamp>_<shot_status>.csv`: Consolidated performance metrics for all models in a run.
-
-## Project Structure
-
-- `main.py`: CLI entry point and orchestration using Clean Architecture services.
-- `src/`: Core logic.
-    - `models.py`: Pydantic definitions for Problems and EvaluationResults.
-    - `prompts.py`: Prompt templates (Comprehension, Planning, Implementation, Zero-Shot).
-    - `evaluator.py`: Logic for parallel code execution and OBI-style judging.
-- `test_cases/`: Input (`.in`) and expected solution (`.sol`) files.
-- `problems.json`: Dataset containing problem statements, constraints, and base examples.
+Para detalhes específicos sobre cada projeto, consulte os arquivos `README.md` dentro dos diretórios `experimento_1` e `experimento_2`.

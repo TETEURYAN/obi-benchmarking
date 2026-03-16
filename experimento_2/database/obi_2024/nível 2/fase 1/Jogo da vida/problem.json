@@ -1,0 +1,23 @@
+{
+    "path": "database/obi_2024/nível 2/fase 1/",
+    "imgs": ["database/obi_2024/nível 2/fase 1/Jogo da vida/imgs/1.png"],
+    "title": "Jogo da vida",
+    "statement": "O Jogo da Vida de Conway é um processo de simulação (conhecido como autômato celular ) criado\npelo matemático britânico John Conway para reproduzir, por meio de uma matriz, processos de\nmudança em grupos de seres vivos. As regras do jogo indicam como a matriz é modificada a cada\npasso. Os valores da matriz em um determinado passo são coletivamente chamados de estado do\njogo.\nMais especificamente, o jogo acontece em uma matriz quadrada N × N (ou seja, com N linhas e N\ncolunas) no qual cada célula está viva (representada pelo número 1) ou morta (representada pelo\nnúmero 0). Para simular o próximo estado do autômato, para cada célula calculamos o seu número\nde vizinhos vivos (duas células são consideradas vizinhas se elas são adjacentes diagonalmente,\nhorizontalmente ou verticalmente – ou seja, uma célula pode ter até 8 vizinhas), e decidimos se a\ncélula estará viva ou morta no próximo estado de acordo com as seguintes regras:\n• se uma célula morta possui exatamente três vizinhas vivas, ela vira uma célula viva;\n• se uma célula morta possui uma quantidade de vizinhas vivas diferente de três, ela continua\nmorta;\n• se uma célula viva possui duas ou três vizinhas vivas, ela continua viva;\n• se uma célula viva possui menos que duas vizinhas vivas, ela morre;\n• se uma célula viva possui mais que três vizinhas vivas, ela morre.\nToda célula fora da matriz é considerada morta, ou seja, células fora da matriz nunca afetam a\nquantidade de vizinhos vivos de alguma célula. Observe que as regras são aplicadas em todas as\ncélulas simultaneamente, uma vez a cada passo.\nDada uma matriz que representa o estado inicial do jogo e um inteiro positivo Q, sua tarefa é\ndeterminar o Q-ésimo estado do jogo de acordo com as regras descritas acima, ou seja, o valor de\ncada célula da matriz após Q passos do jogo.\nA figura abaixo mostra um exemplo de jogo em uma matriz 5 × 5 e seus estados para diferentes\nvalores de Q. Células vivas são representadas com a cor preta e células mortas são representadas\ncom a cor branca.\n",
+    "input": "A primeira linha contém dois números inteiros, N e Q, representando, respectivamente, o número\nde linhas/colunas da matriz e o número de passos a serem simulados.\nAs próximas N linhas contém N caracteres cada. O j-ésimo caractere da i-ésima linha representa\no estado inicial da célula na linha i e coluna j. Caso o caractere seja '0', a célula naquela posição\ninicia o jogo morta; caso o caractere seja '1', a célula inicia o jogo viva.",
+    "output": "Seu programa deverá imprimir quatro linhas, cada uma contendo um único inteiro:\n A primeira linha deve conter o número de cubinhos com nenhuma face pintada de preto.\n A segunda linha deve conter o número de cubinhos com exatamente uma face pintada.\n A terceira linha deve conter o número de cubinhos com exatamente duas faces pintadas.\n A quarta e última linha deve conter o número de cubinhos com exatamente três faces pintadas.",
+    "constraints": "1 <= N <= 50\n 1 <= Q <= 100\n",
+    "examples": [
+        {
+            "input": "5 3\n00000\n01110\n01000\n00100\n00000\n",
+            "output": "01100\n11000\n00100\n00000\n00000\n"
+        },
+        {
+            "input": "15 1\n000010000010000\n000010000010000\n000011000110000\n000000000000000\n111001101100111\n001010101010100\n000011000110000\n000000000000000\n000011000110000\n001010101010100\n111001101100111\n000000000000000\n000011000110000\n000010000010000\n000010000010000\n",
+            "output": "000000000000000\n000110000011000\n000011000110000\n010010101010010\n011101101101110\n001010101010100\n000111000111000\n000000000000000\n000111000111000\n001010101010100\n011101101101110\n010010101010010\n000011000110000\n000110000011000\n000000000000000\n"
+        },
+        {
+            "input": "15 3\n000010000010000\n000010000010000\n000011000110000\n000000000000000\n111001101100111\n001010101010100\n000011000110000\n000000000000000\n000011000110000\n001010101010100\n111001101100111\n000000000000000\n000011000110000\n000010000010000\n000010000010000\n",
+            "output": "000010000010000\n000010000010000\n000011000110000\n000000000000000\n111001101100111\n001010101010100\n000011000110000\n000000000000000\n000011000110000\n001010101010100\n111001101100111\n000000000000000\n000011000110000\n000010000010000\n000010000010000\n"
+        }
+    ]
+}

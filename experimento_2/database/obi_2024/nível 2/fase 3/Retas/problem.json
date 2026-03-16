@@ -1,0 +1,26 @@
+{
+    "path": "database/obi_2024/nível 2/fase 3/",
+    "title": "Retas",
+    "statement": "Juan é um artista talentoso que ama criar obras com padrões geométricos, e sua última criação envolve desenhar várias linhas retas em uma imensa tela infinita. Cada linha que ele desenha é representada por uma equação da forma y = A * x + B onde: A é a inclinação da linha, indicando o quanto ela sobe ou desce. B é o ponto em que a linha cruza o eixo y (a interseção com o eixo vertical). Por exemplo, a figura a seguir mostra a linha y = -2 * x + 9. Depois de desenhar N dessas linhas, Juan começou a observar que algumas delas se cruzavam, criando pontos de interseção. Fascinado por esses cruzamentos, ele decidiu focar em uma região específica da sua tela, delimitada entre dois valores no eixo x: X_1 e X_2. Ele quer saber quantas interseções ocorrem dentro desse intervalo de x. Por exemplo, se Juan desenhou as seguintes N=4 linhas: y = -2 * x + 9, y = 1 * x - 3, y = 1 * x + 2, y = 0 * x + 5. E deseja saber quantas interseções existem na região entre X_1=3 e X_2=7, podemos visualizar na figura a seguir que a resposta é 2. Perceba que os pontos de interseção A e D estão na região de interesse de Juan, já os pontos C, B e E estão fora dessa região. Sua tarefa é ajudar Juan a descobrir o número de interseções entre as N linhas que possuem o valor da coordenada x entre X_1 e X_2 (incluindo X_1 e X_2).",
+    "input": "A primeira linha contém três inteiros N, X_1, X_2, onde N é o número de linhas desenhadas por Juan, X_1 é o limite inferior da coordenada x da região de interesse de Juan, enquanto X_2 é o limite superior dessa região. As próximas N linhas descrevem as equações das linhas, cada uma contendo dois inteiros A_i e B_i, onde A_i é a inclinação da i-ésima linha, e B_i é o ponto em que a linha cruza o eixo y.",
+    "output": "A saída deve conter um único número inteiro, a quantidade de interseções entre as N linhas que possuem o valor da coordenada x entre X_1 e X_2 (incluindo X_1 e X_2).",
+    "constraints": "1 <= N <= 10^5; -10^9 <= X_1 <= X_2 <= 10^9; -10^9 <= A_i, B_i <= 10^9; A_i != A_j ou B_i != B_j para todo 1 <= i < j <= N (Não existem duas linhas iguais).",
+    "examples": [
+        {
+            "input": "4 3 7\n-2 9\n1 -3\n1 2\n0 5",
+            "output": "2"
+        },
+        {
+            "input": "2 2 3\n-2 9\n1 2",
+            "output": "1"
+        },
+        {
+            "input": "5 100 200\n2 213\n2 209\n2 210\n2 410\n4 10",
+            "output": "3"
+        },
+        {
+            "input": "4 1 1\n15 -5\n0 10\n-5 15\n-20 30",
+            "output": "6"
+        }
+    ]
+}

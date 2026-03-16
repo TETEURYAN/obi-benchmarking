@@ -1,0 +1,14 @@
+question_name,llm_code_creation_time,info,judge_predict,execution_time,AC,WA,RE,TLE,CE,total_test_cases
+Relógio,2.881844989984529,database/obi_2024/nível 2/fase 1/,AC,0.17717998300213367,52,0,0,0,0,52
+Concurso,2.2007536069722846,database/obi_2024/nível 2/fase 1/,AC,0.01923176000127569,20,0,0,0,0,20
+Jogo da vida,6.137832555978093,database/obi_2024/nível 2/fase 1/,AC,0.03649458699510433,19,0,0,0,0,19
+Ogro,2.370165886997711,database/obi_2024/nível 2/fase 1/,AC,0.009675122011685744,20,0,0,0,0,20
+Construtora,2.8655828350165393,database/obi_2024/nível 2/fase 3/,AC,0.027185006998479366,38,0,0,0,0,38
+Retas,11.170124106982257,database/obi_2024/nível 2/fase 3/,WA,2.0735761619871482,36,7,0,0,0,43
+Burocracia,14.54125801101327,database/obi_2024/nível 2/fase 3/,WA,0.9980616119864862,6,47,0,0,0,53
+Brigadeiros,5.768499604979297,database/obi_2024/nível 2/fase 3/,WA,0.13246217000414617,11,56,0,0,0,67
+Jogo de Pratos,12.184745273989392,database/obi_2024/nível 2/fase 3/,WA,0.9410376919840928,12,61,0,0,0,73
+Jogo do Poder,14.79661841498455,database/obi_2024/nível 2/fase 2/,WA,0.9705947780166753,11,139,0,0,0,150
+Alfabeto Alienígena,2.3145279529853724,database/obi_2024/nível 2/fase 2/,AC,0.030563649022951722,61,0,0,0,0,61
+Concatena Dígitos,2.4715842719888315,database/obi_2024/nível 2/fase 2/,AC,0.16900091999559663,25,0,0,0,0,25
+Cubo Preto,2.6521041549858637,database/obi_2024/nível 2/fase 2/,AC,0.004678069002693519,11,0,0,0,0,11
