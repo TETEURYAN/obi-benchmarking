@@ -1,5 +1,4 @@
 {
-    "path": "database/obi_2024/nível 2/fase 2/",
     "title": "Jogo do Poder",
     "statement": "Jonathan está empolgado com a nova sensação do momento: o Jogo do Poder. Este jogo é jogado em uma matriz de N linhas e M colunas, na qual cada célula possui um monstro. O monstro na linha i e coluna j possui poder P_{i,j}. No início do jogo, Jonathan escolhe um dos N x M monstros para jogar. O monstro escolhido por Jonathan se torna o herói do jogo e começa o jogo com o poder indicado em sua célula. Jonathan pode mover o herói ortogonalmente (isto é, para cima, baixo, direita ou esquerda) na matriz enquanto o herói estiver vivo. O herói não pode sair da matriz, mas pode visitar a mesma célula múltiplas vezes. Toda vez que o herói entra em uma célula com um monstro vivo, ocorre uma batalha entre o herói e o monstro da célula. O herói ganha a batalha se, e somente se, o seu poder for maior ou igual ao poder do monstro. Caso contrário, o herói morre e perde o jogo em game over. Toda vez que o herói ganha uma batalha, o monstro derrotado morre (ou seja, a célula não possui mais nenhum monstro) e, como recompensa, o poder do monstro é somado ao poder do herói (ou seja, se o herói matar o monstro da célula (i, j), o poder do herói aumenta em P_{i,j}). Jonathan percebeu que o jogo pode ser injusto: mesmo que ele jogue de maneira ótima, dependendo de sua escolha de herói, pode ser possível matar todos os monstros, apenas alguns ou até mesmo nenhum monstro. Decidido a \"platinar\" o jogo, Jonathan precisa saber o poder máximo que cada herói consegue alcançar (ou seja, o poder máximo possível de ser atingido ao iniciar o jogo em cada célula da matriz) se o jogo for jogado de forma ótima. Felizmente, ele descobriu que os alunos da OBI (Organização dos Bons Informáticos) recentemente resolveram o Jogo da Vida, seu terceiro jogo favorito (atrás do Jogo do Poder e do Jogo de Corrida, claro), então ele pediu a sua ajuda novamente! Determine, para cada herói, o poder máximo que ele consegue alcançar caso Jonathan jogue de forma ótima.",
     "input": "A primeira linha de entrada contém dois inteiros N e M, o número de linhas e o número de colunas da matriz, respectivamente. As próximas N linhas contém M inteiros cada. O j-ésimo inteiro da i-ésima linha contém o poder P_{i,j} do monstro na i-ésima linha e j-ésima coluna.",
@@ -19,5 +18,7 @@
             "output": "250 250 250 250 250 250\n250 8 8 8 8 250\n250 8 250 250 250 250\n250 8 250 250 250 250\n250 250 250 250 250 2"
         }
     ],
-    "imgs": ["/database/obi_2024/nível 2/fase 1/Jogo da vida/imgs/1.png"]
+    "year": "2024",
+    "level": "2",
+    "period": "2"
 }
