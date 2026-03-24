@@ -9,20 +9,18 @@ a = [int(x) for x in input_data[1:n+1]]
 
 ops = 0
 while True:
-    min_val = min(a)
-    max_val = max(a)
-    if min_val == max_val:
+    min_a = min(a)
+    max_a = max(a)
+    if min_a == max_a:
         break
     
     i = 0
     while i < n:
-        if a[i] == min_val:
-            j = i
-            while j < n and a[j] == min_val:
-                a[j] += 1
-                j += 1
+        if a[i] == min_a:
             ops += 1
-            i = j
+            while i < n and a[i] == min_a:
+                a[i] += 1
+                i += 1
         else:
             i += 1
 

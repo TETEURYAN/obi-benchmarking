@@ -82,7 +82,7 @@ class JudgeService:
         print(total_cases)
         
         if total_cases == 0:
-            "NO TEST CASES", {}, 0, max_time
+            return "NO TEST CASES", {}, 0, 0.0
         
         if not clean_code or not test_cases:
             return "CE", {}, total_cases, 0.0

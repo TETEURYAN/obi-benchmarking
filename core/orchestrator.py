@@ -76,24 +76,45 @@ class Orchestrator:
         return code
 
     def get_test_cases(self,
-                       path: str,
-                       name: str,
-                       default_examples: list) -> list[tuple[str, str]]:
+                   path: str,
+                   name: str,
+                   default_examples: list) -> list[tuple[str, str]]:
 
         test_cases = []
-        path_test_cases = f"{path}{name}/test_cases/"
-        print(path_test_cases)
+        
+        path_test_cases = Path(path) / name / "test_cases"
+        print(f"Buscando em: {path_test_cases}")
 
-        if os.path.exists(path_test_cases):
-            in_files = glob.glob(os.path.join(path_test_cases, "**", "*.in"), recursive=True)
-            for in_file in in_files:
-                sol_file = in_file.replace(".in", ".sol")
-                if os.path.exists(sol_file):
-                    with open(in_file, 'r') as f:
-                        in_content = f.read()
-                    with open(sol_file, 'r') as f:
-                        sol_content = f.read()
-                    test_cases.append((in_content, sol_content))
+        if path_test_cases.exists():
+            for in_file in path_test_cases.rglob("*"):
+                
+                if not in_file.is_file():
+                    continue
+
+                sol_file = None
+
+                if in_file.suffix == '.in':
+                    sol_file = in_file.with_suffix('.sol')
+                    if not sol_file.exists():
+                        sol_file = in_file.with_suffix('.out')
+
+                elif in_file.name.startswith('in') and not in_file.name.endswith('.in'):
+                    sufixo_numerico = in_file.name[2:] 
+                    
+                    sol_file = in_file.parent / f"out{sufixo_numerico}"
+                    if not sol_file.exists():
+                        sol_file = in_file.parent / f"sol{sufixo_numerico}"
+
+                if sol_file and sol_file.exists():
+                    try:
+                        with open(in_file, 'r', encoding='utf-8') as f:
+                            in_content = f.read()
+                        with open(sol_file, 'r', encoding='utf-8') as f:
+                            sol_content = f.read()
+                        
+                        test_cases.append((in_content, sol_content))
+                    except Exception as e:
+                        print(f"Erro ao ler os arquivos {in_file.name} e {sol_file.name}: {e}")
 
         if not test_cases:
             test_cases = [(e.input, e.output) for e in default_examples]

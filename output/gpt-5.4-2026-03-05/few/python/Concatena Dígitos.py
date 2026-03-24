@@ -18,11 +18,12 @@ for _ in range(q):
     r = data[idx + 1]
     idx += 2
 
-    s = pref[r] - pref[l - 1]
     k = r - l + 1
     if k <= 1:
         out.append("0")
     else:
-        out.append(str(11 * (k - 1) * s))
+        s = pref[r] - pref[l - 1]
+        ans = 11 * (k - 1) * s
+        out.append(str(ans))
 
 sys.stdout.write("\n".join(out))

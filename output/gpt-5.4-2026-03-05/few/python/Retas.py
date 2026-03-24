@@ -18,23 +18,21 @@ for i in range(n):
 
 lines.sort(key=lambda t: (t[0], t[1], t[2]))
 
-arr = [0] * n
-for pos, (_, y2, _) in enumerate(lines):
-    arr[pos] = (y2, pos)
+arr = [t[1] for t in lines]
 
-arr.sort()
+vals = sorted(set(arr))
+comp = {v: i + 1 for i, v in enumerate(vals)}
 
-bit = [0] * (n + 2)
+size = len(vals)
+bit = [0] * (size + 2)
 
 def add(i, v):
-    i += 1
-    while i <= n:
+    while i <= size:
         bit[i] += v
         i += i & -i
 
 def sum_prefix(i):
     s = 0
-    i += 1
     while i > 0:
         s += bit[i]
         i -= i & -i
@@ -42,22 +40,11 @@ def sum_prefix(i):
 
 ans = 0
 processed = 0
-j = 0
-while j < n:
-    k = j
-    y = arr[j][0]
-    while k < n and arr[k][0] == y:
-        k += 1
-
-    for t in range(j, k):
-        pos = arr[t][1]
-        ans += processed - sum_prefix(pos)
-
-    for t in range(j, k):
-        pos = arr[t][1]
-        add(pos, 1)
-        processed += 1
-
-    j = k
+for v in arr:
+    p = comp[v]
+    leq = sum_prefix(p)
+    ans += processed - leq
+    add(p, 1)
+    processed += 1
 
 print(ans)

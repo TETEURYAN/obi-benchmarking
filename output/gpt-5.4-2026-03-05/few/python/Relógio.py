@@ -2,7 +2,7 @@ import sys
 
 data = sys.stdin.read().split()
 if not data:
-    sys.exit()
+    exit()
 
 H = int(data[0])
 M = int(data[1])
