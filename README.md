@@ -1,111 +1,96 @@
-# Polya Framework: LLM Evaluation for Competitive Programming
+# OBI LLM Evaluation Framework
 
-Este repositório contém dois projetos experimentais para avaliação de Large Language Models (LLMs) em tarefas de programação competitiva, especificamente problemas da Olimpíada Brasileira de Informática (OBI). Os projetos implementam metodologias baseadas no método de resolução de problemas de Polya.
+Sistema de avaliação de modelos LLM (Large Language Models) em problemas da Olimpíada Brasileira de Informática (OBI). O framework testa diferentes estratégias de prompting (zero-shot e few-shot) e linguagens de programação (Python e C++) para gerar soluções automaticamente.
 
-## Projetos
+## Setup
 
-### Experimento 1: Comprehensive Multi-Agent Polya Evaluator
+### 1. Instalar `uv` (se ainda não instalado)
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-Um framework completo para avaliação de LLMs em problemas OBI usando duas abordagens:
-- **Método Completo de Polya**: Pipeline de três etapas (Compreensão → Planejamento → Implementação)
-- **Zero-Shot**: Geração direta de código com um único prompt
+### 2. Instalar dependências
+```bash
+uv sync
+```
 
-**Características principais:**
-- Avaliação sequencial de múltiplos modelos LLM
-- Julgamento abrangente de código (AC/WA/CE/RE/TLE)
-- Execução paralela de casos de teste
-- Capacidade de reavaliação sem chamar LLM novamente
-- Agregação automática de resultados em CSVs
+### 3. Configurar credenciais de API
 
-**Tecnologias:** OpenAI API, Python (openai, pandas, pydantic, python-dotenv)
+Crie um arquivo `.env` baseado em `.env.example`:
+```bash
+cp .env.example .env
+```
 
-### Experimento 2: Polya's Understanding & Planning Evaluator
+Edite o arquivo `.env` com suas credenciais:
+```
+OPENAI__API_KEY=seu-api-key-aqui
+OPENAI__BASE_URL=https://api.openai.com/v1
+OPENAI__MODEL_NAME=gpt-4o
 
-Focado nas primeiras duas etapas do método de Polya: Compreensão e Planejamento. Avalia a capacidade dos LLMs de entender e planejar soluções para problemas de programação.
+GEMINI__API_KEY=seu-api-key-aqui
+GEMINI__BASE_URL=https://api.google.com/v1
+GEMINI__MODEL_NAME=gemini-pro
+```
 
-**Características principais:**
-- Organização por níveis de dificuldade (OBI 2023/2024, nível 2)
-- Estratégias Zero-shot e Few-shot
-- Suporte a múltiplas linguagens (Python e C++)
-- Suporte a múltiplos provedores (OpenAI e Gemini)
-- Métricas abrangentes com notebook Jupyter para análise
-- Interface interativa orientada a menu
+## Estrutura do Projeto
 
-**Tecnologias:** OpenAI e Gemini APIs, Python (pydantic, openai, pandas, numpy, jupyter)
+```
+├── core/                   # Configuração e orquestração
+│   ├── config.py          # Carregamento de credenciais
+│   └── orchestrator.py    # Lógica principal de execução
+├── database/              # Problemas da OBI
+│   ├── obi_2023/
+│   └── obi_2024/          # Anos 2023-2024 organizados por fase
+├── models/                # Modelos de dados Pydantic
+├── prompts/               # Templates de prompts (zero-shot, few-shot)
+├── services/              # Serviços de LLM e avaliação
+├── output/                # Resultados gerados
+│   ├── [modelo]/          # Saída organizada por modelo
+│   └── results/           # CSVs com métricas
+└── metrics/               # Notebooks para análise
+```
 
-## Diferenças Principais
+## Uso
 
-| Aspecto | Experimento 1 | Experimento 2 |
-|---------|---------------|---------------|
-| **Escopo** | Geração completa + julgamento | Análise de planejamento e compreensão |
-| **Etapas de Polya** | Todas 3 etapas | Primeiras 2 etapas |
-| **Provedores LLM** | Apenas OpenAI | OpenAI + Gemini |
-| **Linguagens** | Apenas Python | Python e C++ |
-| **Execução** | Batch automatizado | Menu interativo |
-| **Julgamento** | Completo (compilar, executar, classificar) | Apenas resultados de avaliação |
-| **Organização** | Pasta única test_cases | Hierárquica por ano/nível |
-| **Saída** | CSVs + métricas detalhadas | CSVs por modelo/estratégia + notebook |
-
-## Instalação e Execução
-
-### Experimento 1
-
-1. Entre no diretório:
+1. Execute o programa interativo:
    ```bash
-   cd experimento_1
+   uv run main.py
    ```
 
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. Selecione a estratégia de prompting:
+   - `1` = Zero-shot (sem exemplos)
+   - `2` = Few-shot (com exemplos)
 
-3. Copie `.env.example` e edite para `.env`:
-   ```bash
-   cp .env.example .env
-   ```
+3. Selecione a linguagem de programação:
+   - `1` = Python
+   - `2` = C++
 
-4. Adicione as informações no `.env`:
-   ```
-   OPENAI_API_KEY=sua-chave-api-aqui
-   OPENAI_BASE_URL=https://api.openai.com/v1
-   MODEL_NAME=gpt-4o
-   ```
+4. O sistema irá:
+   - Carregar problemas do database
+   - Gerar soluções usando os modelos LLM configurados
+   - Executar testes com casos de teste
+   - Gerar relatórios em CSV
 
-5. Execute a aplicação:
-   ```bash
-   python main.py
-   ```
+5. Verifique os resultados em `output/results/`
 
-### Experimento 2
+## Arquivos Principais
 
-1. Entre no diretório:
-   ```bash
-   cd experimento_2
-   ```
+- `main.py`: Script de entrada com menu interativo
+- `core/config.py`: Carregamento de configurações via `.env`
+- `core/orchestrator.py`: Orquestração de execução
+- `models/`: Modelos de dados (Problem, EvaluationResult, Level)
+- `prompts/`: Templates de prompts para diferentes estratégias
+- `services/llm_service.py`: Integração com APIs de LLM
+- `services/judge_service.py`: Avaliação de soluções geradas
 
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Saídas Geradas
 
-3. Copie `.env.example` e edite para `.env`:
-   ```bash
-   cp .env.example .env
-   ```
+Os resultados são organizados em:
+- `output/[modelo]/[tipo]/[linguagem]/`: Código-fonte gerado
+- `output/results/`: Arquivos CSV com métricas
+  - `results_[modelo]_[linguagem]_[tipo].csv`: Desempenho por problema
+  - `level_to_questions_[modelo].csv`: Estatísticas por fase
 
-4. Adicione as informações no `.env`, substituindo `EXAMPLE` pelo nome do provedor (ex: `OPENAI`):
-   ```
-   OPENAI__API_KEY=sua-chave-api-aqui
-   OPENAI__BASE_URL=https://api.openai.com/v1
-   OPENAI__MODEL_NAME=gpt-4o
-   ```
+## Notebook de Análise
 
-5. Execute a aplicação:
-   ```bash
-   python main.py
-   ```
-
-## Mais Informações
-
-Para detalhes específicos sobre cada projeto, consulte os arquivos `README.md` dentro dos diretórios `experimento_1` e `experimento_2`.
+Execute análises detalhadas em `metrics/model_metrics.ipynb`

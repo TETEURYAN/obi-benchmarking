@@ -1,0 +1,34 @@
+import sys
+
+def main():
+    data = sys.stdin.read().strip().split()
+    if not data:
+        return
+    it = iter(data)
+    N = int(next(it))
+    K = int(next(it))
+    clues = []
+    for _ in range(K):
+        x = int(next(it))
+        y = int(next(it))
+        d = int(next(it))
+        clues.append((x, y, d))
+
+    ans = []
+    for tx in range(N):
+        for ty in range(N):
+            ok = True
+            for x, y, d in clues:
+                if abs(tx - x) + abs(ty - y) != d:
+                    ok = False
+                    break
+            if ok:
+                ans.append((tx, ty))
+                if len(ans) > 1:
+                    print(-1, -1)
+                    return
+
+    print(ans[0][0], ans[0][1])
+
+if __name__ == "__main__":
+    main()

@@ -1,3 +1,0 @@
-- [ ] Revisar questões extraídas
-    - [ ] Corrigir exemplos
-    - [ ] Ver como vamos adicionar as figuras e gráficos na descrição em texto

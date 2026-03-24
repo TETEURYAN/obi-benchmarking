@@ -1,8 +1,0 @@
-deepseek/deepseek-r1
-google/gemini-3-flash-preview
-qwen/qwen3-coder
-qwen/qwen3.5-9b
-openai/gpt-oss-120b
-anthropic/claude-opus-4.6
-meta-llama/llama-guard-4-12b
-x-ai/grok-4.20-multi-agent-beta
