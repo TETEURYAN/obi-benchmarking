@@ -79,6 +79,10 @@ class JudgeService:
         """
         clean_code = self.__clean_code(code)
         total_cases = len(test_cases)
+        print(total_cases)
+        
+        if total_cases == 0:
+            "NO TEST CASES", {}, 0, max_time
         
         if not clean_code or not test_cases:
             return "CE", {}, total_cases, 0.0

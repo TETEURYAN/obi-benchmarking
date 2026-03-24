@@ -29,7 +29,7 @@ def main():
         path_database = Path("database")
         questions_path = []
         
-        for folder in path_database.glob("*/*/*/*/"):
+        for folder in list(path_database.iterdir()):
             if folder.is_dir():
                 questions_path.append(folder)
         
@@ -43,9 +43,9 @@ def main():
             problems.append(load_problem(Path(question_path / "problem.json")))
         
         print_partition("FIM DA CRIANÇÃO DATABASE")
-        
-    except Exception:    
+    except Exception as e:    
         print("Erro na estrutura database. Verifique o diretorio!")
+        print("Erro: ", e)
         exit(1)
     
     while True:
