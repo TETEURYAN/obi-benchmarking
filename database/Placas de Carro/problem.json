@@ -1,0 +1,39 @@
+{
+    "title": "Placas de Carro",
+    "statement": "As placas usadas nos carros em circulação no Brasil possuem dois padrões com formatos diferentes: algumas placas estão no antigo padrão Brasileiro, enquanto outras estão no novo padrão Mercosul.\n\nO antigo padrão Brasileiro é sempre formado por 8 caracteres:\n\n• os três primeiros caracteres são letras maiúsculas (de A a Z);\n• o quarto caractere é um hífen (-);\n• os últimos quatro caracteres são dígitos (de 0 a 9).\n\nPor exemplo, OBI-2024 é uma placa válida no antigo padrão Brasileiro.\n\nO novo padrão Mercosul, por sua vez, é sempre formado por 7 caracteres:\n\n• os três primeiros caracteres são letras maiúsculas;\n• o quarto caractere é um dígito;\n• o quinto caractere é uma letra maiúscula;\n• os últimos dois caracteres são dígitos.\n\nAssim, OBI2P24 é uma placa válida no novo padrão Mercosul.\n\nHá também um grande contigente de carros em situação irregular – carros com placas falsificadas que não estão nem no antigo padrão Brasileiro, nem no novo padrão Mercosul. Por exemplo, um carro com a placa OBI-24 está em situação irregular, pois a placa não é válida em nenhum dos dois padrões.\n\nO Departamento Nacional de Trânsito identificou que seus funcionários gastam muito tempo verificando manualmente quais placas estão em qual padrão e quais são falsificadas. Por isso, eles pediram sua ajuda para automatizar o processo: dada uma placa formada por uma sequência de letras maiúsculas, dígitos e hífens, determine se a placa está no antigo padrão Brasileiro, está no novo padrão Mercosul, ou é uma placa falsificada.",
+    "input": "A entrada é composta de uma única linha, contendo uma sequência de caracteres representando a placa a ser analisada.",
+    "output": "Seu programa deverá imprimir uma linha contendo um único número inteiro:\n\n• 1, se a placa está no antigo padrão Brasileiro;\n• 2, se a placa está no novo padrão Mercosul;\n• 0, se a placa é falsificada.",
+    "constraints": "• A placa possui entre 6 e 10 caracteres.\n• Cada caractere da placa é uma letra maiúscula (de A a Z), um dígito (de 0 a 9) ou um hífen (o caractere -).",
+    "examples": [
+        {
+            "input": "OBI-2024",
+            "output": "1"
+        },
+        {
+            "input": "OBI2P24",
+            "output": "2"
+        },
+        {
+            "input": "OBI-24",
+            "output": "0"
+        },
+        {
+            "input": "XYZ-1234",
+            "output": "1"
+        },
+        {
+            "input": "A1B2C3D4E5",
+            "output": "0"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        0,
+        40,
+        60
+    ],
+    "year": "2023",
+    "level": "Nível Sênior",
+    "period": "Fase 1",
+    "difficulty": "Médio"
+}

@@ -1,0 +1,26 @@
+{
+    "title": "O Fugitivo",
+    "statement": "Demasi é um terrorista e mafioso italiano que tentou escapar vindo para o Brasil. Mas Demasi não contava com a astúcia de nossa polícia, e acabou sendo preso aqui também.\n\nPor ser mafioso, Demasi conseguiu contratar advogados muito bons, que através de muitos recursos na justiça, acabaram conseguindo uma liberdade condicional para ele.\n\nNesta liberdade condicional, Demasi deve permanecer a uma certa distância da delegacia de polícia responsável por ele. Para monitorá-lo melhor, eles instalaram nele uma coleira eletrônica inquebrável que, minuto a minuto, envia para uma central as movimentações de Demasi naquele momento.\n\nA informação da coleira é enviada indicando uma direção e uma distância. Por exemplo, em quatro minutos chegam as quatro linhas de informação abaixo:\n\nN 30\nO 44\nS 22\nL 10\n\nIsso significa que no primeiro minuto Demasi se deslocou 30 metros para o norte (letra N), no minuto seguinte andou 44 metros para o oeste (letra O), no outro minuto andou 22 metros para o sul (letra S) e no quarto minuto se deslocou 10 metros para o leste (letra L). Para poder dar um castigo ao terrorista, o juiz decidiu que Demasi só poderia andar nas quatro direções citadas acima. Ou seja, Demasi nunca se movimenta na direção noroeste, por exemplo. Neste problema, você pode supor que todos os movimentos de Demasi ocorrem sobre um plano cartesiano.\n\nA polícia precisa estar sempre atenta à movimentação dele, e pede a sua ajuda para verificar se em algum momento o italiano se desloca a uma distância da delegacia maior do que a permitida. A distância considerada para esta medida é a distância euclidiana.\n\n**Tarefa**\n\nSua missão é criar um programa que receba as informações da coleira de Demasi e diga se em algum momento Demasi esteve a uma distância maior do que a permitida.\nVocê deve assumir que no instante 0 (zero) Demasi está dentro da delegacia (ou seja, a uma distância zero).",
+    "input": "A entrada contém um único conjunto de testes, que deve ser lido do dispositivo de entrada padrão (normalmente o teclado).\n\nA primeira linha da entrada contém dois inteiros N e M (2 ≤ N ≤ 500.000, 1 ≤ M ≤ 1.000.000) representando o número de registros enviados pela coleira de Demasi e a distância máxima que ele pode ficar da delegacia, respectivamente. As N linhas seguintes contêm os registros da coleira, em ordem de envio. Cada linha contém um caractere C ('N', 'S', 'L' ou 'O', como especificados acima) e um inteiro D (1 ≤ D ≤ 1.000) representando a distância percorrida no minuto.",
+    "output": "Seu programa deve imprimir, na saída padrão, o valor 1 se em algum momento Demasi se afastou da distância além da distância permitida, ou o valor 0 caso contrário.",
+    "constraints": "• Em um conjunto de casos de teste que totaliza 30 pontos, N ≤ 1.000, M ≤ 10.000 e D ≤ 30.\n• Em um conjunto de casos de teste que totaliza 70 pontos, N ≤ 200.000 e M ≤ 400.000.",
+    "examples": [
+        {
+            "input": "5 10\nN 2\nL 3\nS 4\nO 4\nO 3",
+            "output": "0"
+        },
+        {
+            "input": "5 10\nN 6\nL 8\nS 15\nO 5\nO 4",
+            "output": "1"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        30,
+        70
+    ],
+    "year": "2009",
+    "level": "Nível 2",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

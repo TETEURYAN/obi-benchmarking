@@ -1,0 +1,29 @@
+{
+    "title": "Metrônibus",
+    "statement": "Énia, a atual rainha da Nlogônia, é fascinada por meios de transporte, especialmente metrô e ônibus. Como consequência, a Nlogônia possui a melhor rede de transporte público do mundo inteiro, a Metrônibus.\n\nExistem N estações espalhadas por todo o reino, que são conectadas por dois sistemas de transporte: ônibus, que utiliza rodovias, e metrô, que utiliza trilhos. Assim, no Metrônibus existe transporte direto entre duas estações se elas estão ligadas por uma rodovia ou por um trilho. Toda ligação, independente de ser rodovia ou trilho, pode ser utilizada em ambas as direções. Existe no máximo uma ligação entre cada par de estações (ou seja, um par de estações não pode estar ligado por ambos um trilho e uma rodovia).\n\nPara utilizar o Metrônibus, o usuário precisa comprar passagens. Énia estabeleceu as seguintes regras para estimular o transporte público:\n\n• Toda passagem tem um preço fixo P, independente da estação e do sistema (metrô ou ônibus).\n\n• A passagem só deve ser paga quando o usuário entrar no sistema de transporte.\n\n• O usuário só pode entrar em um sistema por vez (ou seja, para entrar no sistema de metrô ele precisa sair do sistema de ônibus, e vice-versa).\n\n• Após pagar o preço P para entrar em um sistema, o usuário pode se locomover o quanto desejar usando ligações daquele sistema, contanto que ele não saia do sistema. Caso o usuário troque de sistema, ele deverá pagar por uma nova passagem para retornar ao sistema original.\n\nÉnia deseja saber o menor custo total para ir da estação A para a estação B, e para isso te contratou. Responda corretamente, ou ela te expulsará da Nlogônia!",
+    "input": "A primeira linha da entrada contém quatro inteiros N, K1, K2, e P, representando o número de estações, o número de ligações (trilhos) no sistema de metrô, o número de ligações (rodovias) no sistema de ônibus, e o preço da passagem, respectivamente.\n\nAs próximas K1 linhas contém a descrição das ligações do metrô. A i-ésima dessas linhas terá dois inteiros Vi e Ui, representando que há um trilho entre as estações Vi e Ui.\n\nAs próximas K2 linhas contém a descrição das ligações de ônibus. A j-ésima dessas linhas terá dois inteiros Xj e Yj, representando que há uma rodovia entre as estações Xj e Yj.\n\nA última linha da entrada contém dois números inteiros, A e B, representando a estação inicial e a estação final da viagem requisitada pela rainha.",
+    "output": "Seu programa deverá imprimir uma única linha contendo um único inteiro, o menor custo total de uma viagem que começa na estação A e termina na estação B.\n\nSe não for possível fazer uma viagem de A a B usando o Metrônibus, imprima −1.",
+    "constraints": "• 2 ≤ N ≤ 100 000\n• 1 ≤ K1 + K2 ≤ 100 000\n• 1 ≤ P ≤ 1 000\n• 1 ≤ Vi, Ui ≤ N para todo 1 ≤ i ≤ K1\n• Vi ≠ Ui para todo 1 ≤ i ≤ K1\n• 1 ≤ Xj, Yj ≤ N para todo 1 ≤ j ≤ K2\n• Xj ≠ Yj para todo 1 ≤ j ≤ K2\n• Cada par de estações é ligado por no máximo uma ligação no total (ou seja, considerando ambos os sistemas)\n• 1 ≤ A, B ≤ N\n• A ≠ B",
+    "examples": [
+        {
+            "input": "7 4 5 5\n1 3\n3 2\n4 2\n6 5\n4 1\n4 3\n4 5\n2 5\n6 7\n1 7",
+            "output": "15",
+            "explanation": "Este exemplo corresponde ao exemplo mostrado no enunciado."
+        },
+        {
+            "input": "6 4 0 42\n1 4\n6 1\n3 2\n4 6\n3 5",
+            "output": "-1",
+            "explanation": "A estação 5 não possui ligação com nenhuma outra estação, portanto é impossível chegar nela a partir da estação 3."
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        31,
+        32,
+        37
+    ],
+    "year": "2023",
+    "level": "Júnior",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

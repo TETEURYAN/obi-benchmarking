@@ -1,0 +1,28 @@
+{
+    "title": "Etiquetas",
+    "statement": "Uma fita esticada horizontalmente é composta de N quadrados de dimensão 1 × 1, cada um deles contendo um número inteiro anotado. Temos também K etiquetas retangulares idênticas, de dimensão 1 × C, onde C é um inteiro. Nosso objetivo é colar todas as etiquetas sobre a fita de modo que a soma dos inteiros que não estiverem cobertos por nenhuma etiqueta ao final seja a máxima possível. Cada etiqueta deve ser colada na horizontal, ao longo da fita. Duas etiquetas não podem estar sobrepostas e cada quadrado da fita deve estar ou totalmente coberto por uma etiqueta, ou totalmente descoberto.",
+    "input": "A primeira linha da entrada contém três inteiros N, K e C, representando, respectivamente, o comprimento da fita, o número de etiquetas e o comprimento das etiquetas. A segunda linha da entrada contém N inteiros A indicando a sequência de números anotados nos quadrados da fita.",
+    "output": "Seu programa deve imprimir uma linha contendo um inteiro indicando a soma máxima possível de inteiros descobertos na fita depois que todas as etiquetas sejam coladas seguindo as condições do enunciado.",
+    "constraints": "• 1 ≤ N ≤ 10000\n• -10000 ≤ A ≤ 10000\n• 1 ≤ K ≤ 10000\n• 1 ≤ C ≤ 10000\n• K × C ≤ N",
+    "examples": [
+        {
+            "input": "12 2 3\n1 22 4 -8 9 2 10 -1 5 5 32 -11",
+            "output": "58"
+        },
+        {
+            "input": "1 1 1\n10000",
+            "output": "0"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        10,
+        10,
+        20,
+        20
+    ],
+    "year": "2019",
+    "level": "P2",
+    "period": "Fase Nacional",
+    "difficulty": "Difícil"
+}

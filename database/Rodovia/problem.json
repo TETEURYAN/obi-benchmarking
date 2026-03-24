@@ -1,0 +1,27 @@
+{
+    "title": "Rodovia",
+    "statement": "O reino de Nlogonia é composto por N cidades, numeradas de 1 a N, e M rodovias direcionadas, ou seja, é possível usar a rodovia (x, y) para ir da cidade x à cidade y, porém não na outra direção.\n\nVamos definir o valor da conectividade do reino como o número de pares ordenados (x, y), com x ≠ y, tais que é possível viajar de x a y (talvez indiretamente, passando por outras cidades intermediárias pelo caminho). Na figura acima, por exemplo, o valor da conectividade é 11, sendo que os pares em questão são: (1, 3), (1, 4), (1, 6), (3, 1), (3, 4), (3, 6), (5, 2), (5, 4), (6, 1), (6, 3) e (6, 4).\n\nO governo de Nlogonia está planejando construir uma única nova rodovia (A, B), também direcionada. Muitas discussões estão sendo feitas para escolher a rodovia ideal, porém no momento, o maior receio é se há alguma possibilidade de ser feita uma escolha que seja considerada redundante pelos habitantes do reino. Em particular, foi dada a você a tarefa de descobrir se existe algum par (A, B) de cidades tal que:\n\n• A ≠ B\n• Não existe nenhuma rodovia (x, y) originalmente no reino, com x = A e y = B.\n• Caso adicionarmos a rodovia (A, B), o valor da conectividade do reino permanecerá o mesmo.\n\nTambém foi pedido que, caso existam pares que cumpram todas as condições, você deve informar algum deles. Caso tenha mais de um par válido, você pode escolher qualquer um deles.",
+    "input": "A primeira linha da entrada contém dois inteiros N e M, indicando o número de cidades e rodovias. Seguem M linhas contendo dois inteiros xi e yi cada, indicando que existe uma rodovia que pode ser usada para viajar da cidade xi à cidade yi.",
+    "output": "Caso exista algum par que satisfaça todas as condições, seu programa deve imprimir qualquer um desses pares, em uma única linha. Caso contrário, imprima -1.",
+    "constraints": "• 1 ≤ N ≤ 200000\n• 1 ≤ M ≤ 400000\n• xi ≠ yi\n• Nenhuma rodovia é dada mais de uma vez na entrada, ou seja, (xi, yi) ≠ (xj, yj), se i ≠ j. Note porém que é possível que ambas as rodovias (x, y) e (y, x) sejam dadas.",
+    "examples": [
+        {
+            "input": "4 3\n1 2\n2 4\n1 4",
+            "output": "-1"
+        },
+        {
+            "input": "4 4\n1 2\n2 4\n1 4\n4 3",
+            "output": "2 3"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        31,
+        33,
+        36
+    ],
+    "year": "2022",
+    "level": "Nível 2",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

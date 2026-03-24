@@ -1,0 +1,33 @@
+{
+    "title": "Oficina Mecânica",
+    "statement": "O dono de uma oficina mecânica te contratou para criar um software de gerenciamento. Com esse software, ele espera não só conseguir controlar os estoques dos produtos utilizados na oficina, mas também auxiliar no trabalho de seus funcionários e tornar a oficina mais eficiente.\n\nComo um(a) excelente programador(a), você já implementou quase todo o software. Falta apenas uma funcionalidade: distribuir os carros a serem consertados entre os mecânicos de modo a garantir alta satisfação dos clientes. Após analisar os dados coletados na oficina sobre clientes passados, você descobriu que o fator mais importante para a satisfação de um cliente é seu tempo de espera para ser atendido, ou seja, o tempo em que ele fica esperando até o seu carro começar a ser consertado. Os clientes não se importam com o tempo de conserto de seus respectivos carros, pois eles sabem que os mecânicos fazem um excelente trabalho.\n\nO tempo de conserto varia de acordo com o carro e com o mecânico: cada carro possui um tempo base Ti, já determinado durante o orçamento, que mede a quantidade de trabalho necessária para consertar o carro, e cada mecânico possui um fator de trabalho Fj, indicando quanto tempo ele demora para completar uma unidade de trabalho. Assim, o tempo necessário para o mecânico j consertar o carro i é Ti · Fj. Vale ressaltar que cada mecânico só trabalha em um único carro por vez, e portanto precisa finalizar o conserto de um carro antes de começar a consertar o próximo.\n\nPor exemplo, suponha que tenhamos quatro carros cujos tempos base são 5, 10, 15 e 20, e dois mecânicos cujos fatores de trabalho são 1 e 2. Uma distribuição possível é:\n\n• O mecânico com fator 1 conserta os carros com tempos 20 e 5, nessa ordem.\n\n• O mecânico com fator 2 conserta os carros com tempos 10 e 15, nessa ordem.\n\nEssa distribuição possui os seguintes tempos de espera:\n\n• O carro com tempo base 20 é atendido imediatamente, portanto seu tempo de espera é 0.\n\n• O carro com tempo base 5 precisa esperar o carro com tempo base 20 ser consertado, portanto seu tempo de espera é 20 · 1 = 20.\n\n• O carro com tempo base 10 é atendido imediatamente, portanto seu tempo de espera é 0.\n\n• O carro com tempo base 15 precisa esperar o carro com tempo base 10 ser consertado, portanto seu tempo de espera é 10 · 2 = 20.\n\nA soma total dos tempos de espera na distribuição acima é 0 + 20 + 0 + 20 = 40. Porém, existe uma distribuição (que é ótima) onde a soma total dos tempos de espera é 20 – você consegue encontrá-la?\n\nDados o número N de carros esperando para serem atendidos, a quantidade M de mecânicos, o tempo base Ti de cada carro, e o fator de trabalho Fj de cada mecânico, determine a menor soma total dos tempos de espera dos carros, que corresponde à melhor forma de distribuir todos os carros entre os mecânicos.",
+    "input": "A primeira linha da entrada contém dois inteiros N e M representando o número de carros e o número de mecânicos, respectivamente.\n\nA segunda linha contém N números inteiros. O i-ésimo desses números será Ti, representando o tempo base do i-ésimo carro.\n\nA terceira e última linha da entrada contém M números inteiros. O j-ésimo desses números será Fj, representando o fator de trabalho do j-ésimo mecânico.",
+    "output": "Seu programa deverá imprimir uma única linha contendo um único inteiro, a menor soma total dos tempos de espera em uma distribuição de todos os carros entre os mecânicos.",
+    "constraints": "• 1 ≤ N ≤ 100 000\n• 1 ≤ M ≤ 100 000\n• 1 ≤ Ti ≤ 10 000 para todo 1 ≤ i ≤ N\n• 1 ≤ Fj ≤ 10 000 para todo 1 ≤ j ≤ M",
+    "examples": [
+        {
+            "input": "4 2\n5 10 15 20\n1 2",
+            "output": "20"
+        },
+        {
+            "input": "4 1\n1 1 1 1\n3",
+            "output": "18"
+        },
+        {
+            "input": "4 1\n15 5 10 20\n3",
+            "output": "150"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        14,
+        10,
+        16,
+        36,
+        24
+    ],
+    "year": "2023",
+    "level": "Nível 2",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

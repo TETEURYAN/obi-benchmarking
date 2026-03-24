@@ -1,0 +1,30 @@
+{
+    "title": "Cobertura para Celular",
+    "statement": "Para atrair mais turistas, o governo decidiu permitir a instalação de uma rede de telefonia celular no paradisíaco arquipélago de Logarium. O arquipélago tem muitas ilhas no formato circular, todas com no máximo 1 km de diâmetro.\n\nExatamente uma torre de celular será instalada no centro de cada uma das ilhas. Todas as torres serão idênticas e terão o mesmo alcance; o alcance é a distância máxima da torre que um equipamento (telefone ou outra torre) pode estar de forma que a comunição seja possível.\n\nO governo deseja que a rede de telefonia celular garanta a cobertura total do arquipélago, ou seja, deve ser possível a um usuário comunicar-se com qualquer outro usuário no arquipélago, mesmo que a comunicação tenha que passar por mais de uma torre.\n\nHá vários tipos de torres disponíveis no mercado, cada tipo com um alcance. O governo recebeu uma proposta atrativa de uma empresa e deseja saber se o alcance da torre ofertada permitirá a cobertura total do arquipélago.\n\nDadas a localização das torres e o alcance da torre ofertada, escreva um programa para determinar se a torre ofertada permite a cobertura total do arquipélago.",
+    "input": "A primeira linha da entrada contém um inteiro N indicando o número de ilhas do arquipélago. Cada uma das N linhas seguintes contém dois inteiros Xi e Yi, as coordenadas da i-ésima torre. Não existem duas torres com as mesmas coordenadas. A última linha da entrada contém um inteiro A indicando o alcance da torre.",
+    "output": "Seu programa deve produzir uma única linha na saída, contendo um único caractere, que deve ser S se a torre permite a cobertura total ou N caso contrário.",
+    "constraints": "• 2 ≤ N ≤ 10000\n• 0 ≤ Xi, Yi ≤ 1000, para 1 ≤ i ≤ N\n• 1 ≤ A ≤ 10000\n\nInformações sobre a pontuação\n\n• Para um conjunto de casos de testes valendo 20 pontos, Yi = 0 para 1 ≤ i ≤ N.\n\n• Para um conjunto de casos de testes valendo 80 pontos adicionais, nenhuma outra restrição.",
+    "examples": [
+        {
+            "input": "3\n200 200\n400 400\n600 600\n200",
+            "output": "N"
+        },
+        {
+            "input": "5\n10 10\n10 30\n30 10\n30 30\n20 20\n20",
+            "output": "S"
+        },
+        {
+            "input": "3\n0 0\n40 0\n0 30\n49",
+            "output": "S"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        80
+    ],
+    "year": "2020",
+    "level": "Nível Júnior",
+    "period": "Fase Nacional",
+    "difficulty": "Médio"
+}

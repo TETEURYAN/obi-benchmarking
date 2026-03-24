@@ -1,0 +1,23 @@
+{
+    "title": "Botas Trocadas",
+    "statement": "A divisão de Suprimentos de Botas e Calçados do Exército comprou um grande número de pares\nde botas de vários tamanhos para seus soldados. No entanto, por uma falha de empacotamento da\nfábrica contratada, nem todas as caixas entregues continham um par de botas correto, com duas\nbotas do mesmo tamanho, uma para cada pé. O sargento mandou que os recrutas retirassem todas\nas botas de todas as caixas para reembalá-las, desta vez corretamente.\n\nQuando o sargento descobriu que você sabia programar, ele solicitou com a gentileza habitual\nque você escrevesse um programa que, dada a lista contendo a descrição de cada bota entregue,\ndetermina quantos pares corretos de botas poderão ser formados no total.",
+    "input": "A primeira linha da entrada contém um inteiro N indicando o número de botas individuais entregues.\nCada uma das N linhas seguintes descreve uma bota, contendo um número inteiro M e uma letra\nL, separados por um espaço em branco. M indica o número do tamanho da bota e L indica o pé da\nbota: L = 'D' indica que a bota é para o pé direito, L = 'E' indica que a bota é para o pé esquerdo.",
+    "output": "Seu programa deve imprimir uma única linha contendo um único número inteiro indicando o número\ntotal de pares corretos de botas que podem ser formados.",
+    "constraints": "• 2 ≤ N ≤ 10⁴\n• N é par\n• 30 ≤ M ≤ 60\n• L é o caractere 'D' ou o caractere 'E'",
+    "examples": [
+        {
+            "input": "4\n40 D\n41 E\n41 D\n40 E",
+            "output": "2"
+        },
+        {
+            "input": "6\n38 E\n39 E\n40 D\n38 D\n40 D\n37 E",
+            "output": "1"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2017",
+    "level": "Nível 2",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

@@ -1,0 +1,25 @@
+{
+    "title": "Jogo da Memória",
+    "statement": "Pedro e Paulo resolveram complicar um pouco o tradicional Jogo da Memória, em que os jogadores precisam virar duas cartas iguais. Eles colocam as cartas no chão, viradas para baixo, e fazem algumas linhas ligando pares de cartas, usando giz, de modo que para qualquer par de cartas (A, B) existe uma e apenas uma sequência de cartas distintas que leva de A até B através das linhas que eles desenharam. Com isso, ao virar duas cartas, o jogador ganha uma quantidade de pontos igual ao tamanho da sequência de linhas entre as duas cartas, se elas forem iguais. Se forem diferentes, o jogador perde aquela quantidade de pontos.\n\nPedro e Paulo, agora, estão estudando qual é a melhor estratégia para esse jogo e precisam da sua ajuda para resolver uma tarefa específica: dadas as ligações entre as N cartas, calcular a soma dos tamanhos das sequências entre todos os N/2 pares de cartas iguais!\n\nO jogo possui N cartas, de índices 1 até N. Cada carta possui a figura de um número de 1 até N/2 desenhada. Exatamente duas cartas possuem a figura de cada número entre 1 e N/2.",
+    "input": "A primeira linha da entrada contém o número de cartas N. A segunda linha da entrada contém N inteiros Ci, 1 ≤ i ≤ N, indicando qual número está anotado na carta de índice i. Cada uma das N-1 linhas seguintes contém dois números A e B, indicando que existe uma linha desenhada entre as cartas de índices A e B.",
+    "output": "Seu programa deve imprimir uma linha contendo um inteiro, a soma dos tamanhos das sequências entre todos os N/2 pares de cartas iguais.",
+    "constraints": "• 2 ≤ N ≤ 50000, N é par\n• 1 ≤ Ci ≤ N/2\n• 1 ≤ A ≤ N e 1 ≤ B ≤ N",
+    "examples": [
+        {
+            "input": "6\n2 2 1 1 3 3\n1 2\n3 4\n6 5\n2 6\n3 6",
+            "output": "3"
+        },
+        {
+            "input": "8\n1 2 3 3 2 4 1 4\n1 2\n2 3\n2 6\n5 6\n6 8\n7 8\n4 7",
+            "output": "12"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        50
+    ],
+    "year": "2014",
+    "level": "Nível 1",
+    "period": "Fase 2",
+    "difficulty": "Difícil"
+}

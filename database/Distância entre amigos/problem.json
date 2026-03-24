@@ -1,0 +1,33 @@
+{
+    "title": "Distância entre amigos",
+    "statement": "Ao longo da rua existem N prédios de largura igual, mas com número de andares diferentes. Quase toda a turma do colégio mora em algum apartamento desses prédios e eles resolveram definir a distância entre dois apartamentos quaisquer da rua para saber, ao final, qual par de colegas da turma mora mais longe um do outro.\n\nFunciona assim: para um colega A visitar um colega B, que mora num prédio diferente, ele deve descer a andares até o térreo do seu prédio; depois andar para a esquerda ou direita, dependendo do lado para o qual seu colega mora, por p prédios; depois subir b andares até o apartamento do colega B. A distância entre A e B, então, será a+p+b. A figura mostra um exemplo, para N = 14, onde estão marcados dois andares de prédios diferentes para os quais a distância é 12.\n\nDado um número de andares de cada prédio ao longo da rua, seu programa deve computar a distância máxima possível entre dois apartamentos quaisquer na rua.",
+    "input": "A primeira linha da entrada contém um inteiro N representando o número de prédios na rua. A segunda linha contém N inteiros Aᵢ, 1 ≤ i ≤ N, representando o número de andares de cada prédio, sem contar o térreo. Quer dizer, por exemplo, se A₁ = 19, então quem mora no último andar precisa descer 19 andares até o térreo. Veja a figura, que corresponde ao primeiro exemplo de entrada abaixo.",
+    "output": "Seu programa deve imprimir uma linha contendo um número inteiro representando a distância máxima possível entre dois apartamentos na rua.",
+    "constraints": "• 2 ≤ N ≤ 200000(2 × 10⁵);\n• 1 ≤ Ai ≤ 10⁹ para todo 1 ≤ i ≤ N.",
+    "examples": [
+        {
+            "input": "14\n2 3 1 6 4 3 7 5 6 4 5 3 1 1",
+            "output": "18"
+        },
+        {
+            "input": "6\n1 1 4 3 1 2",
+            "output": "9"
+        },
+        {
+            "input": "2\n1 1",
+            "output": "3"
+        }
+    ],
+    "imgs": [
+        "Uma fileira de prédios com alturas variadas. Dois apartamentos estão marcados com pontos cinzas, um no quarto prédio e outro no nono prédio, ilustrando o cálculo da distância entre eles."
+    ],
+    "rating": [
+        25,
+        25,
+        50
+    ],
+    "year": "2019",
+    "level": "Nível 1",
+    "period": "Fase Local",
+    "difficulty": "Difícil"
+}

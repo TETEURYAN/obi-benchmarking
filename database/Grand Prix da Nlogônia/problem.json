@@ -1,0 +1,33 @@
+{
+    "title": "Grand Prix da Nlogônia",
+    "statement": "A Nlogônia irá realizar o Grand Prix de corrida de carros. Foram dados planos de construção de um circuito para a realização do evento e você ficou responsável pela avaliação do plano. Um grafo direcionado de N vertices e M arestas é considerado um Grand Prix se existe algum ciclo direcionado, ou seja, existe um vertice P e um caminho direcionado saindo de P que chega novamente em P. A Nlogônia pode ser representada como um grafo direcionado que contêm N esquinas, numeradas de 1 a N. Foram dados para você M planos de construção, cada um contendo três inteiros U, L e R, que significa o seguinte: caso esse plano seja aceito, será construída uma estrada direcionada da esquina U para a esquina i, para todo L ≤ i ≤ R. Sua tarefa é computar o menor inteiro X tal que aceitando todos os planos de 1 até X, teremos um Grand Prix em Nlogônia.",
+    "input": "A primeira linha da entrada contém dois inteiros N e M, representando, respectivamente, o número de esquinas e o número de planos. As M linhas seguintes contêm, cada uma, três inteiros U, L e R, descrevendo um plano de construção.",
+    "output": "Imprima um inteiro X, o menor inteiro tal que aceitando todos os planos de 1 até X, inclusive, conseguiremos um Grand Prix. Caso Nlogônia não consiga realizar o Grand Prix, imprima -1.",
+    "constraints": "• 2 ≤ N ≤ 200000\n• 1 ≤ M ≤ 200000\n• 1 ≤ L ≤ R ≤ N\n• 1 ≤ U ≤ N\n• É garantido que não existe uma aresta de um vertice indo para ele mesmo.",
+    "examples": [
+        {
+            "input": "8 6\n5 6 8\n3 1 2\n6 2 4\n1 4 5\n8 4 7\n2 3 6",
+            "output": "4"
+        },
+        {
+            "input": "2 2\n1 2 2\n2 1 1",
+            "output": "2"
+        },
+        {
+            "input": "5 6\n1 2 5\n3 4 5\n5 2 2\n1 2 4\n3 4 5\n4 2 2",
+            "output": "-1"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        10,
+        10,
+        10,
+        25,
+        45
+    ],
+    "year": "2019",
+    "level": "P2",
+    "period": "Fase Nacional",
+    "difficulty": "Difícil"
+}

@@ -1,0 +1,30 @@
+{
+    "title": "Sanduíche",
+    "statement": "Você está na Seletiva para a IOI e depois de um dia cansativo de provas, chegou a hora do jantar. Hoje, trouxeram um sanduíche muito longo cortado em N pedaços de diversos tamanhos diferentes. Você gostaria de comer uma quantidade total de sanduíche de comprimento D, porém há uma regra: para evitar bagunça, você só pode ou pegar uma sequência contínua de pedaços, ou pegar pedaços das extremidades. Você sabe a sequência C1, C2, ... CN dos comprimentos dos pedaços na ordem em que estão posicionados no sanduíche. Agora, para otimizar o seu jantar, quer fazer um programa que com esses dados responda de quantas formas você pode escolher os pedaços do sanduíche que vai comer. Em outras palavras, deve contar quantos pares (i, j), 1 ≤ i ≤ j ≤ N, existem tais que o somatório Ci + Ci+1 + ... + Cj seja igual a D e quantos pares (i, j), 1 ≤ i < j ≤ N, existem tais que o somatório C1 + C2 + ... + Ci + Cj + Cj+1 + ... + CN seja igual a D.",
+    "input": "A primeira linha contém dois inteiros N e D, representando respectivamente o número de pedaços e a quantidade de sanduíche que você quer comer. A segunda linha contém N inteiros C1, C2, ... CN, onde Ci é o tamanho do i-ésimo pedaço.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o número de maneiras de comer pedaços de sanduíche com soma D.",
+    "constraints": "• 2 ≤ N ≤ 10⁶.\n• 1 ≤ D ≤ 10⁹.\n• 1 ≤ Ci ≤ 10³.",
+    "examples": [
+        {
+            "input": "5 10\n1 2 3 4 3",
+            "output": "3"
+        },
+        {
+            "input": "5 5\n1 1 1 1 1",
+            "output": "5"
+        },
+        {
+            "input": "9 618\n665 658 248 282 428 562 741 290 457 5",
+            "output": "0"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        40
+    ],
+    "year": "2016",
+    "level": "Nível 2",
+    "period": "Fase 1",
+    "difficulty": "Difícil"
+}

@@ -1,0 +1,38 @@
+{
+    "title": "Burocracia",
+    "statement": "O reino de Nlogônia funciona de uma maneira bem interessante. A fim de garantir que todos os nobres estão sendo monitorados, cada um deles possui exatamente um superior direto, de tal forma que o nobre i é subordinado direto do nobre p[i]. A única exceção a essa regra é o rei de Nlogônia, que será representado pelo índice 1 e não possui nenhum superior. Note que um nobre pode supervisionar vários outros nobres.\n\nDe tempos em tempos, nobres precisam enviar relatórios para algum superior que está a k níveis acima na hierarquia. Por exemplo se o nobre i precisa enviar um relatório para alguém 3 níveis acima, ele será entregue para o nobre p[p[p[i]]]. Isso tornou o funcionamento do reino extremamente burocrático, pois dependendo do número de níveis, a comunicação interna do reino se torna prejudicada.\n\nPara remediar esse problema, o rei de Nlogônia fará decretos da seguinte forma: ele escolherá algum nobre v e todos os nobres que estão subordinados a v (direta ou indiretamente) passarão a ser subordinados diretos de v. Em outras palavras para todo u tal que p[p[...u...]] = v, p[u] passa a ser v. Dizemos que essa é uma operação de reestruturação partindo de v.\n\nEntretanto, esses decretos criaram outro problema: os nobres não sabem mais pra quem eles têm que entregar relatórios! Sendo assim, o Rei de Nlogônia te pediu ajuda. Dadas as operações de reestruturação que acontecem ao longo do tempo, faça um programa que responda aos nobres para quem eles devem entregar relatórios naquele momento, ou seja, qual nobre está k níveis acima na hierarquia.",
+    "input": "A primeira linha de entrada possui um único inteiro N, o número de nobres no reino de Nlogônia.\n\nA segunda linha de entrada possui N − 1 inteiros, p[2], p[3], . . . , p[N], os superiores diretos de cada nobre.\n\nA terceira linha de entrada possui um único inteiro Q, o número de operações que você deve processar.\n\nAs próximas Q linhas da entrada representam as operações que aconteceram no reino de Nlogônia:\n\n• Se o nobre vj precisa entregar um relatório para um superior kj níveis acima, a j-ésima dessas linhas será da forma 1 vj kj\n• Se o rei decidiu que haverá uma reestruturação a partir do nobre vj, a j-ésima dessas linhas será da forma 2 vj",
+    "output": "Para cada relatório descrito na entrada, imprima uma linha com um único inteiro: o índice do nobre para o qual será entregue o relatório naquele momento.",
+    "constraints": "• 2 ≤ N ≤ 10^5\n• 1 ≤ Q ≤ 5 · 10^4\n• p[i] < i\n• 1 ≤ vj, kj ≤ N\n• Para toda entrega de relatório, é garantido que há um superior kj níveis acima de vj",
+    "examples": [
+        {
+            "input": "9\n1 1 2 2 2 5 5 8\n6\n1 9 3\n1 4 2\n2 5\n1 9 3\n2 2\n1 8 1",
+            "output": "2\n1\n1\n2"
+        },
+        {
+            "input": "5\n1 2 3 4\n5\n1 5 2\n1 3 1\n2 3\n1 5 2\n1 3 1",
+            "output": "3\n2\n2\n2"
+        },
+        {
+            "input": "15\n1 1 2 2 3 3 4 4 5 5 6 6 7 7\n6\n1 12 2\n2 3\n1 12 2\n1 10 1\n2 2\n1 10 1",
+            "output": "3\n1\n5\n2"
+        },
+        {
+            "input": "7\n1 1 2 2 3 3\n5\n1 5 1\n1 6 1\n2 1\n1 5 1\n1 6 1",
+            "output": "2\n3\n1\n1"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        0,
+        13,
+        28,
+        12,
+        27,
+        20
+    ],
+    "year": "2024",
+    "level": "Nível 2",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

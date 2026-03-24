@@ -1,0 +1,27 @@
+{
+    "title": "Bombom",
+    "statement": "Bombom é um jogo de cartas para duas pessoas, jogado com apenas dezesseis cartas: Ás, Valete, Dama e Rei, nos quatro naipes (Copas, Espadas, Ouros e Paus). Cada carta tem um valor, que depende da figura e do naipe.\n\nA cada partida, as cartas são embaralhadas e colocadas em um monte. Inicialmente uma carta do monte é virada e mostrada aos dois jogadores: o naipe dessa carta é chamado de naipe dominante da partida.\n\nEntão cada jogador recebe três cartas do monte. Ganha a partida o jogador que tem as cartas cuja soma dos valores é maior.\n\nO valor das cartas é dado na tabela abaixo:\n\nFigura | Naipe não dominante | Naipe Dominante\n---|---|---\nÁs | 10 | 14\nValete | 11 | 15\nDama | 12 | 16\nRei | 13 | 17\n\nLuana e Edu estão jogando Bombom e querem sua ajuda para determinar o vencedor da partida, ou se há empate.",
+    "input": "A entrada contém sete linhas, cada linha contendo a descrição de uma carta. Cada carta é descrita por duas letras. A primeira letra de uma carta indica a figura e pode ser A, J, Q ou K, representando respectivamente as figuras Ás, Valete, Dama e Rei. A segunda letra de uma carta indica o naipe e pode ser C, E, O ou P, representando respectivamente os naipes Copas, Espadas, Ouros e Paus. O naipe da primeira carta da entrada é o naipe dominante da partida. A segunda, terceira e quarta cartas da entrada são as cartas de Luana. A quinta, sexta e sétima cartas da entrada são as cartas de Edu.",
+    "output": "Seu programa deve produzir uma única linha, contendo somente o nome do jogador que ganha a partida, ou empate caso não haja um ganhador.",
+    "constraints": "• As cartas na entrada obedecem ao formato descrito no enunciado.\n• Não há cartas repetidas na entrada.",
+    "examples": [
+        {
+            "input": "AC\nJC\nJE\nJP\nKO\nKP\nQE",
+            "output": "Edu"
+        },
+        {
+            "input": "QP\nQC\nAC\nKP\nKO\nKE\nKC",
+            "output": "empate"
+        },
+        {
+            "input": "KE\nQE\nAC\nAE\nAP\nKO\nJE",
+            "output": "Luana"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2022",
+    "level": "Nível 2",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

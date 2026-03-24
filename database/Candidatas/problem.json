@@ -1,0 +1,27 @@
+{
+    "title": "Candidatas",
+    "statement": "Carla é uma biotecnóloga que está investigando proteínas para usar em uma vacina. As proteínas estão codificadas em uma longa sequência de números naturais, que vamos chamar de S.\n\nAtravés de múltiplos experimentos, Carla determinou que uma subsequência contígua de S é candidata se o máximo divisor comum dos elementos da subsequência é maior do que 1.\n\nCarla quer investigar o número de subsequências candidatas contidas em alguns intervalos contíguos de S, possivelmente também alterando alguns elementos de S. Mais precisamente, durante suas pesquisas ela deseja realizar operações de dois tipos:\n\n1. alterar o valor de um elemento da sequência S; e\n2. consultar o número de subsequências candidatas em um dado trecho contíguo de S.\n\nAjude Carla a realizar suas pesquisas e avançar na busca pela vacina!",
+    "input": "A primeira linha da entrada contém dois inteiros N e M, indicando respectivamente o número de elementos na sequência S e o número de operações a serem realizadas. A segunda linha contém N inteiros Si, os elementos da sequência S. Os elementos são identificados por índices de 1 a N. Cada uma das M linhas seguintes descreve uma operação e contém três inteiros. O primeiro inteiro, T, indica o tipo de operação e pode ser 1 ou 2. Se a operação é do tipo 1, os dois números seguintes na linha são I e V, indicando que o elemento de índice I da sequência S deve ter o valor atualizado para V. Se a operação é do tipo 2, os dois números seguintes na linha são E e D, indicando respectivamente o índice do elemento inicial e o índice do elemento final de um intervalo contíguo da sequência S.",
+    "output": "Para cada operação do tipo 2, seu programa deve produzir uma única linha, contendo um único inteiro, o número de subsequências candidatas no intervalo indicado.",
+    "constraints": "• 1 ≤ N ≤ 10⁵\n• 1 ≤ M ≤ 10⁵\n• 1 ≤ Sᵢ ≤ 10⁹, para 1 ≤ i ≤ N\n• 1 ≤ I ≤ N\n• 1 ≤ V ≤ 10⁹\n• 1 ≤ E ≤ D ≤ N",
+    "examples": [
+        {
+            "input": "5 1\n9 3 4 8 1\n2 2 5",
+            "output": "4"
+        },
+        {
+            "input": "4 3\n4 4 4 4\n2 1 4\n1 3 5\n2 1 4",
+            "output": "10\n5"
+        },
+        {
+            "input": "5 3\n2 3 6 4 1\n2 1 4\n1 3 1\n2 3 5",
+            "output": "6\n1"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2020",
+    "level": "Nível 2",
+    "period": "Fase Nacional",
+    "difficulty": "Difícil"
+}

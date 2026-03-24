@@ -1,0 +1,28 @@
+{
+    "title": "Dona Minhoca",
+    "statement": "Dona Minhoca construiu uma bela casa, composta de N salas conectadas por N − 1 túneis. Cada túnel conecta exatamente duas salas distintas, e pode ser percorrido em qualquer direção. A casa de dona Minhoca foi construída de modo que, percorrendo os túneis, é possível partir de qualquer sala e chegar a qualquer outra sala da casa.\n\nPara deixar sua casa mais segura, Dona Minhoca decidiu instalar radares anti-furto em algumas das salas. Ela comprou K radares, e deve agora decidir em quais salas colocará um radar. Além disso, todos radares terão um raio de alcance, cujo valor R também deve ser decidido. Quando um radar com raio de alcance R é instalado na sala s, todas as salas com distância menor ou igual a R da sala s (incluindo a própria s) ficam sob o alcance do radar, e estarão protegidas.\n\nDevido à política estranha de cobrança da empresa de radares, todos os K radares devem ter o mesmo raio de alcance. Dona Minhoca então se pergunta: qual seria o menor valor possível para R, tal que, se o raio de alcance dos radares for R, é possível escolher K salas para instalar os radares de forma que todas as N salas estejam protegidas?",
+    "input": "A primeira linha da entrada contém dois inteiros N e K, indicando o número de salas, e de radares que Dona Minhoca possui. As N − 1 linhas seguintes contém dois inteiros ai e bi cada, indicando que existe um túnel conectando essas duas salas.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o menor valor possível para R.",
+    "constraints": "• 1 ≤ N ≤ 300000\n• 1 ≤ K < N\n• ai ≠ bi",
+    "examples": [
+        {
+            "input": "6 1\n1 2\n2 3\n3 4\n4 5\n4 6",
+            "output": "2"
+        },
+        {
+            "input": "6 2\n1 2\n2 3\n3 4\n4 5\n4 6",
+            "output": "1"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        25,
+        17,
+        17,
+        41
+    ],
+    "year": "2022",
+    "level": "Nível 2",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

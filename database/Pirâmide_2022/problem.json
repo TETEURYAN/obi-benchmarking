@@ -1,0 +1,30 @@
+{
+    "title": "Pirâmide",
+    "statement": "O rei da Nlogônia decidiu construir uma pirâmide no jardim do Palácio Real, usando cubos de pedra de mesmo tamanho. A dimensão de uma pirâmide é o número de cubos de pedra num dos lados da base (primeira camada) da pirâmide. A base da pirâmide é quadrada, ou seja, cada lado tem o mesmo número de cubos de pedra.\n\nNa pirâmide, a partir da segunda camada, cada cubo de pedra deve ser empilhado exatamente em cima de outro cubo de pedra que não esteja na borda da camada abaixo. Além disso, o número de camadas deve ser o maior possível para uma dada dimensão, e em cada camada deve ser usado o maior número de cubos de pedra possível.\n\nA figura abaixo à esquerda mostra uma pirâmide de dimensão 3; a figura à direita mostra o plano de contrução para essa pirâmide, indicando quantos cubos de pedra devem ser empilhados em cada posição.\n\nO rei ainda não decidiu qual a dimensão da pirâmide que vai construir, mas como é muito detalhista já avisou os Arquitetos Reais que antes de iniciar a contrução eles devem produzir um plano de contrução para a dimensão escolhida.\n\nAjude os Arquitetos Reais, escrevendo um programa que, dada a dimensão da pirâmide, produza o seu plano de construção.",
+    "input": "A primeira e única linha da entrada contém um número inteiro N, a dimensão da pirâmide.",
+    "output": "Seu programa deve produzir o plano de contrução da pirâmide, constituído por N linhas, cada linha contendo N números inteiros.",
+    "constraints": "• 1 ≤ N ≤ 100",
+    "examples": [
+        {
+            "input": "3",
+            "output": "1 1 1\n1 2 1\n1 1 1"
+        },
+        {
+            "input": "8",
+            "output": "1 1 1 1 1 1 1 1\n1 2 2 2 2 2 2 1\n1 2 3 3 3 3 2 1\n1 2 3 4 4 3 2 1\n1 2 3 4 4 3 2 1\n1 2 3 3 3 3 2 1\n1 2 2 2 2 2 2 1\n1 1 1 1 1 1 1 1"
+        }
+    ],
+    "imgs": [
+        {
+            "url": "",
+            "description": "Diagrama de uma pirâmide de dimensão 3 e seu plano de construção. A pirâmide é formada por cubos empilhados. O plano de construção é uma matriz 3x3 com os valores: [[1, 1, 1], [1, 2, 1], [1, 1, 1]]."
+        }
+    ],
+    "rating": [
+        10
+    ],
+    "year": "2022",
+    "level": "Júnior",
+    "period": "Fase 2",
+    "difficulty": "Médio"
+}

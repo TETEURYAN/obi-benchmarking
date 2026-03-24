@@ -1,0 +1,27 @@
+{
+    "title": "Pangrama",
+    "statement": "Um pangrama é uma frase que contém todas as letras de um determinado alfabeto.\n\nEm português, um pangrama pode incluir também letras acentuadas, mas neste problema vamos desconsiderar os acentos (mesmo que isso torne a frase mal escrita!)\n\nVeja alguns exemplos de pangramas em português (sem acentos):\n\n• grave e cabisbaixo, o filho justo zelava pela querida mae doente\n• hoje a noite, sem luz, decidi xeretar a quinta gaveta de vovo: achei linguica, pao e fuba\n• marta foi a cozinha pois queria ver belo jogo de xicaras\n\nNote que para os pangramas acima consideramos o alfabeto composto pelas letras\n\nabcdefghijlmnopqrstuvxz\n\n(ou seja, não consideramos as letras k, w ou y). Note ainda que as frases não contêm letras acentuadas mas podem conter símbolos gráficos como espaço em branco, vírgula e dois pontos.",
+    "input": "A primeira e única linha da entrada contém uma cadeia de caracteres C.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único caractere, que deve ser S se a frase for um pangram ou N caso contrário.",
+    "constraints": "• A cadeia de caracteres C tem no mínimo um e no máximo 200 caracteres. Os únicos caracteres em C são as letras minúsculas do alfabeto mostrado acima, espaços em branco, vírgulas e o caractere dois pontos.",
+    "examples": [
+        {
+            "input": "gazeta publica hoje: breve anuncio de faxina na quermesse",
+            "output": "S"
+        },
+        {
+            "input": "esta frase nao usa todas as letras, estao faltando algumas",
+            "output": "N"
+        },
+        {
+            "input": "abcdefghijlmnopqrstuvxz",
+            "output": "S"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2021",
+    "level": "Júnior",
+    "period": "Fase 2",
+    "difficulty": "Fácil"
+}

@@ -1,0 +1,30 @@
+{
+    "title": "Calculadora",
+    "statement": "Solicitando Boas Contas (SBC) é uma organização de inspeção de calculadoras. Todos os fabricantes procuram ter o selo de qualidade da SBC, que faz com que os clientes comprem o produto sem preocupação com contas erradas.\n\nVocê está encarregado de testar máquinas que fazem apenas operações de multiplicação e divisão. Além disso, o termo a ser digitado em cada operação (que dividirá ou multiplicará o número atualmente exibido no visor) só pode conter um único dígito.\n\nA calculadora exibe o número 1 quando ligada. Depois disso, o usuário pode digitar um número com um único dígito e escolher se esse número deve multiplicar ou dividir o número exibido anteriormente; o resultado da operação escolhida é então exibido na calculadora. Pode-se repetir esse processo indefinidamente.\n\nApesar de só podermos entrar com números inteiros de um dígito, o visor da calculadora permite exibir números com múltiplos dígitos e até mesmo números fracionários.\n\nDada uma sequência de operações que foram realizadas nessa calculadora logo depois de ligada, sua tarefa é conferir o resultado exibido.",
+    "input": "A primeira e única linha da entrada contém um inteiro N. Cada uma das próximas N linhas contém um dígito e um caractere '*' ou '/', que representam uma operação realizada na calculadora.",
+    "output": "Seu programa deve imprimir uma única linha contendo o resultado que deve ser exibido pela calculadora ao final das operações.",
+    "constraints": "• 1 ≤ N ≤ 100 000.\n• Os números informados são inteiros entre 1 e 9.\n• O resultado final da conta é um número inteiro entre 1 e 2^30.\n\nInformações sobre a pontuação\n\n• Em um conjunto de casos de teste que totaliza 20 pontos, N = 3.\n• Em um conjunto de casos de teste que totaliza 50 pontos, o resultado da expressão até a operação i é um inteiro entre 1 e 2^30, para i = 1, 2, ..., N.",
+    "examples": [
+        {
+            "input": "3\n2 *\n1 *\n3 *",
+            "output": "6"
+        },
+        {
+            "input": "3\n2 /\n3 /\n6 *",
+            "output": "1"
+        },
+        {
+            "input": "11\n9 *\n9 *\n9 *\n9 *\n9 *\n9 *\n9 *\n9 *\n9 *\n9 *\n9 /",
+            "output": "387420489"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        50
+    ],
+    "year": "2011",
+    "level": "Nível Júnior",
+    "period": "Fase 2",
+    "difficulty": "Médio"
+}

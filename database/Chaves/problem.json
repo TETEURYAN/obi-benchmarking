@@ -1,0 +1,34 @@
+{
+    "title": "Chaves",
+    "statement": "Seu amigo Juca está enfrentando problemas com programação. Na linguagem C, algumas partes do código devem ser colocadas entre chaves \"{}\" e ele frequentemente esquece de colocá-las ou as coloca de forma errada. Porém, como Juca tem dificuldade para entender os erros de compilação, ele nunca sabe exatamente o que procurar. Por isso ele te pediu para fazer um programa que determine se um código está com as chaves balanceadas, ou seja, se é válido. Um código está com as chaves balanceadas se:\n\n• Não há chaves (como por exemplo \"Bom\" ou \"Correto\");\n• O código é composto por uma sequência de códigos válidos (como por exemplo \"Bom Correto\" ou \"{}{}\" ou \"{}Correto\"); ou\n• O código é formado por um código válido entre chaves (como por exemplo “{{}}” ou “{Bom}\").\n\nO código de Juca é composto por N linhas de até 100 caracteres cada. Pode haver linhas vazias e espaços consecutivos.",
+    "input": "A primeira linha contém um inteiro N, representando o número de linhas no código. As N linhas seguintes contém até 100 caracteres.",
+    "output": "Seu programa deve produzir uma única linha, contendo uma única letra, \"S\" se o código está com as chaves balanceadas e \"N\", caso contrário.",
+    "constraints": "• 1 ≤ N ≤ 10³.\n\nInformações sobre a pontuação\n• Em um conjunto de casos de teste equivalente a 50 pontos, N = 1 e todos os carateres são \"{\" ou \"}\" (como no terceiro exemplo).",
+    "examples": [
+        {
+            "input": "6\n#include <stdio.h>\n\nint main(void)\n{\n    printf(\"Hello World\\n\");\n}",
+            "output": "S"
+        },
+        {
+            "input": "5\n{I{N{\n}F{])\n}0}R{\n}M}A{T}I{C@!!{onze}!!}",
+            "output": "S"
+        },
+        {
+            "input": "1\n{{}}{{}}}",
+            "output": "N"
+        },
+        {
+            "input": "1\n{{{3}}}{{{2}}a{{1}}{0}",
+            "output": "N"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        50,
+        50
+    ],
+    "year": "2016",
+    "level": "Universitária",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

@@ -1,0 +1,39 @@
+{
+    "title": "Brigadeiros",
+    "statement": "Você está na festa de formatura da escola e está quase na hora de servirem um dos doces favoritos dos brasileiros: brigadeiro.\n\nN alunos estão participando da festa e cada um vai comer um dos N pratos com brigadeiros que estão alinhados em cima da mesa do refeitório. Os pratos são numerados de 1 a N da esquerda para a direita. Os alunos estão sentados em frente à mesa na mesma ordem dos brigadeiros e cada um irá comer o prato de brigadeiros à sua frente. Cada prato possui entre 0 e 9 brigadeiros.\n\nO seu grupo de amigos é formado por um subconjunto dos alunos e possui K membros (incluindo você). Seu grupo deseja comer muitos brigadeiros e desenvolveu um plano para que os membros do grupo mudem seus lugares de modo a maximizar a quantidade de brigadeiros que o grupo irá comer no total (ou seja, somando as quantidades que cada membro do grupo irá comer).\n\nCada membro do grupo pode pedir para trocar de lugar com um dos alunos sentados nas cadeiras vizinhas à dele (ou seja, os alunos sentados imediatamente à esquerda e à direita dele, se existirem). Os outros alunos não estão prestando atenção nos pratos e, por isso, sempre aceitam as trocas pedidas. Assim, um membro do grupo pode se mover para a esquerda ou para a direita usando várias trocas, sempre com um de seus vizinhos atuais.\n\nPorém, para evitar que os outros alunos descubram o plano, vocês decidiram que somente uma troca pode ser realizada a cada segundo. Vocês sabem que faltam T segundos para que os brigadeiros sejam servidos, e portanto vocês podem fazer no máximo T trocas entre alunos vizinhos.\n\nDados o número de alunos na festa (que também corresponde ao número de pratos), o número de amigos em seu grupo, o número de segundos que faltam para os brigadeiros serem servidos, quantos brigadeiros cada prato possui, e as posições iniciais dos membros do grupo, sua tarefa é determinar o máximo número de brigadeiros que seu grupo consegue comer no total. Observe que pode ser ótimo gastar alguns segundos sem realizar nenhuma troca.",
+    "input": "A primeira linha da entrada contém três inteiros N, K e T, a quantidade de pratos de brigadeiros, a quantidade de amigos no grupo e quantos segundos restam para os brigadeiros serem servidos, respectivamente.\n\nA segunda linha representa os pratos de brigadeiros e contém N inteiros separados por espaços em branco. O i-ésimo destes inteiros é Pi, a quantidade de brigadeiros no i-ésimo prato.\n\nA terceira e última linha representa as posições iniciais dos alunos na mesa e contém N inteiros separados por espaços em branco. O i-ésimo destes inteiros, Gi, indica se o aluno sentado na i-ésima cadeira é membro do grupo ou não: Gi = 1 se o aluno é membro do grupo, ou Gi = 0 caso contrário. É garantido que existem exatamente K valores iguais a 1 nesta linha.",
+    "output": "Seu programa deverá produzir uma única linha contendo somente um inteiro, a quantidade máxima de brigadeiros que seu grupo consegue comer.",
+    "constraints": "• 1 ≤ N ≤ 300\n• 0 ≤ Pi ≤ 9 para todo 1 ≤ i ≤ N\n• 1 ≤ K ≤ N\n• 0 ≤ T ≤ 1 000 000 000\n• Gi = 0 ou Gi = 1 para todo 1 ≤ i ≤ N\n• Existem exatamente K índices i para os quais Gi = 1",
+    "examples": [
+        {
+            "input": "5 2 2\n4 8 1 5 7\n1 0 1 0 0",
+            "output": "13"
+        },
+        {
+            "input": "4 2 3\n8 9 1 5\n0 1 0 1",
+            "output": "17"
+        },
+        {
+            "input": "4 2 2\n8 9 1 5\n0 1 0 1",
+            "output": "14"
+        },
+        {
+            "input": "15 7 100\n7 3 0 8 6 1 9 1 5 8 1 6 3 4 9\n1 1 0 0 1 0 1 0 0 0 1 0 1 1 0",
+            "output": "53"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        0,
+        13,
+        22,
+        23,
+        10,
+        11,
+        21
+    ],
+    "year": "2024",
+    "level": "Nível 2",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

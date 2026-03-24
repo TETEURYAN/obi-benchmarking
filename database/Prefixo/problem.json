@@ -1,0 +1,30 @@
+{
+    "title": "Prefixo",
+    "statement": "Em programas de computador, palavras, como “otorrinolaringologista\" ou \"escolaridade\", são normalmente representadas por uma cadeia de caracteres. Um prefixo de uma palavra é qualquer sequência de caracteres consecutivos que se inicia no primeiro caractere da palavra. Por exemplo, \"escola\" e \"esco\" são prefixos de \"escola\", mas \"cola\" não é.\n\nUm prefixo comum de duas palavras é uma cadeia de caracteres que é prefixo das duas palavras. Por exemplo, \"a\", \"aba\" e \"abaca\" são exemplos de prefixos comuns das palavras \"abacate\" e \"abacaxi\".\n\nDadas duas palavras, escreva um programa para calcular o comprimento do maior prefixo comum, em número de caracteres.",
+    "input": "A primeira linha de entrada contém um inteiro N, o número de caracteres da primeira palavra. A segunda linha contém uma cadeia com N caracteres Pi, a primeira palavra. A terceira linha contém um inteiro M, o número de caracteres da segunda palavra. A quarta linha contém uma cadeia com M caracteres Si, a segunda palavra.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o número de caracteres do maior prefixo que é comum às duas sequências.",
+    "constraints": "• 1 ≤ N ≤ 1 000\n• 1 ≤ M ≤ 1 000\n• As palavras contêm apenas letras minúsculas sem acentuação.",
+    "examples": [
+        {
+            "input": "7\nabacate\n7\nabacaxi",
+            "output": "5"
+        },
+        {
+            "input": "8\nparalelo\n13\nparalelogramo",
+            "output": "8"
+        },
+        {
+            "input": "6\nescola\n4\ncola",
+            "output": "0"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        33,
+        67
+    ],
+    "year": "2023",
+    "level": "Nível 1",
+    "period": "Fase 2",
+    "difficulty": "Fácil"
+}

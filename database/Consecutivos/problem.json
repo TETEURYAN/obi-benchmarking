@@ -1,0 +1,23 @@
+{
+    "title": "Consecutivos",
+    "statement": "Num sorteio que distribui prêmios, um participante inicialmente sorteia um inteiro N e depois N valores. O número de pontos do participante é o tamanho da maior sequência de valores consecutivos iguais. Por exemplo, suponhamos que um participante sorteia N = 11 e, nesta ordem, os valores\n\n30, 30, 30, 30, 40, 40, 40, 40, 40, 30, 30\n\nEntão, o participante ganha 5 pontos, correspondentes aos 5 valores 40 consecutivos. Note que o participante sorteou 6 valores iguais a 30, mas nem todos são consecutivos.\nSua tarefa é ajudar a organização do evento, escrevendo um programa que determina o número de pontos de um participante.",
+    "input": "A primeira linha da entrada contém um inteiro N, o número de valores sorteados. A segunda linha contém N valores, V₁, V₂,..., Vɴ, na ordem de sorteio, separados por um espaço em branco.",
+    "output": "Seu programa deve imprimir apenas uma linha, contendo apenas um inteiro, indicando o número de pontos do participante.",
+    "constraints": "• 1 ≤ N ≤ 10⁴\n• −2³¹ < Vᵢ < 2³¹ – 1, para I = 1, 2, ..., N",
+    "examples": [
+        {
+            "input": "11\n30 30 30 40 40 40 40 40 30 30 30",
+            "output": "5"
+        },
+        {
+            "input": "14\n1 1 1 20 20 20 20 3 3 3 3 3 3 3",
+            "output": "7"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2012",
+    "level": "Nível 1",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

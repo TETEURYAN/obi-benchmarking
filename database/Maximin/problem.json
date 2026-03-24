@@ -1,0 +1,26 @@
+{
+    "title": "Maximin",
+    "statement": "Maximin é uma pessoa muito pessimista. Sempre que ele avalia um conjunto de possibilidades, assume que o pior cenário é aquele que irá se concretizar. E assim, se ele deve tomar alguma decisão, certamente escolhe a alternativa que tem o melhor dos piores resultados.\n\nMaximin e seus amigos inventaram um jogo que funciona da seguinte maneira:\n\n• No começo de cada rodada, cada um dos participantes ganha um pedaço de papel e deve escrever um número inteiro no mesmo;\n• Assim que todos terminam de escrever em seu papel, os números de cada participante são ditos em voz alta, de modo que todos sabem quais números foram escritos, e os papéis são colocados em uma caixa;\n• Os jogadores discutem e definem um limite inferior L e um limite superior R;\n• Cada participante deve então escolher um número maior ou igual a L e menor ou igual a R;\n• Por fim, um dos papéis colocados na caixa é sorteado e a pontuação de cada jogador na rodada é a diferença entre o número escrito no papel sorteado e o número escolhido pelo jogador.\n\nComo é de se esperar, por ser pessimista Maximin assume que independente de sua escolha o número sorteado será aquele com a menor diferença em relação ao número escolhido por ele. Sua estratégia então é escolher o número que tem a maior das menores diferenças.\n\nPor exemplo, considere que há três participantes (incluindo Maximin), que numa rodada escreveram os números 10, 28 e 17 nos papéis, e os limites foram definidos como L = 7 e R = 37. Então Maximin escolhe o número 37, prevendo, pessimisticamente, que o papel que será sorteado terá o número 28. Assim, se sua previsão se concretizar, sua pontuação seria 9 nessa rodada (e se ela não se concretizar, sua pontuação será maior do que 9!). Note que qualquer outro número que Maximim escolhesse, e sua previsão pessimista se concretizasse, sua pontuação seria menor do que 9.\n\nQuando a quantidade de participantes aumenta ou os limites escolhidos são muito distantes um do outro fica bem difícil avaliar todas as possibilidades e por isso Maximin precisa de sua ajuda.\n\nNeste problema, seu programa deve computar qual a pontuação esperada de Maximin.",
+    "input": "A primeira linha contém três inteiros N, L e R representando respectivamente, a quantidade de participantes (incluindo Maximin), o menor e o maior número que pode ser escolhido na rodada. A linha seguinte contém N inteiros aᵢ representando os números escritos nos papéis.",
+    "output": "Seu programa deve produzir um inteiro representando a pontuação esperada por Maximin.",
+    "constraints": "• 2 ≤ N ≤ 10⁵.\n• -10⁹ ≤ L ≤ R ≤ 10⁹.\n• -10⁹ ≤ aᵢ ≤ 10⁹.",
+    "examples": [
+        {
+            "input": "3 7 37\n10 17 28",
+            "output": "9"
+        },
+        {
+            "input": "5 -6 6\n8 -4 -3 6 12",
+            "output": "4"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        30
+    ],
+    "year": "2018",
+    "level": "Sênior",
+    "period": "Fase Nacional",
+    "difficulty": "Médio"
+}
