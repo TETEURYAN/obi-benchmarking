@@ -1,2 +1,0 @@
-question_name,difficulty,llm_code_creation_time,total_tokens,cost_prompt,judge_predict,execution_time,AC,WA,RE,TLE,CE,total_test_cases
-Atletismo,Fácil,3.730648898999789,912,0.0032675000000000004,AC,0.4592186249938095,41,0,0,0,0,41

@@ -89,7 +89,6 @@ Os resultados são organizados em:
 - `output/[modelo]/[tipo]/[linguagem]/`: Código-fonte gerado
 - `output/results/`: Arquivos CSV com métricas
   - `results_[modelo]_[linguagem]_[tipo].csv`: Desempenho por problema
-  - `level_to_questions_[modelo].csv`: Estatísticas por fase
 
 ## Notebook de Análise
 

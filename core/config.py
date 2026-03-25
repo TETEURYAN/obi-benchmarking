@@ -6,6 +6,8 @@ class ProviderConfig(BaseModel):
     api_key: str
     model_name: str
     base_url: str
+    input_price: float
+    output_price: float
 
 class _Config(BaseSettings):
     providers: Dict[str, ProviderConfig] = {}
@@ -33,12 +35,16 @@ class _Config(BaseSettings):
                 api_key = data.get(f'{provider_name}__api_key')
                 model_name = data.get(f'{provider_name}__model_name')
                 base_url = data.get(f'{provider_name}__base_url')
+                input_price = data.get(f'{provider_name}__input_price')
+                output_price = data.get(f'{provider_name}__output_price')
                 
                 if api_key and model_name and base_url:
                     providers[provider_name] = ProviderConfig(
                         api_key=api_key,
                         model_name=model_name,
-                        base_url=base_url
+                        base_url=base_url,
+                        input_price=input_price,
+                        output_price=output_price
                     )
             
             data['providers'] = providers

@@ -121,6 +121,15 @@ class Orchestrator:
 
         return test_cases
 
+    def normalize_model_name(self, model):
+        name = model.replace('/', '_')
+        name = name.replace('.', '_')
+        name = name.replace('-', '_')
+        name = name.replace(':', '_')
+        
+        return name
+        
+    
     def get_examples_of_problem(self, examples: list[Problem]) -> str:
         output = "<test cases>\n"
         i = 1
@@ -182,9 +191,12 @@ class Orchestrator:
 
         for _, provider in config.list_providers().items():
 
+            #Config to experiment
             model = provider.model_name
             base_url = provider.base_url
             api_key = provider.api_key
+            input_price = provider.input_price
+            output_price = provider.output_price
 
             print("[CODIFICADOR]: Modelo LMM: ", model)
 
@@ -198,7 +210,7 @@ class Orchestrator:
             results = []
 
             path_results = Path(
-                f"output/results/results_{model}_{self.__language}_{self.__type}.csv")
+                f"output/results/results_{self.normalize_model_name(model)}_{self.__language}_{self.__type}.csv")
 
             if path_results.exists():
                 df = pd.read_csv(path_results)
@@ -213,7 +225,7 @@ class Orchestrator:
 
             for name_problem, problem in problems:
 
-                if problem.title in questoes_concluidas:
+                if name_problem in questoes_concluidas:
                     print(f"Pulando '{name_problem}' (já avaliado).")
                     continue
 
@@ -234,13 +246,15 @@ class Orchestrator:
                     return False
 
                 code_response, total_tokens, cost_prompt, duration_create_code = llm_service.create_code_llm(
-                    prompt=prompt)
+                    prompt=prompt,
+                    input_price=input_price,
+                    output_price=output_price)
 
                 code = self.valid_code(code_response)
 
                 if self.create_file(name=f"{name_problem}.{self.__format_file_code}",
                                     base="output",
-                                    model=model,
+                                    model=self.normalize_model_name(model),
                                     content=code):
                     print("Arquivo criado com sucesso!!")
                 else:
@@ -285,7 +299,7 @@ class Orchestrator:
                     total_test_cases=total_cases
                 ))
                 
-                if self.create_csv(results=results, model=model):
+                if self.create_csv(results=results, model=self.normalize_model_name(model)):
                     print("Resultado criado com sucesso!")
                 else:
                     print("Erro ao criar o resultado")
