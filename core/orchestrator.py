@@ -275,7 +275,12 @@ class Orchestrator:
                         CE=0,
                         total_test_cases=len(test_cases)
                     ))
-
+                    
+                    if self.create_csv(results=results, model=self.normalize_model_name(model)):
+                        print("Resultado criado com sucesso!")
+                    else:
+                        print("Erro ao criar o resultado")
+                        
                     continue
 
                 judge_predict, counts, total_cases, max_time = judge_service.execute(code=code,
