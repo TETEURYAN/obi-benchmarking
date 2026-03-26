@@ -48,6 +48,28 @@ def main():
         print("Erro: ", e)
         exit(1)
     
+    print_partition(text="ZERO-SHOT vs FEW-SHOT")
+    problems_2015 = []
+    
+    for name, problem in problems:
+        if problem.year == "2015":
+            print("Nome da questão: ", name)
+            problems_2015.append((name, problem))
+    
+    types = ['zero', 'few']
+    languages = ['python', 'cpp']
+    
+    for t in types:
+        for lan in languages:
+            orch = Orchestrator(type=t, language=lan)
+            if orch.execute(problems=problems_2015):
+                print("Resultado está em output/results/")
+                print_partition("REINICIANDO")
+            else:
+                exit(1)
+    
+    print_partition(text="FIM ZERO-SHOT vs FEW-SHOT")
+    
     while True:
         print_partition(text="MENU")
         print("1. Zero shot prompt;")

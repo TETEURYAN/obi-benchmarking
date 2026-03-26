@@ -1,0 +1,3 @@
+question_name,difficulty,llm_code_creation_time,total_tokens,cost_prompt,judge_predict,execution_time,AC,WA,RE,TLE,CE,total_test_cases
+Gomoku,Médio,41.90981069600093,5537,0.0,AC,0.072629289003089,30,0,0,0,0,30
+Torre,Médio,358.8196672460035,40600,0.0,AC,0.5615974870015634,33,0,0,0,0,33
