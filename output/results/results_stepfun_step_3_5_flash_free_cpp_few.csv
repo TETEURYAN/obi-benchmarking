@@ -1,0 +1,2 @@
+question_name,difficulty,llm_code_creation_time,total_tokens,cost_prompt,judge_predict,execution_time,AC,WA,RE,TLE,CE,total_test_cases
+Torre,Médio,462.84602317400277,67017,0.0,NO CODE,0.0,0,0,0,0,0,33
