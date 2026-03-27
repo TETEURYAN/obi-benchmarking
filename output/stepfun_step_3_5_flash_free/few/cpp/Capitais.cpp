@@ -2,70 +2,78 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
     int N;
     if (!(cin >> N)) return 0;
     vector<vector<int>> adj(N + 1);
-    vector<int> grau(N + 1, 0);
+    vector<int> degree(N + 1, 0);
     for (int i = 0; i < N - 1; i++) {
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
         adj[v].push_back(u);
-        grau[u]++;
-        grau[v]++;
+        degree[u]++;
+        degree[v]++;
     }
 
-    int raiz = 1;
-    vector<int> pai(N + 1, -1);
-    vector<int> order;
-    queue<int> q;
-    q.push(raiz);
-    pai[raiz] = 0;
-    while (!q.empty()) {
-        int v = q.front(); q.pop();
-        order.push_back(v);
-        for (int u : adj[v]) {
-            if (u == pai[v]) continue;
-            pai[u] = v;
-            q.push(u);
+    if (N == 2) {
+        cout << 1 << '\n';
+        return 0;
+    }
+
+    vector<int> capitals;
+    for (int i = 1; i <= N; i++) {
+        if (degree[i] == 1) {
+            capitals.push_back(i);
         }
     }
 
-    const int INF = 1e9;
-    vector<int> minDist(N + 1, -1);
-    for (int i = (int)order.size() - 1; i >= 0; i--) {
-        int v = order[i];
-        if (grau[v] == 1) {
-            minDist[v] = 0;
-        } else {
-            minDist[v] = INF;
-            for (int u : adj[v]) {
-                if (u == pai[v]) continue;
-                minDist[v] = min(minDist[v], 1 + minDist[u]);
+    vector<int> count_parent(N + 1, 0);
+    for (int c : capitals) {
+        int v = adj[c][0];
+        count_parent[v]++;
+    }
+
+    for (int i = 1; i <= N; i++) {
+        if (count_parent[i] >= 2) {
+            cout << 2 << '\n';
+            return 0;
+        }
+    }
+
+    vector<int> sources;
+    for (int c : capitals) {
+        int v = adj[c][0];
+        sources.push_back(v);
+    }
+
+    vector<int> dist(N + 1, -1);
+    vector<int> src(N + 1, -1);
+    queue<int> q;
+    for (int v : sources) {
+        dist[v] = 0;
+        src[v] = v;
+        q.push(v);
+    }
+
+    int min_dist = INT_MAX;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (int w : adj[u]) {
+            if (dist[w] == -1) {
+                dist[w] = dist[u] + 1;
+                src[w] = src[u];
+                q.push(w);
+            } else if (src[w] != src[u]) {
+                int candidate = dist[u] + 1 + dist[w];
+                if (candidate < min_dist) min_dist = candidate;
             }
         }
     }
 
-    long long ans = LLONG_MAX;
-    for (int v = 1; v <= N; v++) {
-        vector<int> dists;
-        if (grau[v] == 1) {
-            dists.push_back(0);
-        }
-        for (int u : adj[v]) {
-            if (u == pai[v]) continue;
-            dists.push_back(1 + minDist[u]);
-        }
-        if (dists.size() >= 2) {
-            sort(dists.begin(), dists.end());
-            ans = min(ans, (long long)dists[0] + dists[1]);
-        }
-    }
-
-    cout << ans << endl;
+    cout << 2 + min_dist << '\n';
 
     return 0;
 }
