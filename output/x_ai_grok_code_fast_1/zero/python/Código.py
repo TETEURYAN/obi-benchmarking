@@ -1,0 +1,12 @@
+
+import sys
+
+input = sys.stdin.read
+data = input().split()
+N = int(data[0])
+seq = list(map(int, data[1:]))
+count = 0
+for i in range(N - 2):
+    if seq[i] == 1 and seq[i + 1] == 0 and seq[i + 2] == 0:
+        count += 1
+print(count)
