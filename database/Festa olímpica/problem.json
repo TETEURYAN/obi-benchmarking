@@ -1,0 +1,36 @@
+{
+    "title": "Festa olímpica",
+    "statement": "Os atletas da Nlogônia obtiveram o melhor resultado do país em olimpíadas, e para comemorar o rei decidiu dar uma grande festa no Palácio Real. Todos os atletas foram convidados, mas o rei quer também convidar alguns de seus súditos.\n\nComo não é possível convidar todos os súditos, o rei determinou que a seguinte Lei seja utilizada para calcular a lista de convidados:\n\nLEI ESPECIAL SOBRE COMEMORAÇÃO DAS OLIMPÍADAS\n\nPor ordem de Sua Majestade, fiquem todos sabendo que:\n\n• Os N súditos de Nlogônia serão numerados 1,2,3,..., N e uma lista ordenada será criada com os números dos súditos. A primeira posição da lista será 1.\n\n• Um número M de turnos serão então executados; em cada turno i, será sorteado um número Ti que será usado para remover súditos da lista, da seguinte forma: no turno i, devem ser removidos da lista todos os súditos que ainda continuam na lista e que ocupam posições que são múltiplas de Ti; ou seja, devem ser removidos os súditos que estão nas posições (Ti, 2Ti, 3Ti,...) da lista corrente. Ao final do turno, para não haver posições vazias na lista (cujos súditos foram removidos) a lista é reagrupada, mantendo-se a mesma ordem relativa, e contendo apenas os números dos súditos remanescentes.\n\n• Os súditos que permanecerem na lista ao final dos M turnos serão convidados para a grande festa de comemoração do resultado das olimpíadas.\n\nDados o número de súditos e os números sorteados em cada turno, sua tarefa é determinar os súditos que serão convidados de acordo com a Lei Especial.",
+    "input": "A primeira linha da entrada contém um número inteiro N, o número de súditos de Nlogôgina. A segunda linha contém um inteiro M, o número de turnos. Cada uma das M linhas seguintes contém um inteiro Ti, o número que foi sorteado para o turno i.",
+    "output": "Seu programa deve produzir a lista de convidados de acordo com a Lei Especial, com uma linha para cada convidado, cada linha contendo somente o número de um convidado. Como a lista total dos convidados pode ser muito grande, o rei ordenou que, caso o número de convidados seja maior que 10.000, você deve listar apenas os 10.000 primeiros (ou seja, os com menores números) convidados.",
+    "constraints": "• 2 ≤ N ≤ 1 000 000 000\n• 1 ≤ M ≤ 5 000\n• 2 ≤ Ti ≤ 100 000 para 1 ≤ i ≤ M",
+    "examples": [
+        {
+            "input": "10\n2\n2\n3",
+            "output": "1\n3\n7\n9"
+        },
+        {
+            "input": "6\n3\n2\n2\n2",
+            "output": "1"
+        },
+        {
+            "input": "5\n1\n10",
+            "output": "1\n2\n3\n4\n5"
+        },
+        {
+            "input": "1000000\n3\n2\n15\n3",
+            "output": "1\n3\n7\n9\n...\n32137\n32139"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        17,
+        22,
+        21,
+        40
+    ],
+    "year": "2021",
+    "level": "Sênior",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

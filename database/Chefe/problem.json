@@ -1,0 +1,23 @@
+{
+    "title": "Chefe",
+    "statement": "Todos conhecem Iks, a última moda em redes sociais, que fez tanto sucesso que competidores como\nFacebook e Google+ estão começando a ter dificuldades financeiras. Assim como muitas companhias\n\".com\", Iks surgiu em uma pequena garagem, mas hoje emprega milhares de pessoas no mundo todo.\n\nO sistema de gerência utilizado em Iks é bem diferente do padrão. Por exemplo, não há diretorias\nou superintendências. No entanto, como é usual em outras companhias, há uma cadeia (ou melhor,\nvárias cadeias) de comando: uma pessoa pode gerenciar outras pessoas, e pode ser gerenciada por\noutras pessoas. As figuras abaixo mostram a cadeia de comando para alguns empregados, junto\ncom suas idades.\n\nUma pessoa P₁ pode gerenciar outra pessoa P₂ diretamente (quando P₁ é o superior imediato\nde P₂) ou indiretamente (quando P₁ gerencia diretamente uma pessoa P₃ que gerencia P₂ direta\nou indiretamente). Por exemplo, na figura (a) acima, Alice gerencia David diretamente e Clara\nindiretamente. Uma pessoa não gerencia a si própria, nem direta nem indiretamente.\n\nUm folclore que apareceu em Wall Street é que Iks é tão bem sucedido porque em sua rede de\ncomando um(a) gerente é sempre mais jovem do que as pessoas que ele(a) gerencia. Como podemos\nver na figura acima, isso não é verdade. Mas esse folclore incentivou Iks a desenvolver uma ferra-\nmenta para analisar o seu sistema de gerenciamento, e estudar se tem alguma influência no sucesso\nda empresa. Você foi contratado para trabalhar nessa ferramenta.\n\nDadas a descrição da cadeia de comando na Iks e as idades de seus empregados, escreva um programa\nque execute uma série de instruções. Instruções podem ser de dois tipos: trocas de gerência e\nperguntas. Uma instrução de troca de gerência faz dois empregados A e B trocarem suas posições\nna cadeia de comando. Como exemplo, a figura (b) acima mostra a cadeia de comando resultante\nquando David e George trocam suas respectivas posições na cadeia de comando. Uma instrução\nde pergunta identifica um empregado A e deseja saber a idade do mais jovem gerente (direto ou\nindireto) de A na cadeia de comando. Por exemplo, no cenário da figura (a) acima a idade do(a)\ngerente mais jovem de Clara é 18 anos; já no cenário da figura (b), a idade do(a) gerente mais jovem\nde Clara é 21 anos.",
+    "input": "A entrada é composta de várias linhas. A primeira linha contém três inteiros N, M e I, indicando\nrespectivamente o número de empregados, o número de relações de gerência direta e o número de\ninstruções. Empregados são identificados por números de 1 a N. A segunda linha contém N inteiros\nKᵢ, onde Kᵢ indica a idade do empregado de número i.\n\nCada uma das M linhas seguintes contém dois inteiros X e Y, indicando que X gerencia Y dire-\ntamente. Seguem-se I linhas, cada uma descrevendo uma instrução. Uma instrução de troca de\ngerência é descrita em uma linha contendo o identificador T seguido de dois inteiros A e B, indi-\ncando os dois empregados que devem trocar seus lugares na cadeia de comando. Uma instrução de\npergunta é descrita em uma linha contendo o identificador P seguido de um inteiro E, indicando\num empregado. A última instrução será sempre do tipo pergunta.",
+    "output": "Para cada instrução de pergunta seu programa deve imprimir uma linha contendo um único inteiro,\na idade da pessoa mais jovem que gerencia (direta ou indiretamente) o empregado nomeado na\npergunta. Se o empregado nomeado não possui um gerente, imprima o caractere ‘*' (asterisco).",
+    "constraints": "• 1 ≤ N ≤ 500\n• 0 ≤ M ≤ 60 × 10³\n• 1 ≤ I ≤ 500\n• 1 < Kᵢ < 100, para 1 ≤ i ≤ N\n• 1 ≤ X, Y ≤ N, X ≠ Y\n• 1 ≤ A, B ≤ N\n• 1 ≤ E ≤ N",
+    "examples": [
+        {
+            "input": "7 8 9\n21 33 33 18 42 22 26\n1 2\n1 3\n2 5\n3 5\n3 6\n4 6\n4 7\n6 7\nP 7\nT 4 2\nP 7\nP 5\nT 1 4\nP 7\nT 4 7\nP 2\nP 6",
+            "output": "18\n21\n18\n18\n*\n26"
+        },
+        {
+            "input": "6 5 6\n10 20 30 40 50 60\n1 5\n1 4\n3 6\n2 5\n4 5\nP 1\nP 5\nP 6\nT 1 6\nP 1\nP 4",
+            "output": "*\n10\n30\n30\n60"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2017",
+    "level": "Nível 2",
+    "period": "Fase 1",
+    "difficulty": "Médio"
+}

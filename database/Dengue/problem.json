@@ -1,0 +1,24 @@
+{
+    "title": "Dengue",
+    "statement": "A Costa do Mosquito é um país pequeno mas paradisíaco. Todos os habitantes têm boas moradias, bons empregos, o clima é agradável, e os governantes são justos e incorruptíveis. O sistema de transporte público da Costa do Mosquito é composto de uma rede de linhas de trem. O sistema foi projetado de forma peculiar: existe um único percurso ligando duas quaisquer vilas (esse percurso possivelmente passa por outras vilas). Por exemplo, na figura abaixo, que mostra um trecho do mapa da Costa do Mosquito, há apenas um percurso entre as vilas A e C, passando pelas vilas B, G e D. Uma tarifa fixa de M$ 1,00 é cobrada por cada viagem entre vilas vizinhas; assim, para uma viagem de A a C o usuário gasta M$ 4,00.\n\nDevido a um inesperado surto de dengue, o Ministério da Saúde da Costa do Mosquito resolveu montar um Posto de Vacinação. Para evitar que habitantes gastem muito dinheiro para se deslocar até a vila onde ficará o Posto de Vacinação, o Ministério da Saúde decidiu que este deverá ser instalado em uma vila de forma que o gasto com transporte até o Posto, para os habitantes que gastarem mais, seja o menor possível (para o caso da figura abaixo a vila escolhida seria G).\n\n1. Tarefa\n\nSua tarefa é escrever um programa que determine uma vila onde deve ser instalado o Posto de Vacinação. Esta vila deve ser tal que o custo com transporte, para os habitantes que tiverem maior custo, seja o menor possível. Note que devido à característica peculiar do sistema viário, ou haverá uma única vila que satisfaz essa restrição, ou haverá duas vilas que a satisfazem. No caso de existirem duas vilas apropriadas, qualquer uma delas serve como solução.",
+    "input": "A entrada é composta de vários conjuntos de teste. A primeira linha de um conjunto de testes contém um número inteiro N que indica a quantidade de vilas do país. As vilas são numeradas de 1 a N. As N-1 linhas seguintes contêm, cada uma, dois inteiros positivos X e Y que indicam que a vila X tem um caminho que a liga diretamente com a vila Y, sem passar por outras vilas. O final da entrada é indicado por N = 0.",
+    "output": "Para cada conjunto de teste da entrada seu programa deve produzir três linhas na saída. A primeira linha deve conter um identificador do conjunto de teste, no formato “Teste n”, onde n é numerado a partir de 1. A segunda linha deve conter o número da vila na qual deve ser instalado o Posto de Vacinação. A terceira linha deve ser deixada em branco. A grafia mostrada no Exemplo de Saída, abaixo, deve ser seguida rigorosamente.",
+    "constraints": "0 ≤ N ≤ 100 (N = 0 apenas para indicar o final da entrada)",
+    "examples": [
+        {
+            "input": "2\n1 2\n7\n1 2\n2 5\n7 4\n7 2\n4 6\n3 4\n1\n0 0",
+            "output": "Teste 1\n1\n\nTeste 2\n7\n\nTeste 3\n1"
+        }
+    ],
+    "imgs": [
+        {
+            "url": "",
+            "alt": "Diagrama de um grafo não direcionado com 7 vértices rotulados de A a G, representando sete vilas interligadas por linhas de trem."
+        }
+    ],
+    "rating": [],
+    "year": "2001",
+    "level": "",
+    "period": "",
+    "difficulty": "Médio"
+}

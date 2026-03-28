@@ -1,0 +1,33 @@
+{
+    "title": "Entrevistas de emprego",
+    "statement": "A Organização de Brincadeiras Infantis (OBI) está com um plano de expansão internacional e, para isso, abriu vagas para contratar novos funcionários.\n\nO departamento de Recursos Humanos (RH) da empresa identificou N candidatos (identificados de 1 a N) para o processo seletivo, que consistirá de E entrevistas em grupo para decidir os novos contratados. Como existem vagas para diferentes departamentos da OBI, cada entrevista só é relevante para alguns dos candidatos. Deste modo, cada entrevista pode ser composta por um grupo diferente de candidatos.\n\nO RH descobriu que alguns dos candidatos são amigos entre si. Quando dois candidatos que são amigos entre si participam da mesma entrevista, um dos amigos pode ajudar o outro. Por isso, o RH deseja evitar que dois amigos participem da mesma entrevista.\n\nA OBI obteve uma tabela N × N que indica, para cada par de candidatos, se eles são amigos entre si ou não. Além disso, a empresa sabe que, como bons brasileiros, os candidatos seguem o velho ditado \"o amigo do meu amigo é meu amigo.\" Ou seja: se os candidatos a e b são amigos e os candidatos b e c são amigos, então os candidatos a e c também são amigos.\n\nSua tarefa é ajudar o RH a determinar, para cada entrevista, se existe um par de candidatos convidados para a entrevista que são amigos entre si.",
+    "input": "A primeira linha da entrada contém um único inteiro N, o número de candidatos que estão participando do processo seletivo.\n\nAs próximas N linhas representam a tabela de amizades obtida pela OBI. Cada uma destas linhas contém N caracteres, cada um deles sendo 0 ou 1 (o dígito zero ou o dígito um). O j-ésimo caractere da i-ésima linha, m_ij, é 1 se os candidatos com identificadores i e j são amigos, ou 0 se eles não são amigos. Relações de amizade são sempre recíprocas, ou seja, m_ij = m_ji para todos i e j. Para simplificar, a tabela não considera um candidato como amigo de si mesmo, ou seja, m_ii = 0 para todo i. Observe que não existem espaços em branco entre os caracteres na mesma linha.\n\nA próxima linha contém um único inteiro E, a quantidade de entrevistas a serem realizadas.\n\nAs próximas E linhas representam as entrevistas. A i-ésima destas linhas contém um inteiro K_i, indicando a quantidade de candidatos que foram convidados para a i-ésima entrevista, seguido de K_i inteiros distintos, c_i1, c_i2, ..., c_iK_i, indicando os identificadores dos candidatos convidados para a i-ésima entrevista.",
+    "output": "Seu programa deverá imprimir E linhas, uma para cada entrevista, na mesma ordem da entrada. A i-ésima destas linhas deverá conter uma única letra maiúscula, que deve ser:\n\n• S, se existem dois candidatos amigos entre si convidados para a i-ésima entrevista;\n\n• N, se não existem dois candidatos amigos entre si convidados para a i-ésima entrevista.",
+    "constraints": "• 2 ≤ N ≤ 2500\n• 1 ≤ E ≤ 1000\n• m_ij = ‘0’ ou m_ij = '1' para todos 1 ≤ i ≤ N e 1 ≤ j ≤ N\n• m_ij = m_ji para todos 1 ≤ i ≤ N e 1 ≤ j ≤ N\n• m_ii = 0 para todo 1 ≤ i ≤ N\n• Para toda tripla (a, b, c) de identificadores distintos, se m_ab = 1 e m_bc = 1, então m_ac = 1\n• 2 ≤ K_i ≤ N para todo 1 ≤ i ≤ E\n• 1 ≤ c_ij ≤ N para todos 1 ≤ i ≤ E e 1 ≤ j ≤ K_i\n• Em cada entrevista, os identificadores dos candidatos convidados são todos distintos",
+    "examples": [
+        {
+            "input": "5\n01001\n10001\n00000\n00000\n11000\n3\n3 2 3 4\n4 5 3 1 4\n3 1 4 2",
+            "output": "N\nS\nS"
+        },
+        {
+            "input": "5\n01100\n10100\n11000\n00001\n00010\n5\n2 2 1\n2 3 4\n2 2 3\n2 4 2\n2 5 4",
+            "output": "S\nN\nS\nN\nS"
+        },
+        {
+            "input": "6\n000000\n000010\n000001\n000000\n010000\n001000\n2\n4 4 5 1 2\n4 4 6 1 2",
+            "output": "S\nN"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        0,
+        29,
+        31,
+        13,
+        27
+    ],
+    "year": "2024",
+    "level": "PJ",
+    "period": "Fase 3",
+    "difficulty": "Médio"
+}

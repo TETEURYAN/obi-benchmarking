@@ -1,0 +1,25 @@
+{
+    "title": "Setas",
+    "statement": "Gabriel é um garoto que gosta muito de um jogo onde há várias letras em um tabuleiro e o jogador precisa rapidamente pisar nas letras corretas, de acordo com as instruções na tela, seguindo uma música. Cansado de vencer, Gabriel inventou um novo jogo: agora temos um tabuleiro quadrado, com N células de cada lado, em que cada célula possui uma seta que aponta para uma das quatro posições vizinhas. O jogador primeiro escolhe uma célula inicial para se posicionar e, quando a música começa, ele deve caminhar na direção para onde a seta em que ele está aponta. Ganha o jogo quem pisar em mais setas corretas durante um período de tempo.\n\nO problema é que Gabriel joga tão rápido que quando a seta atual manda ele sair do tabuleiro, ele segue a orientação, muitas vezes quebrando alguns objetos próximos. Quando isso acontece, dizemos que a célula inicial deste jogo não é segura, pois leva a um caminho que termina fora do tabuleiro. A figura abaixo mostra dois tabuleiros.\n\nAjude Gabriel: dada a configuração do tabuleiro, determine quantas células são seguras para ele iniciar o jogo.",
+    "input": "A primeira linha da entrada contém um inteiro N, o tamanho do tabuleiro. Cada uma das N linhas seguintes contém N caracteres, com as direções das setas. As direções válidas são:\n\n• 'V' Aponta para a célula da linha abaixo, na mesma coluna\n• '<' (sinal menor-que) aponta para a célula à esquerda, na mesma linha\n• '>' (sinal maior-que) aponta para a célula à direita, na mesma linha\n• 'A' Aponta para a célula da linha acima, na mesma coluna",
+    "output": "Seu programa deve produzir um único inteiro, o número de células seguras.",
+    "constraints": "• 1 ≤ N ≤ 500",
+    "examples": [
+        {
+            "input": "3\n>>V\nAV<\nA<>",
+            "output": "8"
+        },
+        {
+            "input": "4\n>>V<\nA<<<\nAAA>\n>>>A",
+            "output": "11"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        50
+    ],
+    "year": "2014",
+    "level": "Nível 1",
+    "period": "Fase 1",
+    "difficulty": "Médio"
+}

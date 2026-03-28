@@ -1,0 +1,27 @@
+{
+    "title": "Calçada Imperial",
+    "statement": "Na calçada em frente ao Palácio Imperial, não se sabe a razão, existe uma sequência de N números desenhados no chão. A sequência é composta apenas pelos números de 1 a N. Veja um exemplo na coluna (a) da figura ao lado, para N = 12.\nNinguém sabe o significado da sequência e, justamente por isso, várias teorias malucas surgiram. Uma delas diz que a sequência representa, na verdade, apenas um valor que estaria relacionado a um grande segredo dos imperadores. Esse valor é a quantidade máxima de números da sequência que poderiam ser marcados com um círculo, de modo que a sequência de números marcados não contenha dois números iguais consecutivos e seja composta de no máximo dois números distintos.\nA coluna (b) da figura ilustra uma sequência de 4 números marcados que obedece a restrição acima. Você consegue verificar que essa é, de fato, a quantidade máxima possível de números numa sequência marcada?\nNeste problema, dada a sequência original de números desenhados no chão da calçada, seu programa deve computar e imprimir a quantidade máxima de números da sequência que poderiam ser marcados com um círculo sem que haja dois números iguais consecutivos na sequência marcada e tal que ela seja composta de no máximo dois números distintos.",
+    "input": "A primeira linha da entrada contém um inteiro N representando o tamanho da sequência. As N linhas seguintes contêm, cada uma, um inteiro Vi, para 1 ≤ i ≤ N, definindo a sequência de números desenhados no chão da calçada imperial.",
+    "output": "Seu programa deve imprimir uma linha contendo um número inteiro representando a quantidade máxima de números da sequência que poderiam ser marcados com um círculo sem que haja dois números iguais consecutivos na sequência marcada e tal que ela seja composta de no máximo dois números distintos.",
+    "constraints": "• 1 ≤ N ≤ 500\n• 1 ≤ Vi ≤ N, para 1 ≤ i ≤ N",
+    "examples": [
+        {
+            "input": "1\n1",
+            "output": "1"
+        },
+        {
+            "input": "12\n3\n2\n5\n2\n10\n4\n4\n7\n12\n2\n8\n10",
+            "output": "4"
+        }
+    ],
+    "imgs": [
+        {
+            "description": "Uma ilustração de uma sequência de 12 números na coluna (a) e a mesma sequência na coluna (b) com 4 números circulados (2, 10, 2, 10) para ilustrar uma subsequência válida."
+        }
+    ],
+    "rating": [],
+    "year": "2019",
+    "level": "Nível 2",
+    "period": "Fase Local",
+    "difficulty": "Médio"
+}

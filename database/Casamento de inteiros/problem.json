@@ -1,0 +1,36 @@
+{
+    "title": "Casamento de inteiros",
+    "statement": "Vamos definir a operação de casamento de dois números inteiros A e B da seguinte forma:\n\n• inicialmente fazemos A e B terem o mesmo número de dígitos, adicionando zeros à esquerda conforme necessário;\n\n• então cada dígito de A (do menos significativo ao mais significativo) é comparado com o dígito correspondente de B, e o dígito de menor valor é eliminado do número a que pertence (se os dígitos são iguais nenhum é eliminado).\n\n• o resultado da operação de casamento é o par de números inteiros formados pelos dígitos remanescentes de A e B. No caso de não haver digito remanescente para um dos números, o resultado para esse número é -1.\n\nPor exemplo, considere o casamento de 69961 com 487920:\n\nO resultado do casamento é o par de números 489 e 9961.\n\nDados dois números inteiros, sua tarefa é determinar o resultado do casamento desses dois números.",
+    "input": "A primeira linha da entrada contém um número inteiro A, a segunda linha contém um número inteiro B.",
+    "output": "Seu programa deve produzir uma única linha, contendo os dois números inteiros produzidos pelo casamento dos números dados, em ordem não decrescente.",
+    "constraints": "• 1 ≤ A ≤ 10⁹\n• 1 ≤ B ≤ 10⁹",
+    "examples": [
+        {
+            "input": "69961\n487920",
+            "output": "489 9961"
+        },
+        {
+            "input": "5678\n1234",
+            "output": "-1 5678"
+        },
+        {
+            "input": "21\n12",
+            "output": "2 2"
+        },
+        {
+            "input": "200\n100",
+            "output": "0 200"
+        }
+    ],
+    "imgs": [
+        "Diagrama mostrando o casamento dos números 69961 e 487920. Primeiro, 69961 é preenchido com um zero à esquerda para se tornar 069961. Em seguida, os dígitos são comparados um a um. Os dígitos restantes formam 9961 para o primeiro número e 489 para o segundo."
+    ],
+    "rating": [
+        22,
+        78
+    ],
+    "year": "2021",
+    "level": "Nível 2",
+    "period": "Fase 3",
+    "difficulty": "Fácil"
+}

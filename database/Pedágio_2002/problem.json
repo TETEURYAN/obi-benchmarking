@@ -1,0 +1,19 @@
+{
+    "title": "Pedágio",
+    "statement": "Como prêmio pela primeira colocação na Olimpíada Brasileira de Informática, Juquinha e sua família ganharam uma viagem de uma semana à Coréia do Sul. Como o país é deslumbrante, com tradições, cultura, arquitetura e culinária muito diferentes das do Brasil, o pai de Juquinha, o Sr. Juca, decidiu alugar um carro para conhecer melhor o país. As estradas são muito bem cuidadas; todas são de sentido duplo, e duas cidades podem ser ligadas diretamente por mais de uma estrada. No entanto, em todas as estradas paga-se um pedágio de valor fixo (há um pedágio em cada direção, entre duas cidades). Como o Sr. Juca não tem muito dinheiro para gastar, as viagens com o carro devem ser muito bem planejadas.\n\n1. Tarefa\nEscreva um programa que, conhecidas as cidades e estradas existentes no país, e a cidade onde Juquinha e sua família estão, encontre cada cidade (que não a cidade onde eles estão) que possa ser visitada por eles, dada a restrição de que o Sr. Juca deseja pagar no máximo P pedágios (considerando apenas a viagem de ida).",
+    "input": "A entrada é composta de vários conjuntos de teste. A primeira linha de um conjunto de teste contém quatro números inteiros C, E, L e P. Os valores C e E indicam respectivamente o número de cidades e o número de estradas existentes. As cidades são identificadas por inteiros de 1 a C. os valores L e P indicam, respectivamente, a cidade onde a família de Juquinha está no momento e o número máximo de pedágios que o Sr. Juca está disposto a pagar. As E linhas seguintes contêm cada uma a informação de uma estrada, representada por um par de números inteiros positivos X e Y, indicando que há uma estrada (de sentido duplo) da cidade X para a cidade Y. O final da entrada é indicado por C = E = L = P = 0.",
+    "output": "Para cada conjunto de teste da entrada seu programa deve produzir três linhas na saída. A primeira linha deve conter um identificador do conjunto de teste, no formato “Teste n”, onde n é numerado a partir de 1. Na segunda linha devem aparecer os identificadores das cidades que podem ser alcançadas, em ordem crescente, separados por pelo menos um espaço em branco. A terceira linha deve ser deixada em branco. A grafia mostrada no Exemplo de Saída, abaixo, deve ser seguida rigorosamente.",
+    "constraints": "0 ≤ C ≤ 50 (C= 0 apenas para indicar o fim da entrada)\n0 ≤ E ≤ 2500 (E= 0 apenas para indicar o fim da entrada)\n0 ≤ L ≤ C (L= 0 apenas para indicar o fim da entrada)\n0 ≤ P ≤ C (P = 0 apenas para indicar o fim da entrada)\n1 ≤ X ≤ C\n1 ≤ Y ≤ C",
+    "examples": [
+        {
+            "input": "5 4 2 1\n1 2\n2 3\n3 4\n4 5\n9 12 1 2\n2 1\n1 5\n2 1\n3 2\n9 3\n3 4\n4 8\n4 7\n7 6\n5 6\n4 5\n3 7\n0 0 0 0",
+            "output": "Teste 1\n1 3\n\nTeste 2\n2 3 4 5 6\n"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2002",
+    "level": "",
+    "period": "",
+    "difficulty": "Médio"
+}

@@ -1,0 +1,23 @@
+{
+    "title": "PacMan",
+    "statement": "Pacman é um jogo muito conhecido, onde o personagem tenta comer a maior quantidade possível de bolinhas, tendo ao mesmo tempo que fugir de vários fantasmas. Dessa vez, nosso personagem quer carregar a comida coletada para casa, mas o encontro com um fantasma, ao invés de terminar o jogo, faz com que toda a comida coletada seja roubada.\n\nNeste problema os fantasmas não se movem, e o jogador sempre faz o Pacman percorrer o seguinte caminho:\n\n1. O Pacman começa no canto superior esquerdo do tabuleiro.\n2. O Pacman percorre toda a linha, da esquerda para direita, até chegar ao lado direito do tabuleiro.\n3. O jogador desce uma posição, e percorre toda a linha, desta vez da direita para a esquerda.\n4. As etapas 2 e 3 se repetem até que todo o tabuleiro tenha sido percorrido.\n\nInfelizmente, Pacman não pode ignorar os comandos do usuário para fugir dos fantasmas ou pegar mais comida, mas ele pode, a qualquer momento, se aproveitar de um bug de implementação e interromper o jogo, levando consigo toda a comida que estiver carregando.\n\nVocê deve escrever um programa que determine a maior quantidade de comida que o Pacman pode levar, se escolher a melhor hora possível para sair. Note que o jogador também tem a opção de não sair antes do final do jogo.",
+    "input": "A primeira linha contém um inteiro N, o tamanho do tabuleiro do jogo, que é quadrado. Cada uma das N linhas seguintes contém N caracteres, que podem ser (aspas para melhor clareza):\n\n• '.' um espaço vazio;\n• 'o' uma comida;\n• 'A' um fantasma.",
+    "output": "Seu programa deve produzir uma única linha contendo um único inteiro, a quantidade máxima de comida que o Pacman pode levar para casa.",
+    "constraints": "• 2 ≤ N ≤ 100\n• Não há um fantasma e uma comida na mesma posição.\n• Não há fantasma nem comida na posição inicial do Pacman (ou seja, o primeiro caractere da primeira linha do tabuleiro é '.').",
+    "examples": [
+        {
+            "input": "5\n.ooo.\n..ooA\n.Aoo\nAoooo\n..ooo",
+            "output": "6"
+        },
+        {
+            "input": "3\n.o.\noAA\nooo",
+            "output": "4"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2014",
+    "level": "Nível 2",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

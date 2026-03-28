@@ -1,0 +1,28 @@
+{
+    "title": "Dígitos",
+    "statement": "Joãozinho te propôs o seguinte desafio: ele escolheu dois inteiros A e B, com 1 ≤ A ≤ B ≤ 10¹⁰⁰⁰, e escreveu na lousa todos os inteiros entre A e B, em sequência, porém colocando um espaço após cada dígito, de forma a não ser possível ver quando um número termina ou começa. Por exemplo, se Joãozinho escolher A = 98 e B = 102, ele escreveria a sequência \"9 8 9 9 1 0 0 1 0 1 1 0 2\".\n\nSeu desafio é: dada a lista de dígitos escritos na lousa, encontrar os valores de A e B. Caso exista mais de uma possibilidade para os valores que geraria a lista, você deve encontrar uma em que o valor de A é o menor possível.\n\nÉ garantido que a lista de dígitos da lousa tem no máximo tamanho 1000.",
+    "input": "A primeira linha da entrada contém um único inteiro N, indicando o número de dígitos. A segunda linha contém N inteiros di, indicando os dígitos escritos.",
+    "output": "Imprima o menor valor possível de A.",
+    "constraints": "• 1 ≤ N ≤ 1000\n\n• 0 ≤ di ≤ 9",
+    "examples": [
+        {
+            "input": "6\n1 2 3 1 2 4",
+            "output": "123"
+        },
+        {
+            "input": "6\n8 9 1 0 1 1",
+            "output": "8"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        21,
+        23,
+        40,
+        16
+    ],
+    "year": "2022",
+    "level": "Júnior",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

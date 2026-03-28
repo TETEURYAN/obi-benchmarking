@@ -1,0 +1,23 @@
+{
+    "title": "Corrida",
+    "statement": "A Federação de Corridas de Charrete (FCC) organiza todo ano a Subida Brigite Cardoso (SBC), disputada nas ladeiras de paralelepípedo de Ouro Preto. A corrida é uma das mais tradicionais do esporte, completando 100 anos em 2013. Para comemorar o centenário, a FCC pretende integrar dispostivos GPS às charretes, permitindo aos espectadores desfrutarem de dados de telemetria em tempo real.\n\nNo mesmo viés de inovação tecnológica, a FCC transmitirá a SBC via satélite para todo o planeta, e quer integrar a telemetria na transmissão, indicando qual seria o vencedor da corrida se as charretes mantivessem suas velocidades até o final da corrida; ela pediu que você escrevesse um programa que, dados as distâncias até a linha de chegada, as velocidades e os números das duas charretes que lideram a corrida, determina quem seria o vencedor da corrida (você pode supor que as charretes não cruzam a linha de chegada simultaneamente).",
+    "input": "A entrada consiste de duas linhas; cada linha descreve uma das charretes que lidera a corrida. A descrição de uma charrete consiste de três inteiros N, D e V indicando, respectivamente, o número da charrete, a sua distância à linha de chegada em metros, e a sua velocidade, em quilômetros por hora. Os números das duas charretes são distintos.",
+    "output": "Imprima uma única linha, contendo um único número inteiro, indicando o número da charrete que seria vencedora, conforme descrito acima.",
+    "constraints": "• 1 ≤ N ≤ 99\n• 0 < D ≤ 1000\n• 0 < V ≤ 50",
+    "examples": [
+        {
+            "input": "45 900 40\n17 300 20",
+            "output": "17"
+        },
+        {
+            "input": "1 1000 100\n2 1000 99",
+            "output": "1"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2013",
+    "level": "Nível 1",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

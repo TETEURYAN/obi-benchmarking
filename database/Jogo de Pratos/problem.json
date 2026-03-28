@@ -1,0 +1,43 @@
+{
+    "title": "Jogo de Pratos",
+    "statement": "Depois de perder tudo no Jogo do Poder, só resta uma coisa para Jonathan: O Jogo de Pratos. O objetivo do jogo é muito simples: obter a maior quantidade de pratos possível. Entretanto, para atingir esse objetivo será necessário muito planejamento.\n\nA principal maneira de obter mais pratos no jogo é através de \"efeitos\". Cada efeito pode ser representado por um par de inteiros (a, b). Se o jogador possui x pratos antes de um efeito entrar em ação, ele passa a possuir a · x + b pratos depois do efeito. Dizemos que a é o fator multiplicativo do efeito e b é o fator aditivo do efeito.\n\nExistem dois tipos de efeitos: feitiços e refeições. Jonathan possui N feitiços e M refeições. Cada feitiço pode ser usado quantas vezes o Jonathan quiser, mas ele só tem mana para usar feitiços K vezes no total. Enquanto isso, refeições podem ser usadas uma vez cada, mas Jonathan pode escolher a ordem que elas são utilizadas. Note que tanto feitiços quanto refeições são efeitos, e portanto funcionam da maneira descrita acima quando ativados.\n\nA fim de obter uma quantidade insana de pratos, Jonathan irá fazer um \"combo\", combinando vários desses efeitos. Sendo assim, Jonathan irá utilizar todos os feitiços que decidir e logo depois usará todas as refeições em certa ordem.\n\nComo há muitas possibilidades de cumprir sua tarefa, Jonathan pediu sua ajuda! Ele te fará Q perguntas, e em cada uma delas ele quer saber qual é o maior número de pratos alcançável a partir de alguma estratégia válida ao começar com uma quantidade x de pratos. Lembre-se que em uma estratégia válida, Jonathan usará refeições apenas depois dos feitiços. Como essa resposta pode ser muito grande, imprima ela módulo 10^9 + 7.",
+    "input": "A primeira linha de entrada possui 3 inteiros N, M e K, o número de feitiços, o número de refeições e a quantidade de feitiços que Jonathan pode utilizar.\n\nA segunda linha de entrada possui N inteiros: a1, a2, . . . , aN, os fatores multiplicativos dos feitiços.\n\nA terceira linha de entrada possui N inteiros: b1, b2, . . . , bN, os fatores aditivos dos feitiços.\n\nA quarta linha de entrada possui M inteiros: a'1, a'2, . . . , a'M, os fatores multiplicativos das refeições.\n\nA quinta linha de entrada possui M inteiros: b'1, b'2, . . . , b'M, os fatores aditivos das refeições.\n\nA sexta linha de entrada possui um único inteiro Q, o número de perguntas que Jonathan fará para você.\n\nA sétima linha de entrada possui Q inteiros x1, x2, . . . , xQ, a quantidade de pratos inicial para cada pergunta.",
+    "output": "Seu programa deve imprimir Q linhas, cada uma com um único inteiro: a resposta para cada uma das perguntas de Jonathan, módulo 10^9 + 7.",
+    "constraints": "• 1 ≤ N ≤ 10^5\n• 1 ≤ M ≤ 10^5\n• 1 ≤ K ≤ 10^9\n• 1 ≤ ai, a'i ≤ 10^9\n• 0 ≤ bi, b'i ≤ 10^9\n• ai + bi > 1, a'i + b'i > 1, ou seja, nunca haverá um efeito representado por (1, 0)\n• 1 ≤ Q ≤ 10^5\n• 1 ≤ xi ≤ 10^9",
+    "examples": [
+        {
+            "input": "2 2 2\n2 3\n3 2\n5 2\n5 2\n1\n1",
+            "output": "185"
+        },
+        {
+            "input": "5 1 1000000000\n1 1 1 1 1\n5 4 3 2 1\n1\n3 5\n4\n1 100 200000001 200000002",
+            "output": "1\n100\n200000001\n200000002"
+        },
+        {
+            "input": "4 3 3\n2 3 1 2\n0 0 2 1\n2 4 7\n3 2 1\n4\n1 2 10000 3",
+            "output": "1611\n3123\n15120099\n4635"
+        },
+        {
+            "input": "2 2 2\n1000000 2000000\n32 57\n32 32\n5 9\n5\n1 2 3 4 5",
+            "output": "707385849\n678713849\n650041849\n621369849\n592697849"
+        },
+        {
+            "input": "5 4 1000\n807989 325717 452373 639688 388457\n524139 933016 888648 755670 919486\n647772 75628 922474 745349\n379795 828349 203942 120165\n5\n1 2 3 4 5",
+            "output": "843013087\n329815085\n987387086\n644959080\n302531074"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        0,
+        7,
+        13,
+        15,
+        24,
+        19,
+        22
+    ],
+    "year": "2024",
+    "level": "Nível 2",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

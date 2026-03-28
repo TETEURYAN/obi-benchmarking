@@ -1,0 +1,34 @@
+{
+    "title": "Palavras Cruzadas",
+    "statement": "Você já deve ter tentado completar um jogo de palavras cruzadas. Nesse jogo, o jogador deve descobrir um conjunto de palavras através de dicas fornecidas juntamente com um retângulo dividido em quadrados de mesmo tamanho, sendo a maoria quadrados em branco e alguns quadrados pretos. Cada linha e cada coluna formada pelos quadrados em branco deve ser preenchida por uma palavra, com uma letra em cada quadrado em branco. As palavras das linhas são chamadas de palavras horizontais, as palavras das colunas são chamadas palavras verticais. As palavras horizontais cruzam com as palavras verticais em uma letra comum às duas palavras, vindo daí o nome do jogo.\n\nNesta tarefa, dadas uma palavra horizontal e uma palavra vertical, você deve encontrar a melhor letra de cruzamento entre elas, que é definida como a letra que produz\n\n1. o cruzamento mais à direita possível na palavra horizontal;\n2. se há mais de uma possibilidade de cruzamento com a regra (1), a melhor letra de cruzamento é definida como a que produz o cruzamento mais abaixo possível na palavra vertical.\n\nA figura abaixo ilustra alguns exemplos. Entre parênteses estão os índices da melhor letra de cruzamento. O índice de uma letra é a posição que ela ocupa na palavra, iniciando com 1 (primeira letra).",
+    "input": "A primeira linha da entrada contém a palavra horizontal. A segunda linha da entrada contém a palavra vertical.",
+    "output": "Seu programa deve produzir uma única linha, contendo apenas dois inteiros descrevendo a melhor letra de cruzamento. O primeiro número deve ser o índice da letra de cruzamento na palavra horizontal, o segundo número deve ser o índice da letra de cruzamento na palavra vertical. Se não há letra de cruzamento possível, os dois inteiros devem ser iguais a -1.",
+    "constraints": "• As palavras são compostas por letras maiúsculas não acentuadas, com comprimento de pelo menos uma letra e de no máximo 1000 letras.",
+    "examples": [
+        {
+            "input": "PATO\nPELE",
+            "output": "1 1"
+        },
+        {
+            "input": "ANJO\nMENTORA",
+            "output": "4 5"
+        },
+        {
+            "input": "MENTORA\nANJO",
+            "output": "7 1"
+        },
+        {
+            "input": "URUBU\nPOLIVALENTE",
+            "output": "-1 -1"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        80
+    ],
+    "year": "2020",
+    "level": "Júnior",
+    "period": "Fase Estadual",
+    "difficulty": "Médio"
+}

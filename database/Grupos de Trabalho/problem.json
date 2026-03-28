@@ -1,0 +1,30 @@
+{
+    "title": "Grupos de Trabalho",
+    "statement": "A professora Paula divide a classe em grupos de três estudantes para os trabalhos da sua disciplina. Para minimizar descontentamentos, ela fez uma enquete no início do ano, de forma que ela tem uma lista de pares de estudantes que gostariam de estar no mesmo grupo, e uma lista de pares de estudantes que não gostariam de estar no mesmo grupo.\n\nPara cada trabalho ela faz uma nova divisão de grupos, e claro que nem sempre vai ser possível satisfazer todas as restrições da classe!\n\nDados os pares de estudantes que gostariam estar no mesmo grupo, os pares de estudantes que não gostariam estar no mesmo grupo, e uma possível distribuição dos estudantes em grupos de três, sua tarefa é determinar o número total de restrições que são violadas com essa distribuição.",
+    "input": "A primeira linha contém três inteiros E, M e D, indicando, respectivamente, o número total de estudantes, o número de pares de estudantes que gostariam de estar no mesmo grupo e o número de pares de estudantes que não gostariam de estar no mesmo grupo. Os estudantes são identificados por números inteiros de 1 a E.\n\nCada uma das M linhas seguintes descreve um par de estudantes que gostariam de estar no mesmo grupo e contém dois inteiros X e Y indicando os estudantes do par. Cada uma das D linhas seguintes descreve um par de estudantes que não gostariam de estar no mesmo grupo e contém dois inteiros U e V indicando os estudantes do par.\n\nFinalmente, cada uma das E/3 linhas seguintes descreve um grupo de estudantes e contém três inteiros I, J e K indicando os estudantes do grupo.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o número total de restrições que são violadas nos grupos da entrada.",
+    "constraints": "• 3 ≤ E ≤ 999 999 e E é divisível por 3.\n• 0 ≤ M ≤ 100 000\n• 0 ≤ D ≤ 100 000\n• M + D > 0 e, entre todos os M + D pares, cada par de estudantes aparece no máximo uma vez.\n• 1 ≤ X ≤ E, 1 ≤ Y ≤ E e X ≠ Y.\n• 1 ≤ U ≤ E, 1 ≤ V ≤ E e U ≠ V.\n• 1 ≤ I ≤ E, 1 ≤ J ≤ E e 1 ≤ K ≤ E\n• Cada estudante aparece em exatamente um dos E/3 grupos.",
+    "examples": [
+        {
+            "input": "3 1 0\n1 2\n2 1 3",
+            "output": "0"
+        },
+        {
+            "input": "9 1 3\n1 9\n1 3\n5 6\n2 8\n1 2 3\n4 5 6\n7 8 9",
+            "output": "3"
+        },
+        {
+            "input": "6 0 3\n1 5\n5 2\n2 3\n5 2 1\n3 4 6",
+            "output": "2"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        39,
+        61
+    ],
+    "year": "2023",
+    "level": "Nível 1",
+    "period": "Fase 2",
+    "difficulty": "Médio"
+}

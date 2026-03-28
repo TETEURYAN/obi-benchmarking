@@ -1,0 +1,37 @@
+{
+    "title": "Amigos",
+    "statement": "Na segunda fase da OBI, você escreveu um programa que ajudou Luiza a encontrar o ponto de ônibus mais próximo da escola dela. Agora, Luiza gasta pouco tempo no trajeto e tem mais tempo livre para fazer e cultivar amizades, com as quais ela conversa durante o intervalo da aula.\n\nO refeitório da escola possui uma longa mesa retangular. Os lados superior e inferior da mesa possuem N cadeiras em cada (observe que não existem cadeiras nos lados esquerdo e direito da mesa). Deste modo, 2 · N alunos podem se sentar à mesa (N de cada lado) e cada aluno senta de frente para um aluno sentado no lado oposto ao dele.\n\nO grupo de amigos de Luiza possui um número par de integrantes, que vamos chamar de 2 · K, e eles gostariam de se sentar todos juntos à mesa. Porém, isso é muito difícil de coordenar, uma vez que o refeitório está sempre lotado. Por isso, o grupo de amigos decidiu que eles estarão felizes se cada integrante do grupo estiver sentado de frente para outro integrante do grupo. Observe que, como o número de integrantes do grupo é par, é possível que exatamente metade dos integrantes se sente em um lado da mesa e a outra metade se sente no outro lado.\n\nOs amigos se sentaram e já estão divididos igualmente entre os dois lados da mesa, mas nem todos os integrantes do grupo estão sentados em frente a outro integrante. Por sorte, o grupo de amigos desenvolveu um plano: um integrante pode pedir para trocar de lugar com um dos alunos sentados nas cadeiras vizinhas à sua (ou seja, os alunos sentados imediatamente à esquerda e à direita dele que estão mesmo lado da mesa, se existirem). Assim, um integrante pode se mover para a esquerda ou para a direita em seu lado da mesa usando várias trocas, sempre com um dos vizinhos atuais. O plano do grupo de amigos consiste em realizar essas trocas até que cada integrante do grupo esteja sentado em frente a outro integrante do grupo.\n\nO diagrama abaixo ilustra um exemplo para N = 6 e K = 2, ou seja, cada lado da mesa possui 6 alunos dos quais 2 são membros do grupo. Neste exemplo, os integrantes do grupo no lado superior da mesa estão nas posições 2 e 5, já os integrantes no lado inferior da mesa estão nas posições 1 e 3.\n\nOs amigos conseguem sentar de frente para seus amigos após realizarem três trocas:\n\n• No lado inferior da mesa, o aluno na posição 1 troca de lugar com o aluno na posição 2:\n• No lado superior, o aluno na posição 5 troca de lugar com o aluno na posição 4:\n• No lado inferior, o aluno na posição 3 troca de lugar com o aluno na posição 4:\n\nAgora, em ambos os lados os amigos estão nas posições 2 e 4, e portanto eles estão de frente para seus amigos. É possível verificar que os amigos não conseguem atingir este objetivo com duas ou menos trocas.\n\nOs amigos de Luiza querem ficar felizes sem fazer muita bagunça. Por isso, eles gostariam de fazer a menor quantidade possível de trocas para realizar o plano do grupo. No exemplo anterior, os integrantes do grupo estão reunidos em pares após 3 trocas. É possível verificar que essa é a menor quantidade possível (ou seja, não é impossível completar o plano do grupo com 2 ou menos trocas).\n\nLuiza pediu a sua ajuda: dados o número N de alunos em cada lado da mesa, o número K de integrantes do grupo de amigos em cada lado da mesa, e as posições iniciais onde os integrantes do grupo estão sentados, determine o número mínimo de trocas necessárias entre alunos sentados em cadeiras vizinhas para que cada integrante do grupo de amigos sente em frente a outro integrante do grupo.",
+    "input": "A primeira linha da entrada contém dois inteiros N e K representando, respectivamente, o número de alunos em cada lado da mesa e o número de integrantes do grupo de amigos em cada lado da mesa.\n\nA segunda linha da entrada descreve o lado superior da mesa e contém N inteiros, cada um sendo 0 ou 1, separados por espaços em branco. O i-ésimo inteiro a_i indica se o aluno sentado na i-ésima cadeira (da esquerda para a direita) do lado superior da mesa é integrante do grupo de amigos ou não. Se a_i = 1, o aluno pertence ao grupo; caso contrário, ele não pertence. Existem exatamente K valores 1 e N - K valores 0.\n\nA terceira e última linha da entrada descreve o lado inferior da mesa no mesmo formato da linha anterior. A linha contém N inteiros, cada um sendo 0 ou 1, separados por espaços em branco. Se o j-ésimo inteiro b_j é 1, o aluno sentado na j-ésima cadeira do lado inferior da mesa é integrante do grupo de amigos; caso contrário, este aluno não é integrante do grupo. Existem exatamente K valores 1 e N - K valores 0.",
+    "output": "Seu programa deverá produzir uma única linha contendo somente um inteiro, a quantidade mínima de trocas necessárias para que todo integrante do grupo fique sentado de frente para outro integrante do grupo.",
+    "constraints": "• 2 ≤ N ≤ 150 000\n• 1 ≤ K < N\n• a_i = 0 ou 1 para 1 ≤ i ≤ N\n• Existem exatamente K índices i para os quais a_i = 1\n• b_j = 0 ou 1 para 1 ≤ j ≤ N\n• Existem exatamente K índices j para os quais b_j = 1",
+    "examples": [
+        {
+            "input": "6 2\n0 1 0 0 1 0\n1 0 1 0 0 0",
+            "output": "3"
+        },
+        {
+            "input": "12 4\n0 0 1 0 1 1 0 0 0 0 1 0\n0 1 0 0 0 1 0 0 0 1 0 1",
+            "output": "7"
+        },
+        {
+            "input": "9 4\n1 1 1 1 0 0 0 0 0\n1 0 0 1 0 1 0 0 1",
+            "output": "10"
+        },
+        {
+            "input": "4 2\n1 0 0 1\n1 0 0 1",
+            "output": "0"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        0,
+        21,
+        23,
+        25,
+        31
+    ],
+    "year": "2024",
+    "level": "PJ",
+    "period": "Fase 3",
+    "difficulty": "Difícil"
+}

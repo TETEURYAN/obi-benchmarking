@@ -1,0 +1,37 @@
+{
+    "title": "Código",
+    "statement": "A professora Maryam está tentando construir um código constituído de uma sequência de N strings de 10 letras minúsculas, S1, S2, S3, ..., SN. Essas strings da sequência serão, no futuro, concatenadas de diversas maneiras para formar strings maiores. Mas, para que o código seja válido, a sequência de strings tem que satifazer uma propriedade bastante específica: nenhuma string da sequência pode ser substring de uma concatenação de duas strings anteriores na sequência. De forma mais rigorosa, o código será inválido se existirem três inteiros a, b e k, tais que:\n\n• 1 ≤ a < k ≤ N, 1 ≤ b < k ≤ N (a pode ser igual a b); e\n• Sk é substring da concatenação SaSb.\n\nPor exemplo, o código S = {aaaaaaabbb, yyuudiwwkl, kkfidaaooa} é válido. Mas se adicionarmos a string aooaaaaaaa no final da sequência, o código resultante, S' = {aaaaaaabbb, yyuudiwwkl, kkfidaaooa, aooaaaaaaa}, será inválido, pois S'4 é substring da concatenação S'3S'1.\n\nDada a sequência de strings, seu programa deve determinar se o código é válido, ou não.",
+    "input": "A primeira linha da entrada contém um inteiro N, representando o número de strings na sequência. As N linhas seguintes contêm, cada uma, uma string de 10 letras minúsculas, definindo a sequência de strings do código.",
+    "output": "Seu programa deve imprimir uma linha contendo a string “ok” caso o código seja válido, ou contendo a primeira string na sequência que invalida o código. Quer dizer, contendo Sk onde k é o menor possível tal que Sk seja substring de uma concatenação de duas strings anteriores na sequência.",
+    "constraints": "• 1 ≤ N ≤ 10000",
+    "examples": [
+        {
+            "input": "3\naaaaaaabbb\nyyuudiwwkl\nkkfidaaooa",
+            "output": "ok"
+        },
+        {
+            "input": "4\naaaaaaabbb\nyyuudiwwkl\nkkfidaaooa\naooaaaaaaa",
+            "output": "aooaaaaaaa"
+        },
+        {
+            "input": "1\njfjshiddds",
+            "output": "ok"
+        },
+        {
+            "input": "2\nabcdefghij\nabcdefghij",
+            "output": "abcdefghij"
+        },
+        {
+            "input": "8\nxfwvijuydq\nhcprvezofg\nhwykagqawu\ngivfzndqpy\nyvfiqgadfc\nwuhcprvezo\nqaswiksscl\nuchskpkcit",
+            "output": "wuhcprvezo"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        40
+    ],
+    "year": "2017",
+    "level": "Universitária",
+    "period": "Fase Nacional",
+    "difficulty": "Difícil"
+}

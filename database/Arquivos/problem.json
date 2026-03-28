@@ -1,0 +1,26 @@
+{
+    "title": "Arquivos",
+    "statement": "Aldo tem N arquivos em seu computador, cada um com um tamanho em bytes. Ele quer dividir estes arquivos em pastas, porém o sistema do computador é velho e só aceita pastas com as duas seguintes limitações:\n\n• Uma pasta pode ter no máximo dois arquivos\n• A soma dos tamanhos dos arquivos na pasta não pode exceder B bytes\n\nComo ele tem muitos arquivos ele prefere não criar muitas pastas. Dado o tamanho dos arquivos, calcule o número mínimo possível de pastas.\n\nVamos supor um exemplo que temos os arquivos de tamanho 1, 2 e 3, e que o limite de bytes seja 3. A solução é colocar os dois primeiros arquivos juntos, totalizando apenas 2 pastas.",
+    "input": "A entrada consiste de duas linhas. A primeira linha contém os números inteiros N e B. A segunda linha contém N inteiros indicando o tamanho de cada arquivo.",
+    "output": "Seu programa deve escrever uma única linha na saída, contendo um único número inteiro, a quantidade mínima possível de pastas.",
+    "constraints": "• 1 ≤ N ≤ 10⁵\n• 1 ≤ B ≤ 10⁹\n• Os arquivos terão tamanho entre 1 e B, inclusive",
+    "examples": [
+        {
+            "input": "3 3\n1 2 3",
+            "output": "2"
+        },
+        {
+            "input": "5 4\n4 3 1 2 2",
+            "output": "3"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        30
+    ],
+    "year": "2015",
+    "level": "Nível 1",
+    "period": "Fase 1",
+    "difficulty": "Médio"
+}

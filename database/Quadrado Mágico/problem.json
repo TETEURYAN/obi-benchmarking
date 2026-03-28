@@ -1,0 +1,25 @@
+{
+    "title": "Quadrado Mágico",
+    "statement": "Em um Quadrado Mágico, a soma de qualquer coluna, linha ou diagonal tem sempre o mesmo valor, e nenhum número aparece mais do que uma vez.\n\nA dimensão de um quadrado mágico é o número de colunas (ou de linhas, já que o número de colunas é igual ao número de linhas).\n\nRita encontrou um caderno antigo de sua avó, repleto de quadrados mágicos de todas as dimensões. Infelizmente alguns dos números estão ilegíveis. Você pode ajudá-la?\n\nDado um quadrado mágico com exatamente um número ilegível, determine o valor e a posição desse número.",
+    "input": "A primeira linha da entrada contém um número inteiro N, a dimensão do quadrado mágico. Cada uma das N linhas seguintes contém N inteiros Xᵢ. Exatamente um dos números do quadrado da entrada é igual a zero, indicando o número ilegível.",
+    "output": "Seu programa deve produzir três linhas, cada uma contendo um único número inteiro. A primeira linha deve conter o valor do número ilegível. A segunda linha deve conter a linha do número ilegível no quadrado (as linhas do quadrado variam de 1 a N). A terceira linha deve conter a coluna do número ilegível no quadrado (as colunas do quadrado variam de 1 a N).",
+    "constraints": "• 3 ≤ N ≤ 10\n• 0 ≤ Xᵢ ≤ 100, para 1 ≤ i ≤ N",
+    "examples": [
+        {
+            "input": "3\n2 9 4\n7 0 3\n6 1 8",
+            "output": "5\n2\n2"
+        },
+        {
+            "input": "4\n11 8 5 0\n14 1 4 15\n2 13 16 3\n7 12 9 6",
+            "output": "10\n1\n4"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        10
+    ],
+    "year": "2022",
+    "level": "Nível Sênior",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}

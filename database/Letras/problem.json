@@ -1,0 +1,30 @@
+{
+    "title": "Letras",
+    "statement": "Uma cadeia de caracteres é uma sequência de letras do alfabeto. Uma cadeia de caracteres crescente é uma sequência de letras onde a próxima letra (da esquerda para a direita) nunca ocorre antes no alfabeto do que a letra anterior. Por exemplo ABBD é crescente, enquanto ABBAD não é crescente.\n\nUma subsequência de uma cadeia de caracteres é uma cadeia de caracteres que pode ser obtida a partir da remoção de zero ou mais caracteres da cadeia de caracteres original. Por exemplo ANNA é uma subsequência de BANANAS. Outro exemplo seria ANNS, que é uma subsequência crescente de BANANAS.\n\nDada uma cadeia de caracteres S, escreva um programa para determinar o tamanho da maior subsequência de S que é uma cadeia de caracteres crescente.",
+    "input": "A entrada consiste em uma única linha, contendo uma cadeia de caracteres S.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o tamanho da maior subsequência de S que é uma cadeia de caracteres crescente.",
+    "constraints": "• A cadeia de caracteres de entrada contém letras maiúsculas do alfabeto, de A até Z.\n• 1 ≤ comprimento(S) ≤ 3 × 10⁵.",
+    "examples": [
+        {
+            "input": "BANANAS",
+            "output": "4"
+        },
+        {
+            "input": "AAXBBXZZX",
+            "output": "7"
+        },
+        {
+            "input": "AAA",
+            "output": "3"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        30
+    ],
+    "year": "2015",
+    "level": "Nível 1",
+    "period": "Fase 2",
+    "difficulty": "Médio"
+}

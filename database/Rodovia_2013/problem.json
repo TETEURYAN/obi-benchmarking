@@ -1,0 +1,34 @@
+{
+    "title": "Rodovia",
+    "statement": "As estradas da Nlogônia estão severamente danificadas, devido ao intenso fluxo de veículos pesados criado pelo desenvolvimento econômico do reino. Para resolver o problema, o rei da Nlogônia decretou que seriam construídas novas rodovias. O decreto determinou que:\n\n• todas as rodovias construídas terão mão única, e ligarão exatamente duas cidades;\n• nenhum par de rodovias se intersectará — serão construídos viadutos, túneis e pontes conforme necessário;\n• por razões orçamentárias, o número de rodovias a construir será igual ao número de cidades que existem na Nlogônia;\n• deve ser possível, partindo de qualquer cidade, chegar a qualquer outra cidade usando só as novas rodovias, sempre respeitando a mão das rodovias.\n\nO engenheiro-chefe do reino desenhou uma proposta de mapa viário; o rei verificou que o plano satisfaz as três primeiras restrições, mas não conseguiu verificar a última. Por isso, ele pediu que você escrevesse um programa que determina se o plano de rodovias permite viajar de qualquer cidade até qualquer outra cidade da Nlogônia.",
+    "input": "A primeira linha de cada caso de teste contém um inteiro N, indicando o número de cidades. Cada uma das N linhas seguintes descrevem uma estrada: a linha contém dois inteiros A e B que indicam que existe uma estrada de mão única ligando a cidade A a outra cidade, B (as cidades são numeradas de 1 a N).",
+    "output": "Imprima uma única linha contendo um único caractere: 'S' se for possível ir de qualquer cidade a qualquer outra cidade por rodovias e 'N' caso contrário.",
+    "constraints": "• 2 ≤ N ≤ 10⁴\n• A ≠ B;\n\nInformações sobre a pontuação\n\n• em um conjunto de casos de teste totalizando 20 pontos, N ≤ 3;\n• em um conjunto de casos de teste totalizando 40 pontos, N ≤ 8;",
+    "examples": [
+        {
+            "input": "3\n1 2\n2 3\n3 1",
+            "output": "S"
+        },
+        {
+            "input": "3\n1 2\n2 3\n1 3",
+            "output": "N"
+        },
+        {
+            "input": "6\n1 2\n2 3\n4 1\n5 6\n3 5\n6 4",
+            "output": "S"
+        },
+        {
+            "input": "6\n1 2\n2 3\n3 1\n4 5\n5 6\n6 4",
+            "output": "N"
+        }
+    ],
+    "imgs": [],
+    "rating": [
+        20,
+        40
+    ],
+    "year": "2013",
+    "level": "Nível 1",
+    "period": "Fase 1",
+    "difficulty": "Difícil"
+}

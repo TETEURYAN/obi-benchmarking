@@ -1,0 +1,23 @@
+{
+    "title": "Língua do P",
+    "statement": "Uma brincadeira que crianças adoram é se comunicar na língua do P, acrescentando pê antes de cada sílaba, como uma forma de código para dificultar que outras pessoas entendam a conversa (pê-va pê-mos pê-no pê-ci pê-ne pê-ma?).\n\nJacy e Kátia adaptaram a língua do P para mensagens eletrônicas, acrescentando a letra P minúscula 'p' antes de cada letra das palavras de uma mensagem. Um exemplo de mensagem codificada e a respectiva mensagem decodificada é mostrada na figura abaixo.\n\nMensagem codificada\npVpapmpops papo pcpipnpepmpa\n\nMensagem decodificada\nVamos ao cinema\n\nSua tarefa é escrever um programa que decodifique uma mensagem escrita na língua do P eletrônica de Jacy e Kátia.",
+    "input": "A entrada consiste de uma única linha, contendo uma mensagem escrita na língua do P eletrônica de Jacy e Kátia.",
+    "output": "Seu programa deve produzir uma única linha, contendo a mensagem decodificada.",
+    "constraints": "• A mensagem contém apenas letras maiúsculas e minúsculas e espaços em branco.\n• A mensagem tem entre 1 e 1000 caracteres.\n• Não há dois espaços em branco consecutivos na mensagem.",
+    "examples": [
+        {
+            "input": "pUpm pfpiplpmpe plpepgpapl",
+            "output": "Um filme legal"
+        },
+        {
+            "input": "pA pppapppa pdpo pPpapppa",
+            "output": "A papa do Papa"
+        }
+    ],
+    "imgs": [],
+    "rating": [],
+    "year": "2014",
+    "level": "Nível 2",
+    "period": "Fase 1",
+    "difficulty": "Fácil"
+}
