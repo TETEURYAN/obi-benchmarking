@@ -3,8 +3,7 @@ from .config import config
 from services import LLMService, JudgeService
 from models.problem import Problem
 from models.evaluation_result import EvaluationResult
-from models.level import Level
-from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, LEVEL_PROMPT_TEMPLATE, EXAMPLES_BY_LANGUAGE
+from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, EXAMPLES_BY_LANGUAGE
 import pandas as pd
 import os
 import glob
