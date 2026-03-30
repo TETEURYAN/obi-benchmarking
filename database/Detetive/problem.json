@@ -25,5 +25,10 @@
     "year": "2019",
     "level": "Programação • Nível 2",
     "period": "Fase Estadual",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "programação dinâmica",
+        "busca em largura / profundidade"
+    ]
 }

@@ -25,5 +25,9 @@
     "year": "2021",
     "level": "Sênior",
     "period": "Fase 3",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "strings"
+    ]
 }

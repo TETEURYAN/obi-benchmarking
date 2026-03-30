@@ -20,5 +20,10 @@
     "year": "2024",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "matemática",
+        "arrays",
+        "somas de prefixo"
+    ]
 }

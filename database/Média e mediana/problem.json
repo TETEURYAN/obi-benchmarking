@@ -23,5 +23,8 @@
     "year": "2021",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

@@ -15,5 +15,10 @@
     "year": "2002",
     "level": "",
     "period": "",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "matemática",
+        "força bruta"
+    ]
 }

@@ -26,5 +26,10 @@
     "year": "2023",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "força bruta",
+        "implementação"
+    ]
 }

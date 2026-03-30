@@ -19,5 +19,10 @@
     "year": "2022",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "strings",
+        "programação dinâmica",
+        "força bruta"
+    ]
 }

@@ -25,5 +25,10 @@
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 1",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "strings",
+        "matemática",
+        "força bruta"
+    ]
 }

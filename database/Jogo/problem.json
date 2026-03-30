@@ -26,5 +26,8 @@
     "year": "2022",
     "level": "Júnior",
     "period": "Fase 3",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "força bruta"
+    ]
 }

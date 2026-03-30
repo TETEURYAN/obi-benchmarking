@@ -30,5 +30,11 @@
     "year": "2018",
     "level": "Júnior",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "grafos",
+        "busca em largura (bfs)",
+        "greedy"
+    ]
 }

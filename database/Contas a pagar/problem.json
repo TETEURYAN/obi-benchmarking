@@ -29,5 +29,11 @@
     "year": "2023",
     "level": "Nível Sênior",
     "period": "Fase 1",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "greedy",
+        "ordenação",
+        "força bruta",
+        "arrays"
+    ]
 }

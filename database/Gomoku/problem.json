@@ -24,5 +24,9 @@
     "year": "2017",
     "level": "Nível Júnior",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "força bruta"
+    ]
 }

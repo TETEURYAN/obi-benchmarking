@@ -31,5 +31,8 @@
     "year": "2016",
     "level": "PJ",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "matemática"
+    ]
 }

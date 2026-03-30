@@ -23,5 +23,10 @@
     "year": "2013",
     "level": "Júnior",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "matemática",
+        "geometria",
+        "força bruta"
+    ]
 }

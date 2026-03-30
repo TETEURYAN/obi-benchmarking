@@ -22,5 +22,9 @@
     "year": "2023",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "força bruta",
+        "strings"
+    ]
 }

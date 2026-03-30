@@ -23,5 +23,10 @@
     "year": "2016",
     "level": "PJ",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "ordenação",
+        "arrays",
+        "força bruta"
+    ]
 }

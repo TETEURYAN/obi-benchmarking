@@ -21,5 +21,10 @@
     "year": "2014",
     "level": "Júnior",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "ordenação",
+        "busca binária"
+    ]
 }

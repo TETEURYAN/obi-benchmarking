@@ -15,5 +15,10 @@
     "year": "2001",
     "level": "",
     "period": "",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "ordenação",
+        "greedy",
+        "arrays"
+    ]
 }

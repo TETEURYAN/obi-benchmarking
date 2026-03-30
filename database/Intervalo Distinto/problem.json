@@ -24,5 +24,10 @@
     "year": "2023",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "sliding window",
+        "arrays",
+        "hash table"
+    ]
 }

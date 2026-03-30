@@ -29,5 +29,10 @@
     "year": "2023",
     "level": "Nível 2",
     "period": "Fase 3",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "greedy",
+        "ordenação",
+        "fila de prioridade"
+    ]
 }

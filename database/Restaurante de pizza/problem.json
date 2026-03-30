@@ -27,5 +27,9 @@
     "year": "2022",
     "level": "Nível 1",
     "period": "Fase 3",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "geometria"
+    ]
 }

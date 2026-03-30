@@ -19,5 +19,10 @@
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "greedy",
+        "ordenação",
+        "força bruta"
+    ]
 }

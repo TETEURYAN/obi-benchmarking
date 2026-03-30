@@ -22,5 +22,10 @@
     "year": "2021",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "simulação",
+        "arrays",
+        "ordenação"
+    ]
 }

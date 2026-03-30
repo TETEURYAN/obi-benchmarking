@@ -26,5 +26,10 @@
     "year": "2015",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "strings",
+        "greedy"
+    ]
 }

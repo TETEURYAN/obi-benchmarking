@@ -27,7 +27,14 @@
         45
     ],
     "year": "2019",
-    "level": "P2",
+    "level": "Nível 2",
     "period": "Fase Nacional",
+    "topics": [
+        "Grafos",
+        "Detecção de Ciclos",
+        "Busca Binária",
+        "Estruturas de Dados",
+        "Árvore de Segmentos"
+    ],
     "difficulty": "Difícil"
 }

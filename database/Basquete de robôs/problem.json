@@ -23,5 +23,8 @@
     "year": "2018",
     "level": "Júnior",
     "period": "Fase Local",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

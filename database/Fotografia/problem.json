@@ -23,5 +23,10 @@
     "year": "2020",
     "level": "Nível Sênior",
     "period": "Fase Estadual",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "força bruta",
+        "matemática",
+        "geometria"
+    ]
 }

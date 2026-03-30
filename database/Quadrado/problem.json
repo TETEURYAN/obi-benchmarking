@@ -30,5 +30,11 @@
     "year": "2022",
     "level": "Nível Sênior",
     "period": "Fase 3",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "matemática",
+        "ad-hoc",
+        "construção",
+        "arrays"
+    ]
 }

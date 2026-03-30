@@ -26,5 +26,9 @@
     "year": "2020",
     "level": "Nível 2",
     "period": "Fase Nacional",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "força bruta"
+    ]
 }

@@ -35,5 +35,8 @@
     "year": "2024",
     "level": "Nível 2",
     "period": "Fase 3",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "programação dinâmica"
+    ]
 }

@@ -28,5 +28,8 @@
     "year": "2018",
     "level": "Nível Sênior",
     "period": "Fase Local",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

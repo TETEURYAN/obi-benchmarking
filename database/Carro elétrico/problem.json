@@ -25,5 +25,12 @@
     "year": "2022",
     "level": "Júnior",
     "period": "Fase 3",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "geometria",
+        "busca em profundidade",
+        "busca em largura",
+        "union-find"
+    ]
 }

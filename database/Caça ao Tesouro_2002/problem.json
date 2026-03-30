@@ -15,5 +15,9 @@
     "year": "2002",
     "level": "",
     "period": "",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "programação dinâmica",
+        "matemática"
+    ]
 }

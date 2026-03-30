@@ -19,5 +19,11 @@
     "year": "2020",
     "level": "Nível 2",
     "period": "Fase Nacional",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "busca em profundidade",
+        "busca em largura",
+        "ciclos em grafos"
+    ]
 }

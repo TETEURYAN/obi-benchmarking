@@ -21,5 +21,10 @@
     "year": "2014",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "Grafos",
+        "Árvores",
+        "Menor Ancestral Comum (LCA)"
+    ]
 }

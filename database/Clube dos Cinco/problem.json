@@ -33,5 +33,9 @@
     "year": "2016",
     "level": "Nível 1",
     "period": "Fase 1",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "matemática",
+        "princípio da inclusão-exclusão"
+    ]
 }

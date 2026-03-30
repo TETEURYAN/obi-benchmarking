@@ -19,5 +19,10 @@
     "year": "2017",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "árvores",
+        "força bruta"
+    ]
 }

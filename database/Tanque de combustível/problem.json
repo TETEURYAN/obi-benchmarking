@@ -27,5 +27,9 @@
     "year": "2022",
     "level": "Sênior",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "greedy"
+    ]
 }

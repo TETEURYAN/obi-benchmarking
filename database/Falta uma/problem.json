@@ -21,5 +21,10 @@
     "year": "2016",
     "level": "P2",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "força bruta",
+        "backtracking",
+        "ordenação"
+    ]
 }

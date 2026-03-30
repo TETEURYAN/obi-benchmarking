@@ -19,5 +19,11 @@
     "year": "2012",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "simulação",
+        "greedy",
+        "fila de prioridade",
+        "ordenação"
+    ]
 }

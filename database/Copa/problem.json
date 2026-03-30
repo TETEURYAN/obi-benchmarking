@@ -29,5 +29,9 @@
     "year": "2018",
     "level": "Júnior",
     "period": "Fase Estadual",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "simulação"
+    ]
 }

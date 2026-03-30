@@ -23,5 +23,10 @@
     "year": "2021",
     "level": "Júnior",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "strings",
+        "arrays",
+        "força bruta"
+    ]
 }

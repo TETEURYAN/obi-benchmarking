@@ -19,5 +19,10 @@
     "year": "2017",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "greedy",
+        "força bruta"
+    ]
 }

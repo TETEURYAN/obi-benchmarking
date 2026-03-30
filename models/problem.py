@@ -14,4 +14,5 @@ class Problem(BaseModel):
     year: str
     level: Optional[str]
     period: Optional[str]
+    topics: Optional[list]
     difficulty: str

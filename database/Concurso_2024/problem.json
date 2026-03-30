@@ -33,5 +33,9 @@
     "year": "2024",
     "level": "PJ",
     "period": "Fase 1",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "ordenação"
+    ]
 }

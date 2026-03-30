@@ -21,5 +21,9 @@
     "year": "2016",
     "level": "Nível 1",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "data structures"
+    ]
 }

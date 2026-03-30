@@ -26,5 +26,9 @@
     "year": "2020",
     "level": "Programação Nível 2",
     "period": "Fase Estadual",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "programação dinâmica",
+        "arrays"
+    ]
 }

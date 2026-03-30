@@ -23,5 +23,11 @@
     "year": "2011",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "arrays",
+        "busca em largura",
+        "busca em profundidade"
+    ]
 }

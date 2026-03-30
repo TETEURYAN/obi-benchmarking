@@ -27,5 +27,9 @@
     "year": "2018",
     "level": "Nível 1",
     "period": "Fase Estadual",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "busca binária",
+        "matemática"
+    ]
 }

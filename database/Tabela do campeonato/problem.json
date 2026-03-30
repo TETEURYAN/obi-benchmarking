@@ -26,5 +26,8 @@
     "year": "2019",
     "level": "Nível Júnior",
     "period": "Fase Estadual",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "matemática"
+    ]
 }

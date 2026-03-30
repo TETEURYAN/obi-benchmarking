@@ -24,5 +24,11 @@
     "year": "2022",
     "level": "Júnior",
     "period": "Fase 3",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "força bruta",
+        "strings",
+        "greedy",
+        "matemática"
+    ]
 }

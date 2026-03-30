@@ -22,5 +22,10 @@
     "year": "2018",
     "level": "Júnior",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "somas de prefixo",
+        "arrays",
+        "força bruta"
+    ]
 }

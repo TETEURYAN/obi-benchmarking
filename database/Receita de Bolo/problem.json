@@ -19,5 +19,8 @@
     "year": "2012",
     "level": "PJ",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

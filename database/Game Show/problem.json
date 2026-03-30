@@ -28,5 +28,10 @@
     "year": "2024",
     "level": "Nível 2",
     "period": "Fase 2, Turno B",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "strings",
+        "força bruta"
+    ]
 }

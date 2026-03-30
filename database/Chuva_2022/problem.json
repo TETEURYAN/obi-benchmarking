@@ -26,5 +26,10 @@
     "year": "2022",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "somas de prefixo",
+        "two pointers"
+    ]
 }

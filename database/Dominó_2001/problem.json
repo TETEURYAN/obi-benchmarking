@@ -20,5 +20,10 @@
     "year": "2001",
     "level": "",
     "period": "",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "caminho euleriano",
+        "busca em profundidade (dfs)"
+    ]
 }

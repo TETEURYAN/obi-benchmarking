@@ -26,5 +26,9 @@
     "year": "2010",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "força bruta"
+    ]
 }

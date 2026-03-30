@@ -23,5 +23,8 @@
     "year": "2019",
     "level": "Nível 1",
     "period": "Fase Local",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

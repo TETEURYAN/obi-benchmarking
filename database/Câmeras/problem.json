@@ -27,5 +27,11 @@
     "year": "2022",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "busca em largura (bfs)",
+        "busca em profundidade (dfs)",
+        "matrizes"
+    ]
 }

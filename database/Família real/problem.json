@@ -19,5 +19,12 @@
     "year": "2015",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "árvores",
+        "arrays",
+        "busca em largura (BFS)",
+        "busca em profundidade (DFS)"
+    ]
 }

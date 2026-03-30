@@ -30,5 +30,11 @@
     "year": "2024",
     "level": "Sênior",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "Grafos",
+        "Union-Find / DSU",
+        "Algoritmo Guloso",
+        "Ordenação"
+    ]
 }

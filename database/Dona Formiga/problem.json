@@ -26,5 +26,10 @@
     "year": "2020",
     "level": "Nível 1",
     "period": "Fase Estadual",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "programação dinâmica",
+        "busca em profundidade"
+    ]
 }

@@ -25,5 +25,9 @@
     "year": "2010",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "union-find"
+    ]
 }

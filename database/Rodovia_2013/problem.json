@@ -30,5 +30,10 @@
     "year": "2013",
     "level": "Nível 1",
     "period": "Fase 1",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "busca em profundidade (DFS)",
+        "busca em largura (BFS)"
+    ]
 }

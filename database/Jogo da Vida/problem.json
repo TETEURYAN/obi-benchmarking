@@ -27,5 +27,10 @@
     "year": "2023",
     "level": "Nível Sênior",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "simulação",
+        "arrays",
+        "força bruta"
+    ]
 }

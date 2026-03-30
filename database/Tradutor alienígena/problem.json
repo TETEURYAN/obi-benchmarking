@@ -25,5 +25,10 @@
     "year": "2010",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "strings",
+        "matemática"
+    ]
 }

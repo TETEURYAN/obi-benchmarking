@@ -19,5 +19,11 @@
     "year": "2011",
     "level": "Nível Júnior",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "busca em profundidade (dfs)",
+        "busca em largura (bfs)",
+        "union-find"
+    ]
 }

@@ -31,5 +31,10 @@
     "year": "2023",
     "level": "Júnior",
     "period": "Fase 3",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "força bruta",
+        "arrays",
+        "matemática"
+    ]
 }

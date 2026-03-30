@@ -26,5 +26,10 @@
     "year": "2011",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "força bruta",
+        "matemática"
+    ]
 }

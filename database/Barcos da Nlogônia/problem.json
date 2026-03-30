@@ -25,5 +25,13 @@
     "year": "2023",
     "level": "Nível Sênior",
     "period": "Fase 2 - Turno A",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "árvores",
+        "árvore geradora máxima",
+        "menor ancestral comum (lca)",
+        "greedy",
+        "union-find"
+    ]
 }

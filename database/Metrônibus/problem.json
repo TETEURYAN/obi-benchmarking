@@ -25,5 +25,11 @@
     "year": "2023",
     "level": "Júnior",
     "period": "Fase 3",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "busca em largura (bfs)",
+        "union-find (dsu)",
+        "algoritmos de caminho mínimo"
+    ]
 }

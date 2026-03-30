@@ -27,5 +27,8 @@
     "year": "2018",
     "level": "Júnior",
     "period": "Fase Nacional",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

@@ -28,5 +28,9 @@
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "geometria",
+        "árvores"
+    ]
 }

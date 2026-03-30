@@ -25,5 +25,8 @@
     "year": "2019",
     "level": "Nível 1",
     "period": "Fase Estadual",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

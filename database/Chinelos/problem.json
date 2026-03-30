@@ -22,5 +22,10 @@
     "year": "2023",
     "level": "Nível Júnior",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "força bruta",
+        "simulação"
+    ]
 }

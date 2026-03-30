@@ -33,5 +33,9 @@
     "year": "2018",
     "level": "Sênior",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "matemática"
+    ]
 }

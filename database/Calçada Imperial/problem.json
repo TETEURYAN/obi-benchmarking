@@ -23,5 +23,10 @@
     "year": "2019",
     "level": "Nível 2",
     "period": "Fase Local",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "força bruta",
+        "arrays"
+    ]
 }

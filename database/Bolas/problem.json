@@ -19,5 +19,10 @@
     "year": "2018",
     "level": "Sênior",
     "period": "Fase Nacional",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "greedy",
+        "matemática"
+    ]
 }

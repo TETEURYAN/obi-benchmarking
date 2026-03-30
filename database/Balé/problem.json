@@ -21,5 +21,10 @@
     "year": "2011",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "arrays",
+        "árvores",
+        "ordenação"
+    ]
 }

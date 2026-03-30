@@ -21,5 +21,11 @@
     "year": "2014",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "árvores",
+        "grafos",
+        "busca em profundidade (dfs)",
+        "matemática"
+    ]
 }

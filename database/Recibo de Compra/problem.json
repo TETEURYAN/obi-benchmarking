@@ -26,5 +26,10 @@
     "year": "2018",
     "level": "Nível 1",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "backtracking",
+        "matemática"
+    ]
 }

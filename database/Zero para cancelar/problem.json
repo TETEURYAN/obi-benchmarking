@@ -19,5 +19,10 @@
     "year": "2021",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "estruturas de dados",
+        "pilha"
+    ]
 }

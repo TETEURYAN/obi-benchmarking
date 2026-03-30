@@ -25,5 +25,11 @@
     "year": "2015",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "Grafos",
+        "Algoritmo de Dijkstra",
+        "Programação Dinâmica",
+        "Busca em Largura"
+    ]
 }

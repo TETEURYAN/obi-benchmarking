@@ -22,5 +22,10 @@
     "year": "2021",
     "level": "Sênior",
     "period": "Fase 3",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "árvores",
+        "programação dinâmica"
+    ]
 }

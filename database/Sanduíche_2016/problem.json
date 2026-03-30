@@ -26,5 +26,10 @@
     "year": "2016",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "arrays",
+        "prefix sums",
+        "two pointers"
+    ]
 }

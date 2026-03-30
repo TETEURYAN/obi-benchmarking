@@ -23,5 +23,10 @@
     "year": "2021",
     "level": "Nível 1",
     "period": "Fase 3",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "Grafos",
+        "Busca em Largura (BFS)",
+        "Busca em Profundidade (DFS)"
+    ]
 }

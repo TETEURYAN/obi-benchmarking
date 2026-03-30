@@ -21,5 +21,10 @@
     "year": "2014",
     "level": "Júnior",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "arrays",
+        "matemática"
+    ]
 }

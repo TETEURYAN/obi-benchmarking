@@ -21,5 +21,8 @@
     "year": "2020",
     "level": "Nível Júnior",
     "period": "Fase Nacional",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

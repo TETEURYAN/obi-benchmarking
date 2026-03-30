@@ -28,5 +28,12 @@
     "year": "2019",
     "level": "Nível 2",
     "period": "Fase Local",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "somas de prefixo",
+        "mapas / tabelas hash",
+        "dois ponteiros",
+        "arrays",
+        "força bruta"
+    ]
 }

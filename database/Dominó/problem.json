@@ -19,5 +19,9 @@
     "year": "2019",
     "level": "PJ",
     "period": "Fase Local",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática",
+        "iniciante"
+    ]
 }

@@ -23,5 +23,8 @@
     "year": "2012",
     "level": "Júnior",
     "period": "Fase 1",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

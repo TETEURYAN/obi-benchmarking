@@ -21,5 +21,11 @@
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "Grafos",
+        "Busca em Largura (BFS)",
+        "Busca em Profundidade (DFS)",
+        "Ordenação"
+    ]
 }

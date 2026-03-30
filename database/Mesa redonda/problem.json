@@ -21,5 +21,8 @@
     "year": "2019",
     "level": "P2",
     "period": "Fase Nacional",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "matemática"
+    ]
 }

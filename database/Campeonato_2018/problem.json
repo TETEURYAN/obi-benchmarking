@@ -34,5 +34,10 @@
     "year": "2018",
     "level": "Nível 1",
     "period": "Fase Estadual",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "matemática",
+        "força bruta"
+    ]
 }

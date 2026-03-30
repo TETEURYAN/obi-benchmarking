@@ -26,5 +26,10 @@
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "programação dinâmica",
+        "greedy"
+    ]
 }

@@ -33,5 +33,10 @@
     "year": "2017",
     "level": "Universitária",
     "period": "Fase Nacional",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "strings",
+        "hashing",
+        "força bruta"
+    ]
 }

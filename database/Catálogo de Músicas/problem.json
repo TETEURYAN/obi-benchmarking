@@ -25,5 +25,10 @@
     "year": "2013",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "strings",
+        "árvores",
+        "programação dinâmica"
+    ]
 }

@@ -24,5 +24,11 @@
     "year": "2022",
     "level": "Nível 2",
     "period": "Fase 3",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "árvores",
+        "busca binária",
+        "greedy"
+    ]
 }

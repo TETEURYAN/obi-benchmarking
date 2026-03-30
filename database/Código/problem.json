@@ -27,5 +27,10 @@
     "year": "2015",
     "level": "Júnior",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "força bruta",
+        "strings"
+    ]
 }

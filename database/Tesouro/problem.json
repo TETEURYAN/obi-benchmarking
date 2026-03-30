@@ -34,5 +34,10 @@
     "year": "2023",
     "level": "Júnior",
     "period": "Fase 3",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "simulação",
+        "arrays"
+    ]
 }

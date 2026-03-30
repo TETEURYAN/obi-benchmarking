@@ -26,5 +26,10 @@
     "year": "2018",
     "level": "Nível 2",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "geometria",
+        "arrays"
+    ]
 }

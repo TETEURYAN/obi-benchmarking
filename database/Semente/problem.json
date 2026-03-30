@@ -21,5 +21,11 @@
     "year": "2014",
     "level": "Nível 1",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "greedy",
+        "busca binária",
+        "matemática"
+    ]
 }

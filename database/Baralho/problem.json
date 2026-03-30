@@ -26,5 +26,10 @@
     "year": "2021",
     "level": "Sênior",
     "period": "Fase 1",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "strings",
+        "arrays",
+        "hash table"
+    ]
 }

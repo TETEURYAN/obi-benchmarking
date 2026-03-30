@@ -21,5 +21,11 @@
     "year": "2018",
     "level": "Nível Sênior",
     "period": "Fase Estadual",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "Grafos",
+        "Backtracking",
+        "Busca em Largura",
+        "Força Bruta"
+    ]
 }

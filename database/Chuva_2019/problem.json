@@ -27,5 +27,11 @@
     "year": "2019",
     "level": "Nível 2",
     "period": "Fase Local",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "Simulação",
+        "Grafos",
+        "Busca em Largura (BFS)",
+        "Busca em Profundidade (DFS)"
+    ]
 }

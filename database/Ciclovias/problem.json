@@ -29,5 +29,10 @@
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 2",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "programação dinâmica",
+        "ordenação"
+    ]
 }

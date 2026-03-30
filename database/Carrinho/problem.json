@@ -15,5 +15,11 @@
     "year": "2017",
     "level": "Universitária",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "programação dinâmica",
+        "grafos",
+        "greedy",
+        "matemática"
+    ]
 }

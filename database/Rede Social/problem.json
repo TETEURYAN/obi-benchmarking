@@ -26,5 +26,11 @@
     "year": "2020",
     "level": "Nível 1",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "ordenação",
+        "arrays",
+        "busca binária",
+        "greedy"
+    ]
 }

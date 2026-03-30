@@ -27,5 +27,10 @@
     "year": "2018",
     "level": "Nível Sênior",
     "period": "Fase Estadual",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "greedy",
+        "ordenação"
+    ]
 }

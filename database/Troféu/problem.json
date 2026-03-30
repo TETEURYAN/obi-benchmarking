@@ -23,5 +23,10 @@
     "year": "2022",
     "level": "Júnior",
     "period": "Fase 2",
-    "difficulty": "Fácil"
+    "difficulty": "Fácil",
+    "topics": [
+        "arrays",
+        "força bruta",
+        "ordenação"
+    ]
 }

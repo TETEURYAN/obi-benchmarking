@@ -19,5 +19,11 @@
     "year": "2017",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "arrays",
+        "busca em largura",
+        "busca em profundidade"
+    ]
 }

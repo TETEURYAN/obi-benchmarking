@@ -22,5 +22,10 @@
     "year": "2015",
     "level": "Nível 1",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "greedy",
+        "ordenação",
+        "arrays"
+    ]
 }

@@ -21,5 +21,11 @@
     "year": "2014",
     "level": "Júnior",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "busca em profundidade",
+        "arrays",
+        "recursão"
+    ]
 }

@@ -19,5 +19,10 @@
     "year": "2017",
     "level": "Nível 1",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "grafos",
+        "árvores",
+        "busca em profundidade"
+    ]
 }

@@ -28,5 +28,11 @@
     "year": "2020",
     "level": "Nível 2",
     "period": "Fase Nacional",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "backtracking",
+        "força bruta",
+        "grafos",
+        "arrays"
+    ]
 }

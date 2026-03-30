@@ -19,5 +19,10 @@
     "year": "2013",
     "level": "Nível 1",
     "period": "Fase 1",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "arrays",
+        "grafos",
+        "simulação"
+    ]
 }

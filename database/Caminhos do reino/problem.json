@@ -25,5 +25,11 @@
     "year": "2016",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Difícil"
+    "difficulty": "Difícil",
+    "topics": [
+        "grafos",
+        "árvores",
+        "lowest common ancestor (lca)",
+        "programação dinâmica"
+    ]
 }

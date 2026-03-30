@@ -30,5 +30,10 @@
     "year": "2024",
     "level": "Nível 2",
     "period": "Fase 3",
-    "difficulty": "Médio"
+    "difficulty": "Médio",
+    "topics": [
+        "greedy",
+        "matemática",
+        "arrays"
+    ]
 }
