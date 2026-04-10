@@ -42,7 +42,7 @@ def main():
         for question_path in questions_path:
             problems.append((question_path.name, load_problem(Path(question_path / "problem.json"))))
         
-        print_partition("FIM DA CRIANÇÃO DATABASE")
+        print_partition("FIM DA CRIAÇÃO DATABASE")
     except Exception as e:    
         print("Erro na estrutura database. Verifique o diretorio!")
         print("Erro: ", e)
