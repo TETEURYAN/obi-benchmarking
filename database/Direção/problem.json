@@ -19,16 +19,13 @@
         }
     ],
     "imgs": [],
-    "rating": [
-        100
-    ],
+    "rating": [],
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
-        "strings",
-        "matemática",
-        "força bruta"
-    ]
+        "ad-hoc",
+        "matemática"
+    ],
+    "difficulty": "Fácil"
 }

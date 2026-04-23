@@ -24,12 +24,12 @@
         30
     ],
     "year": "2022",
-    "level": "Nível 2",
+    "level": "Sênior",
     "period": "Fase 1",
-    "difficulty": "Médio",
     "topics": [
-        "arrays",
-        "somas de prefixo",
-        "two pointers"
-    ]
+        "prefix sum",
+        "two pointers",
+        "hashing"
+    ],
+    "difficulty": "Difícil"
 }

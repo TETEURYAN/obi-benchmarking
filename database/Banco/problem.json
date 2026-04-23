@@ -3,7 +3,7 @@
     "statement": "A legislação em vigor obriga os bancos a iniciarem o atendimento a um cliente em no máximo 20 minutos após a entrada do cliente na fila única da agência bancária. A fila é única, assim um caixa livre solicita ao primeiro cliente da fila que venha ao seu guichê para ser atendido. (Vamos ignorar aqui o problema dos clientes prioritários, idosos, gestantes, portadores de necessidades especiais, etc.) Estamos supondo também que nenhum caixa atende dois clientes ao mesmo tempo.\n\nSeu programa receberá o número de caixas ativas na agência, o número de clientes e, para cada cliente, duas informações, a saber, o momento de entrada do cliente na fila, e a duração do atendimento daquele cliente.\n\nInicialmente todos os caixas estão vazios, já que a agência acabou de abrir.\n\nSeu problema é determinar o número de clientes que esperarão mais de 20 minutos para ter seu atendimento iniciado.",
     "input": "A primeira linha da entrada contém dois inteiros separados por um espaço em branco. O primeiro, C, é o número de caixas ativas na agência bancária. O segundo, N, o número de clientes que procurarão atendimento na agência naquele dia.\n\nAs próximas N linhas terão cada uma informações sobre um cliente, consistindo de dois inteiros, T e D, separados por um espaço em branco. O inteiro T fornece o momento em que o cliente entra na fila, em minutos, a partir do instante de abertura da agência. O inteiro D fornece, em minutos, o tempo necessário para atender o cliente.\n\nAs linhas estão ordenadas por entrada dos clientes na fila.",
     "output": "A saída deverá conter apenas uma linha, contendo um único inteiro, o número de clientes cujo atendimento será iniciado mais do que 20 minutos após sua entrada na fila.",
-    "constraints": "• 1 < C < 10\n• 1 ≤ N ≤ 1000\n• 0 < T < 300\n• 1 < D < 10",
+    "constraints": "• 1 ≤ C ≤ 10\n• 1 ≤ N ≤ 1000\n• 0 ≤ T ≤ 300\n• 1 ≤ D ≤ 10",
     "examples": [
         {
             "input": "1 5\n0 10\n0 10\n1 10\n2 10\n30 10",
@@ -17,13 +17,11 @@
     "imgs": [],
     "rating": [],
     "year": "2012",
-    "level": "Nível 2",
+    "level": "2",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
         "simulação",
-        "greedy",
-        "fila de prioridade",
-        "ordenação"
-    ]
+        "filas de prioridade"
+    ],
+    "difficulty": "Médio"
 }

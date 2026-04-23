@@ -1,9 +1,9 @@
 {
     "title": "Dança de Formatura",
-    "statement": "A escola de educação básica do seu bairro está organizando uma festa de formatura para os graduandos deste ano. Para isso, eles pediram que a OBI (Organização de Brincadeiras Infantis) desenvolva uma dança que os alunos possam apresentar aos pais durante a formatura.\n\nA dança da OBI é dançada em uma pista quadriculada com N linhas e M colunas, sempre com exatamente um aluno em cada quadrado do pista. Os alunos são numerados de 1 a N × M de acordo com a sua posição inicial na pista em ordem crescente de linha e coluna, nesta ordem, a partir do quadrado (1, 1). O exemplo abaixo, para N = 4 e M = 3, indica o número do aluno em cada quadrado da pista no início da dança; o aluno de número 7, por exemplo, inicia no quadrado (3, 1).\n\nA cada passo da dança, o professor dá aos alunos uma das duas ordens abaixo:\n\n• \"L a b\" (onde a e b são inteiros distintos), ordenando que os alunos da a-ésima linha troquem de linha com os alunos da b-ésima linha, mantendo a coluna de cada um – ou seja, o aluno na célula (a, 1) troca com o aluno na célula (b, 1), (a, 2) troca com (b, 2) e assim por diante.\n\n• \"C a b\" (onde a e b são inteiros distintos), ordenando que os alunos da a-ésima coluna troquem de coluna com os alunos da b-ésima coluna, mantendo a linha de cada um – ou seja, o aluno na célula (1, a) troca com o aluno na célula (1, b), (2, a) troca com (2, b) e assim por diante.\n\nA figura abaixo ilustra o progresso da dança para N = 4 e M = 3 com os três primeiros passos sendo \"C 1 3\", \"L 1 4\" e \"C 3 2\", nesta ordem.\n\nA escola gostou muito da dança inventada pela OBI e deseja usá-la na formatura. Porém, os pais não querem perder seus filhos de vista e pediram sua ajuda para saber quais serão as posições de seus filhos ao término da dança.\n\nSua tarefa é: dadas as dimensões N e M da pista de dança, a quantidade P de passos da dança e a ordem dada pelo professor a cada passo, determine qual aluno estará em cada quadrado da pista ao fim da dança.",
-    "input": "A primeira linha da entrada é composta por três inteiros N, M e P indicando, respectivamente, o número de linhas da pista de dança, o número de colunas da pista de dança, e o número de passos da dança.\n\nAs próximas P linhas descrevem as ordens dadas pelo professor. A i-ésima dessas linhas contém uma letra maiúscula Oi, que pode ser 'L' ou 'C', seguida de dois inteiros distintos Ai e Bi.\n\n• Se Oi = 'L', o professor ordenou a troca das linhas Ai e Bi.\n\n• Se Oi = 'C', o professor ordenou a troca das colunas Ai e Bi.",
+    "statement": "A escola de educação básica do seu bairro está organizando uma festa de formatura para os graduandos deste ano. Para isso, eles pediram que a OBI (Organização de Brincadeiras Infantis) desenvolva uma dança que os alunos possam apresentar aos pais durante a formatura.\n\nA dança da OBI é dançada em uma pista quadriculada com N linhas e M colunas, sempre com exatamente um aluno em cada quadrado do pista. Os alunos são numerados de 1 a N × M de acordo com a sua posição inicial na pista em ordem crescente de linha e coluna, nesta ordem, a partir do quadrado (1, 1). O exemplo abaixo, para N = 4 e M = 3, indica o número do aluno em cada quadrado da pista no início da dança; o aluno de número 7, por exemplo, inicia no quadrado (3, 1).\n[1.png]\nA cada passo da dança, o professor dá aos alunos uma das duas ordens abaixo:\n• “L a b” (onde a e b são inteiros distintos), ordenando que os alunos da a-ésima linha troquem de linha com os alunos da b-ésima linha, mantendo a coluna de cada um – ou seja, o aluno na célula (a, 1) troca com o aluno na célula (b, 1), (a, 2) troca com (b, 2) e assim por diante.\n• “C a b” (onde a e b são inteiros distintos), ordenando que os alunos da a-ésima coluna troquem de coluna com os alunos da b-ésima coluna, mantendo a linha de cada um – ou seja, o aluno na célula (1, a) troca com o aluno na célula (1, b), (2, a) troca com (2, b) e assim por diante.\n\nA figura abaixo ilustra o progresso da dança para N = 4 e M = 3 com os três primeiros passos sendo “C 1 3”, “L 1 4” e “C 3 2”, nesta ordem.\n[2.png]\nA escola gostou muito da dança inventada pela OBI e deseja usá-la na formatura. Porém, os pais não querem perder seus filhos de vista e pediram sua ajuda para saber quais serão as posições de seus filhos ao término da dança.\n\nSua tarefa é: dadas as dimensões N e M da pista de dança, a quantidade P de passos da dança e a ordem dada pelo professor a cada passo, determine qual aluno estará em cada quadrado da pista ao fim da dança.",
+    "input": "A primeira linha da entrada é composta por três inteiros N, M e P indicando, respectivamente, o número de linhas da pista de dança, o número de colunas da pista de dança, e o número de passos da dança.\nAs próximas P linhas descrevem as ordens dadas pelo professor. A i-ésima dessas linhas contém uma letra maiúscula Oi, que pode ser ‘L’ ou ‘C’, seguida de dois inteiros distintos Ai e Bi.\n• Se Oi = ‘L’, o professor ordenou a troca das linhas Ai e Bi.\n• Se Oi = ‘C’, o professor ordenou a troca das colunas Ai e Bi.",
     "output": "Seu programa deverá imprimir N linhas, cada uma contendo M inteiros. O j-ésimo inteiro da i-ésima linha deve ser o número do aluno que terminará a dança na i-ésima linha e j-ésima coluna da pista.",
-    "constraints": "• 1 ≤ N ≤ 1 000 000\n• 1 ≤ M ≤ 1 000 000\n• 1 ≤ N × M ≤ 1 000 000\n• 1 ≤ P ≤ 500 000\n• Oi = ‘L' ou Oi = 'C'\n• Se Oi = 'L', 1 ≤ Ai, Bi ≤ N\n• Se Oi = 'C', 1 ≤ Ai, Bi ≤ M\n• Ai ≠ Bi\n\nAtenção: Observe que não é possível declarar 1 000 000 × 1 000 000 inteiros (com matriz, vetor etc.) sem estourar o limite de memória (isto causaria erros no programa pois tentaria usar milhares de GB de memória). Preste atenção ao limite N × M ≤ 1 000 000, que garante que a pista de dança sempre terá no máximo 1 000 000 alunos.",
+    "constraints": "• 1 ≤ N ≤ 1 000 000\n• 1 ≤ M ≤ 1 000 000\n• 1 < N × M ≤ 1 000 000\n• 1 ≤ P ≤ 500 000\n• Oi = ‘L’ ou Oi = ‘C’\n• Se Oi = ‘L’, 1 ≤ Ai, Bi ≤ N\n• Se Oi = ‘C’, 1 ≤ Ai, Bi ≤ M\n• Ai ≠ Bi\n\nAtenção: Observe que não é possível declarar 1 000 000 × 1 000 000 inteiros (com matriz, vetor etc.) sem estourar o limite de memória (isto causaria erros no programa pois tentaria usar milhares de GB de memória). Preste atenção ao limite N × M ≤ 1 000 000, que garante que a pista de dança sempre terá no máximo 1 000 000 alunos.",
     "examples": [
         {
             "input": "4 3 3\nC 1 3\nL 1 4\nC 3 2",
@@ -18,7 +18,7 @@
             "output": "8 7\n4 3\n10 9\n6 5\n2 1"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png","2.png"],
     "rating": [
         0,
         20,
@@ -29,10 +29,11 @@
     "year": "2024",
     "level": "Sênior",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
         "arrays",
+        "permutações",
         "simulação",
-        "matemática"
-    ]
+        "implementação"
+    ],
+    "difficulty": "Médio"
 }

@@ -1,31 +1,26 @@
 {
     "title": "Supermercado",
-    "statement": "Maria está participando de um programa de intercâmbio no reino da Nlogônia. Ela está gostando muito da experiência, e decidiu fazer um churrasco para suas novas amigas da escola. Como não tem muito dinheiro, Maria vai fazer uma pesquisa para comprar carne no supermercado mais barato que encontrar.\n\nNo entanto ela está um pouco confusa para saber qual supermercado tem o menor preço. O dinheiro na Nlogônia é o Bit, abreviado por B$, mas não é esse o problema. O problema é que o costume na Nlogônia é informar o preço de uma maneira diferente do que Maria está acostumada. Os preços são anunciados como \"X Bits por Y gramas do produto\".\n\nPor exemplo o preço de um dado produto é anunciado como sendo B$ 24,00 por 250 gramas em um supermercado, B$ 16,00 por 100 gramas em outro supermercado, B$ 19,00 por 120 gramas em outro supermercado, e assim por diante.\n\nVocê pode ajudar Maria?\n\nDados os preços anunciados pelos supermercados no bairro em que Maria mora, determine o menor valor que Maria deve gastar para comprar 1 kilograma (1000 gramas) de carne.",
-    "input": "A primeira linha contém um número inteiro N, o número de supermercados próximos à casa de Maria. Cada uma das N linhas seguintes indica o preço da carne em um supermercado e contém um número real P e um número inteiro G, indicando que G gramas de carne custam P Bits.",
-    "output": "Seu programa deve produzir uma única linha, com apenas um número real, o menor preço para comprar 1 kilograma de carne. O resultado deve ser escrito com exatamente dois dígitos após o ponto decimal.",
-    "constraints": "• 1 ≤ N ≤ 100\n• 0 < P < 1000.00, representado com dois dígitos após o ponto decimal.\n• 1 < G < 1000",
+    "statement": "A rede de supermercados BemBom, da cidade de Planalto, decidiu reformular o armazenamento de seus estoques. No sistema atual, cada uma das lojas da rede possui espaço para armazenar um pequeno estoque, sendo freqüentemente necessário transportar mercadorias de uma loja para outra. Para racionalizar o transporte e aumentar a capacidade de estoque, a direção da rede BemBom decidiu instalar um depósito central. De forma a diminuir os custos com transporte, ficou definido que o novo depósito deve ser localizado em um quarteirão que minimize a soma das distâncias dele até todas as lojas da rede.\n\nPor ser uma cidade planejada, Planalto possui uma característica muito peculiar. Todas as suas ruas são orientadas na direção leste-oeste ou norte-sul, e todos os quarteirões são do mesmo tamanho. Veja uma parte do mapa de Planalto na figura abaixo. Os quarteirões em Planalto são identificados pelo número de quadras, em cada direção, que os separam da localização da prefeitura (0,0). Localizações a leste e a norte da prefeitura são identificadas por coordenadas positivas, e localizações a oeste e a sul por coordenadas negativas.\n\n1. Tarefa\nA sua tarefa é, dadas as coordenadas dos quarteirões onde estão localizados todos os supermercados da rede, determinar o quarteirão onde deve ser instalado o novo depósito. A localização deste depósito deve ser tal que a soma das distâncias entre o depósito e as lojas, em número de quarteirões em ambas as direções, seja a menor possível. A distância entre dois quarteirões é dada pela distância entre eles na direção leste-oeste mais a distância na direção norte-sul. Por exemplo, a distância entre os quarteirões (2,-1) e (4, 3) é 2 + 4 = 6.",
+    "input": "A entrada é composta de vários conjuntos de teste. A primeira linha de cada conjunto de teste contém um número inteiro S que é o número de supermercados da rede. A seguir, são dadas S linhas, cada uma contendo dois números inteiros X e Y, representando as coordenadas do quarteirão onde se situa um dos supermercados. X representa a coordenada na direção leste-oeste e Y represetna a coordenada na direção norte-sul. O final da entrada é dado por um conjunto de teste com S = 0.",
+    "output": "Para cada conjunto de teste, o seu programa deve escrever três linhas na saída. A primeira linha deve conter um identificador do conjunto de teste, no formato “Teste n”, onde n é numerado seqüencialmente a partir de 1. A segunda linha deve conter as coordenadas X e Y do quarteirão onde deve ser instalado o novo depósito, separadas por um espaço em branco. Se mais de um quarteirão puder ser escolhido como localização do depósito, seu programa pode imprimir qualquer um deles. A terceira linha deve ser deixada em branco. O formato do exemplo de saída abaixo deve ser seguido rigorosamente.",
+    "constraints": "0 ≤ S ≤ 1000 (S = 0 apenas para indicar o final da entrada)\n-1000 ≤ X ≤ 1000\n-1000 ≤ Y ≤ 1000",
     "examples": [
         {
-            "input": "3\n3.0 100\n2.0 100\n5.0 100",
-            "output": "20.00"
-        },
-        {
-            "input": "4\n100.00 500\n190.00 1000\n200.00 900\n110.00 550",
-            "output": "190.00"
-        },
-        {
-            "input": "5\n46.50 794\n25.72 130\n66.00 800\n22.45 110\n38.99 453",
-            "output": "58.56"
+            "input": "4\n1 2\n-3 -3\n4 -1\n-5 0\n5\n1 3\n7 13\n25 13\n15 14\n25 1\n0",
+            "output": "Teste 1\n-2 0\n\nTeste 2\n15 13"
         }
     ],
-    "imgs": [],
-    "rating": [],
-    "year": "2019",
-    "level": "Programação • Nível 2",
-    "period": "Fase Estadual",
-    "difficulty": "Fácil",
+    "imgs": ["1.png"],
+    "rating": [
+        100
+    ],
+    "year": "2003",
+    "level": "Programação",
+    "period": "Fase Única",
     "topics": [
-        "matemática",
-        "força bruta"
-    ]
+        "geometria",
+        "mediana",
+        "ordenação"
+    ],
+    "difficulty": "Médio"
 }

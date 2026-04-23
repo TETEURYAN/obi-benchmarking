@@ -1,8 +1,8 @@
 {
     "title": "Cadeado",
-    "statement": "Após uma longa viagem, Fábio acabou de chegar no hotel da Semana Olímpica e quer descansar. Ele pretende tomar um banho e então vestir o pijama que está dentro de sua mala, trancada com um cadeado protegido por uma senha numérica de N dígitos.\n\nO cadeado da mala possui N discos, um para cada dígito da senha. Cada disco possui os dígitos de 0 a 9 ordenados em sentido horário, com exatamente um desses dígitos sendo mostrado no visor do cadeado. Para trocar um dígito mostrado no visor, Fábio pode girar o disco em sentido horário ou anti-horário.\n\nPor exemplo, considere um disco que inicialmente mostra o dígito 9. Se girarmos esse disco em uma posição no sentido horário, ele mostrará o dígito 8. Por outro lado, se girarmos esse disco em duas posições no sentido anti-horário, ele mostrará o dígito 1. Conforme ilustrado nas figuras a seguir:\n\nCada vez que um disco é girado em uma posição em qualquer sentido, ele faz um barulho de clique.\n\nPara abrir o cadeado, os dígitos mostrados pelos N discos devem corresponder à senha escolhida por Fábio, na mesma ordem. Por exemplo, se a senha for 081 e inicialmente os dígitos mostrados no cadeado forem 099, Fábio pode girar o segundo disco em uma posição no sentido horário, obtendo 089, e então girar o terceiro disco duas posições no sentido anti-horário para obter 081 e abrir o cadeado. No total, houveram 3 barulhos de cliques. Podemos verificar que é impossível mudar os dígitos mostrados de 099 para 081 com 2 ou menos cliques.\n\nEstá muito tarde e o colega de quarto de Fábio já está dormindo. Por isso, Fábio quer evitar fazer barulho e deseja abrir o cadeado com o mínimo de cliques possível. Porém, o computador dele também está dentro da mala, e por isso ele pediu a sua ajuda.\n\nDada a quantidade N de dígitos na senha do cadeado, o dígito mostrado inicialmente por cada disco, e os dígitos da senha do cadeado, determine o número mínimo de cliques necessários para Fábio abrir o cadeado.",
-    "input": "A primeira linha da entrada contém um único inteiro N, a quantidade de discos no cadeado (que corresponde ao número de dígitos da senha).\n\nCada uma das próximas N linhas contém dois inteiros ci e si, o dígito inicialmente mostrado no i-ésimo disco do cadeado e o i-ésimo dígito da senha, respectivamente.",
-    "output": "Seu programa deverá produzir uma única linha contendo somente um inteiro, a quantidade mínima de cliques necessária para Fábio destravar o cadeado.",
+    "statement": "Após uma longa viagem, Fábio acabou de chegar no hotel da Semana Olímpica e quer descansar.\nEle pretende tomar um banho e então vestir o pijama que está dentro da sua mala, trancada com\num cadeado protegido por uma senha numérica de N dígitos.\n\nO cadeado da mala possui N discos, um para cada dígito da senha. Cada disco possui os dígitos de\n0 a 9 ordenados em sentido horário, com exatamente um desses dígitos sendo mostrado no visor do\ncadeado. Para trocar um dígito mostrado no visor, Fábio pode girar o disco em sentido horário ou\nanti-horário.\n\nPor exemplo, considere um disco que inicialmente mostra o dígito 9. Se girarmos esse disco em uma\nposição no sentido horário, ele mostrará o dígito 8. Por outro lado, se girarmos esse disco em duas\nposições no sentido anti-horário, ele mostrará o dígito 1. Conforme ilustrado nas figuras a seguir:\n[1.png]\nCada vez que um disco é girado em uma posição em qualquer sentido, ele faz um barulho de clique.\n\nPara abrir o cadeado, os dígitos mostrados pelos N discos devem corresponder à senha escolhida\npor Fábio, na mesma ordem. Por exemplo, se a senha for 081 e inicialmente os dígitos mostrados no\ncadeado forem 099, Fábio pode girar o segundo disco em uma posição no sentido horário, obtendo\n089, e então girar o terceiro disco duas posições no sentido anti-horário para obter 081 e abrir o\ncadeado. No total, houveram 3 barulhos de cliques. Podemos verificar que é impossível mudar os\ndígitos mostrados de 099 para 081 com 2 ou menos cliques.\n\nEstá muito tarde e o colega de quarto de Fábio já está dormindo. Por isso, Fábio quer evitar fazer\nbarulho e deseja abrir o cadeado com o mínimo de cliques possível. Porém, o computador dele\ntambém está dentro da mala, e por isso ele pediu a sua ajuda.\n\nDada a quantidade N de dígitos na senha do cadeado, o dígito mostrado inicialmente por cada\ndisco, e os dígitos da senha do cadeado, determine o número mínimo de cliques necessários para\nFábio abrir o cadeado.",
+    "input": "A primeira linha da entrada contém um único inteiro N, a quantidade de discos no cadeado (que\ncorresponde ao número de dígitos da senha).\nCada uma das próximas N linhas contém dois inteiros ci e si, o dígito inicialmente mostrado no\ni-ésimo disco do cadeado e o i-ésimo dígito da senha, respectivamente.",
+    "output": "Seu programa deverá produzir uma única linha contendo somente um inteiro, a quantidade mínima\nde cliques necessária para Fábio destravar o cadeado.",
     "constraints": "• 1 ≤ N ≤ 100\n• 0 ≤ ci ≤ 9 para 1 ≤ i ≤ N\n• 0 ≤ si ≤ 9 para 1 ≤ i ≤ N",
     "examples": [
         {
@@ -22,7 +22,7 @@
             "output": "25"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
         0,
         20,
@@ -33,9 +33,10 @@
     "year": "2024",
     "level": "PJ",
     "period": "Fase 3",
-    "difficulty": "Fácil",
     "topics": [
-        "matemática",
-        "greedy"
-    ]
+        "simulação",
+        "aritmética modular",
+        "guloso"
+    ],
+    "difficulty": "Fácil"
 }

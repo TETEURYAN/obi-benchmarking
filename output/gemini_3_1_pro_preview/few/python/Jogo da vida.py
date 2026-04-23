@@ -4,29 +4,29 @@ input_data = sys.stdin.read().split()
 if not input_data:
     exit()
 
-n = int(input_data[0])
-q = int(input_data[1])
+N = int(input_data[0])
+Q = int(input_data[1])
 
-grid = [[int(c) for c in s] for s in input_data[2:2+n]]
+grid = [[int(c) for c in row] for row in input_data[2:2+N]]
 
-for _ in range(q):
-    new_grid = [[0] * n for _ in range(n)]
-    for r in range(n):
-        for c in range(n):
-            alive_neighbors = 0
+for _ in range(Q):
+    new_grid = [[0] * N for _ in range(N)]
+    for r in range(N):
+        for c in range(N):
+            live_neighbors = 0
             for dr in (-1, 0, 1):
                 for dc in (-1, 0, 1):
                     if dr == 0 and dc == 0:
                         continue
                     nr, nc = r + dr, c + dc
-                    if 0 <= nr < n and 0 <= nc < n:
-                        alive_neighbors += grid[nr][nc]
+                    if 0 <= nr < N and 0 <= nc < N:
+                        live_neighbors += grid[nr][nc]
             
             if grid[r][c] == 1:
-                if alive_neighbors == 2 or alive_neighbors == 3:
+                if live_neighbors == 2 or live_neighbors == 3:
                     new_grid[r][c] = 1
             else:
-                if alive_neighbors == 3:
+                if live_neighbors == 3:
                     new_grid[r][c] = 1
     grid = new_grid
 

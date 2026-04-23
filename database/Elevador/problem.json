@@ -1,36 +1,31 @@
 {
     "title": "Elevador",
-    "statement": "Uma fábrica instalou um elevador composto de duas cabines ligadas por uma roldana, como na figura. Quando uma cabine sobe, a outra desce. No primeiro andar da fábrica existem algumas caixas de pesos diversos e precisamos levar todas as caixas para o segundo andar, usando o elevador. Apenas uma caixa pode ser colocada por vez dentro de uma cabine. Além disso, existe uma restrição de segurança importante: durante uma viagem do elevador, a diferença de peso entre as cabines pode ser no máximo de 8 unidades. De forma mais rigorosa, |P – Q| ≤ 8, onde P é o peso da cabine mais pesada e Q, o peso da cabine mais leve. O gerente da fábrica não está preocupado com o número de viagens que o elevador vai fazer. Ele apenas precisa saber se é possível ou não levar todas as caixas para o segundo andar. No exemplo da figura, podemos levar todas as três caixas usando a seguinte sequência de seis viagens do elevador:\n\n1. Sobe a caixa de peso 4, desce a outra cabine vazia; (diferença de 4)\n2. Sobe a caixa de peso 10, desce a caixa de peso 4; (diferença de 6)\n3. Sobe a caixa de peso 15, desce a caixa de peso 10; (diferença de 5)\n4. Sobe a caixa de peso 4, desce a outra cabine vazia; (diferença de 4)\n5. Sobe a caixa de peso 10, desce a caixa de peso 4; (diferença de 6)\n6. Sobe a caixa de peso 4, desce a outra cabine vazia. (diferença de 4)\n\nDados os pesos de N caixas no primeiro andar, seu programa deve dizer se é possível ou não levar todas as N caixas para o segundo andar.",
-    "input": "A primeira linha da entrada contém um inteiro N indicando o número de caixas. A segunda linha da entrada contém N inteiros representando os pesos das caixas.",
-    "output": "Imprima uma linha na saída. A linha deve conter o caracter S caso seja possível, ou N caso não seja possível levar todas as caixas até o segundo andar da fábrica.",
-    "constraints": "• 1 ≤ N ≤ 10⁴\n• O peso das caixas está entre 1 e 10⁵, inclusive.",
+    "statement": "A Subindo Bem Confortavelmente (SBC) é uma empresa tradicional, com mais de 50 anos de experiência na fabricação de elevadores. Todos os projetos da SBC seguem as mais estritas normas de segurança, mas infelizmente uma série de acidentes com seus elevadores manchou a reputação da empresa.\nAo estudar os acidentes, os engenheiros da companhia concluíram que, em vários casos, o acidente foi causado pelo excesso de passageiros no elevador. Por isso, a SBC decidiu fiscalizar com mais rigor o uso de seus elevadores: foi instalado um sensor em cada porta que detecta a quantidade de pessoas que saem e entram em cada andar do elevador.\nA SBC tem os registros do sensor de todo um dia de funcionamento do elevador (que sempre começa vazio). Eles sabem que as pessoas são educadas e sempre deixam todos os passageiros que irão sair em um andar saírem antes de outros passageiros entrarem no elevador, mas ainda assim eles têm tido dificuldade em decidir se a capacidade máxima do elevador foi excedida ou não.\n\nTarefa\n\nEscreva um programa que, dada uma sequência de leituras do sensor e a capacidade máxima do elevador, determina se a capacidade máxima do elevador foi excedida em algum momento.",
+    "input": "A primeira linha da entrada contém dois inteiros N e C, indicando o número de leituras realizadas pelo sensor e a capacidade máxima do elevador, respectivamente (1 ≤ N ≤ 1000 e 1 ≤ C ≤ 1000). As N linhas seguintes contêm, cada uma, uma leitura do sensor. Cada uma dessas linhas contém dois inteiros S e E, indicando quantas pessoas saíram e quantas pessoas entraram naquele andar, respectivamente (0 ≤ S ≤ 1000 e 0 ≤ E ≤ 1000).",
+    "output": "Seu programa deve imprimir uma única linha contendo o caractere 'S', caso a capacidade do elevador tenha sido excedida em algum momento, ou o caractere 'N' caso contrário.",
+    "constraints": "",
     "examples": [
         {
-            "input": "3\n15 4 10",
+            "input": "5 10\n0 5\n2 7\n3 3\n5 2\n7 0",
+            "output": "N"
+        },
+        {
+            "input": "5 10\n0 3\n0 5\n0 2\n3 4\n6 4",
             "output": "S"
         },
         {
-            "input": "8\n25 2 6 15 40 35 35 20",
-            "output": "N"
-        },
-        {
-            "input": "4\n14 10 23 20",
-            "output": "N"
-        },
-        {
-            "input": "1\n8",
+            "input": "6 4\n0 5\n3 5\n4 5\n1 0\n1 1\n1 1",
             "output": "S"
         }
     ],
     "imgs": [],
     "rating": [],
-    "year": "2018",
-    "level": "Nível Sênior",
-    "period": "Fase Estadual",
-    "difficulty": "Fácil",
+    "year": "2010",
+    "level": "Nível 2",
+    "period": "Fase 1",
     "topics": [
-        "arrays",
-        "greedy",
-        "ordenação"
-    ]
+        "simulação",
+        "ad hoc"
+    ],
+    "difficulty": "Fácil"
 }

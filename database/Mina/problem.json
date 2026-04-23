@@ -1,9 +1,9 @@
 {
     "title": "Mina",
-    "statement": "Nome do arquivo: mina.c, mina.cpp, mina.pas, mina.java, mina.js ou mina.py\n\nNossa mina de ouro será representada por N linhas e N colunas de quadrados. O mineiro está no quadrado inicial (superior esquerdo) e precisa cavar até o quadrado final (inferior direito), onde existe a maior concentração de ouro da mina. Alguns quadrados, porém, estão bloqueados por pedras, o que dificulta o trabalho. Sabendo que o mineiro pode realizar apenas movimentos ortogonais, seu programa deve calcular o número mínimo de quadrados bloqueados pelos quais o mineiro tem que passar para chegar no quadrado inferior direito. Os quadrados inicial e final nunca estão bloqueados. A figura abaixo ilustra três possíveis minas, para N = 8, para as quais os números mínimos de quadrados bloqueados são, respectivamente, três, zero e nove. A figura também mostra três possíveis trajetórias mínimas, como exemplo.",
+    "statement": "Nossa mina de ouro será representada por N linhas e N colunas de quadrados. O mineiro está no quadrado inicial (superior esquerdo) e precisa cavar até o quadrado final (inferior direito), onde existe a maior concentração de ouro da mina. Alguns quadrados, porém, estão bloqueados por pedras, o que dificulta o trabalho. Sabendo que o mineiro pode realizar apenas movimentos ortogonais, seu programa deve calcular o número mínimo de quadrados bloqueados pelos quais o mineiro tem que passar para chegar no quadrado inferior direito. Os quadrados inicial e final nunca estão bloqueados. A figura abaixo ilustra três possíveis minas, para N = 8, para as quais os números mínimos de quadrados bloqueados são, respectivamente, três, zero e nove. A figura também mostra três possíveis trajetórias mínimas, como exemplo.\n[1.png]\n",
     "input": "A primeira linha da entrada contém um inteiro N, 2 ≤ N ≤ 100, representando as dimensões da mina. Cada uma das N linhas seguintes contém N inteiros, definindo os quadrados da mina. O inteiro 0 representa um quadrado livre e o inteiro 1, um quadrado bloqueado.",
     "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o número mínimo de quadrados bloqueados pelos quais o mineiro tem que passar para chegar no quadrado final.",
-    "constraints": "• 2 ≤ N ≤ 100",
+    "constraints": "2 ≤ N ≤ 100",
     "examples": [
         {
             "input": "6\n0 1 0 0 0 0\n1 1 0 0 1 1\n1 0 1 1 1 1\n0 0 0 1 1 0\n0 0 1 1 1 0\n0 1 0 0 0 0",
@@ -14,22 +14,15 @@
             "output": "0"
         }
     ],
-    "imgs": [
-        {
-            "description": "Três exemplos de minas representadas por grades 8x8. Círculos pretos indicam quadrados bloqueados. Em cada grade, uma linha mostra uma trajetória mínima do canto superior esquerdo para o inferior direito. Os custos (número de quadrados bloqueados atravessados) para estas trajetórias são 3, 0 e 9, respectivamente."
-        }
-    ],
-    "rating": [
-        100
-    ],
+    "imgs": ["1.png"],
+    "rating": [],
     "year": "2015",
-    "level": "Nível 2",
+    "level": "2",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
-        "Grafos",
-        "Algoritmo de Dijkstra",
-        "Programação Dinâmica",
-        "Busca em Largura"
-    ]
+        "grafos",
+        "busca em largura",
+        "caminho mínimo"
+    ],
+    "difficulty": "Médio"
 }

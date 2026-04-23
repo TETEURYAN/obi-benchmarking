@@ -21,12 +21,10 @@
     "imgs": [],
     "rating": [],
     "year": "2022",
-    "level": "Júnior",
+    "level": "PJ",
     "period": "Fase 2",
-    "difficulty": "Fácil",
     "topics": [
-        "arrays",
-        "força bruta",
-        "ordenação"
-    ]
+        "ad-hoc"
+    ],
+    "difficulty": "Fácil"
 }

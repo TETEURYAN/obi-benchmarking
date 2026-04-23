@@ -1,9 +1,9 @@
 {
     "title": "Catálogo de Músicas",
-    "statement": "Joyce é uma menina que gosta muito de ouvir música, e possui uma enorme coleção de músicas num DVD. Ela é uma menina organizada e deixa suas músicas em pastas, mas como o número de músicas e de pastas é grandre, Joyce construiu um catálogo para melhor localizá-las.\n\nPara o catálogo Joyce utilizou uma convenção usual em sistemas operacionais, em que a descrição da localização de cada arquivo é formada pela sequência dos nomes das pastas no caminho da raiz do DVD até o arquivo, separados pelo caractere barra ('/'). Por exemplo, na figura abaixo, a descrição da música Sampa.mp3 no catálogo é MPB/Caetano/Sampa.mp3.\n\nUtilizando essa convenção, o catálogo do DVD mostrado na figura é:\nRock/AngraCarryOn.mp3\nMPB/Caetano/Sampa.mp3\nMPB/Cartola/Alvorada.mp3\n\nComo o DVD de Joyce tem muitas músicas e pastas, o catálogo é muito grande. Joyce notou no entanto que o catálogo poderia ser menor (ter um número menor de caracteres) caso ela utilizasse outro conceito usual na nomeação de arquivos em sistemas operacionais: usar uma pasta como referência, ao invés da raiz.\n\nSe uma pasta diferente da raiz for escolhida como referência, então para todos os arquivos que estejam diretamente nessa pasta ou em alguma subpasta não será mais necessário escrever o nome da pasta referência no catálogo. Para as demais pastas, é necessário indicar o caminho utilizando as pastas acima (na direção da raiz) utilizando a convenção '../' para a pasta imediatamente acima da pasta referência. No exemplo da figura acima, no caso de a referência ser a pasta Caetano, a música Sampa.mp3 seria simplesmente descrita como Sampa.mp3. Já a música Alvorada.mp3 seria descrita como ../Cartola/Alvorada.mp3.\n\nAssim, se a pasta Caetano for utilizada como referência, o catálogo será:\n../../Rock/AngraCarryOn.mp3\nSampa.mp3\n../Cartola/Alvorada.mp3\n\nNesse caso, a descrição do catálogo tem 59 carateres, menor do que quando a referência utilizada é a raiz do DVD.\n\nSeu objetivo é, dada a informação de todas as músicas do catálogo, determinar o número mínimo de caracteres necessários para descrever o catálogo.",
-    "input": "A primeira linha da entrada contém um inteiro N, indicando quantos arquivos Joyce possui no DVD. Cada uma das N linhas seguintes contém a descrição de um arquivo, a partir da raiz.",
+    "statement": "Joyce é uma menina que gosta muito de ouvir música, e possui uma enorme coleção de músicas num dvd. Ela é uma menina organizada e deixa suas músicas em pastas, mas como o número de músicas e de pastas é grandre, Joyce construiu um catálogo para melhor localizá-las.\n\nPara o catálogo Joyce utilizou uma convenção usual em sistemas operacionais, em que a descrição da localização de cada arquivo é formada pela sequência dos nomes das pastas no caminho da raiz do dvd até o arquivo, separados pelo caractere barra ('/'). Por exemplo, na figura abaixo, a descrição da música Sampa.mp3 no catálogo é MPB/Caetano/Sampa.mp3.\n[1.png]\nUtilizando essa convenção, o catálogo do dvd mostrado na figura é:\n\nRock/AngraCarryOn.mp3\nMPB/Caetano/Sampa.mp3\nMPB/Cartola/Alvorada.mp3\n\nComo o dvd de Joyce tem muitas músicas e pastas, o catálogo é muito grande. Joyce notou no entanto que o catálogo poderia ser menor (ter um número menor de caracteres) caso ela utilizasse outro conceito usual na nomeação de arquivos em sistemas operacionais: usar uma pasta como referência, ao invés da raiz.\n\nSe uma pasta diferente da raiz for escolhida como referência, então para todos os arquivos que estejam diretamente nessa pasta ou em alguma subpasta não será mais necessário escrever o nome da pasta referência no catálogo. Para as demais pastas, é necessário indicar o caminho utilizando as pastas acima (na direção da raiz) utilizando a convenção '../' para a pasta imediatamente acima da pasta referência. No exemplo da figura acima, no caso de a referência ser a pasta Caetano, a música Sampa.mp3 seria simplesmente descrita como Sampa.mp3. Já a música Alvorada.mp3 seria descrita como ../Cartola/Alvorada.mp3.\n\nAssim, se a pasta Caetano for utilizada como referência, o catálogo será:\n\n../../Rock/AngraCarryOn.mp3\nSampa.mp3\n../Cartola/Alvorada.mp3\n\nNesse caso, a descrição do catálogo tem 59 carateres, menor do que quando a referência utilizada é a raiz do dvd.\n\nSeu objetivo é, dada a informação de todas as músicas do catálogo, determinar o número mínimo de caracteres necessários para descrever o catálogo.",
+    "input": "A primeira linha da entrada contém um inteiro N, indicando quantos arquivos Joyce possui no dvd. Cada uma das N linhas seguintes contém a descrição de um arquivo, a partir da raiz.",
     "output": "Seu programa deve imprimir uma única linha, contendo apenas um inteiro, o número mínimo de caracteres necessários para descrever o catálogo.",
-    "constraints": "• 1 ≤ N ≤ 10^5\n• Número de pastas na entrada ≤ 10^5\n• O nome de cada pasta e de cada arquivo é composto por no máximo 20 caracteres, entre letras minúsculas, maiúsculas e ponto (.)\n• Cada pasta possui no máximo 100 pastas como filhas diretas.",
+    "constraints": "• 1 <= N <= 10^5\n• Número de pastas na entrada <= 10^5\n• O nome de cada pasta e de cada arquivo é composto por no máximo 20 caracteres, entre letras minúsculas, maiúsculas e ponto (.)\n• Cada pasta possui no máximo 100 pastas como filhas diretas.\n\nInformações sobre a pontuação\n• Em um conjunto de casos de teste que totaliza 30 pontos, N <= 1000 e o número de pastas <= 1000.",
     "examples": [
         {
             "input": "3\nRock/AngraCarryOn.mp3\nMPB/Caetano/Sampa.mp3\nMPB/Cartola/Alvorada.mp3",
@@ -18,17 +18,18 @@
             "output": "76"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
-        30
+        30,
+        70
     ],
     "year": "2013",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Difícil",
     "topics": [
-        "strings",
         "árvores",
+        "dfs",
         "programação dinâmica"
-    ]
+    ],
+    "difficulty": "Difícil"
 }

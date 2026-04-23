@@ -1,19 +1,17 @@
 {
     "title": "Tesouro",
-    "statement": "Eduardo é um estudante do departamento de Arqueologia da Unicamp que recentemente encontrou um mapa da Quadradônia, uma ilha histórica cujos habitantes adoravam quadrados. A ilha pode ser representada como um quadrado de lado M dividido em M² quadrados unitários com coordenadas de (1, 1) a (M, M), com a primeira coordenada indicando a linha (numerada de 1 a M de Norte a Sul) e a segunda indicando a coluna (numerada de 1 a M de Oeste a Leste). Cada um desses M² quadrados representa uma região da ilha.\n\nA Quadradônia está atualmente inabitada: seus habitantes fugiram quando a areia que cobre a ilha se tornou movediça! A areia de cada uma das regiões se move em um sentido específico, que pode ser para o Norte, Sul, Leste ou Oeste. Uma pessoa que pisa em uma das regiões da ilha é imediatamente arrastada pela areia, sendo movida da sua região atual para uma das regiões vizinhas (de acordo com o sentido de movimento da areia na região atual), com a velocidade de uma região por minuto. A figura abaixo ilustra uma representação da Quadradônia para M = 4, com o sentido de movimento da areia indicado em cada região.\n\nO mapa encontrado por Eduardo indica a posição de um tesouro escondido em uma das regiões da Quadradônia, que está marcada com um X. Para todas as outras regiões, o mapa indica, com um caractere, o sentido no qual a areia se move na região (N para Norte, S para Sul, L para Leste, O para Oeste). A figura (b) indica o mapa do tesouro correspondente à figura (a), assumindo que o tesouro está escondido na região (3, 2).\n\nInteressado no tesouro, Eduardo escolheu uma das regiões da ilha para sobrevoar e saltar de paraquedas, pousando na região escolhida. Ele percebeu que a escolha dessa região inicial é muito importante: dependendo da região inicial, ele pode demorar mais ou menos tempo para chegar à região que contém o tesouro. Além disso, é possível que ele eventualmente seja arrastado para fora das bordas da ilha, caindo no mar, ou ainda que seja arrastado na areia movediça para sempre, sem nunca chegar ao tesouro.",
-    "input": "A primeira linha da entrada é composta por um inteiro M, indicando que a Quadradônia é composta por M × M regiões.\n\nAs próximas M linhas descrevem o mapa do tesouro e possuem M caracteres cada. Rij, o j-ésimo caractere da i-ésima dessas linhas, representa a região (i, j) e pode ser:\n\n• 'X', se a região (i, j) contém o tesouro;\n\n• 'N', 'S', 'L' ou 'O', de acordo com o sentido de movimento da areia na região.\n\nA última linha da entrada contém dois inteiros A e B, as coordenadas da região inicial de Eduardo (ou seja, a região na qual ele vai pousar).",
-    "output": "Seu programa deverá produzir uma única linha contendo um único inteiro:\n\n• Se Eduardo eventualmente chega à região que contém o tesouro, imprima o tempo em minutos que ele leva para chegar ao tesouro.\n\n• Se Eduardo continua sendo arrastado na areia para sempre, sem nunca chegar ao tesouro, imprima 0.\n\n• Se Eduardo sai das bordas da ilha e é jogado ao mar, imprima −1.",
-    "constraints": "• 2 ≤ M ≤ 1 000\n• Rij = 'N', 'S', ‘L', ‘O' ou ‘X' para todos 1 ≤ i, j ≤ M\n• Existe exatamente um par (i, j) para o qual Rij = 'X'\n• 1 ≤ A, B ≤ M\n• MAB ≠ 'X' (ou seja, a região inicial e a região do tesouro são distintas)",
+    "statement": "Eduardo é um estudante do departamento de Arqueologia da Unicamp que recentemente encontrou um mapa da Quadradônia, uma ilha histórica cujos habitantes adoravam quadrados. A ilha pode ser representada como um quadrado de lado M dividido em M² quadrados unitários com coordenadas de (1, 1) a (M, M), com a primeira coordenada indicando a linha (numerada de 1 a M de Norte a Sul) e a segunda indicando a coluna (numerada de 1 a M de Oeste a Leste). Cada um desses M² quadrados representa uma região da ilha.\n\nA Quadradônia está atualmente inabitada: seus habitantes fugiram quando a areia que cobre a ilha se tornou movediça! A areia de cada uma das regiões se move em um sentido específico, que pode ser para o Norte, Sul, Leste ou Oeste. Uma pessoa que pisa em uma das regiões da ilha é imediatamente arrastada pela areia, sendo movida da sua região atual para uma das regiões vizinhas (de acordo com o sentido de movimento da areia na região atual), com a velocidade de uma região por minuto.\n\nO mapa encontrado por Eduardo indica a posição de um tesouro escondido em uma das regiões da Quadradônia, que está marcada com um X. Para todas as outras regiões, o mapa indica, com um caractere, o sentido no qual a areia se move na região (N para Norte, S para Sul, L para Leste, O para Oeste).\n\nInteressado no tesouro, Eduardo escolheu uma das regiões da ilha para sobrevoar e saltar de paraquedas, pousando na região escolhida. Ele percebeu que a escolha dessa região inicial é muito importante: dependendo da região inicial, ele pode demorar mais ou menos tempo para chegar à região que contém o tesouro. Além disso, é possível que ele eventualmente seja arrastado para fora das bordas da ilha, caindo no mar, ou ainda que seja arrastado na areia movediça para sempre, sem nunca chegar ao tesouro.\n[1.png][2.png][3.png]\nEduardo pediu sua ajuda: dado o mapa do tesouro da Quadradônia e as coordenadas da região inicial dele (ou seja, a região na qual ele vai pousar), determine o tempo em minutos que ele levará para chegar à região que contém o tesouro. Caso Eduardo nunca chegue ao tesouro, indique se ele cairá no mar ou ficará preso na areia movediça para sempre.",
+    "input": "A primeira linha da entrada é composta por um inteiro M, indicando que a Quadradônia é composta por M × M regiões.\n\nAs próximas M linhas descrevem o mapa do tesouro e possuem M caracteres cada. Rij, o j-ésimo caractere da i-ésima dessas linhas, representa a região (i, j) e pode ser:\n• 'X', se a região (i, j) contém o tesouro;\n• 'N', 'S', 'L' ou 'O', de acordo com o sentido de movimento da areia na região.\n\nA última linha da entrada contém dois inteiros A e B, as coordenadas da região inicial de Eduardo (ou seja, a região na qual ele vai pousar).",
+    "output": "Seu programa deverá produzir uma única linha contendo um único inteiro:\n• Se Eduardo eventualmente chega à região que contém o tesouro, imprima o tempo em minutos que ele leva para chegar ao tesouro.\n• Se Eduardo continua sendo arrastado na areia para sempre, sem nunca chegar ao tesouro, imprima 0.\n• Se Eduardo sai das bordas da ilha e é jogado ao mar, imprima −1.",
+    "constraints": "• 2 ≤ M ≤ 1 000\n• Rij = 'N', 'S', 'L', 'O' ou 'X' para todos 1 ≤ i, j ≤ M\n• Existe exatamente um par (i, j) para o qual Rij = 'X'\n• 1 ≤ A, B ≤ M\n• MAB ≠ 'X' (ou seja, a região inicial e a região do tesouro são distintas)",
     "examples": [
         {
             "input": "4\nSSOS\nSLLS\nOXOO\nNSSN\n1 3",
-            "output": "7",
-            "explanation": "Esse é o exemplo da figura (c)."
+            "output": "7"
         },
         {
             "input": "4\nSSOS\nSLLS\nOXOO\nNSSN\n1 1",
-            "output": "-1",
-            "explanation": "Esse é o exemplo da figura (d)."
+            "output": "-1"
         },
         {
             "input": "2\nSO\nXO\n2 2",
@@ -21,23 +19,22 @@
         },
         {
             "input": "2\nLO\nXO\n1 2",
-            "output": "0",
-            "explanation": "Eduardo ficará para sempre sendo arrastado entre as regiões (1, 2), cuja areia se move para o Oeste, e (1, 1), cuja areia se move para o Leste."
+            "output": "0"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png","2.png","3.png"],
     "rating": [
         30,
         40,
         30
     ],
     "year": "2023",
-    "level": "Júnior",
+    "level": "PJ",
     "period": "Fase 3",
-    "difficulty": "Médio",
     "topics": [
         "grafos",
         "simulação",
-        "arrays"
-    ]
+        "bfs"
+    ],
+    "difficulty": "Médio"
 }

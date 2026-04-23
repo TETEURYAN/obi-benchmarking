@@ -1,7 +1,7 @@
 {
     "title": "Zero para cancelar",
-    "statement": "Seu chefe está ao telefone, nervoso. Ele quer que você compute a soma de uma sequência de números que ele vai falar para você ao telefone, para saber o total das vendas em sua mais recente viagem de negócios.\n\nInfelizmente, de vez em quando seu chefe fala números errados para você ao telefone.\n\nFelizmente, seu chefe rapidamente percebe que falou um número errado e diz “zero\", que como combinado previamente quer dizer ignore o último número corrente.\n\nInfelizmente, seu chefe pode cometer erros repetidos, e diz \"zero\" para cada erro.\n\nPor exemplo, seu chefe pode falar ao telefone \"Um, três, cinco, quatro, zero, zero, sete, zero, zero, seis\", o que significa uma soma total igual a 7, conforme explicado na tabela abaixo:\n\n| Fala do chefe | Números correntes | Explicação |\n| :--- | :--- | :--- |\n| \"um, três, cinco, quatro\" | 1,3,5,4 | registre os quatro números |\n| \"zero, zero\" | 1, 3 | ignore os dois últimos números |\n| \"sete\" | 1, 3, 7 | registre o sete ao final da lista |\n| \"zero, zero\" | 1 | ignore os dois últimos números |\n| \"seis\" | 1, 6 | registre seis ao final da lista |\n\nPara não deixar seu chefe ainda mais nervoso, escreva um programa que determine a soma total dos números falados por seu chefe ao telefone.",
-    "input": "A primeira linha da entrada contém um inteiro N, a quantidade de números inteiros (incluindo os \"zeros\") que o seu chefe falou ao telefone. Cada uma das N linhas seguintes contém um número inteiro Xi.",
+    "statement": "Seu chefe está ao telefone, nervoso. Ele quer que você compute a soma de uma sequência de números que ele vai falar para você ao telefone, para saber o total das vendas em sua mais recente viagem de negócios.\n\nInfelizmente, de vez em quando seu chefe fala números errados para você ao telefone.\n\nFelizmente, seu chefe rapidamente percebe que falou um número errado e diz “zero”, que como combinado previamente quer dizer ignore o último número corrente.\n\nInfelizmente, seu chefe pode cometer erros repetidos, e diz “zero” para cada erro.\n\nPor exemplo, seu chefe pode falar ao telefone “Um, três, cinco, quatro, zero, zero, sete, zero, zero, seis”, o que significa uma soma total igual a 7, conforme explicado na tabela abaixo:\n[1.png]\nPara não deixar seu chefe ainda mais nervoso, escreva um programa que determine a soma total dos números falados por seu chefe ao telefone.",
+    "input": "A primeira linha da entrada contém um inteiro N, a quantidade de números inteiros (incluindo os “zeros”) que o seu chefe falou ao telefone. Cada uma das N linhas seguintes contém um número inteiro Xi.",
     "output": "Seu programa deve produzir uma única linha na saída, contendo um único inteiro, a soma correta dos números, levando em conta que o valor 0 significa erro, conforme descrito.",
     "constraints": "• 1 ≤ N ≤ 100 000\n• 0 ≤ Xi ≤ 100, para (1 ≤ i ≤ N)\n• 0 ≤ resultado ≤ 1 000 000",
     "examples": [
@@ -14,15 +14,14 @@
             "output": "7"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [],
     "year": "2021",
-    "level": "Nível 2",
+    "level": "Sênior",
     "period": "Fase 1",
-    "difficulty": "Médio",
     "topics": [
-        "arrays",
-        "estruturas de dados",
-        "pilha"
-    ]
+        "pilha",
+        "simulação"
+    ],
+    "difficulty": "Fácil"
 }

@@ -24,10 +24,8 @@
     "year": "2022",
     "level": "Nível 2",
     "period": "Fase 3",
-    "difficulty": "Médio",
     "topics": [
-        "programação dinâmica",
-        "ordenação",
-        "arrays"
-    ]
+        "programação dinâmica"
+    ],
+    "difficulty": "Médio"
 }

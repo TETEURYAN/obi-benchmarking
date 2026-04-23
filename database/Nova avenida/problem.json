@@ -1,9 +1,9 @@
 {
     "title": "Nova avenida",
-    "statement": "O bairro Boa Vista é formado por um conjunto de quadras de mesmo tamanho, dispostas em um quadriculado de N por M quadras, com ruas no sentido Norte-Sul e no sentido Leste-Oeste. Assim, o comprimento de cada rua no sentido Norte-Sul é igual a N quadras e o comprimento de cada rua no sentido Leste-Oeste é igual a M quadras. A atual administração da prefeitura decidiu que é necessário escolher uma rua do bairro, no sentido Norte-Sul, para ser alargada. Para isso, será necessário desapropriar todas as quadras de um dos lados da rua escolhida.\n\nAs quadras têm construções diferentes, de forma que cada quadra tem um valor diferente no mercado. Para desapropriar as quadras, a prefeitura tem que pagar o valor do mercado aos proprietários. A figura abaixo mostra um exemplo dos valores das quadras, em milhões de reais, onde N = 3 e M = 4.\n\nSua tarefa é escrever um programa que, dados os valores das quadras, em milhões de reais, determine qual o menor valor que a prefeitura terá que desembolsar.",
+    "statement": "O bairro Boa Vista é formado por um conjunto de quadras de mesmo tamanho, dispostas em um quadriculado de N por M quadras, com ruas no sentido Norte-Sul e no sentido Leste-Oeste. Assim, o comprimento de cada rua no sentido Norte-Sul é igual a N quadras e o comprimento de cada rua no sentido Leste-Oeste é igual a M quadras. A atual administração da prefeitura decidiu que é necessário escolher uma rua do bairro, no sentido Norte-Sul, para ser alargada. Para isso, será necessário desapropriar todas as quadras de um dos lados da rua escolhida.\n\nAs quadras têm construções diferentes, de forma que cada quadra tem um valor diferente no mercado. Para desapropriar as quadras, a prefeitura tem que pagar o valor do mercado aos proprietários. A figura abaixo mostra um exemplo dos valores das quadras, em milhões de reais, onde N = 3 e M = 4.\n[1.png]\nSua tarefa é escrever um programa que, dados os valores das quadras, em milhões de reais, determine qual o menor valor que a prefeitura terá que desembolsar.",
     "input": "A primeira linha da entrada contém dois inteiro N e M que indicam respectivamente o número de quadras no sentido Norte-Sul e no sentido Leste-Oeste. Cada uma das N linhas seguintes corresponde a uma das N fileiras de quadras no sentido Leste-Oeste e contém M inteiros, que são os valores das quadras daquela fileira de quadras, visualizada no sentido Leste-Oeste.",
     "output": "Seu programa deve imprimir uma única linha, contendo um único inteiro, que é o menor valor, em milhões de reais, que a prefeitura vai precisar desembolsar.",
-    "constraints": "A entrada obedece às seguintes restrições:\n\n• 2 ≤ N ≤ 1000\n• 2 ≤ M ≤ 1000\n• cada quadra tem valor entre 1 e 100 milhões de reais",
+    "constraints": "A entrada obedece às seguintes restrições:\n• 2 ≤ N ≤ 1000\n• 2 ≤ M ≤ 1000\n• cada quadra tem valor entre 1 e 100 milhões de reais",
     "examples": [
         {
             "input": "3 4\n5 3 12 4\n5 4 7 2\n5 1 10 5",
@@ -14,16 +14,13 @@
             "output": "40"
         }
     ],
-    "imgs": [],
-    "rating": [
-        100
-    ],
+    "imgs": ["1.png"],
+    "rating": [],
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 1",
-    "difficulty": "Médio",
     "topics": [
-        "arrays",
-        "força bruta"
-    ]
+        "matrizes"
+    ],
+    "difficulty": "Fácil"
 }

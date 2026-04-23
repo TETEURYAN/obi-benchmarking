@@ -19,9 +19,10 @@
     "year": "2014",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Fácil",
     "topics": [
-        "arrays",
-        "força bruta"
-    ]
+        "array",
+        "frequência",
+        "lógica"
+    ],
+    "difficulty": "Fácil"
 }

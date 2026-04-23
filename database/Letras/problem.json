@@ -1,35 +1,31 @@
 {
     "title": "Letras",
-    "statement": "Uma cadeia de caracteres é uma sequência de letras do alfabeto. Uma cadeia de caracteres crescente é uma sequência de letras onde a próxima letra (da esquerda para a direita) nunca ocorre antes no alfabeto do que a letra anterior. Por exemplo ABBD é crescente, enquanto ABBAD não é crescente.\n\nUma subsequência de uma cadeia de caracteres é uma cadeia de caracteres que pode ser obtida a partir da remoção de zero ou mais caracteres da cadeia de caracteres original. Por exemplo ANNA é uma subsequência de BANANAS. Outro exemplo seria ANNS, que é uma subsequência crescente de BANANAS.\n\nDada uma cadeia de caracteres S, escreva um programa para determinar o tamanho da maior subsequência de S que é uma cadeia de caracteres crescente.",
-    "input": "A entrada consiste em uma única linha, contendo uma cadeia de caracteres S.",
-    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o tamanho da maior subsequência de S que é uma cadeia de caracteres crescente.",
-    "constraints": "• A cadeia de caracteres de entrada contém letras maiúsculas do alfabeto, de A até Z.\n• 1 ≤ comprimento(S) ≤ 3 × 10⁵.",
+    "statement": "Considere as definições abaixo:\n\n• Uma palavra é uma sequência de letras consecutivas.\n• Um texto é um conjunto de palavras separadas pelo caractere espaço em branco.\n\nVocê foi contratado pela empresa Booble para escrever um programa que, dados uma letra e um texto, determina a porcentagem de palavras do texto que contém a letra dada.",
+    "input": "A primeira linha da entrada contém um único caractere, a letra de interesse na pesquisa. A segunda linha contém um texto, como definido acima.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único número real, a porcentagem de palavras do texto que contêm a letra dada, com precisão de uma casa decimal.",
+    "constraints": "• O texto é composto apenas por letras minúsculas e o caractere espaço em branco.\n• O texto é formado por no mínimo um caractere, e no máximo 1000 caracteres.\n• O texto não contém dois espaços em branco consecutivos.",
     "examples": [
         {
-            "input": "BANANAS",
-            "output": "4"
+            "input": "p\npapagaio",
+            "output": "100.0"
         },
         {
-            "input": "AAXBBXZZX",
-            "output": "7"
+            "input": "o\nno meio do caminho tinha uma pedra tinha uma pedra no meio do caminho",
+            "output": "57.1"
         },
         {
-            "input": "AAA",
-            "output": "3"
+            "input": "b\nnunca me esquecerei que no meio do caminho tinha uma pedra",
+            "output": "0.0"
         }
     ],
     "imgs": [],
-    "rating": [
-        20,
-        30
-    ],
-    "year": "2015",
+    "rating": [],
+    "year": "2014",
     "level": "Nível 1",
-    "period": "Fase 2",
-    "difficulty": "Médio",
+    "period": "Fase 1",
     "topics": [
-        "programação dinâmica",
         "strings",
-        "greedy"
-    ]
+        "manipulação de strings"
+    ],
+    "difficulty": "Fácil"
 }

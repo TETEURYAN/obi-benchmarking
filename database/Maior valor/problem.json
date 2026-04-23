@@ -2,7 +2,7 @@
     "title": "Maior valor",
     "statement": "Nesta tarefa, dados três números inteiros N, M e S você deve escrever um programa para determinar o maior número inteiro I tal que\n\n• I está dentro do intervalo [N, M] (ou seja, I ≥ N e I ≤ M).\n• A soma dos dígitos de I é igual a S.",
     "input": "A primeira linha contém um inteiro N, o menor valor do intervalo. A segunda linha contém um inteiro M, o maior valor do intervalo. A terceira linha contém um inteiro S, o valor da soma dos dígitos, conforme descrito.",
-    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, que deve ser o valor de I obedecendo às restrições acima, ou -1 se não existir.",
+    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, que deve ser o valor de I obedecendo às restrições acima, ou −1 se não existir.",
     "constraints": "• 1 ≤ N ≤ M ≤ 10 000\n• 1 ≤ S ≤ 36",
     "examples": [
         {
@@ -23,11 +23,11 @@
         10
     ],
     "year": "2022",
-    "level": "Nível 2",
+    "level": "Sênior",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
         "força bruta",
         "matemática"
-    ]
+    ],
+    "difficulty": "Fácil"
 }

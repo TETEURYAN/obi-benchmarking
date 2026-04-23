@@ -3,7 +3,7 @@
     "statement": "Você foi contratado pela Agência Extra-Espacial Brasileira, que procura indícios de vida extraterrestre.\n\nUm dos telescópios da Agência, para o espectro ultravioleta, gera uma sequência de valores inteiros positivos que devem ser analisados continuamente. Dadas duas sequências SA e SB, sua primeira missão é determinar se SB é uma subsequência de SA.\n\nUma subsequência de uma dada sequência S é um conjunto de elementos de S que não são necessariamente adjacentes mas que mantêm a mesma ordem em que aparecem em S. Por exemplo, [2], [1, 4], [1, 2, 4] e [1, 2, 3, 4] são subsequências de [1, 2, 3, 4], mas [4, 3], [3, 4, 1] e [1, 3, 5] não são.",
     "input": "A primeira linha contém dois inteiros A e B, o número de elementos das sequências. A segunda linha contém A inteiros Xi, os números da sequência SA. A seguir a entrada contém B inteiros Yi, os números da sequência SB.",
     "output": "Seu programa deve produzir uma única linha, contendo um único caractere, que deve ser a letra maiúscula 'S' se SB é uma subsequência da SA ou a letra maiúscula 'N' caso contrário.",
-    "constraints": "• 1 ≤ A ≤ 10⁵\n• 1 ≤ B ≤ A\n• −10⁹ ≤ Xi ≤ 10⁹ para 1 ≤ i ≤ A\n• -10⁹ ≤ Yi ≤ 10⁹ para 1 ≤ i ≤ B",
+    "constraints": "• 1 ≤ A ≤ 10^5\n• 1 ≤ B ≤ A\n• -10^9 ≤ Xi ≤ 10^9 para 1 ≤ i ≤ A\n• -10^9 ≤ Yi ≤ 10^9 para 1 ≤ i ≤ B",
     "examples": [
         {
             "input": "5 3\n1 2 3 4 5\n2 3 5",
@@ -21,11 +21,12 @@
         56
     ],
     "year": "2023",
-    "level": "Nível Sênior",
+    "level": "Sênior",
     "period": "Fase 1",
-    "difficulty": "Médio",
     "topics": [
-        "arrays",
-        "greedy"
-    ]
+        "dois ponteiros",
+        "vetores",
+        "gulosos"
+    ],
+    "difficulty": "Médio"
 }

@@ -1,9 +1,9 @@
 {
     "title": "Atlanta",
-    "statement": "Documentos recentemente encontrados por pesquisadores mostram que na Sala de Audiências do palácio Real na cidade perdida de Atlanta o piso era formado por ladrilhos 20 cm x 20 cm. Ladrilhos de duas cores foram usados: o centro da Sala era formado por ladrilhos brancos e exatamente uma fileira de ladrilhos azuis foram colocados em cada lateral do Sala, como nas figuras abaixo.\n\nOs pesquisadores não encontraram vestígios da Sala de Audiências (nem da cidade de Atlanta!), mas os documentos recentes, se forem autênticos, indicam também a quantidade de ladrilhos que foram utilizados no piso da Sala.\n\nSua tarefa é, dadas as quantidades de azulejos azuis e brancos, determinar as dimensões da Sala de Audiências.",
+    "statement": "Documentos recentemente encontrados por pesquisadores mostram que na Sala de Audiências do palácio Real na cidade perdida de Atlanta o piso era formado por ladrilhos 20 cm x 20 cm. Ladrilhos de duas cores foram usados: o centro da Sala era formado por ladrilhos brancos e exatamente uma fileira de ladrilhos azuis foram colocados em cada lateral do Sala, como nas figuras abaixo.\n[1.png]\nOs pesquisadores não encontraram vestígios da Sala de Audiências (nem da cidade de Atlanta!), mas os documentos recentes, se forem autênticos, indicam também a quantidade de ladrilhos que foram utilizados no piso da Sala.\n\nSua tarefa é, dadas as quantidades de azulejos azuis e brancos, determinar as dimensões da Sala de Audiências.",
     "input": "A primeira linha da entrada contém um inteiro A, o número de azulejos azuis. A segunda linha contém um número inteiro B, o número de azulejos brancos.",
     "output": "Seu programa deve produzir uma única linha, contendo dois números inteiros, representando as dimensões da Sala (largura e comprimento). Se a largura for diferente do comprimento, seu programa deve imprimir primeiro a menor dimensão, seguida da maior dimensão. Se as quantidades de azulejos não forem corretas para construir o piso da Sala no formato descrito acima, seu programa deve imprimir -1 -1.",
-    "constraints": "• 1 ≤ A ≤ 10⁶\n• 1 ≤ B ≤ 10⁶",
+    "constraints": "• 1 ≤ A ≤ 10^6\n• 1 ≤ B ≤ 10^6",
     "examples": [
         {
             "input": "10\n2",
@@ -18,17 +18,14 @@
             "output": "1000 1000"
         }
     ],
-    "imgs": [
-        "https://raw.githubusercontent.com/olimpiada-brasileira-de-informatica/obi-public-pb-share/main/images/2020/n2_f1_atlanta_1.png",
-        "https://raw.githubusercontent.com/olimpiada-brasileira-de-informatica/obi-public-pb-share/main/images/2020/n2_f1_atlanta_2.png"
-    ],
+    "imgs": ["1.png"],
     "rating": [],
     "year": "2020",
-    "level": "Nível 2",
+    "level": "PJ",
     "period": "Fase Nacional",
-    "difficulty": "Fácil",
     "topics": [
         "matemática",
         "força bruta"
-    ]
+    ],
+    "difficulty": "Fácil"
 }

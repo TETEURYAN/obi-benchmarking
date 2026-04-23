@@ -28,13 +28,16 @@
     ],
     "imgs": [],
     "rating": [
-        40
+        40,
+        60
     ],
     "year": "2022",
-    "level": "Júnior",
+    "level": "PJ",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
-        "arrays"
-    ]
+        "array",
+        "dois ponteiros",
+        "loops"
+    ],
+    "difficulty": "Médio"
 }

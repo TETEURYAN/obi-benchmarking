@@ -1,35 +1,34 @@
 {
     "title": "Chuva",
-    "statement": "É período de chuva no Reino Quadrado. Nos últimos anos, o Rei Maior Quadrado (RMQ) ordenou a construção de uma enorme piscina para refrescar seus súditos. A piscina é composta por diversas seções de mesma largura e comprimento, mas podem ter alturas diferentes. A altura de cada seção é um número inteiro em metros.\n\nDurante o período de chuvas fortes, o Rei nem precisa gastar água para encher a piscina - basta deixar que a chuva faça esse trabalho. A chuva cai uniformemente em todas as seções da piscina, enchendo - até que não haja mais capacidade para acumular água.\n\nO Rei o contratou para calcular quantas seções estarão cobertas com água, durante a estação de chuva. Uma seção da piscina pode ser considerada coberta com água se ela possuír água com pelo menos 1m de profundidade.\n\nO caso do exemplo 3 pode ser visto na figura abaixo, que apresenta um corte lateral da piscina. As seções 2 a 10 e 13 a 15 ficarão cobertas de água.",
-    "input": "A primeira linha contém um inteiro, N, o número de seções da piscina. Seguem N linhas, cada uma com um inteiro Hi, a altura da i-ésima seção, em metros.",
-    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o número de seções da piscina cobertos por água.",
-    "constraints": "• 1 ≤ N ≤ 10⁵, 1 ≤ Hi ≤ 10⁹ (1 ≤ i ≤ N)\n\nInformações sobre a pontuação\n• Em um conjunto de casos de teste equivalente a 20 pontos, N ≤ 10³.",
+    "statement": "A robótica causou uma grande revolução nos processos industriais no mundo todo; atualmente, vários tipos de robôs são usados na fabricação de carros, equipamentos eletrônicos e até mesmo utensílios domésticos.\nUma fábrica possui um robô de manutenção, que constantemente precisa ser deslocado entre setores diferentes para executar vários serviços. A movimentação do robô é feita por controle remoto: ele pode andar qualquer distância, mas apenas nas quatro direções cardeais (norte, sul, leste e oeste).\nRobôs são feitos de metal, e por isso é ideal que eles evitem contato direto com a água. Assim, em dias chuvosos, é ideal que a trajetória do robô passe por dentro de galpões, debaixo de marquises e toldos, etc. para evitar sua exposição à chuva.\nA sua tarefa é escrever um programa que, dadas as informações sobre as áreas cobertas e ponto inicial e final do robô, determine uma trajetória para o robô que minimize a porção do trajeto feita sob chuva.",
+    "input": "A entrada contém um único conjunto de testes, que deve ser lido do dispositivo de entrada padrão (normalmente o teclado). A primeira linha da entrada contém quatro inteiros Xi, Yi, Xf e Yf (0 ≤ Xi, Yi, Xf, Yf ≤ 10^6), indicando, respectivamente, a posição atual e a posição final do robô — o robô começa na posição (Xi, Yi) e deve terminar na posição (Xf, Yf).\nA linha seguinte da entrada contém um único inteiro N (0 ≤ N ≤ 1000), indicando o número de áreas cobertas na fábrica. Cada uma das N linhas seguintes contém quatro inteiros X1, Y1, X2 e Y2 (0 ≤ X1 < X2 ≤ 10^6, 0 ≤ Y1 < Y2 ≤ 10^6), indicando uma região coberta.\nUma região coberta é um retângulo de lados paralelos aos eixos tal que (X1, Y1) e (X2, Y2) são vértices opostos do retângulo. Duas áreas cobertas podem ter regiões comuns. O robô pode entrar e sair de uma área coberta por qualquer ponto de seu perímetro, e pode trafegar livremente dentro da área coberta.",
+    "output": "Seu programa deve imprimir, na saída padrão, uma única linha, contendo um número inteiro indicando a menor distância que o robô precisa percorrer sob chuva.",
+    "constraints": "• Em um conjunto de casos de teste que totaliza 30 pontos, X1, Y1, X2, Y2, Xi, Xf, Yi, Yf ≤ 10 e N ≤ 5.\n• Em um conjunto de casos de teste que totaliza 55 pontos, X1, Y1, X2, Y2, Xi, Xf, Yi, Yf ≤ 1000 e N ≤ 100.",
     "examples": [
         {
-            "input": "4\n2\n1\n1\n2",
-            "output": "2"
+            "input": "0 0 4 3\n0",
+            "output": "7"
         },
         {
-            "input": "6\n5\n2\n6\n1\n1\n3",
-            "output": "2"
+            "input": "2 5 5 0\n1\n0 0 1 5",
+            "output": "5"
         },
         {
-            "input": "17\n4\n3\n2\n1\n1\n1\n1\n1\n2\n3\n5\n5\n3\n3\n2\n4\n4",
-            "output": "12"
+            "input": "4 5 5 0\n2\n0 0 1 5\n0 0 3 2",
+            "output": "5"
         }
     ],
     "imgs": [],
     "rating": [
-        20,
-        80
+        30,
+        55
     ],
-    "year": "2016",
-    "level": "Universitária",
-    "period": "Fase 1",
-    "difficulty": "Médio",
+    "year": "2008",
+    "level": "Nível 2",
+    "period": "Fase 2",
     "topics": [
-        "arrays",
-        "programação dinâmica",
-        "greedy"
-    ]
+        "geometria",
+        "grafos"
+    ],
+    "difficulty": "Difícil"
 }

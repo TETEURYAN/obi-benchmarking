@@ -1,9 +1,9 @@
 {
     "title": "Quadrado Mágico",
-    "statement": "Arnaldo e Bernardo são dois garotos que compartilham um peculiar gosto por curiosidades matemáticas. Nos últimos tempos, sua principal diversão tem sido investigar propriedades matemágicas de tabuleiros quadrados preenchidos com inteiros. Recentemente, durante uma aula de matemática, os dois desafiaram os outros alunos da classe a criar quadrados mágicos, que são quadrados preenchidos com números de 1 a N², de tal forma que a soma dos N números em uma linha, coluna ou diagonal principal do quadrado tenham sempre o mesmo valor. A ordem de um quadrado mágico é o seu número de linhas, e o valor do quadrado mágico é o resultado da soma de uma linha. Um exemplo de quadrado mágico de ordem 3 e valor 15 é mostrado na figura abaixo:\n\n2 7 6\n9 5 1\n4 3 8\n\nPara surpresa de Arnaldo e Bernardo, os outros alunos criaram um grande número de quadrados, alguns enormes, e alegaram que todos eram quadrados mágicos. Arnaldo e Bernardo agora precisam de sua ajuda, para verificar se os quadrados criados são realmente mágicos.\nVocê deve escrever um programa que, dado um quadrado, verifique se ele é realmente mágico.",
+    "statement": "Arnaldo e Bernardo são dois garotos que compartilham um peculiar gosto por curiosidades matemáticas. Nos últimos tempos, sua principal diversão tem sido investigar propriedades matemáticas de tabuleiros quadrados preenchidos com inteiros. Recentemente, durante uma aula de matemática, os dois desafiaram os outros alunos da classe a criar quadrados mágicos, que são quadrados preenchidos com números de 1 a N^2, de tal forma que a soma dos N números em uma linha, coluna ou diagonal principal do quadrado tenham sempre o mesmo valor. A ordem de um quadrado mágico é o seu número de linhas, e o valor do quadrado mágico é o resultado da soma de uma linha. Um exemplo de quadrado mágico de ordem 3 e valor 15 é mostrado na figura abaixo:\n[1.png]\nPara surpresa de Arnaldo e Bernardo, os outros alunos criaram um grande número de quadrados, alguns enormes, e alegaram que todos eram quadrados mágicos. Arnaldo e Bernardo agora precisam de sua ajuda, para verificar se os quadrados criados são realmente mágicos.\nVocê deve escrever um programa que, dado um quadrado, verifique se ele é realmente mágico.",
     "input": "A primeira linha da entrada contém um único número inteiro N, indicando a ordem do quadrado (seu número de linhas). As N linhas seguintes descrevem o quadrado. Cada uma dessas linhas contém N números inteiros separados por um espaço em branco.",
     "output": "Seu programa deve imprimir uma única linha. Caso o quadrado seja mágico, a linha deve conter o valor do quadrado (ou seja, a soma de uma de suas linhas). Caso contrário, a linha deve conter o número 0.",
-    "constraints": "• 3 ≤ N ≤ 1000.\n• 1 ≤ valor de cada célula ≤ 10⁹.",
+    "constraints": "• 3 ≤ N ≤ 1000.\n• 1 ≤ valor de cada célula ≤ 10^9.",
     "examples": [
         {
             "input": "3\n1 1 1\n1 1 1\n1 1 1",
@@ -18,7 +18,7 @@
             "output": "0"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
         30,
         70
@@ -26,10 +26,9 @@
     "year": "2011",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Fácil",
     "topics": [
-        "arrays",
-        "força bruta",
-        "matemática"
-    ]
+        "Array",
+        "Matemática"
+    ],
+    "difficulty": "Fácil"
 }

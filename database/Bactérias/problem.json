@@ -1,6 +1,6 @@
 {
     "title": "Bactérias",
-    "statement": "Tadeu foi contratado recentemente para trabalhar no mais novo laboratório de biologia de sua universidade. Sua primeira tarefa consiste em estudar a taxa de reprodução de um determinado tipo de bactérias.\n\nTadeu iniciou seu experimento com uma única bactéria e descobriu que as bactérias se reproduzem a cada dia que passa. Mais especificamente, a cada dia, cada bactéria no recipiente de Tadeu se transforma em P bactérias, onde P é um inteiro positivo que Tadeu denominou como fator de multiplicação das bactérias.\n\nTadeu gostaria de obter a maior quantidade de bactérias possível, mas ele não pode deixar que essa quantidade ultrapasse a capacidade de N bactérias do recipiente, pois isso invalidaria todo o seu experimento. Observe que a quantidade de bactérias pode ser exatamente igual a N e isso não invalida o estudo de Tadeu.\n\nPor exemplo, em um experimento cuja bactéria tem fator de multiplicação P = 2 e a capacidade do recipiente é N = 32:\n\n• no início do experimento há apenas 1 bactéria;\n• após 1 dia haverá 1 · P = 2 bactérias;\n• após 2 dias haverá 2 · P = 4 bactérias;\n• após 3 dias haverá 4 · P = 8 bactérias;\n• após 4 dias haverá 8 · P = 16 bactérias;\n• após 5 dias haverá 16 · P = 32 bactérias, o que excede a capacidade N = 30 do recipiente.\n\nNesse caso, Tadeu pode deixar as bactérias se reproduzindo por no máximo 4 dias.\n\nDados o fator de multiplicação P e a capacidade N do recipiente, ajude Tadeu a determinar durante quantos dias ele pode deixar as bactérias se reproduzindo sem que a quantidade de bactérias exceda a capacidade do recipiente.",
+    "statement": "Tadeu foi contratado recentemente para trabalhar no mais novo laboratório de biologia de sua universidade. Sua primeira tarefa consiste em estudar a taxa de reprodução de um determinado tipo de bactérias.\nTadeu iniciou seu experimento com uma única bactéria e descobriu que as bactérias se reproduzem a cada dia que passa. Mais especificamente, a cada dia, cada bactéria no recipiente de Tadeu se transforma em P bactérias, onde P é um inteiro positivo que Tadeu denominou como fator de multiplicação das bactérias.\nTadeu gostaria de obter a maior quantidade de bactérias possível, mas ele não pode deixar que essa quantidade ultrapasse a capacidade de N bactérias do recipiente, pois isso invalidaria todo o seu experimento. Observe que a quantidade de bactérias pode ser exatamente igual a N e isso não invalida o estudo de Tadeu.\nPor exemplo, em um experimento cuja bactéria tem fator de multiplicação P = 2 e a capacidade do recipiente é N = 32:\n• no início do experimento há apenas 1 bactéria;\n• após 1 dia haverá 1 · P = 2 bactérias;\n• após 2 dias haverá 2 · P = 4 bactérias;\n• após 3 dias haverá 4 · P = 8 bactérias;\n• após 4 dias haverá 8 · P = 16 bactérias;\n• após 5 dias haverá 16 · P = 32 bactérias, o que excede a capacidade N = 30 do recipiente.\nNesse caso, Tadeu pode deixar as bactérias se reproduzindo por no máximo 4 dias.\nDados o fator de multiplicação P e a capacidade N do recipiente, ajude Tadeu a determinar durante quantos dias ele pode deixar as bactérias se reproduzindo sem que a quantidade de bactérias exceda a capacidade do recipiente.",
     "input": "A entrada é composta de duas linhas, cada uma contendo um único inteiro. A primeira linha contém N, a capacidade do recipiente. A segunda linha contém P, o fator de multiplicação das bactérias.",
     "output": "Seu programa deverá imprimir uma única linha, contendo apenas um inteiro, a quantidade máxima de dias que Tadeu pode deixar as bactérias se reproduzindo sem invalidar seu experimento.",
     "constraints": "• 2 ≤ P ≤ N ≤ 30 000",
@@ -27,9 +27,10 @@
     "year": "2024",
     "level": "PJ",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
-        "matemática",
-        "força bruta"
-    ]
+        "simulação",
+        "laços",
+        "aritmética"
+    ],
+    "difficulty": "Fácil"
 }

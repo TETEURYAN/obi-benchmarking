@@ -19,10 +19,10 @@
     "year": "2012",
     "level": "Nível 1",
     "period": "Fase 2",
-    "difficulty": "Fácil",
     "topics": [
-        "arrays",
-        "ordenação",
-        "matemática"
-    ]
+        "array",
+        "matemática",
+        "ordenação"
+    ],
+    "difficulty": "Fácil"
 }

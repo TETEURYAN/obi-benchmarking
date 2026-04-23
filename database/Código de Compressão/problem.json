@@ -1,20 +1,20 @@
 {
     "title": "Código de Compressão",
-    "statement": "Em computação, compressão de arquivos é o processo de reduzir o tamanho de arquivos. Uma técnica simples mas eficiente de compressão para alguns tipos de arquivos é RLE, cujo o nome é derivado das letras iniciais do nome em inglês, que pode ser traduzido por codificação por comprimento de repetições.\n\nEm RLE, cada sequência de valores repetidos no arquivo é substituída pelo número de repetições seguido do valor a ser repetido. Por exemplo, a sequência ‘AAAAA’ seria substituída por ‘6 A’. Se o arquivo tem muitas sequências de valores repetidos, a técnica RLE é bem eficiente (por exemplo, considere um arquivo de imagem branco e preto em que grande parte dos valores é branco). Por outro lado, se o arquivo não possui muitas repetições, a técnica RLE pode aumentar o tamanho do arquivo, ao invés de diminuir.\n\nNesta tarefa, dada uma cadeia de caracteres, você deve escrever um programa que produza a sequência de caracteres comprimida com a técnica RLE.",
+    "statement": "Em computação, compressão de arquivos é o processo de reduzir o tamanho de arquivos. Uma técnica simples mas eficiente de compressão para alguns tipos de arquivos é RLE, cujo o nome é derivado das letras iniciais do nome em inglês, que pode ser traduzido por codificação por comprimento de repetições.\n\nEm RLE, cada sequência de valores repetidos no arquivo é substituída pelo número de repetições seguido do valor a ser repetido. Por exemplo, a sequência ‘AAAAAA’ seria substituída por ‘6 A’. Se o arquivo tem muitas sequências de valores repetidos, a técnica RLE é bem eficiente (por exemplo, considere um arquivo de imagem branco e preto em que grande parte dos valores é branco). Por outro lado, se o arquivo não possui muitas repetições, a técnica RLE pode aumentar o tamanho do arquivo, ao invés de diminuir.\n\nNesta tarefa, dada uma cadeia de caracteres, você deve escrever um programa que produza a sequência de caracteres comprimida com a técnica RLE.",
     "input": "A primeira linha contém um inteiro N, o comprimento da cadeia de caracteres. A segunda linha contém a cadeia de caracteres, com N caracteres Ci.",
     "output": "Seu programa deve produzir uma única linha, contendo a cadeia de caracteres codificada com a técnica RLE. A codificação consiste em uma sequência de pares, separados por espaços, em que cada par é um inteiro (indicando o número de repetições), seguido de um espaço, seguido do caractere a ser repetido.",
     "constraints": "• 1 ≤ N ≤ 1 000\n• Ci é uma letra, maiúscula ou minúscula, não acentuada.",
     "examples": [
         {
-            "input": "8\nTAAAXXX",
-            "output": "1 T 4 A 3 X"
+            "input": "8\nTAAAAxxx",
+            "output": "1 T 4 A 3 x"
         },
         {
             "input": "4\nXYZX",
             "output": "1 X 1 Y 1 Z 1 X"
         },
         {
-            "input": "21\naaaaaaaaabbbbbbbbbbb",
+            "input": "21\naaaaaaaaaabbbbbbbbbbb",
             "output": "10 a 11 b"
         }
     ],
@@ -26,10 +26,9 @@
     ],
     "year": "2023",
     "level": "PJ",
-    "period": "Fase 2 - Turno A",
-    "difficulty": "Médio",
+    "period": "Fase 2",
     "topics": [
-        "strings",
-        "força bruta"
-    ]
+        "strings"
+    ],
+    "difficulty": "Fácil"
 }

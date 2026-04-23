@@ -1,9 +1,9 @@
 {
     "title": "Colorindo",
-    "statement": "A Sociedade Brasileira das Cores (SBC) é uma editora de livros de colorir. As crianças adoram os livros da SBC porque suas figuras, depois de pintadas, ficam muito coloridas e bonitas. Isso acontece porque a SBC se preocupa em não deixar grandes regiões contínuas em suas figuras, que devem ser pintadas com uma cor só.\nAté agora, o processo de verificar se uma figura tinha uma região contínua grande era completamente visual, mas a SBC resolveu automatizar esse processo e você foi contratado para programar uma parte desse sistema.\nUma figura é representada por uma grade, de dimensão N por M. Cada quadrado dessa grade é representado por uma coordenada (i, j), com 1 ≤ i ≤ N e 1 ≤ j ≤ M. Por exemplo, a coordenada (1,5) representa o quadrado na primeira linha e quinta coluna, enquanto que a coordenada (3, 7) representa o quadrado na terceira linha e sétima coluna. As linhas são contadas de baixo para cima e as colunas da esquerda para a direita.\nCada quadrado pode estar vazio ou cheio. Assumimos que uma criança só vai pintar sobre quadrados vazios e se ela pintar um quadrado de uma cor, ela irá pintar os oito vizinhos da mesma cor, desde que eles estejam vazios e que ela não saia da área da figura.\nDada a figura e a coordenada onde uma criança vai começar a pintar, sua tarefa é descobrir quantos quadrados ela irá pintar.",
+    "statement": "A Sociedade Brasileira das Cores (SBC) é uma editora de livros de colorir. As crianças adoram os livros da SBC porque suas figuras, depois de pintadas, ficam muito coloridas e bonitas. Isso acontece porque a SBC se preocupa em não deixar grandes regiões contínuas em suas figuras, que devem ser pintadas com uma cor só.\nAté agora, o processo de verificar se uma figura tinha uma região contínua grande era completamente visual, mas a SBC resolveu automatizar esse processo e você foi contratado para programar uma parte desse sistema.\nUma figura é representada por uma grade, de dimensão N por M. Cada quadrado dessa grade é representado por uma coordenada (i, j), com 1 ≤ i ≤ N e 1 ≤ j ≤ M. Por exemplo, a coordenada (1, 5) representa o quadrado na primeira linha e quinta coluna, enquanto que a coordenada (3, 7) representa o quadrado na terceira linha e sétima coluna. As linhas são contadas de baixo para cima e as colunas da esquerda para a direita.\nCada quadrado pode estar vazio ou cheio. Assumimos que uma criança só vai pintar sobre quadrados vazios e se ela pintar um quadrado de uma cor, ela irá pintar os oito vizinhos da mesma cor, desde que eles estejam vazios e que ela não saia da área da figura.\nDada a figura e a coordenada onde uma criança vai começar a pintar, sua tarefa é descobrir quantos quadrados ela irá pintar.",
     "input": "A primeira linha da entrada contém 5 números inteiros, N, M, X, Y e K. Os números inteiros N e M são respectivamente o número de linhas e colunas da grade, enquanto que (X, Y) é a coordenada onde a criança vai começar a pintar e K é o número de quadrados cheios na figura.\nSeguem-se K linhas, cada uma com dois inteiros A e B, que são as coordenadas de um quadrado cheio.\nGarantimos que o quadrado na posição (X, Y) está sempre vazio.",
     "output": "Seu programa deve imprimir uma linha contendo o número de quadrados pintados pela criança.",
-    "constraints": "• 1 ≤ N, M ≤ 200.\n• 1 ≤ K ≤ 10000.\n• 1 ≤ X, A ≤ N.\n• 1 ≤ Y, B ≤ M.",
+    "constraints": "• 1 ≤ N, M ≤ 200.\n• 1 ≤ K ≤ 10 000.\n• 1 ≤ X, A ≤ N.\n• 1 ≤ Y, B ≤ M.",
     "examples": [
         {
             "input": "1 5 1 2 2\n1 1\n1 4",
@@ -21,13 +21,12 @@
     "imgs": [],
     "rating": [],
     "year": "2011",
-    "level": "Nível 1",
+    "level": "1",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
         "grafos",
-        "arrays",
         "busca em largura",
         "busca em profundidade"
-    ]
+    ],
+    "difficulty": "Médio"
 }

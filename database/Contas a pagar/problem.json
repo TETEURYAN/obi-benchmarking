@@ -27,13 +27,11 @@
         100
     ],
     "year": "2023",
-    "level": "Nível Sênior",
+    "level": "Sênior",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
-        "greedy",
-        "ordenação",
-        "força bruta",
-        "arrays"
-    ]
+        "ad-hoc",
+        "matemática"
+    ],
+    "difficulty": "Fácil"
 }

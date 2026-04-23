@@ -17,12 +17,11 @@
     "imgs": [],
     "rating": [],
     "year": "2022",
-    "level": "Nível 2",
+    "level": "Sênior",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
-        "strings",
-        "programação dinâmica",
-        "força bruta"
-    ]
+        "string",
+        "programação dinâmica"
+    ],
+    "difficulty": "Médio"
 }

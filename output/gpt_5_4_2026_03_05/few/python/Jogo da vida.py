@@ -16,32 +16,35 @@ for _ in range(q):
         for j in range(n):
             jm1 = j - 1
             jp1 = j + 1
-            s = 0
+            cnt = 0
+
             if im1 >= 0:
                 row = grid[im1]
                 if jm1 >= 0:
-                    s += row[jm1]
-                s += row[j]
+                    cnt += row[jm1]
+                cnt += row[j]
                 if jp1 < n:
-                    s += row[jp1]
+                    cnt += row[jp1]
+
             row = grid[i]
             if jm1 >= 0:
-                s += row[jm1]
+                cnt += row[jm1]
             if jp1 < n:
-                s += row[jp1]
+                cnt += row[jp1]
+
             if ip1 < n:
                 row = grid[ip1]
                 if jm1 >= 0:
-                    s += row[jm1]
-                s += row[j]
+                    cnt += row[jm1]
+                cnt += row[j]
                 if jp1 < n:
-                    s += row[jp1]
+                    cnt += row[jp1]
 
             if grid[i][j]:
-                if s == 2 or s == 3:
+                if cnt == 2 or cnt == 3:
                     nxt[i][j] = 1
             else:
-                if s == 3:
+                if cnt == 3:
                     nxt[i][j] = 1
     grid = nxt
 

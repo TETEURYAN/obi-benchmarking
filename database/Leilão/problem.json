@@ -20,11 +20,12 @@
         84
     ],
     "year": "2023",
-    "level": "Nível 2",
+    "level": "N2",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
-        "força bruta",
-        "strings"
-    ]
+        "ad-hoc",
+        "strings",
+        "simulação"
+    ],
+    "difficulty": "Fácil"
 }

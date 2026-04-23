@@ -1,38 +1,24 @@
 {
     "title": "Palavras Cruzadas",
-    "statement": "Você já deve ter tentado completar um jogo de palavras cruzadas. Nesse jogo, o jogador deve descobrir um conjunto de palavras através de dicas fornecidas juntamente com um retângulo dividido em quadrados de mesmo tamanho, sendo a maoria quadrados em branco e alguns quadrados pretos. Cada linha e cada coluna formada pelos quadrados em branco deve ser preenchida por uma palavra, com uma letra em cada quadrado em branco. As palavras das linhas são chamadas de palavras horizontais, as palavras das colunas são chamadas palavras verticais. As palavras horizontais cruzam com as palavras verticais em uma letra comum às duas palavras, vindo daí o nome do jogo.\n\nNesta tarefa, dadas uma palavra horizontal e uma palavra vertical, você deve encontrar a melhor letra de cruzamento entre elas, que é definida como a letra que produz\n\n1. o cruzamento mais à direita possível na palavra horizontal;\n2. se há mais de uma possibilidade de cruzamento com a regra (1), a melhor letra de cruzamento é definida como a que produz o cruzamento mais abaixo possível na palavra vertical.\n\nA figura abaixo ilustra alguns exemplos. Entre parênteses estão os índices da melhor letra de cruzamento. O índice de uma letra é a posição que ela ocupa na palavra, iniciando com 1 (primeira letra).",
-    "input": "A primeira linha da entrada contém a palavra horizontal. A segunda linha da entrada contém a palavra vertical.",
-    "output": "Seu programa deve produzir uma única linha, contendo apenas dois inteiros descrevendo a melhor letra de cruzamento. O primeiro número deve ser o índice da letra de cruzamento na palavra horizontal, o segundo número deve ser o índice da letra de cruzamento na palavra vertical. Se não há letra de cruzamento possível, os dois inteiros devem ser iguais a -1.",
-    "constraints": "• As palavras são compostas por letras maiúsculas não acentuadas, com comprimento de pelo menos uma letra e de no máximo 1000 letras.",
+    "statement": "O conhecido passatempo de palavras cruzadas é composto por uma grade retangular de quadrados brancos e pretos e duas listas de definições. Uma das listas de definições é para palavras escritas da esquerda para a direita nos quadrados brancos (nas linhas) e a outra lista é para palavras que devem ser escritas de cima para baixo nos quadrados brancos (nas colunas). Uma palavra é uma seqüência de dois ou mais caracteres do alfabeto. Para resolver um jogo de palavras cruzadas, as palavras correspondentes às definições devem ser escritas nos quadrados brancos da grade.\n\nAs definições correspondem às posições das palavras na grade. As posições são definidas por meio de números inteiros seqüenciais colocados em alguns quadrados brancos. Um quadrado branco é numerado se uma das seguintes condições é verificada: (a) tem como vizinho à esquerda um quadrado preto e como vizinho à direita um quadrado branco; (b) tem como vizinho acima um quadrado preto e como vizinho abaixo um quadrado branco; (c) é um quadrado da primeira coluna à esquerda e tem como vizinho à direita um quadrado branco; d) é um quadrado da primeira linha acima e tem como vizinho abaixo um quadrado branco. Nenhum outro quadrado é numerado. A numeração começa em 1 e segue seqüencialmente da esquerda para a direita, de cima para baixo. A figura abaixo ilustra um jogo de palavras cruzadas com numeração apropriada.\n[1.png]\nUma palavra horizontal é escrita em uma seqüência de quadrados brancos em uma linha, iniciando-se em um quadrado numerado que tem um quadrado preto à esquerda ou que está na primeira coluna à esquerda. A seqüência de quadrados para essa palavra continua da esquerda para a direita, terminando no quadrado branco imediatamente anterior a um quadrado preto, ou no quadrado branco da coluna mais à direita da grade.\n\nUma palavra vertical é escrita em uma seqüência de quadrados brancos em uma coluna, iniciando-se em um quadrado numerado que tem um quadrado preto acima ou que está na primeira linha acima. A seqüência de quadrados para essa palavra continua de cima para baixo, terminando no quadrado branco imediatamente anterior a um quadrado preto, ou no quadrado branco da coluna mais abaixo da grade.\n\n1. Tarefa\nSua tarefa é escrever um programa que recebe como entrada vários jogos de palavras cruzadas resolvidas e produz as listas de palavras verticais e horizontais que constituem as soluções.",
+    "input": "O arquivo CRUZ.IN contém vários conjuntos de teste. A primeira linha de um conjunto de testes contém dois inteiros positivos, M e N, que indicam respectivamente o número de linhas e o número de colunas do jogo de palavras cruzadas. Cada uma das M linhas seguintes contém N caracteres (caracteres do alfabeto ou o caractere ‘*’ ), correspondendo a um jogo de palavras cruzadas resolvido. O caractere ‘*’ é utilizado para representar um quadrado preto. O final do arquivo de testes é indicado quando M = N = 0 (este último conjunto de testes não é válido e não deve ser processado).\nO arquivo CRUZ.IN contém ao menos um conjunto de teste que deve ser processado.",
+    "output": "Seu programa deve produzir um arquivo de saída chamado CRUZ.OUT. Para cada conjunto de teste do arquivo de entrada seu programa deve produzir duas listas, uma para as palavras horizontais e uma para as palavras verticais. A lista das palavras horizontais deve ser precedida por uma linha de cabeçalho onde está escrito “Horizontais:”; este cabeçalho só deve aparecer quando houver palavras horizontais no jogo (por exemplo, em um jogo com apenas uma coluna não há palavras horizontais). Da mesma forma, a lista das palavras verticais deve ser precedida por uma linha onde está escrito “Verticais:”. As listas devem ser numeradas e apresentadas na ordem crescente de numeração da grade original. Deve ser deixada uma linha em branco após cada teste. A grafia mostrada no Exemplo de Saída, abaixo, deve ser seguida rigorosamente.",
+    "constraints": "1 ≤ M ≤ 100\n1 ≤ N ≤ 100\nM = 0 e N = 0 apenas para indicar o fim do arquivo de entrada",
     "examples": [
         {
-            "input": "PATO\nPELE",
-            "output": "1 1"
-        },
-        {
-            "input": "ANJO\nMENTORA",
-            "output": "4 5"
-        },
-        {
-            "input": "MENTORA\nANJO",
-            "output": "7 1"
-        },
-        {
-            "input": "URUBU\nPOLIVALENTE",
-            "output": "-1 -1"
+            "input": "1 8\n*PASCAL*\n3 3\n*M*\nBIT\n*L*\n5 7\nATOS**J\nMEMORIA\n*COLE*V\n*L**DIA\nLA*VER*\n0 0",
+            "output": "Teste 1\nHorizontais:\n 1. PASCAL\n\nTeste 2\nHorizontais:\n 2. BIT\nVerticais:\n 1. MIL\n\nTeste 3\nHorizontais:\n 1. ATOS\n 6. MEMORIA\n 8. COLE\n 9. DIA\n 11. LA\n 12. VER\nVerticais:\n 1. AM\n 2. TECLA\n 3. OMO\n 4. SOL\n 5. JAVA\n 7. REDE\n 10. IR\n"
         }
     ],
-    "imgs": [],
-    "rating": [
-        20,
-        80
-    ],
-    "year": "2020",
-    "level": "Júnior",
-    "period": "Fase Estadual",
-    "difficulty": "Médio",
+    "imgs": ["1.png"],
+    "rating": [],
+    "year": "1999",
+    "level": "",
+    "period": "Fase 1",
     "topics": [
-        "strings",
-        "força bruta"
-    ]
+        "simulação",
+        "matrizes",
+        "strings"
+    ],
+    "difficulty": "Médio"
 }

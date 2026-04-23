@@ -1,45 +1,27 @@
 {
     "title": "Robô",
-    "statement": "Um fazendeiro comprou um robô-espantalho para espantar os pássaros de sua plantação de milho. O robô se move ao longo de um caminho que circunda a plantação. No caminho há N estações numeradas sequencialmente, a partir de 1, no sentido horário. A figura abaixo mostra um exemplo com oito estações.\nO robô inicia cada dia na estação número 1, e então obedece a uma sequência de comandos. Os comandos são gerados por um algoritmo de aprendizagem de máquina que coleta informações através de sensores espalhados na plantação, para garantir uma cobertura de vigia máxima. Cada comando faz com que o robô se mova para outra estação, vizinha à estação em que ele se encontra, ou no sentido horário ou no sentido anti-horário. O robô permanece nessa nova estação até receber um novo comando.\nApesar da promessa de que o robô protegeria a plantação, ao final de um determinado dia o fazendeiro notou que parte de sua plantação estava devastada por pássaros. O fazendeiro agora quer entender melhor o que aconteceu.\nDados o número da estação mais próxima à área devastada e a sequência de comandos que o robô obedeceu naquele dia, escreva um programa para determinar quantas vezes o robô permaneceu na estação mais próxima à àrea devastada.",
-    "input": "A primeira linha contém três inteiros N, C e S, representando respectivamente o número de estações, o número de comandos e o número da estação mais próxima à área devastada. A segunda linha contém C inteiros X1, X2, ..., XC, representando a sequência de comandos recebidos pelo robô. Para i = 1, 2, . . . , C, se Xi é 1 então o i-ésimo comando significa \"mova-se para a próxima estação no sentido horário\", enquanto se Xi é −1 então o i-ésimo comando significa “mova-se para a próxima estação no sentido anti-horário”. O robô sempre inicia na estação número 1.",
-    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o número de vezes que o robô permaneceu na estação número S durante o dia.",
-    "constraints": "• 2 ≤ N ≤ 100\n• 1 ≤ C ≤ 1000",
+    "statement": "Um novo robô de limpeza para um grande salão retangular está sendo desenvolvido. O robô vai percorrer o caminho definido por uma linha marcada no chão, que é coberto com ladrilhos quadrados, brancos e pretos: ladrilhos pretos indicam o caminho que o robô deve percorrer. Ao movimentar-se, o robô pode andar apenas em linha reta, para a frente. Parado, o robô pode girar para as quatro direções (Norte, Sul, Leste e Oeste).\n\nDados um mapa indicando a cor de cada ladrilho no chão e a posição inicial do robô, você deve escrever um programa que determine a posição final do robô.",
+    "input": "A primeira linha contém dois inteiros L e C indicando as dimensões do salão (número de linhas e número de colunas), medidas em ladrilhos. A segunda linha contém dois inteiros A e B indicando respectivamente a linha e a coluna da posição inicial do robô (as linhas são numeradas de 1 a L, de cima para baixo; as colunas são numeradas de 1 a C, da esquerda para a direita). Cada uma das L linhas seguintes contém C inteiros, zeros ou uns. Nessa representação, o valor ‘1’ indica que o ladrilho corresponte é preto. O ladrilho da linha A e coluna B sempre é preto. O caminho do robô é definido unicamente: em nenhum momento o robô necessita fazer uma escolha sobre em qual direção ir (em outras palavras, todo ladrilho preto tem no máximo dois vizinhos pretos e o ladrilho inicial tem um vizinho preto).",
+    "output": "Seu programa deve imprimir apenas uma linha, contendo dois números inteiros, respectivamente a linha e a coluna da posição final do robô.",
+    "constraints": "• 1 ≤ L, C ≤ 1000\n• 1 ≤ A ≤ L, 1 ≤ B ≤ C\n• A posição final é diferente da posição inicial.",
     "examples": [
         {
-            "input": "8 8 3\n1 -1 1 1 1 -1 1 1",
-            "output": "2"
+            "input": "3 5\n1 1\n1 0 0 0 1\n1 0 0 1 1\n1 1 1 1 0",
+            "output": "1 5"
         },
         {
-            "input": "5 4 1\n1 1 1 1",
-            "output": "1"
-        },
-        {
-            "input": "2 1 1\n1",
-            "output": "1"
-        },
-        {
-            "input": "2 1 2\n1",
-            "output": "1"
-        },
-        {
-            "input": "2 2 1\n-1 1",
-            "output": "2"
-        },
-        {
-            "input": "2 2 1\n-1 -1",
-            "output": "2"
+            "input": "4 7\n3 4\n0 0 1 1 1 1 1\n1 1 1 0 0 0 1\n1 0 0 1 0 1 1\n1 1 0 1 1 1 0",
+            "output": "4 2"
         }
     ],
     "imgs": [],
     "rating": [],
-    "year": "2021",
-    "level": "Nível 1",
-    "period": "Fase 2",
-    "difficulty": "Fácil",
+    "year": "2013",
+    "level": "N1",
+    "period": "Fase 1",
     "topics": [
-        "força bruta",
-        "simulação",
-        "arrays",
-        "matemática"
-    ]
+        "matrizes",
+        "simulação"
+    ],
+    "difficulty": "Médio"
 }

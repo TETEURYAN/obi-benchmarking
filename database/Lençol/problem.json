@@ -3,7 +3,7 @@
     "statement": "João dispõe de dois pedaços retangulares de tecido, e quer usá-los para fazer um lençol, também retangular, de dimensões A × B. Se necessário, os dois pedaços retangulares podem ser unidos por uma costura, mas João quer que a costura seja paralela aos lados dos retângulos. Os cortes, se necessários, também devem ser paralelos aos lados dos retângulos.\n\nDadas as dimensões dos pedaços de tecido e do lençol, escreva um programa que determina se é possível João fazer o lençol com as dimensões desejadas.",
     "input": "A entrada contém uma única linha, com seis inteiros A1, B1, A2, B2, A e B, representando, respectivamente, as dimensões dos dois retângulos disponíveis, e as dimensões do retângulo desejado.",
     "output": "Seu programa deve imprimir uma única linha contendo um caractere S se é possível fazer o lençol, e N caso contrário.",
-    "constraints": "• 1 ≤ A1, B1, A2, B2, A, B ≤ 10^6",
+    "constraints": "• 1 <= A1, B1, A2, B2, A, B <= 10^6",
     "examples": [
         {
             "input": "4 2 3 5 4 4",
@@ -27,10 +27,9 @@
     "year": "2013",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
         "geometria",
-        "força bruta",
         "matemática"
-    ]
+    ],
+    "difficulty": "Médio"
 }

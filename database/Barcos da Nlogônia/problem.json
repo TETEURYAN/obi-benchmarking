@@ -3,14 +3,14 @@
     "statement": "Como todos sabem, a Nlogônia é um arquipélago que mantém a tradição milenar de não permitir a construção de pontes. Assim, o transporte público entre as ilhas se dá por meio de barcos.\n\nPara cada par de ilhas há no máximo um barco que faz o transporte de ida e volta entre as duas ilhas; ou seja, pode não haver transporte direto entre um determinado par de ilhas. No entanto, é possível ir de qualquer ilha para qualquer outra ilha utilizando apenas os barcos de transporte público (note que pode ser preciso passar por outras ilhas no trajeto).\n\nOs barcos de transporte público da Nlogônia não são todos iguais: cada barco tem um limite máximo de passageiros que ele pode carregar.\n\nCada ilha tem um time de basquete, com um grupo de fãs. Todos os fãs de um time são moradores da mesma ilha do time para o qual torcem. Nos dias de jogo, o grupo de fãs do time visitante sempre planeja viajar usando apenas barcos de transporte público, todos juntos, para a ilha onde acontecerá o jogo (ou seja, todos os membros do grupo juntos, durante todo o trajeto). Mas os fãs sabem que isso talvez não seja possível devido ao limite de passageiros dos barcos de transporte público. Você poderia ajudá-los?\n\nDados a lista dos barcos existentes, com os respectivos limites de passageiros, e uma série de consultas, cada uma com a ilha de início do trajeto e a ilha onde ocorrerá o jogo, sua tarefa é determinar, para cada consulta da entrada, qual o maior número de torcedores que o grupo pode ter para poder viajar junto.",
     "input": "A primeira linha contém dois inteiros N e B, indicando, respectivamente, o número de ilhas da Nlogônia e o número de barcos de transporte público que ligam as ilhas. As ilhas nlogonianas são identificadas por números de 1 a N.\n\nCada uma das B linhas seguintes descreve o trajeto de um barco de transporte público e contém três inteiros I, J e P, onde I e J indicam as duas ilhas ligadas por esse barco e P indica o limite de passageiros do barco. Note que o barco pode fazer o transporte tanto de I para J quanto de J para I.\n\nA linha seguinte contém um inteiro C que indica o número de consultas. Finalmente, cada uma das C linhas seguintes descreve uma consulta e contém dois inteiros X e Y indicando, respectivamente, a ilha de início e a ilha do local do jogo.",
     "output": "Para cada consulta, na ordem em que elas foram descritas na entrada, seu programa deve produzir uma linha contendo um único inteiro, o maior número de passageiros que o grupo pode ter para viajar junto do início até o local do jogo.",
-    "constraints": "• 2 ≤ N ≤ 10⁵\n• 1 ≤ B ≤ 10⁵\n• 1 ≤ I ≤ N, 1 ≤ J ≤ N e I ≠ J, cada par I, J aparece no máximo uma vez na entrada.\n• 1 ≤ P ≤ 10⁵\n• 1 ≤ C ≤ 5 × 10⁴\n• 1 ≤ X ≤ N, 1 ≤ J ≤ N e X ≠ Y",
+    "constraints": "• 2 ≤ N ≤ 10^5\n• 1 ≤ B ≤ 10^5\n• 1 ≤ I ≤ N, 1 ≤ J ≤ N e I ≠ J, cada par I, J aparece no máximo uma vez na entrada.\n• 1 ≤ P ≤ 10^5\n• 1 ≤ C ≤ 5 × 10^4\n• 1 ≤ X ≤ N, 1 ≤ J ≤ N e X ≠ Y",
     "examples": [
         {
             "input": "5 6\n1 4 50\n1 5 85\n2 3 60\n2 4 80\n4 5 75\n1 3 40\n2\n2 1\n1 3",
             "output": "75\n60"
         },
         {
-            "input": "7 6\n1 2 30\n2 3 20\n3 4 10\n4 5 50\n5 6 40\n6 7 100\n4\n1 4\n4 7\n1 3\n6 7",
+            "input": "7 6\n1 2 30\n2 3 20\n3 4 10\n4 5 50\n5 6 40\n6 7 100\n4\n2 7\n4 7\n1 3\n6 7",
             "output": "10\n40\n20\n100"
         }
     ],
@@ -23,15 +23,13 @@
         21
     ],
     "year": "2023",
-    "level": "Nível Sênior",
-    "period": "Fase 2 - Turno A",
-    "difficulty": "Difícil",
+    "level": "Sênior",
+    "period": "Fase 2",
     "topics": [
         "grafos",
-        "árvores",
         "árvore geradora máxima",
-        "menor ancestral comum (lca)",
-        "greedy",
-        "union-find"
-    ]
+        "menor caminho",
+        "busca binária"
+    ],
+    "difficulty": "Difícil"
 }
