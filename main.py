@@ -42,7 +42,7 @@ def main():
         for question_path in questions_path:
             problems.append((question_path.name, load_problem(Path(question_path / "problem.json"))))
         
-        print_partition("FIM DA CRIANÇÃO DATABASE")
+        print_partition("FIM DA CRIAÇÃO DATABASE")
     except Exception as e:    
         print("Erro na estrutura database. Verifique o diretorio!")
         print("Erro: ", e)
@@ -58,15 +58,19 @@ def main():
     
     types = ['zero', 'few']
     languages = ['python', 'cpp']
+    image_modes = [False, True]
     
     for t in types:
         for lan in languages:
-            orch = Orchestrator(type=t, language=lan)
-            if orch.execute(problems=problems_2015):
-                print("Resultado está em output/results/")
-                print_partition("REINICIANDO")
-            else:
-                exit(1)
+            for use_img in image_modes:
+                img_label = "COM imagens" if use_img else "SEM imagens"
+                print_partition(f"Executando: {t} | {lan} | {img_label}")
+                orch = Orchestrator(type=t, language=lan, use_images=use_img)
+                if orch.execute(problems=problems_2015):
+                    print("Resultado está em output/results/")
+                    print_partition("REINICIANDO")
+                else:
+                    exit(1)
     
     print_partition(text="FIM ZERO-SHOT vs FEW-SHOT")
     
@@ -98,8 +102,21 @@ def main():
             language = "cpp"
         else:
             exit(0)
+
+        print_partition(text="MENU")
+        print("1. Sem imagens (text-only);")
+        print("2. Com imagens (multimodal).")
+        print("Se digitar qualquer outra coisa; termina a execução!")
+        op = get_int_input("Escolha uma opção de imagem: ")
         
-        orchestrador = Orchestrator(type=type_prompt, language=language)
+        if op == 1:
+            use_images = False
+        elif op == 2:
+            use_images = True
+        else:
+            exit(0)
+        
+        orchestrador = Orchestrator(type=type_prompt, language=language, use_images=use_images)
         if orchestrador.execute(problems=problems):
             print("Resultado está em output/results/")
             print_partition("REINICIANDO")
@@ -108,3 +125,4 @@ def main():
         
 if __name__ == "__main__":
     main()
+
