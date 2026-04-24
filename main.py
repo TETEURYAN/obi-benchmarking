@@ -21,6 +21,35 @@ def get_int_input(text : str = "test") -> int:
     except Exception:
         return 0
 
+
+def execute_problems_by_year(problems: list, year: int):
+    
+    print_partition(text="ZERO-SHOT vs FEW-SHOT")
+    problems_year = []
+    
+    for name, problem in problems:
+        if int(problem.year) == year:
+            print("Nome da questão: ", name)
+            problems_year.append((name, problem))
+    
+    types = ['zero', 'few']
+    languages = ['python', 'cpp']
+    image_modes = [False, True]
+    
+    for t in types:
+        for lan in languages:
+            for use_img in image_modes:
+                img_label = "COM imagens" if use_img else "SEM imagens"
+                print_partition(f"Executando: {t} | {lan} | {img_label}")
+                orch = Orchestrator(type=t, language=lan, use_images=use_img)
+                if orch.execute(problems=problems_year):
+                    print("Resultado está em output/results/")
+                    print_partition("REINICIANDO")
+                else:
+                    exit(1)
+    
+    print_partition(text="FIM ZERO-SHOT vs FEW-SHOT")
+    
 def main():
     
     try:
@@ -48,31 +77,16 @@ def main():
         print("Erro: ", e)
         exit(1)
     
-    print_partition(text="ZERO-SHOT vs FEW-SHOT")
-    problems_2015 = []
-    
-    for name, problem in problems:
-        if problem.year == "2015":
-            print("Nome da questão: ", name)
-            problems_2015.append((name, problem))
-    
-    types = ['zero', 'few']
-    languages = ['python', 'cpp']
-    image_modes = [False, True]
-    
-    for t in types:
-        for lan in languages:
-            for use_img in image_modes:
-                img_label = "COM imagens" if use_img else "SEM imagens"
-                print_partition(f"Executando: {t} | {lan} | {img_label}")
-                orch = Orchestrator(type=t, language=lan, use_images=use_img)
-                if orch.execute(problems=problems_2015):
-                    print("Resultado está em output/results/")
-                    print_partition("REINICIANDO")
-                else:
-                    exit(1)
-    
-    print_partition(text="FIM ZERO-SHOT vs FEW-SHOT")
+    while True:
+        print_partition(text="MENU")
+        
+        op = input("Quer executar um ano específico (y/n): ")
+        if op == 'y':
+            year = get_int_input("Digite um ano entre 1999 a 2026: ")
+            execute_problems_by_year(problems, year)
+        else:
+            print_partition(text="MENU")
+            break
     
     while True:
         print_partition(text="MENU")

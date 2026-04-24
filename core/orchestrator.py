@@ -277,7 +277,7 @@ class Orchestrator:
                     if images_base64:
                         print(f"  {len(images_base64)} imagem(ns) carregada(s) para envio multimodal.")
                     else:
-                        print(f"  Nenhuma imagem encontrada, enviando apenas texto.")
+                        print(f"Nenhuma imagem encontrada, enviando apenas texto.")
                         images_base64 = None
 
                 code_response, total_tokens, cost_prompt, duration_create_code = llm_service.create_code_llm(
