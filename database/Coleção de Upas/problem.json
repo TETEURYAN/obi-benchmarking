@@ -3,7 +3,7 @@
     "statement": "Mayuri é uma jovem que adora colecionar Upas. Ela está sempre procurando pelos melhores Upas para melhorar sua coleção. Cada Upa possui uma cor única e como Mayuri é muito perfeccionista ela não acha que todas cores combinam juntas, então ela resolveu escrever uma lista com pares de cores que não combinam. No entanto, ela está muito confusa em como organizar sua coleção, pois existem Upas mais raros que outros e por isso ela também precisa manter sempre os Upas mais raros.\n\nSua coleção é composta por N Upas e ela possui exatamente um Upa de cada cor entre 1 e N. Um Upa de cor i possui raridade igual a 2^i. Dada a coleção atual de Upas de Mayuri, informe quais Upas ela deve manter na sua coleção de modo que todos os Upas possuem cores que combinam entre si e tal que a soma das raridades de todos os Upas é maior possível.",
     "input": "A primeira linha da entrada contém dois números inteiros N e M, indicando respectivamente o número de Upas e o tamanho da lista de pares de cores que não combinam. As próximas M linhas contêm, cada uma, dois inteiros U e V, indicando que as cores U e V não combinam.",
     "output": "Seu programa deve produzir duas linhas de saída. A primeira linha da saída é composta por um inteiro Q indicando a quantidade de Upas que Mayuri deve manter na coleção. A segunda linha da saída deve ser composta por Q inteiros, indicando quais Upas ela manter na coleção, em ordem crescente de cor.",
-    "constraints": "• 1 ≤ N, M ≤ 10^5.\n• 1 ≤ U, V ≤ N e U ≠ V\n• Mayuri possui exatamente um Upa para cada cor entre 1 e N\n• É garantido que existe exatamente uma única resposta",
+    "constraints": "• 1 ≤ N, M ≤ 10^5\n• 1 ≤ U, V ≤ N e U != V\n• Mayuri possui exatamente um Upa para cada cor entre 1 e N\n• É garantido que existe exatamente uma única resposta",
     "examples": [
         {
             "input": "10 4\n10 9\n8 7\n8 6\n1 2",
@@ -24,9 +24,9 @@
     "year": "2019",
     "level": "Nível 1",
     "period": "Fase Nacional",
-    "difficulty": "Médio",
     "topics": [
         "grafos",
-        "greedy"
-    ]
+        "algoritmos gulosos"
+    ],
+    "difficulty": "Difícil"
 }

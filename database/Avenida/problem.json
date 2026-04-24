@@ -1,8 +1,8 @@
 {
     "title": "Avenida",
-    "statement": "Luiza está se preparando para começar a estudar em uma nova escola que será inaugurada na avenida em que ela mora. A avenida possui 2,000 metros de comprimento e existe um ponto de ônibus a cada 400 metros, incluindo no início e no fim da avenida. A tabela abaixo indica a distância de cada ponto de ônibus para o início da avenida.\n\nPonto #1 Ponto #2 Ponto #3 Ponto #4 Ponto #5 Ponto #6\n0 m\t400 m\t800 m\t1200 m\t1600 m\t2000 m\n\nA casa de Luiza está localizada no início da avenida, junto ao primeiro ponto de ônibus. A escola, por outro lado, está localizada a uma distância D do início da avenida.\n\nLuiza pretende pegar o ônibus na porta de casa, descer no ponto de ônibus mais próximo da escola e andar a pé o restante do trajeto. Assim, por exemplo, se a escola está a uma distância D = 720 m do início da avenida, ela vai descer no terceiro ponto de ônibus, localizado a 800 metros do início, e andar 80 metros (em direção ao início da avenida) para chegar à escola.\n\nLuiza pediu sua ajuda para descobrir quantos metros ela precisará andar: dada a distância em metros D da escola para o início da avenida, determine qual a distância entre a escola e o ponto de ônibus mais próximo.",
-    "input": "A entrada é composta por uma única linha contendo um único inteiro D, representando a distância em metros da escola para o início da avenida.",
-    "output": "Seu programa deverá imprimir uma única linha contendo um único inteiro, a distância mínima em metros que Luiza precisará andar entre um ponto de ônibus e a escola.",
+    "statement": "Luiza está se preparando para começar a estudar em uma nova escola que será inaugurada na\navenida em que ela mora. A avenida possui 2,000 metros de comprimento e existe um ponto de\nônibus a cada 400 metros, incluindo no início e no fim da avenida. A tabela abaixo indica a distância\nde cada ponto de ônibus para o início da avenida.\n[1.png]\nA casa de Luiza está localizada no início da avenida, junto ao primeiro ponto de ônibus. A escola,\npor outro lado, está localizada a uma distância D do início da avenida.\nLuiza pretende pegar o ônibus na porta de casa, descer no ponto de ônibus mais próximo da escola\ne andar a pé o restante do trajeto. Assim, por exemplo, se a escola está a uma distância D = 720 m\ndo início da avenida, ela vai descer no terceiro ponto de ônibus, localizado a 800 metros do início,\ne andar 80 metros (em direção ao início da avenida) para chegar à escola.\nLuiza pediu sua ajuda para descobrir quantos metros ela precisará andar: dada a distância em\nmetros D da escola para o início da avenida, determine qual a distância entre a escola e o ponto de\nônibus mais próximo.",
+    "input": "A entrada é composta por uma única linha contendo um único inteiro D, representando a distância\nem metros da escola para o início da avenida.",
+    "output": "Seu programa deverá imprimir uma única linha contendo um único inteiro, a distância mínima em\nmetros que Luiza precisará andar entre um ponto de ônibus e a escola.",
     "constraints": "• 0 ≤ D ≤ 2000",
     "examples": [
         {
@@ -22,7 +22,7 @@
             "output": "0"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
         0,
         30,
@@ -30,9 +30,11 @@
     ],
     "year": "2024",
     "level": "PJ",
-    "period": "Fase 2",
-    "difficulty": "Fácil",
+    "period": "Fase 3",
     "topics": [
-        "matemática"
-    ]
+        "matemática",
+        "arredondamento",
+        "implementação"
+    ],
+    "difficulty": "Fácil"
 }

@@ -1,6 +1,6 @@
 {
     "title": "Cubo e quadrado",
-    "statement": "O número 729 tem uma particularidade interessante: é ao mesmo tempo o cubo e o quadrado de um número inteiro (729 = 27² e 729 = 9³). Outro número com essa particularidade é 4096 (4096 = 64² e 4096 = 16³).\n\nSua tarefa é, dados dois números inteiros A e B, determinar quantos números no intervalo entre A e B são ao mesmo tempo cubo e quadrado de um número inteiro.",
+    "statement": "O número 729 tem uma particularidade interessante: é ao mesmo tempo o cubo e o quadrado de um número inteiro (729 = 27^2 e 729 = 9^3). Outro número com essa particularidade é 4096 (4096 = 64^2 e 4096 = 16^3).\n\nSua tarefa é, dados dois números inteiros A e B, determinar quantos números no intervalo entre A e B são ao mesmo tempo cubo e quadrado de um número inteiro.",
     "input": "A primeira da entrada contém um inteiro A, o limite inferior do intervalo de interesse, a segunda linha contém um inteiro B, o limite superior do intervalo de interesse (A e B fazem parte do intervalo de interesse).",
     "output": "Seu programa deve produzir uma única linha na saída, contendo um único inteiro, a quantidade de números que são ao mesmo tempo cubo e quadrado de um número inteiro, para todos os números do intervalo de interesse.",
     "constraints": "• 1 ≤ A < B ≤ 100 000 000",
@@ -22,9 +22,9 @@
     "year": "2021",
     "level": "Nível 2",
     "period": "Fase 3",
-    "difficulty": "Fácil",
     "topics": [
         "matemática",
         "força bruta"
-    ]
+    ],
+    "difficulty": "Fácil"
 }

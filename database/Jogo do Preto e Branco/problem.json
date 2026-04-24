@@ -1,9 +1,9 @@
 {
     "title": "Jogo do Preto e Branco",
-    "statement": "Você gosta de quebra-cabeças? O jogo do Preto e Branco é um quebra-cabeças que usa um tabuleiro retangular com L linhas e C colunas, formando L × C casas. No tabuleiro são posicionadas algumas peças pretas, cada peça em uma casa diferente.\n\nO objetivo do jogo é colocar o maior número possível de peças brancas no tabuleiro, obedecendo às seguintes restrições:\n\n• cada casa do tabuleiro pode conter no máximo uma peça;\n• uma peça branca deve ter ao menos uma peça preta como vizinha, à direita, à esquerda, acima ou abaixo;\n• uma peça branca não pode ter outra peça branca como vizinha, à direita, à esquerda, acima ou abaixo;\n\nA figura abaixo mostra dois exemplos de jogos, com as respectivas soluções, um com um tabuleiro 3 x 3 e outro com um tabuleiro 3 x 5.\n\nSua tarefa é escrever um programa que, dadas as descrições do tabuleiro e das peças pretas posicionadas, determine o maior número de peças brancas que podem ser colocadas.",
-    "input": "A primeira linha contém dois inteiros L e C, o número de linhas e o número de colunas do tabuleiro. As linhas são numeradas de 1 a L e as colunas são numeradas de 1 a C. A segunda linha contém um inteiro P, o número de peças pretas colocadas no tabuleiro. Cada uma das P linhas seguintes descreve a posição de uma peça preta e contém dois inteiros Xᵢ e Yᵢ, indicando a linha e a coluna em que a peça foi colocada.",
+    "statement": "Você gosta de quebra-cabeças? O jogo do Preto e Branco é um quebra-cabeças que usa um tabuleiro retangular com L linhas e C colunas, formando L×C casas. No tabuleiro são posicionadas algumas peças pretas, cada peça em uma casa diferente.\n\nO objetivo do jogo é colocar o maior número possível de peças brancas no tabuleiro, obedecendo às seguintes restrições:\n\n• cada casa do tabuleiro pode conter no máximo uma peça;\n• uma peça branca deve ter ao menos uma peça preta como vizinha, à direita, à esquerda, acima ou abaixo;\n• uma peça branca não pode ter outra peça branca como vizinha, à direita, à esquerda, acima ou abaixo;\n\nA figura abaixo mostra dois exemplos de jogos, com as respectivas soluções, um com um tabuleiro 3 × 3 e outro com um tabuleiro 3 × 5.\n[1.png]\nSua tarefa é escrever um programa que, dadas as descrições do tabuleiro e das peças pretas posicionadas, determine o maior número de peças brancas que podem ser colocadas.",
+    "input": "A primeira linha contém dois inteiros L e C, o número de linhas e o número de colunas do tabuleiro. As linhas são numeradas de 1 a L e as colunas são numeradas de 1 a C. A segunda linha contém um inteiro P, o número de peças pretas colocadas no tabuleiro. Cada uma das P linhas seguintes descreve a posição de uma peça preta e contém dois inteiros X_i e Y_i, indicando a linha e a coluna em que a peça foi colocada.",
     "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o maior número de peças brancas que podem ser colocadas no tabuleiro.",
-    "constraints": "• 1 ≤ L ≤ 6\n• 1 ≤ C ≤ 6\n• 1 ≤ P ≤ 10\n• 1 ≤ Xᵢ ≤ L para 1 ≤ i ≤ L\n• 1 ≤ Yᵢ ≤ C para 1 ≤ i ≤ C",
+    "constraints": "• 1 ≤ L ≤ 6\n• 1 ≤ C ≤ 6\n• 1 ≤ P ≤ 10\n• 1 ≤ X_i ≤ L para 1 ≤ i ≤ L\n• 1 ≤ Y_i ≤ C para 1 ≤ i ≤ C\n\nInformações sobre a pontuação:\n• Para um conjunto de casos de testes valendo 20 pontos, L = 1.\n• Para um conjunto adicional de casos de testes valendo 80 pontos, nenhuma restrição adicional.",
     "examples": [
         {
             "input": "3 3\n3\n1 1\n1 3\n3 2",
@@ -18,9 +18,7 @@
             "output": "5"
         }
     ],
-    "imgs": [
-        "https://raw.githubusercontent.com/olimpiada-brasileira-de-informatica/obi-public-pb-share/main/images/2020/n2_f1_jogo_1.png"
-    ],
+    "imgs": ["1.png"],
     "rating": [
         20,
         80
@@ -28,11 +26,10 @@
     "year": "2020",
     "level": "Nível 2",
     "period": "Fase Nacional",
-    "difficulty": "Médio",
     "topics": [
         "backtracking",
-        "força bruta",
-        "grafos",
-        "arrays"
-    ]
+        "programação dinâmica",
+        "grafos"
+    ],
+    "difficulty": "Médio"
 }

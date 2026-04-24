@@ -1,22 +1,22 @@
 {
     "title": "Dobradura",
-    "statement": "1. Tarefa\nZezinho tem aulas de Iniciação Artística em sua escola, e recentemente aprendeu a fazer dobraduras em papel. Ele ficou fascinado com as inúmeras possibilidades de se dobrar uma simples folha de papel. Como Zezinho gosta muito de matemática, resolveu inventar um quebra-cabeça envolvendo dobraduras. Zezinho definiu uma operação de dobradura D que consiste em dobrar duas vezes uma folha de papel quadrada de forma a conseguir um quadrado com 1/4 do tamanho original, conforme ilustrado na figura.\n\n[IMAGEM: um quadrado, depois dobrado ao meio na vertical, depois dobrado ao meio na horizontal]\n\nDepois de repetir N vezes esta operação de dobradura D sobre o papel, Zezinho cortou o quadrado resultante com um corte vertical e um corte horizontal, conforme a figura abaixo.\n\n[IMAGEM: um quadrado com um corte vertical e um horizontal passando pelo centro]\n\nZezinho lançou então um desafio aos seus colegas: quem adivinha quantos pedaços de papel foram produzidos?",
+    "statement": "1. Tarefa\nZezinho tem aulas de Iniciação Artística em sua escola, e recentemente aprendeu a fazer dobraduras em papel. Ele ficou fascinado com as inúmeras possibilidades de se dobrar uma simples folha de papel. Como Zezinho gosta muito de matemática, resolveu inventar um quebra-cabeça envolvendo dobraduras. Zezinho definiu uma operação de dobradura D que consiste em dobrar duas vezes uma folha de papel quadrada de forma a conseguir um quadrado com 1/4 do tamanho original, conforme ilustrado na figura.\n[1.png]\nDepois de repetir N vezes esta operação de dobradura D sobre o papel, Zezinho cortou o quadrado resultante com um corte vertical e um corte horizontal, conforme a figura abaixo.\n[2.png]\nZezinho lançou então um desafio aos seus colegas: quem adivinha quantos pedaços de papel foram produzidos?",
     "input": "A entrada é composta de vários conjuntos de teste. Cada conjunto de teste é composto de uma única linha, contendo um número inteiro N que indica o número de vezes que a operação de dobradura D foi aplicada. O final da entrada é indicado por N = -1.",
     "output": "Para cada conjunto de teste da entrada seu programa deve produzir três linhas na saída. A primeira linha deve conter um identificador do conjunto de teste, no formato “Teste n”, onde n é numerado a partir de 1. A segunda linha deve conter o número de pedaços de papel obtidos depois de cortar a dobradura, calculado pelo seu programa. A terceira linha deve ser deixada em branco. A grafia mostrada no Exemplo de Saída, abaixo, deve ser seguida rigorosamente.",
-    "constraints": "-1 ≤ N ≤ 15 (N = -1 apenas para indicar o fim da entrada)",
+    "constraints": "-1 <= N <= 15 (N = -1 apenas para indicar o fim da entrada)",
     "examples": [
         {
             "input": "1\n0\n-1",
             "output": "Teste 1\n9\n\nTeste 2\n4\n"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png", "2.png"],
     "rating": [],
     "year": "2002",
     "level": "",
     "period": "",
-    "difficulty": "Fácil",
     "topics": [
         "matemática"
-    ]
+    ],
+    "difficulty": "Fácil"
 }

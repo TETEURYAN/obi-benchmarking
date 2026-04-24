@@ -1,9 +1,9 @@
 {
     "title": "Linhas de Ônibus",
-    "statement": "Nessa grande cidade na China, há T terminais de ônibus, numerados de 1 a T; e L linhas de ônibus, numeradas de 1 a L. Os mapas são muito confusos mas conseguimos entender que os ônibus de uma linha fazem viagens circulares passando por um conjunto fixo de terminais. Por exemplo, a tabela seguinte indica o conjunto de terminais por onde passam os ônibus de cada linha, para T = 10 e L = 5:\n\nLinha | Conjunto de Terminais\n---|---\n1 | {4, 3, 8, 2, 1}\n2 | {5, 10, 7}\n3 | {1, 5}\n4 | {6, 8, 10}\n5 | {9, 4, 5}\n\nNão estamos preocupados com o trajeto da linha, com a ordem na qual o ônibus passa pelos terminais. Portanto, para ir do terminal 2 para o terminal 4, precisamos apenas tomar um ônibus da linha 1 e esperar até ele chegar no terminal 4. O sistema garante que é possível viajar entre qualquer par de terminais, mas talvez seja preciso trocar de linha de ônibus algumas vezes.\n\nNós estamos com medo de tomar um ônibus errado e acabar perdidos na cidade. É tudo muito grande na China! Por isso, queremos trocar de ônibus o menor número possível de vezes. Por exemplo, você pode ir do terminal 2 para o terminal 10 primeiro tomando a linha 1 até o terminal 1, depois a linha 3 até o terminal 5 e, por fim, a linha 2 até o terminal 10; trocando de ônibus duas vezes, usando três linhas no total. Só que dá para ir do terminal 2 para o 10 trocando apenas uma vez: primeiro tomando a linha 1 até o terminal 8 e depois a linha 4 até o terminal 10.\n\nNeste problema, dados os conjuntos de terminais de cada linha, um terminal origem e um terminal destino, seu programa deve computar o número mínimo possível de linhas de ônibus para fazer a viagem.",
+    "statement": "Nessa grande cidade na China, há T terminais de ônibus, numerados de 1 a T; e L linhas de ônibus,numeradas de 1 a L. Os mapas são muito confusos mas conseguimos entender que os ônibus de uma linha fazem viagens circulares passando por um conjunto fixo de terminais. Por exemplo, a tabela seguinte indica o conjunto de terminais por onde passam os ônibus de cada linha, para T = 10 e L = 5:\n[1.png]\nNão estamos preocupados com o trajeto da linha, com a ordem na qual o ônibus passa pelos terminais. Portanto, para ir do terminal 2 para o terminal 4, precisamos apenas tomar um ônibus da linha 1 e esperar até ele chegar no terminal 4. O sistema garante que é possível viajar entre qualquer par de terminais, mas talvez seja preciso trocar de linha de ônibus algumas vezes.\n\nNós estamos com medo de tomar um ônibus errado e acabar perdidos na cidade. É tudo muito grande na China! Por isso, queremos trocar de ônibus o menor número possível de vezes. Por exemplo, você pode ir do terminal 2 para o terminal 10 primeiro tomando a linha 1 até o terminal 1, depois a linha 3 até o terminal 5 e, por fim, a linha 2 até o terminal 10; trocando de ônibus duas vezes, usando três linhas no total. Só que dá para ir do terminal 2 para o 10 trocando apenas uma vez: primeiro tomando a linha 1 até o terminal 8 e depois a linha 4 até o terminal 10.\n\nNeste problema, dados os conjuntos de terminais de cada linha, um terminal origem e um terminal destino, seu programa deve computar o número mínimo possível de linhas de ônibus para fazer a viagem.",
     "input": "A primeira linha da entrada contém quatro inteiros, T, L, O e D, representando, respectivamente, o número de terminais, o número de linhas de ônibus, o terminal origem e o terminal destino. As últimas L linhas da entrada descrevem, cada uma, o conjunto de terminais pelos quais uma linha de ônibus passa. A i-ésima linha (dessas últimas L linhas da entrada) descreve o conjunto de terminais da linha de ônibus i, no seguinte formato: o primeiro inteiro na linha, C, indica o número de terminais no conjunto. Depois desse inteiro, o restante da linha da entrada contém C inteiros distintos representando os terminais.",
     "output": "Seu programa deve produzir uma única linha, contendo apenas um inteiro, o número mínimo possível de linhas de ônibus para viajar do terminal O para o terminal D.",
-    "constraints": "• 2 ≤ T ≤ 500\n• 1 ≤ L ≤ 500\n• 2 ≤ C ≤ T\n• O ≠ D",
+    "constraints": "• 2 ≤ T ≤ 500\n• 1 ≤ L ≤ 500\n• 2 ≤ C ≤ T\n• O != D",
     "examples": [
         {
             "input": "10 5 2 10\n5 4 3 8 2 1\n3 5 10 7\n2 1 5\n3 6 8 10\n3 9 4 5",
@@ -18,7 +18,7 @@
             "output": "8"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
         5,
         5,
@@ -30,9 +30,9 @@
     "year": "2019",
     "level": "Nível 1",
     "period": "Fase Nacional",
-    "difficulty": "Médio",
     "topics": [
-        "Grafos",
-        "Busca em Largura"
-    ]
+        "grafos",
+        "busca em largura"
+    ],
+    "difficulty": "Médio"
 }

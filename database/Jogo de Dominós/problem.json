@@ -1,6 +1,6 @@
 {
     "title": "Jogo de Dominós",
-    "statement": "O jogo de dominó tradicional, conhecido como duplo-6, possui 28 peças. Cada peça está dividida em dois quadrados e dentro de cada quadrado há entre 0 e 6 círculos. O jogo é chamado de duplo-6 justamente porque esse é o maior número de círculos que aparece num quadrado de uma peça. A figura ao lado mostra uma forma de organizar as 28 peças do jogo duplo-6 em 7 linhas. Essa figura permite ver claramente quantas peças haveria num jogo de dominó, por exemplo, do tipo duplo-4: seriam todas as peças das 5 primeiras linhas, 15 peças no total. Também poderíamos ver, seguindo o padrão da figura, quantas peças possui o jogo de dominó conhecido como mexicano, que é o duplo-12. Seriam 91 peças, correspondendo a 13 linhas.\n\nNeste problema, estamos precisando da sua ajuda para escrever um programa que, dado o valor N, calcule e imprima quantas peças existem num jogo de dominó do tipo duplo-N.",
+    "statement": "O jogo de dominó tradicional, conhecido como duplo-6, possui 28 peças. Cada peça está dividida em dois quadrados e dentro de cada quadrado há entre 0 e 6 círculos. O jogo é chamado de duplo-6 justamente porque esse é o maior número de círculos que aparece num quadrado de uma peça. A figura ao lado mostra uma forma de organizar as 28 peças do jogo duplo-6 em 7 linhas. Essa figura permite ver claramente quantas peças haveria num jogo de dominó, por exemplo, do tipo duplo-4: seriam todas as peças das 5 primeiras linhas, 15 peças no total. Também poderíamos ver, seguindo o padrão da figura, quantas peças possui o jogo de dominó conhecido como mexicano, que é o duplo-12. Seriam 91 peças, correspondendo a 13 linhas.\n[1.png]\nNeste problema, estamos precisando da sua ajuda para escrever um programa que, dado o valor N, calcule e imprima quantas peças existem num jogo de dominó do tipo duplo-N.",
     "input": "A primeira linha da entrada contém um número natural N representando o tipo do jogo de dominó: duplo-N.",
     "output": "Seu programa deve imprimir uma linha contendo um número natural representando quantas peças existem num jogo de dominó do tipo duplo-N.",
     "constraints": "• 0 ≤ N ≤ 10000",
@@ -14,17 +14,16 @@
             "output": "91"
         }
     ],
-    "imgs": [
-        "Ilustração das 28 peças de um jogo de dominó do tipo duplo-6, organizadas em 7 linhas de forma triangular."
-    ],
+    "imgs": ["1.png"],
     "rating": [
         100
     ],
     "year": "2019",
     "level": "Nível 1",
-    "period": "Fase Local",
-    "difficulty": "Fácil",
+    "period": "Fase 1",
     "topics": [
-        "matemática"
-    ]
+        "matemática",
+        "fórmulas"
+    ],
+    "difficulty": "Fácil"
 }

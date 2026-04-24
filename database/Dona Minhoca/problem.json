@@ -1,34 +1,32 @@
 {
     "title": "Dona Minhoca",
-    "statement": "Dona Minhoca construiu uma bela casa, composta de N salas conectadas por N − 1 túneis. Cada túnel conecta exatamente duas salas distintas, e pode ser percorrido em qualquer direção. A casa de dona Minhoca foi construída de modo que, percorrendo os túneis, é possível partir de qualquer sala e chegar a qualquer outra sala da casa.\n\nPara deixar sua casa mais segura, Dona Minhoca decidiu instalar radares anti-furto em algumas das salas. Ela comprou K radares, e deve agora decidir em quais salas colocará um radar. Além disso, todos radares terão um raio de alcance, cujo valor R também deve ser decidido. Quando um radar com raio de alcance R é instalado na sala s, todas as salas com distância menor ou igual a R da sala s (incluindo a própria s) ficam sob o alcance do radar, e estarão protegidas.\n\nDevido à política estranha de cobrança da empresa de radares, todos os K radares devem ter o mesmo raio de alcance. Dona Minhoca então se pergunta: qual seria o menor valor possível para R, tal que, se o raio de alcance dos radares for R, é possível escolher K salas para instalar os radares de forma que todas as N salas estejam protegidas?",
-    "input": "A primeira linha da entrada contém dois inteiros N e K, indicando o número de salas, e de radares que Dona Minhoca possui. As N − 1 linhas seguintes contém dois inteiros ai e bi cada, indicando que existe um túnel conectando essas duas salas.",
-    "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o menor valor possível para R.",
-    "constraints": "• 1 ≤ N ≤ 300000\n• 1 ≤ K < N\n• ai ≠ bi",
+    "statement": "Dona Minhoca construiu uma bela casa, composta de N salas conectadas por N - 1 túneis. Cada túnel conecta exatamente duas salas distintas, e pode ser percorrido em qualquer direção. A casa de dona Minhoca foi construída de modo que, percorrendo os túneis, é possível partir de qualquer sala e chegar a qualquer outra sala da casa.\n\nDona Minhoca quer se exercitar, e para isso planeja construir um túnel adicional, de modo a criar um \"ciclo\" de salas e túneis. Vamos chamar de comprimento do ciclo o número de salas do ciclo.\n\nA figura (a) abaixo mostra um exemplo de casa. É possível obter um ciclo de comprimento três construindo um túnel entre as salas 2 e 5, ou um ciclo de comprimento quatro construindo um túnel entre as salas 1 e 3.\n[1.png]\nDada a descrição da casa de dona Minhoca, escreva um programa para determinar o número de salas do ciclo de maior comprimento que é possível construir, e de quantas maneiras é possível construir um ciclo com esse comprimento.",
+    "input": "A primeira linha da entrada contém um inteiro N, o número de salas da casa de dona Minhoca. As salas são identificadas por números de 1 a N. Cada uma das N - 1 linhas seguintes contém dois inteiros X e Y, indicando que há um túnel entre a sala X e a sala Y.",
+    "output": "Seu programa deve produzir duas linhas. A primeira linha deve conter somente um inteiro, o número de salas do ciclo de maior comprimento que é possível construir. A segunda linha deve conter somente um inteiro, o número de ciclos distintos que é possível contruir com esse comprimento.",
+    "constraints": "• 3 ≤ N ≤ 50 000\n• 1 ≤ X ≤ N; 1 ≤ Y ≤ N; X = Y\n• nos testes, o número de possíveis ciclos distintos é menor do que 100 000 000\n\nInformações sobre a pontuação\n• Para um conjunto de casos de testes valendo 40 pontos, N ≤ 5 000\n• Para um conjunto de casos de testes valendo outros 60 pontos, nenhuma restrição adicional.",
     "examples": [
         {
-            "input": "6 1\n1 2\n2 3\n3 4\n4 5\n4 6",
-            "output": "2"
+            "input": "5\n1 2\n2 4\n4 5\n4 3",
+            "output": "4\n2"
         },
         {
-            "input": "6 2\n1 2\n2 3\n3 4\n4 5\n4 6",
-            "output": "1"
+            "input": "8\n1 2\n2 3\n3 4\n3 6\n5 3\n1 8\n1 7",
+            "output": "5\n6"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
-        25,
-        17,
-        17,
-        41
+        40,
+        60
     ],
-    "year": "2022",
-    "level": "Nível 2",
+    "year": "2021",
+    "level": "Sênior",
     "period": "Fase 3",
-    "difficulty": "Difícil",
     "topics": [
         "grafos",
         "árvores",
-        "busca binária",
-        "greedy"
-    ]
+        "diâmetro",
+        "busca em profundidade"
+    ],
+    "difficulty": "Difícil"
 }

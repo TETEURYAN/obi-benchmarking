@@ -1,12 +1,9 @@
 {
     "title": "Jardim de infância",
-    "statement": "Vívian é uma professora do jardim de infância. Todos os dias, ao final da aula, ela tem que olhar os desenhos que seus alunos fizeram naquele dia e fazer algum comentário. Esta é uma tarefa muito repetitiva, já que as crianças costumam desenhar coisas semelhantes, portanto Vívian decidiu automatizar o processo. Ela fez um programa capaz de processar a imagem e procurar padrões conhecidos para fazer comentários predeterminados. Em particular, ela percebeu que na maioria dos desenhos as crianças incluem um pinheiro. Porém, ela está tendo dificuldades para reconhecê-los e pediu sua ajuda. O programa dela já é capaz de reconhecer uma figura que pode ser um pinheiro e transformá-la em sete pontos P1, P2, ... P7. O candidato a pinheiro seria a região interna do polígono P1P2P4P6P7P5P3, como mostra a figura a seguir de um pinheiro válido.\n\nLogo, dados os sete pontos que formam a imagem, você deve decidir se ela é ou não um pinheiro. Ao analisar os desenhos das crianças, você decidiu que as condições para que os pontos formem um pinheiro são as seguintes:\n\n• O ângulo ∠P2P1P3 é agudo (vértice em P1);\n• Os segmentos P1P2 e P1P3 têm o mesmo comprimento;\n• Os pontos P2, P3, P4 e P5 são colineares;\n• Os pontos médios dos segmentos P2P3 e P4P5 são coincidentes;\n• O segmento P2P3 tem comprimento maior que o segmento P4P5;\n• Os segmentos P4P6 e P5P7 são perpendiculares ao segmento P2P3;\n• Os segmentos P4P6 e P5P7 têm o mesmo comprimento;\n• Os pontos P1 e P6 devem estar separados pela reta que contém o segmento P2P3. Formalmente, o segmento P1P6 deve interceptar a reta que contém o segmento P2P3 em um único ponto.",
+    "statement": "Vívian é uma professora do jardim de infância. Todos os dias, ao final da aula, ela tem que olhar os desenhos que seus alunos fizeram naquele dia e fazer algum comentário. Esta é uma tarefa muito repetitiva, já que as crianças costumam desenhar coisas semelhantes, portanto Vívian decidiu automatizar o processo. Ela fez um programa capaz de processar a imagem e procurar padrões conhecidos para fazer comentários predeterminados. Em particular, ela percebeu que na maioria dos desenhos as crianças incluem um pinheiro. Porém, ela está tendo dificuldades para reconhecê-los e pediu sua ajuda. O programa dela já é capaz de reconhecer uma figura que pode ser um pinheiro e transformá-la em sete pontos P1, P2, ... P7. O candidato a pinheiro seria a região interna do polígono P1P2P4P6P7P5P3, como mostra a figura a seguir de um pinheiro válido.\n[1.png]\nLogo, dados os sete pontos que formam a imagem, você deve decidir se ela é ou não um pinheiro. Ao analisar os desenhos das crianças, você decidiu que as condições para que os pontos formem um pinheiro são as seguintes:\n\n• O ângulo ∠P2P1P3 é agudo (vértice em P1);\n• Os segmentos P1P2 e P1P3 têm o mesmo comprimento;\n• Os pontos P2, P3, P4 e P5 são colineares;\n• Os pontos médios dos segmentos P2P3 e P4P5 são coincidentes;\n• O segmento P2P3 tem comprimento maior que o segmento P4P5;\n• Os segmentos P4P6 e P5P7 são perpendiculares ao segmento P2P3;\n• Os segmentos P4P6 e P5P7 têm o mesmo comprimento;\n• Os pontos P1 e P6 devem estar separados pela reta que contém o segmento P2P3. Formalmente, o segmento P1P6 deve interceptar a reta que contém o segmento P2P3 em um único ponto.\n\nA imagem a seguir mostra os polígonos formados pelos exemplos de entrada.\n[2.png]\n",
     "input": "A entrada contém sete linhas. A i-ésima da entrada contém dois inteiros Xi e Yi, indicando as coordenadas cartesianas do ponto Pi.",
     "output": "Seu programa deve produzir uma única linha, contendo uma única letra, \"S\" se os pontos formam um pinheiro pelas condições descritas e \"N\", caso contrário.",
-    "constraints": "• −2 × 10⁴ ≤ Xi, Yi ≤ 2 × 10⁴.\n• Todos os pontos são diferentes.",
-    "rating": [
-        50
-    ],
+    "constraints": "• −2 × 10^4 ≤ Xi, Yi ≤ 2 × 10^4.\n• Todos os pontos são diferentes.",
     "examples": [
         {
             "input": "2 -4\n5 3\n-1 3\n3 3\n1 3\n3 5\n1 5",
@@ -29,16 +26,16 @@
             "output": "N"
         }
     ],
-    "imgs": [
-        "Uma figura mostrando um polígono P1P2P4P6P7P5P3 em um plano cartesiano. P1 está no topo, P2 e P3 formam a base do 'triângulo' superior. P4 e P5 estão na mesma linha que P2 e P3. P6 e P7 formam a base do 'tronco' do pinheiro.",
-        "Um gráfico mostrando os polígonos formados pelos exemplos de entrada em um plano cartesiano, cada um com uma cor diferente."
+    "imgs": ["1.png", "2.png"],
+    "rating": [
+        50,
+        100
     ],
     "year": "2016",
     "level": "Universitária",
     "period": "Fase 2",
-    "difficulty": "Difícil",
     "topics": [
-        "geometria",
-        "matemática"
-    ]
+        "geometria computacional"
+    ],
+    "difficulty": "Médio"
 }

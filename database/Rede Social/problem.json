@@ -1,9 +1,9 @@
 {
-    "title": "Rede Social",
-    "statement": "Uma nova rede social foi lançada e fez sucesso imediato. Nessa nova rede é possível postar mensagens que são recebidas por seguidores; um seguidor pode decidir repostar uma mensagem que recebeu e seus seguidores também receberão a mensagem e poderão por sua vez repostá-la.\n\nPara medir a influência de um usuário na nova rede foi criado um novo critério, chamado de Fator de Influência, descrito a seguir.\n\n• Inicialmente vamos definir o índice de repostagem de uma mensagem M de um usuário U como sendo o número de usuários diferentes de U que repostaram M.\n\n• O Fator de Influência de um usuário U é o máximo valor de FI tal que U postou FI mensagens que, cada uma, tem um índice de repostagem de pelo menos FI.\n\nPor exemplo, se João postou quatro mensagens, com índices de repostagem 1, 1, 5, 6, seu Fator de Influência é 2, pois postou duas mensagens com índice de repostagem maior ou igual a 2.\n\nDada uma lista com os índices de repostagens de todas as mensagens postadas por um usuário, escreva um programa para calcular o Fator de Influência do usuário.",
-    "input": "A primeira linha da entrada contém um inteiro N, o número de mensagens postadas pelo usuário. Cada uma das N linhas seguintes contém um inteiro Ri, o índice de repostagem de uma mensagem.",
+    "title": "Rede social",
+    "statement": "Uma nova rede social foi lançada e fez sucesso imediato. Nessa nova rede é possível postar mensagens que são recebidas por seguidores; um seguidor pode decidir repostar uma mensagem que recebeu e seus seguidores também receberão a mensagem e poderão por sua vez repostá-la.\n\nPara medir a influência de um usuário na nova rede foi criado um novo critério, chamado de Fator de Influência, descrito a seguir.\n\n• Inicialmente vamos definir o índice de repostagem de uma mensagem M de um usuário U como sendo o número de usuários diferentes de U que repostaram M.\n• O Fator de Influência de um usuário U é o máximo valor de FI tal que U postou FI mensagens que, cada uma, tem um índice de repostagem de pelo menos FI.\n\nPor exemplo, se João postou quatro mensagens, com índices de repostagem 1, 1, 5, 6, seu Fator de Influência é 2, pois postou duas mensagens com índice de repostagem maior ou igual a 2.\n\nDada uma lista com os índices de repostagens de todas as mensagens postadas por um usuário, escreva um programa para calcular o Fator de Influência do usuário.",
+    "input": "A primeira linha da entrada contém um inteiro N, o número de mensagens postadas pelo usuário. Cada uma das N linhas seguintes contém um inteiro R_i, o índice de repostagem de uma mensagem.",
     "output": "Seu programa deve produzir uma única linha, contendo um único número inteiro, o Fator de Influência para o usuário.",
-    "constraints": "• 1 ≤ N ≤ 5 × 10⁵\n• 0 ≤ Ri ≤ 10⁶ para 1 ≤ i ≤ N",
+    "constraints": "• 1 ≤ N ≤ 5 × 10^5\n• 0 ≤ R_i ≤ 10^6 para 1 ≤ i ≤ N\n\nInformações sobre a pontuação:\n• Para um conjunto de casos de testes valendo 20 pontos, 1 ≤ N ≤ 1000.\n• Para um conjunto adicional de casos de testes valendo 80 pontos, nenhuma restrição adicional.",
     "examples": [
         {
             "input": "5\n1\n4\n1\n7\n1",
@@ -24,13 +24,12 @@
         80
     ],
     "year": "2020",
-    "level": "Nível 1",
+    "level": "Nível 2",
     "period": "Fase Nacional",
-    "difficulty": "Médio",
     "topics": [
         "ordenação",
-        "arrays",
         "busca binária",
-        "greedy"
-    ]
+        "algoritmos gulosos"
+    ],
+    "difficulty": "Fácil"
 }

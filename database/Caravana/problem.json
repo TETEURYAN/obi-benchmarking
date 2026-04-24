@@ -21,11 +21,12 @@
     "imgs": [],
     "rating": [],
     "year": "2022",
-    "level": "Nível 2",
+    "level": "Sênior",
     "period": "Fase 3",
-    "difficulty": "Fácil",
     "topics": [
-        "arrays",
-        "matemática"
-    ]
+        "matemática",
+        "array",
+        "algoritmos básicos"
+    ],
+    "difficulty": "Fácil"
 }

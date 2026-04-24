@@ -1,7 +1,7 @@
 {
     "title": "Jogo dos Pinos",
-    "statement": "O Jogo dos Pinos é um quebra-cabeças que utiliza pinos e um tabuleiro com furos em forma de cruz. Inicialmente há apenas um furo vago, no centro do tabuleiro, e todos os outros furos contém um pino como mostra figura abaixo.\n\nO objetivo do jogo é remover os pinos do tabuleiro de forma que reste apenas um pino. Para remover um pino é necessário fazer um movimento válido, que é definido da seguinte maneira. O jogador deve escolher um pino, chamado pivô, e uma das quatro direções (acima, abaixo, esquerda, direita) de tal forma que o pivô tenha um outro pino, chamado alvo, como vizinho imediato na direção escolhida e que o pino alvo seja seguido, também na direção escolhida, por um furo vago (chamado de destino). A figura abaixo mostra os quatro possíveis pivôs da configuração inicial do jogo.\n\nO jogador pode então fazer o pino pivô pular sobre o pino alvo e ocupar o furo destino, removendo o pino alvo do tabuleiro. A figura abaixo mostra um exemplo (a) antes, (b) durante e (c) depois de um movimento válido.\n\nDada uma configuração de pinos em um tabuleiro, escreva um programa para determinar o número de movimentos válidos possíveis na configuração dada.",
-    "input": "A entrada é composta por sete linhas, cada linha com exatamente sete caracteres. A linhas são identificadas por números de 1 a 7. Os dois primeiros caracteres e os dois últimos caracteres das linhas 1, 2, 6 e 7 são ‘-’ (hífen). Todos os outros caracteres são ou 'o' (letra o minúscula) representando um pino, ou '.' (ponto) representando um furo.",
+    "statement": "O Jogo dos Pinos é um quebra-cabeças que utiliza pinos e um tabuleiro com furos em forma de cruz. Inicialmente há apenas um furo vago, no centro do tabuleiro, e todos os outros furos contém um pino como mostra figura abaixo.\n[1.png]\nO objetivo do jogo é remover os pinos do tabuleiro de forma que reste apenas um pino. Para remover um pino é necessário fazer um movimento válido, que é definido da seguinte maneira. O jogador deve escolher um pino, chamado pivô, e uma das quatro direções (acima, abaixo, esquerda, direita) de tal forma que o pivô tenha um outro pino, chamado alvo, como vizinho imediato na direção escolhida e que o pino alvo seja seguido, também na direção escolhida, por um furo vago (chamado de destino). A figura abaixo mostra os quatro possíveis pivôs da configuração inicial do jogo.\n[2.png]\nO jogador pode então fazer o pino pivô pular sobre o pino alvo e ocupar o furo destino, removendo o pino alvo do tabuleiro. A figura abaixo mostra um exemplo (a) antes, (b) durante e (c) depois de um movimento válido.\n[3.png]\nDada uma configuração de pinos em um tabuleiro, escreva um programa para determinar o número de movimentos válidos possíveis na configuração dada.",
+    "input": "A entrada é composta por sete linhas, cada linha com exatamente sete caracteres. A linhas são identificadas por números de 1 a 7. Os dois primeiros caracteres e os dois últimos caracteres das linhas 1, 2, 6 e 7 são '-' (hífen). Todos os outros caracteres são ou 'o' (letra o minúscula) representando um pino, ou '.' (ponto) representando um furo.",
     "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o número de movimentos válidos na configuração da entrada.",
     "constraints": "• A seção Entrada descreve as restrições.",
     "examples": [
@@ -10,18 +10,18 @@
             "output": "4"
         },
         {
-            "input": "--.o.--\n--o.o--\n.......\n.......\no.o.o..\n--o.o--\n--o.o--",
+            "input": "--.o.--\n--o.o--\n....o..\n....o..\no.o.o..\n--o.o--\n--o.o--",
             "output": "2"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png","2.png","3.png"],
     "rating": [],
     "year": "2020",
-    "level": "Júnior",
+    "level": "PJ",
     "period": "Fase Estadual",
-    "difficulty": "Fácil",
     "topics": [
-        "arrays",
-        "força bruta"
-    ]
+        "matriz",
+        "busca"
+    ],
+    "difficulty": "Fácil"
 }

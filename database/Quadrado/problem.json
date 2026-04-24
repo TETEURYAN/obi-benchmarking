@@ -1,40 +1,27 @@
 {
     "title": "Quadrado",
-    "statement": "Um quadrado fantástico é um conjunto de números inteiros positivos dispostos em N linhas por N colunas tal que:\n\n• Não há números repetidos no quadrado.\n• A média dos números em cada linha é um número inteiro que está presente na linha.\n• A média dos números em cada coluna é um número inteiro que está presente na coluna.",
-    "input": "A primeira e única linha da entrada contém um número inteiro N, indicando a dimensão do quadrado.",
-    "output": "Seu programa deve produzir N linhas, cada uma contendo N números inteiros Xi, representando um quadrado fantástico.",
-    "constraints": "• 1 ≤ N ≤ 40\n• 1 ≤ Xi ≤ 1000000",
+    "statement": "Um quadrado quase mágico, de dimensões N × N, é um quadrado que obedece à seguinte condição. Existe um número inteiro positivo M tal que: para qualquer linha, a soma dos números da linha é igual a M; e para qualquer coluna, a soma dos números da coluna é também igual a M. O quadrado seria mágico, e não apenas quase mágico, se a soma das diagonais também fosse M. Por exemplo, a figura abaixo, parte (a), apresenta um quadrado quase mágico onde M = 21.\n[1.png]\nLaura construiu um quadrado quase mágico e alterou, propositalmente, um dos números! Nesta tarefa, você deve escrever um programa que, dado o quadrado quase mágico alterado por Laura, descubra qual era o número original antes da alteração e qual número foi colocado no lugar. Por exemplo, na parte (b) da figura, o número original era 1, que Laura alterou para 7.",
+    "input": "A primeira linha da entrada contém apenas um número N, representando a dimensão do quadrado. As N linhas seguintes contêm, cada uma, N números inteiros, definindo o quadrado. A entrada é garantidamente um quadrado quase mágico onde exatamente um número foi alterado.",
+    "output": "Seu programa deve imprimir apenas uma linha contendo dois números: primeiro o número original e depois o número que Laura colocou no seu lugar.",
+    "constraints": "• 3 ≤ N ≤ 50; e o valor de todos os números está entre 1 e 10000",
     "examples": [
         {
-            "input": "1",
-            "output": "1"
+            "input": "3\n3 6 6\n8 6 7\n4 3 8",
+            "output": "1 7"
         },
         {
-            "input": "2",
-            "output": "-1"
-        },
-        {
-            "input": "3",
-            "output": "1 2 3\n4 5 6\n7 8 9"
-        },
-        {
-            "input": "4",
-            "output": "1 2 3 6\n7 8 9 12\n13 14 15 18\n31 32 33 36"
+            "input": "4\n16 3 2 13\n5 10 11 8\n8 6 7 12\n4 15 14 1",
+            "output": "9 8"
         }
     ],
-    "imgs": [],
-    "rating": [
-        44,
-        56
-    ],
-    "year": "2022",
-    "level": "Nível Sênior",
-    "period": "Fase 3",
-    "difficulty": "Difícil",
+    "imgs": ["1.png"],
+    "rating": [],
+    "year": "2014",
+    "level": "Nível 1",
+    "period": "Fase 2",
     "topics": [
-        "matemática",
-        "ad-hoc",
-        "construção",
-        "arrays"
-    ]
+        "matrizes",
+        "matemática"
+    ],
+    "difficulty": "Médio"
 }

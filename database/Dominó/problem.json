@@ -1,27 +1,23 @@
 {
     "title": "Dominó",
-    "statement": "O jogo de dominó tradicional, conhecido como duplo-6, possui 28 peças. Cada peça está dividida em dois quadrados e dentro de cada quadrado há entre 0 e 6 círculos. O jogo é chamado de duplo-6 justamente porque esse é o maior número de círculos que aparece num quadrado de uma peça. A figura ao lado mostra uma forma de organizar as 28 peças do jogo duplo-6 em 7 linhas. Essa figura permite ver claramente quantas peças haveria num jogo de dominó, por exemplo, do tipo duplo-4: seriam todas as peças das 5 primeiras linhas, 15 peças no total. Também poderíamos ver, seguindo o padrão da figura, quantas peças possui o jogo de dominó conhecido como mexicano, que é o duplo-12. Seriam 91 peças, correspondendo a 13 linhas.\n\nPara a nossa sorte, existe uma fórmula com a qual podemos calcular facilmente o número de peças de um jogo do tipo duplo-N, para um número N natural qualquer: ((N+1)*(N+2))/2. Neste problema, estamos precisando da sua ajuda para escrever um programa que, dado o valor N, use esta fórmula para calcular e imprimir quantas peças existem num jogo de dominó do tipo duplo-N.",
-    "input": "A primeira linha da entrada contém um número natural N representando o tipo do jogo de dominó: duplo-N.",
-    "output": "Seu programa deve imprimir uma linha contendo um número natural representando quantas peças existem num jogo de dominó do tipo duplo-N.",
-    "constraints": "• 0 ≤ N ≤ 10000",
+    "statement": "Todos conhecem o jogo de dominós, em que peças com dois valores devem ser colocadas na mesa em seqüência, de tal forma que os valores de peças imediatamente vizinhas sejam iguais. O objetivo desta tarefa é determinar se é possível colocar todas as peças de um conjunto dado em uma formação válida.\n[1.png]\n1. Tarefa\nÉ dado um conjuto de peças de dominó. Cada peça tem dois valores X e Y, com X e Y variando de 0 a 6 (X pode ser igual a Y). Sua tarefa é escrever um programa que determine se é possível organizar todas as peças recebidas em seqüência, obedecendo as regras do jogo de dominó.",
+    "input": "A entrada é composta de vários conjuntos de teste. A primeira linha de um conjunto de testes contém um número inteiro N que indica a quantidade de peças do conjunto. As N linhas seguintes contêm, cada uma, a descrição de uma peça. Uma peça é descrita por dois inteiros X e Y (0 ≤ X ≤ 6 e 0 ≤ Y ≤ 6) que representam os valores de cada lado da peça. O final da entrada é indicado por N = 0.",
+    "output": "Para cada conjunto de teste da entrada seu programa deve produzir três linhas na saída. A primeira linha deve conter um identificador do conjunto de teste, no formato “Teste n”, onde n é numerado a partir de 1. A segunda linha deve conter a expressão “sim” se for possível organizar todas as peças em uma formação válida ou a expressão “nao” (note a ausência de acento) caso contrário. A terceira linha deve ser deixada em branco. A grafia mostrada no Exemplo de Saída, abaixo, deve ser seguida rigorosamente.",
+    "constraints": "0 ≤ N ≤ 100 (N = 0 apenas para indicar o final da entrada)",
     "examples": [
         {
-            "input": "6",
-            "output": "28"
-        },
-        {
-            "input": "12",
-            "output": "91"
+            "input": "3\n0 1\n2 1\n2 1\n2\n1 1\n0 0\n6\n3 0\n0 0\n1 6\n4 1\n0 6\n2 3\n0",
+            "output": "Teste 1\nsim\n\nTeste 2\nnao\n\nTeste 3\nsim"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [],
-    "year": "2019",
-    "level": "PJ",
-    "period": "Fase Local",
-    "difficulty": "Fácil",
+    "year": "2001",
+    "level": "Programação",
+    "period": "Fase Única",
     "topics": [
-        "matemática",
-        "iniciante"
-    ]
+        "grafos",
+        "busca"
+    ],
+    "difficulty": "Médio"
 }

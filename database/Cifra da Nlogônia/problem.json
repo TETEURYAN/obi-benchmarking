@@ -1,6 +1,6 @@
 {
     "title": "Cifra da Nlogônia",
-    "statement": "O rei da Nlogônia ordenou que todos os documentos importantes sejam \"cifrados\", para que apenas quem tem conhecimento da cifra possa lê-los (cifrar um documento significa alterar o original modificando as letras de acordo com algum algoritmo de cifra).\n\nO rei decretou que o seguinte algotimo deve ser usado para cifrar os documentos:\n\n• Cada consoante deve ser substituída por exatamente três letras, na seguinte ordem:\n\n1. a própria consoante (vamos chamar de consoante original);\n2. a vogal mais próxima da consoante original no alfabeto, com a regra adicional de que se a consoante original está à mesma distância de duas vogais, então a vogal mais próxima do início do alfabeto é usada. Por exemplo, se a consoante original é d, a vogal que deve ser usada é e, pois esta é a vogal mais próxima; se a consoante original é c, a vogal que deve ser utilizada é a, porque c está à mesma distância de a e e, e a é mais próxima do início do alfabeto.\n3. a consoante que segue a consoante original, na ordem do início ao fim do alfabeto. Por exemplo, se a consoante original é d, a consoante a ser utilizada é f. No caso de a consoante original ser z, deve ser utilizada a própria letra z.\n\n• As vogais não são modificadas.\n\nNesta tarefa, o alfabeto é\nabcdefghijklmnopqrstuvxz\n\ne as vogais são\naeiou\n\nPor exemplo, a cifra da palavra “ter” é “tuveros\" (tuv-e-ros) e a cifra da palavra \"paz” é \"poqazuz” (poq-a-zuz).\n\nO rei da Nlogônia procura por alguém que saiba escrever um programa que produza a cifra de uma palavra dada. Você pode ajudá-lo?",
+    "statement": "O rei da Nlogônia ordenou que todos os documentos importantes sejam “cifrados”, para que apenas quem tem conhecimento da cifra possa lê-los (cifrar um documento significa alterar o original modificando as letras de acordo com algum algoritmo de cifra).\nO rei decretou que o seguinte algotimo deve ser usado para cifrar os documentos:\n• Cada consoante deve ser substituída por exatamente três letras, na seguinte ordem:\n1. a própria consoante (vamos chamar de consoante original);\n2. a vogal mais próxima da consoante original no alfabeto, com a regra adicional de que se a consoante original está à mesma distância de duas vogais, então a vogal mais próxima do início do alfabeto é usada. Por exemplo, se a consoante original é d, a vogal que deve ser usada é e, pois esta é a vogal mais próxima; se a consoante original é c, a vogal que deve ser utilizada é a, porque c está à mesma distância de a e e, e a é mais próxima do início do alfabeto.\n3. a consoante que segue a consoante original, na ordem do início ao fim do alfabeto. Por exemplo, se a consoante original é d, a consoante a ser utilizada é f. No caso de a consoante original ser z, deve ser utilizada a própria letra z.\n• As vogais não são modificadas.\nNesta tarefa, o alfabeto é\na b c d e f g h i j k l m n o p q r s t u v x z\ne as vogais são\na e i o u\nPor exemplo, a cifra da palavra “ter” é “tuveros” (tuv-e-ros) e a cifra da palavra “paz” é “poqazuz” (poq-a-zuz).\nO rei da Nlogônia procura por alguém que saiba escrever um programa que produza a cifra de uma palavra dada. Você pode ajudá-lo?",
     "input": "A primeira e única linha da entrada contém uma palavra P formada por letras minúsculas sem acentuação.",
     "output": "Seu programa deve produzir uma única linha, contendo a palavra cifrada.",
     "constraints": "• A palavra P tem no mínimo uma e no máximo 30 letras, todas minúsculas e sem acentuação.",
@@ -23,9 +23,9 @@
     "year": "2021",
     "level": "Nível 2",
     "period": "Fase 1",
-    "difficulty": "Médio",
     "topics": [
         "strings",
-        "força bruta"
-    ]
+        "ad-hoc"
+    ],
+    "difficulty": "Médio"
 }

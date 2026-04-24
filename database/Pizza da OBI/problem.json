@@ -23,10 +23,10 @@
         100
     ],
     "year": "2023",
-    "level": "Nível Júnior",
-    "period": "Fase 2 - Turno A",
-    "difficulty": "Fácil",
+    "level": "PJ",
+    "period": "Fase 2",
     "topics": [
         "matemática"
-    ]
+    ],
+    "difficulty": "Fácil"
 }

@@ -19,11 +19,10 @@
     "year": "2014",
     "level": "Nível 1",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
         "matemática",
         "geometria",
-        "força bruta",
-        "ordenação"
-    ]
+        "condicionais"
+    ],
+    "difficulty": "Fácil"
 }

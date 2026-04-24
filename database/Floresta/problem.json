@@ -1,9 +1,9 @@
 {
     "title": "Floresta",
-    "statement": "O desmatamento é um dos maiores problemas enfrentados pelo Brasil hoje; estima-se que mais de 10 mil km² de vegetação sejam desflorestados todo ano. Além de destruir os habitats de várias espécies em risco de extinção, o desmatamento promove a emissão de gás carbônico, principal responsável pelo efeito estufa e pelo aquecimento global.\nA Fundação de Conservação dos Carvalhos (FCC) tenta combater esta tendência, promovendo o reflorestamento das regiões desmatadas. Para isso, eles pretendem plantar carvalhos formando um quadriculado (um carvalho em cada vértice); no centro de cada quadrado formado por eles, a FCC também plantará um eucalipto. Para preservar a biodiversidade da área plantada, pelo menos uma árvore de cada espécie deve ser plantada durante o reflorestamento.\nPor exemplo, se a FCC quiser plantar 23 árvores, ela poderá fazê-lo de duas maneiras: ou formando um retângulo 3 × 5 com os carvalhos, como na figura (a), ou formando um retângulo 2 × 8, como na figura (b).\nConsidere que, para os propósitos deste problema, um retângulo x × y é equivalente a um retângulo y × x.\n\nTarefa\n\nEscreva um programa que, dado o número total de árvores que devem ser plantadas, de quantas maneiras diferentes elas podem ser dispostas.",
+    "statement": "O desmatamento é um dos maiores problemas enfrentados pelo Brasil hoje; estima-se que mais de 10 mil km² de vegetação sejam desflorestados todo ano. Além de destruir os habitats de várias espécies em risco de extinção, o desmatamento promove a emissão de gás carbônico, principal responsável pelo efeito estufa e pelo aquecimento global.\nA Fundação de Conservação dos Carvalhos (FCC) tenta combater esta tendência, promovendo o reflorestamento das regiões desmatadas. Para isso, eles pretendem plantar carvalhos formando um quadriculado (um carvalho em cada vértice); no centro de cada quadrado formado por eles, a FCC também plantará um eucalipto. Para preservar a biodiversidade da área plantada, pelo menos uma árvore de cada espécie deve ser plantada durante o reflorestamento.\nPor exemplo, se a FCC quiser plantar 23 árvores, ela poderá fazê-lo de duas maneiras: ou formando um retângulo 3 × 5 com os carvalhos, como na figura (a), ou formando um retângulo 2 × 8, como na figura (b).\nConsidere que, para os propósitos deste problema, um retângulo x × y é equivalente a um retângulo y × x.\n[1.png]\nTarefa\n\nEscreva um programa que, dado o número total de árvores que devem ser plantadas, de quantas maneiras diferentes elas podem ser dispostas.",
     "input": "A única linha da entrada contém um único inteiro N, que indica o número total de árvores que devem ser plantadas (1 ≤ N ≤ 10⁹).",
     "output": "Seu programa deve imprimir uma única linha, contendo um único inteiro, indicando o número de arranjos distintos que podem ser feitos para o reflorestamento.",
-    "constraints": "Em um conjunto de casos de teste que totaliza 40 pontos, N ≤ 10.000.",
+    "constraints": "• Em um conjunto de casos de teste que totaliza 40 pontos, N ≤ 10.000.",
     "examples": [
         {
             "input": "23",
@@ -18,24 +18,18 @@
             "output": "3"
         }
     ],
-    "imgs": [
-        {
-            "source": "figura (a)",
-            "description": "Grade retangular 3x5 de círculos pretos (carvalhos) formando 8 quadrados internos. No centro de cada quadrado há um círculo branco (eucalipto)."
-        },
-        {
-            "source": "figura (b)",
-            "description": "Grade retangular 2x8 de círculos pretos (carvalhos) formando 7 quadrados internos. No centro de cada quadrado há um círculo branco (eucalipto)."
-        }
-    ],
+    "imgs": ["1.png"],
     "rating": [
-        40
+        40,
+        60
     ],
     "year": "2010",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
-        "matemática"
-    ]
+        "matemática",
+        "teoria dos números",
+        "contagem"
+    ],
+    "difficulty": "Fácil"
 }

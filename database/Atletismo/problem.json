@@ -1,8 +1,8 @@
 {
     "title": "Atletismo",
-    "statement": "Os Jogos Olímpicos de Paris 2024 acabaram de terminar e mais uma vez reviveram na população o interesse por esportes. Uma das modalidades que mais receberam atenção dos espectadores foi o atletismo, no qual a corrida de 100 metros é uma das principais provas.\n\nO sucesso foi tanto que o estádio onde Tiago trabalha recebeu muitas inscrições para as aulas de atletismo. Tiago está empolgado com o novo grupo, mas teme que a grande quantidade de alunos torne difícil determinar os resultados das corridas.\n\nEm uma corrida com N atletas, os atletas são numerados de 1 a N e o sistema automatizado do estádio é capaz de registrar a ordem na qual os atletas passaram pela linha de chegada. Vale ressaltar que este sistema é muito preciso, e portanto nunca há empate entre dois atletas. Tiago gostaria de usar essas informações para descobrir em qual posição cada atleta ficou no ranking da corrida.\n\nPor exemplo, se N = 6 e a ordem em que os atletas cruzaram a chegada foi, do primeiro ao último,\n\n5, 2, 4, 6, 3, 1\n\nentão o atleta com número 1 ficou na posição 6, o atleta com número 2 ficou na posição 2, o atleta com número 3 ficou na posição 5 e assim em diante. A tabela abaixo indica a posição de cada atleta.\n\nNúmero do atleta 1 2 3 4 5 6\nPosição no ranking 6 2 5 3 1 4\n\nDadas a quantidade N de atletas em uma corrida e a ordem em que os N atletas cruzaram a linha de chegada, sua tarefa é escrever um programa que determine, para cada um dos N atletas, a posição dele no ranking da corrida.",
-    "input": "A primeira linha de entrada contém um único inteiro N representando a quantidade de atletas que participaram da corrida.\n\nAs próximas N linhas contém cada uma um inteiro e representam a ordem em que os atletas cruzaram a linha de chegada, do primeiro ao último. Ou seja, a i-ésima dessas linhas contém o número do i-ésimo atleta a cruzar a linha de chegada.",
-    "output": "Seu programa deverá imprimir N linhas, cada uma contendo um único inteiro. A i-ésima linha deverá conter a posição no ranking do atleta com número i.",
+    "statement": "Os Jogos Olímpicos de Paris 2024 acabaram de terminar e mais uma vez reviveram na população\no interesse por esportes. Uma das modalidades que mais receberam atenção dos espectadores foi o\natletismo, no qual a corrida de 100 metros é uma das principais provas.\nO sucesso foi tanto que o estádio onde Tiago trabalha recebeu muitas inscrições para as aulas de\natletismo. Tiago está empolgado com o novo grupo, mas teme que a grande quantidade de alunos\ntorne difícil determinar os resultados das corridas.\nEm uma corrida com N atletas, os atletas são numerados de 1 a N e o sistema automatizado\ndo estádio é capaz de registrar a ordem na qual os atletas passaram pela linha de chegada. Vale\nressaltar que este sistema é muito preciso, e portanto nunca há empate entre dois atletas. Tiago\ngostaria de usar essas informações para descobrir em qual posição cada atleta ficou no ranking da\ncorrida.\nPor exemplo, se N = 6 e a ordem em que os atletas cruzaram a chegada foi, do primeiro ao último,\n5, 2, 4, 6, 3, 1\nentão o atleta com número 1 ficou na posição 6, o atleta com número 2 ficou na posição 2, o atleta\ncom número 3 ficou na posição 5 e assim em diante. A tabela abaixo indica a posição de cada atleta.\n[1.png]\nDadas a quantidade N de atletas em uma corrida e a ordem em que os N atletas cruzaram a linha de\nchegada, sua tarefa é escrever um programa que determine, para cada um dos N atletas, a posição\ndele no ranking da corrida.",
+    "input": "A primeira linha de entrada contém um único inteiro N representando a quantidade de atletas que\nparticiparam da corrida.\nAs próximas N linhas contém cada uma um inteiro e representam a ordem em que os atletas\ncruzaram a linha de chegada, do primeiro ao último. Ou seja, a i-ésima dessas linhas contém o\nnúmero do i-ésimo atleta a cruzar a linha de chegada.",
+    "output": "Seu programa deverá imprimir N linhas, cada uma contendo um único inteiro. A i-ésima linha\ndeverá conter a posição no ranking do atleta com número i.",
     "constraints": "• 1 ≤ N ≤ 100 000\n• Cada inteiro de 1 a N aparece exatamente uma vez na ordem de chegada",
     "examples": [
         {
@@ -14,11 +14,11 @@
             "output": "3\n1\n2"
         },
         {
-            "input": "9\n5\n1\n3\n6\n4\n2\n7\n8",
+            "input": "9\n9\n5\n1\n3\n6\n4\n2\n7\n8",
             "output": "3\n7\n4\n6\n2\n5\n8\n9\n1"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
         0,
         40,
@@ -26,9 +26,12 @@
     ],
     "year": "2024",
     "level": "PJ",
-    "period": "Fase 2",
-    "difficulty": "Fácil",
+    "period": "Fase 3",
     "topics": [
-        "arrays"
-    ]
+        "arrays",
+        "vetores",
+        "mapeamento",
+        "implementação"
+    ],
+    "difficulty": "Fácil"
 }

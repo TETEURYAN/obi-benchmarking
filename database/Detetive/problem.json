@@ -1,9 +1,9 @@
 {
     "title": "Detetive",
-    "statement": "Uma agência de detetives quer criar um aplicativo para ajudar a resolver os problemas dos clientes.\n\nA agência é muito eficiente em coletar informações e fazer deduções muito precisas. Para cada cliente a agência monta uma base de dados contendo um conjunto de eventos e um conjunto de implicações na forma A → B, onde A e B representam eventos. O significado da implicação é que, se o evento A ocorreu, então o evento B também necessariamente tem que ter ocorrido. Para essa implicação, A é a causa e B é a consequência. Além disso, se um evento é consequência de pelo menos uma causa, então ele só pode ocorrer se pelo menos uma de suas causas ocorrer também. Não existe, na base de dados da agência, uma sequência circular de implicações (A → B → C ... → A). Portanto, alguns eventos não possuem causa, não são consequência em nenhuma implicação.\n\nVeja que essas condições permitem deduções muito precisas. Por exemplo, considere que o conjunto de eventos seja {1,2,3,4} e o conjunto de implicações seja {1 → 2,1 → 3, 2 → 4,3 → 4}. Se algum detetive conseguir determinar que o evento 4 é verdadeiro, que ele ocorreu, então o evento 2 ou o evento 3 tem que ter ocorrido, mas para eles ocorrerem o evento sem causa 1 tem que ter ocorrido. E como 1 ocorreu, por implicação, 2 e 3 ocorreram também. Portanto o aplicativo da agência poderia concluir que todos os quatro eventos ocorreram com certeza, a partir da determinação de que o evento 4 ocorreu. Por um outro exemplo, considere que o conjunto de eventos seja {1,2,3} e o conjunto de implicações seja {1 → 3,2 → 3}. Se um detetive determinar que o evento 3 é verdadeiro, não podemos ter certeza de qual foi a causa.\n\nA agência solicita que você escreva um programa para determinar o conjunto de todos os eventos que ocorreram com certeza, considerando as informações da base de dados e um conjunto inicial de eventos determinados como verdadeiros pelos detetives.",
-    "input": "A primeira linha contém três números inteiros E, I e V, representando respectivamente o número total de eventos, o número de implicações e o número de eventos que a agência determinou que são verdadeiros.\n\nCada evento é identificado por um número de 1 a E. Cada uma das I linhas seguintes contém dois inteiros A e B, representando dois eventos, descrevendo uma implicação A → B coletada pela agência. A última linha contém V inteiros Xi, representando os eventos que a agência determinou que são verdadeiros. Os eventos Xi são dados em ordem crescente do número de identificação.",
+    "statement": "Uma agência de detetives quer criar um aplicativo para ajudar a resolver os problemas dos clientes.\nA agência é muito eficiente em coletar informações e fazer deduções muito precisas. Para cada cliente a agência monta uma base de dados contendo um conjunto de eventos e um conjunto de implicações na forma A → B, onde A e B representam eventos. O significado da implicação é que, se o evento A ocorreu, então o evento B também necessariamente tem que ter ocorrido. Para essa implicação, A é a causa e B é a consequência. Além disso, se um evento é consequência de pelo menos uma causa, então ele só pode ocorrer se pelo menos uma de suas causas ocorrer também. Não existe, na base de dados da agência, uma sequência circular de implicações (A → B → C . . . → A). Portanto, alguns eventos não possuem causa, não são consequência em nenhuma implicação.\nVeja que essas condições permitem deduções muito precisas. Por exemplo, considere que o conjunto de eventos seja {1, 2, 3, 4} e o conjunto de implicações seja {1 → 2, 1 → 3, 2 → 4, 3 → 4}. Se algum detetive conseguir determinar que o evento 4 é verdadeiro, que ele ocorreu, então o evento 2 ou o evento 3 tem que ter ocorrido, mas para eles ocorrerem o evento sem causa 1 tem que ter ocorrido. E como 1 ocorreu, por implicação, 2 e 3 ocorreram também. Portanto o aplicativo da agência poderia concluir que todos os quatro eventos ocorreram com certeza, a partir da determinação de que o evento 4 ocorreu. Por um outro exemplo, considere que o conjunto de eventos seja {1, 2, 3} e o conjunto de implicações seja {1 → 3, 2 → 3}. Se um detetive determinar que o evento 3 é verdadeiro, não podemos ter certeza de qual foi a causa.\nA agência solicita que você escreva um programa para determinar o conjunto de todos os eventos que ocorreram com certeza, considerando as informações da base de dados e um conjunto inicial de eventos determinados como verdadeiros pelos detetives.",
+    "input": "A primeira linha contém três números inteiros E, I e V , representando respectivamente o número total de eventos, o número de implicações e o número de eventos que a agência determinou que são verdadeiros.\nCada evento é identificado por um número de 1 a E. Cada uma das I linhas seguintes contém dois inteiros A e B, representando dois eventos, descrevendo uma implicação A → B coletada pela agência. A última linha contém V inteiros Xi, representando os eventos que a agência determinou que são verdadeiros. Os eventos Xi são dados em ordem crescente do número de identificação.",
     "output": "Seu programa deve produzir uma única linha, com os identificadores de todos os eventos que certamente ocorreram, considerando o conjunto de implicações dado na entrada. Os identificadores dos eventos devem ser escritos em ordem crescente, separados por um único espaço em branco.",
-    "constraints": "• 1 ≤ E ≤ 10³\n• 1 ≤ I ≤ 10⁵\n• 1 ≤ A, B, V ≤ E\n• 1 ≤ Xi ≤ E, para 1 ≤ i ≤ V.",
+    "constraints": "• 1 ≤ E ≤ 10³\n• 1 ≤ I ≤ 10⁵\n• 1 ≤ A, B, V ≤ E\n• 1 ≤ Xi ≤ E, para 1 ≤ i ≤ V .",
     "examples": [
         {
             "input": "3 2 1\n2 3\n1 2\n3",
@@ -20,15 +20,15 @@
     ],
     "imgs": [],
     "rating": [
-        70
+        70,
+        30
     ],
     "year": "2019",
-    "level": "Programação • Nível 2",
+    "level": "Nível 2",
     "period": "Fase Estadual",
-    "difficulty": "Médio",
     "topics": [
         "grafos",
-        "programação dinâmica",
-        "busca em largura / profundidade"
-    ]
+        "busca em profundidade"
+    ],
+    "difficulty": "Médio"
 }

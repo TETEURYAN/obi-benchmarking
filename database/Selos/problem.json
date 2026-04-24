@@ -23,11 +23,11 @@
         70
     ],
     "year": "2011",
-    "level": "Nível 1",
+    "level": "1",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
         "matemática",
-        "força bruta"
-    ]
+        "teoria dos números"
+    ],
+    "difficulty": "Fácil"
 }

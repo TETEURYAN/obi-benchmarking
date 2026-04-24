@@ -6,3 +6,7 @@ results.csv
 
 piston/data/*
 in
+database/
+!database/model_problem.json
+!database/problems_of_the_obi.txt
+!database/dataset-questions-obi.zip

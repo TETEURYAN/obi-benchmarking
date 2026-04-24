@@ -1,9 +1,9 @@
 {
     "title": "Carro elétrico",
-    "statement": "O mapa ao lado mostra o reino de Quadradônia. As estradas são representadas por linhas e as cidades por círculos numerados de 1 a 10. As estradas são igualmente espaçadas com distância de 100 km entre cada par de estradas, sendo orientadas em apenas duas direções: Norte-Sul e Leste-Oeste. Uma empresa de aluguel de carros em Quadradônia utiliza apenas carros elétricos. A autonomia de um carro elétrico é a distância que ele pode percorrer com uma carga de energia; após essa distância o carro deve ser carregado novamente para que possa ser utilizado. Há carregadores de energia em cada cidade e não há carregadores de energia fora das cidades. Entre cidades, os carros trafegam apenas pelas estradas e todos os carros têm a mesma autonomia.\n\nUm vendedor deseja partir da cidade 1 e visitar todas as outras cidades, em qualquer ordem, mesmo que ele visite a mesma cidade mais de uma vez. Ele quer utilizar preferencialmente carros elétricos na sua viagem, mas se necessário viajará de avião se a distância para a próxima cidade for maior do que a autonomia do carro. Por exemplo, no mapa acima, se a autonomia for 300 km, o vendedor pode alugar um carro em 1 e visitar 3 e depois 2, mas não pode alcançar as outras cidades. Então ele pode viajar de avião até 5, alugar um carro visitar 6, depois viajar de avião até 4. Assim, são necessárias duas viagens de avião para ele visitar todas as cidades.\n\nDados o mapa da Quadradônia e a autonomia dos carros, determine qual o menor número de viagens de avião que são necessárias para que o viajante visite todas as cidades, partindo da cidade 1.",
+    "statement": "O mapa ao lado mostra o reino de Quadradônia. As estradas são representadas por linhas e as cidades por círculos numerados de 1 a 10. As estradas são igualmente espaçadas com distância de 100 km entre cada par de estradas, sendo orientadas em apenas duas direções: Norte-Sul e Leste-Oeste. Uma empresa de aluguel de carros em Quadradônia utiliza apenas carros elétricos. A autonomia de um carro elétrico é a distância que ele pode percorrer com uma carga de energia; após essa distância o carro deve ser carregado novamente para que possa ser utilizado. Há carregadores de energia em cada cidade e não há carregadores de energia fora das cidades. Entre cidades, os carros trafegam apenas pelas estradas e todos os carros têm a mesma autonomia.\n[1.png]\nUm vendedor deseja partir da cidade 1 e visitar todas as outras cidades, em qualquer ordem, mesmo que ele visite a mesma cidade mais de uma vez. Ele quer utilizar preferencialmente carros elétricos na sua viagem, mas se necessário viajará de avião se a distância para a próxima cidade for maior do que a autonomia do carro. Por exemplo, no mapa acima, se a autonomia for 300 km, o vendedor pode alugar um carro em 1 e visitar 3 e depois 2, mas não pode alcançar as outras cidades. Então ele pode viajar de avião até 5, alugar um carro visitar 6, depois viajar de avião até 4. Assim, são necessárias duas viagens de avião para ele visitar todas as cidades.\n\nDados o mapa da Quadradônia e a autonomia dos carros, determine qual o menor número de viagens de avião que são necessárias para que o viajante visite todas as cidades, partindo da cidade 1.",
     "input": "A primeira linha contém dois inteiros X e Y, indicando respectivamente o número de estradas na direção Oeste-Leste e estradas na direção Norte-Sul. As estradas são numeradas de 1 a X na direção Oeste-Leste e de 1 a Y na direção Norte-Sul. A segunda linha contém dois inteiros N e A, indicando respectivamente o número de cidades e a autonomia dos carros, em kilômetros. As cidades são numeradas de 1 a N. Cada uma das N linhas seguintes contém um par de inteiros xi e yi, indicando a posição da cidade de número i, para 1 ≤ i ≤ N.",
     "output": "Seu programa deve produzir uma única linha, contendo um único inteiro, o menor número de viagens de avião necessárias para que o vendedor visite todas as cidades.",
-    "constraints": "• 1 ≤ X ≤ 100 000\n\n• 1 ≤ Y ≤ 100 000\n\n• 2 ≤ N ≤ 1 000\n\n• 1 ≤ A ≤ 150 000\n\n• 1 ≤ xi ≤ X\n\n• 1 ≤ yi ≤ Y",
+    "constraints": "• 1 ≤ X ≤ 100 000\n• 1 ≤ Y ≤ 100 000\n• 2 ≤ N ≤ 1 000\n• 1 ≤ A ≤ 150 000\n• 1 ≤ xi ≤ X\n• 1 ≤ yi ≤ Y",
     "examples": [
         {
             "input": "7 9\n6 300\n2 2\n3 5\n4 3\n2 8\n6 7\n7 7",
@@ -14,23 +14,18 @@
             "output": "4"
         }
     ],
-    "imgs": [
-        "Um mapa em grade de Quadradônia. A grade possui eixos Norte-Sul e Leste-Oeste, com uma bússola indicando as direções N, S, L (Leste), O (Oeste). Várias cidades, numeradas de 1 a 6, estão localizadas nas interseções da grade."
-    ],
+    "imgs": ["1.png"],
     "rating": [
         37,
         32,
         31
     ],
     "year": "2022",
-    "level": "Júnior",
+    "level": "PJ",
     "period": "Fase 3",
-    "difficulty": "Médio",
     "topics": [
         "grafos",
-        "geometria",
-        "busca em profundidade",
-        "busca em largura",
-        "union-find"
-    ]
+        "componentes conexos"
+    ],
+    "difficulty": "Difícil"
 }

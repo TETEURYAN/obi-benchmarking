@@ -1,38 +1,29 @@
 {
     "title": "Pirâmide",
-    "statement": "O mais novo lançamento da OBI (Organização de Brincadeiras Infantis) é o jogo Balanceamento de Pirâmide, que visa explorar as habilidades matemáticas das crianças. O jogo contém seis cubos, todos de mesmo tamanho mas com pesos possivelmente diferentes (os cubos são preenchidos com diferentes volumes de areia). O peso de cada cubo em gramas está escrito em uma de suas faces.\n\nEm Balanceamento de Pirâmide, o objetivo é empilhar os seis cubos de modo a formar uma pirâmide de três andares (com três cubos no primeiro andar, dois no segundo e um no terceiro) tal que os pesos totais de cada andar (ou seja, a soma dos pesos dos cubos no andar) possuam o mesmo valor; nesse caso, dizemos que a pirâmide é balanceada. Por exemplo, se os cubos tem pesos (em gramas) 6, 5, 4, 14, 5 e 8, podemos obter uma pirâmide balanceada (com peso total 14 em cada andar) colocando os dois cubos de peso 5 e o cubo de peso 4 no primeiro andar, os cubos de pesos 6 e 8 no segundo andar, e o cubo de peso 14 no terceiro andar (veja a figura b).\n\nEm toda unidade de Balanceamento de Pirâmide, deveria ser possível formar uma pirâmide balanceada com os seis cubos dados. Porém, devido a problemas na linha de produção, isso nem sempre é verdade. Recentemente, foi encontrado um exemplar contendo um cubo de peso 10 e cinco cubos de peso 1! Observe que não podemos obter uma pirâmide balanceada com esses cubos (só o cubo de peso 10 é mais pesado do que todos os outros juntos).\n\nVocê foi contratado como parte do controle de qualidade da OBI, e sua primeira missão é avaliar se uma unidade do jogo foi produzida corretamente: dados os pesos dos seis cubos, determine se é possível formar uma pirâmide balanceada com os cubos.",
-    "input": "A única linha da entrada contém seis números inteiros positivos Xi (1 ≤ i ≤ 6), indicando os pesos em gramas de cada um dos seis cubos, separados por espaços.",
-    "output": "Seu programa deverá imprimir uma única linha contendo um único caractere: 'S' (sem aspas), se é possível formar uma pirâmide balanceada com os seis cubos, ou 'N' (sem aspas), se é impossível.",
-    "constraints": "• 1 ≤ Xi ≤ 1 000 para 1 ≤ i ≤ 6",
+    "statement": "O rei da Nlogônia decidiu construir uma pirâmide no jardim do Palácio Real, usando cubos de pedra de mesmo tamanho. A dimensão de uma pirâmide é o número de cubos de pedra num dos lados da base (primeira camada) da pirâmide. A base da pirâmide é quadrada, ou seja, cada lado tem o mesmo número de cubos de pedra.\n\nNa pirâmide, a partir da segunda camada, cada cubo de pedra deve ser empilhado exatamente em cima de outro cubo de pedra que não esteja na borda da camada abaixo. Além disso, o número de camadas deve ser o maior possível para uma dada dimensão, e em cada camada deve ser usado o maior número de cubos de pedra possível.\n\nA figura abaixo à esquerda mostra uma pirâmide de dimensão 3; a figura à direita mostra o plano de contrução para essa pirâmide, indicando quantos cubos de pedra devem ser empilhados em cada posição.\n[1.png]\nO rei ainda não decidiu qual a dimensão da pirâmide que vai construir, mas como é muito detalhista já avisou os Arquitetos Reais que antes de iniciar a contrução eles devem produzir um plano de contrução para a dimensão escolhida.\n\nAjude os Arquitetos Reais, escrevendo um programa que, dada a dimensão da pirâmide, produza o seu plano de construção.",
+    "input": "A primeira e única linha da entrada contém um número inteiro N, a dimensão da pirâmide.",
+    "output": "Seu programa deve produzir o plano de contrução da pirâmide, constituído por N linhas, cada linha contendo N números inteiros.",
+    "constraints": "• 1 ≤ N ≤ 100",
     "examples": [
         {
-            "input": "6 5 4 14 5 8",
-            "output": "S"
+            "input": "3",
+            "output": "1 1 1\n1 2 1\n1 1 1"
         },
         {
-            "input": "10 1 1 1 1 1",
-            "output": "N"
-        },
-        {
-            "input": "10 30 50 70 80 120",
-            "output": "S"
-        },
-        {
-            "input": "4 8 12 24 20 16",
-            "output": "N"
+            "input": "8",
+            "output": "1 1 1 1 1 1 1 1\n1 2 2 2 2 2 2 1\n1 2 3 3 3 3 2 1\n1 2 3 4 4 3 2 1\n1 2 3 4 4 3 2 1\n1 2 3 3 3 3 2 1\n1 2 2 2 2 2 2 1\n1 1 1 1 1 1 1 1"
         }
     ],
-    "imgs": [],
+    "imgs": ["1.png"],
     "rating": [
-        100
+        10,
+        90
     ],
-    "year": "2023",
-    "level": "Nível 2",
-    "period": "Fase 3",
-    "difficulty": "Médio",
+    "year": "2022",
+    "level": "Sênior",
+    "period": "Fase 2",
     "topics": [
-        "força bruta",
-        "backtracking",
-        "matemática"
-    ]
+        "matrizes"
+    ],
+    "difficulty": "Fácil"
 }

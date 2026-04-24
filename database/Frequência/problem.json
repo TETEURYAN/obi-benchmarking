@@ -1,9 +1,9 @@
 {
     "title": "Frequência",
-    "statement": "Byteland é uma cidade bastante conhecida por propor variados desafios aos seus habitantes. Re-centemente, o prefeito de Byteland, Joãozinho, decidiu propor um desafio que ele gosta de chamar de Tabuleiro da Frequência.\n\nA brincadeira ocorre da seguinte forma. Inicialmente, um tabuleiro com dimensões N × N é dado contendo apenas 0's. Depois disso, Q operações são propostas, podendo ser de 4 tipos:\n\n• 1 X R: Atribuir o valor R a todos os números da linha X;\n• 2 X R: Atribuir o valor R a todos os números da coluna X;\n• 3 X: Imprimir o valor mais frequente na linha X;\n• 4 X: Imprimir o valor mais frequente da coluna X.",
+    "statement": "Byteland é uma cidade bastante conhecida por propor variados desafios aos seus habitantes. Recentemente, o prefeito de Byteland, Joãozinho, decidiu propor um desafio que ele gosta de chamar de Tabuleiro da Frequência.\n\nA brincadeira ocorre da seguinte forma. Inicialmente, um tabuleiro com dimensões N × N é dado contendo apenas 0’s. Depois disso, Q operações são propostas, podendo ser de 4 tipos:\n\n• 1 X R: Atribuir o valor R a todos os números da linha X;\n• 2 X R: Atribuir o valor R a todos os números da coluna X;\n• 3 X: Imprimir o valor mais frequente na linha X;\n• 4 X: Imprimir o valor mais frequente da coluna X.\n\nJoãozinho é muito bom com computadores, mas também é bastante preguiçoso. Sabendo que você é um dos melhores programadores do mundo, ele decidiu pedir sua ajuda para resolver este problema.",
     "input": "A primeira linha da entrada é composta por dois inteiros N e Q, representando, respectivamente, o tamanho do tabuleiro e a quantidade de operações. As próximas Q linhas da entrada vão conter as Q operações. O primeiro inteiro de cada linha vai indicar o tipo da operação. Caso seja 1 ou 2, será seguido por mais dois inteiros X e R. Caso seja 3 ou 4, será seguido por apenas mais um inteiro X.",
     "output": "Para cada operação do tipo 3 ou 4, seu programa deve produzir uma linha, contendo o valor da resposta correspondente. Se uma linha ou coluna tiver dois ou mais valores que se repetem o mesmo número de vezes, você deve imprimir o maior deles. Por exemplo, se uma linha tem os valores [5,7,7,2,5,2,1,3], tanto o 2, 5 e 7 se repetem duas vezes, então a resposta será 7, pois é o maior deles.",
-    "constraints": "• 1 ≤ N, Q ≤ 10⁵\n• 1 ≤ X ≤ N\n• 0 ≤ R ≤ 50",
+    "constraints": "• 1 ≤ N, Q ≤ 10^5\n• 1 ≤ X ≤ N\n• 0 ≤ R ≤ 50",
     "examples": [
         {
             "input": "5 9\n3 1\n1 1 2\n1 3 4\n1 4 4\n4 2\n2 2 5\n2 3 5\n2 4 5\n3 3",
@@ -21,15 +21,16 @@
     "imgs": [],
     "rating": [
         30,
-        20
+        20,
+        50
     ],
     "year": "2014",
     "level": "Nível 2",
     "period": "Fase 2",
-    "difficulty": "Difícil",
     "topics": [
-        "arrays",
-        "busca binária",
-        "ordenação"
-    ]
+        "estruturas de dados",
+        "simulação",
+        "matriz"
+    ],
+    "difficulty": "Médio"
 }

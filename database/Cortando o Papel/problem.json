@@ -1,9 +1,9 @@
 {
     "title": "Cortando o Papel",
-    "statement": "Uma folha de papel é composta de uma sequência de retângulos com diferentes alturas mas com larguras fixas, tal que as bases dos retângulos estão assentadas em uma linha horizontal. A figura ilustra uma folha exemplo com 33 retângulos. Nós gostaríamos de fazer um único corte horizontal, com a ajuda de um estilete e uma régua, que maximize o número resultante de pedaços separados pelo corte. A figura mostra quatro diferentes cortes que resultariam, respectivamente, em 4, 11, 10 e 3 pedaços.",
-    "input": "A primeira linha da entrada contém um inteiro N, representando o número de retângulos na folha de papel. A segunda linha contém N inteiros Aᵢ, 1 ≤ i ≤ N, representando a sequência de alturas dos retângulos.",
+    "statement": "Uma folha de papel é composta de uma sequência de retângulos com diferentes alturas mas com larguras fixas, tal que as bases dos retângulos estão assentadas em uma linha horizontal. A figura ilustra uma folha exemplo com 33 retângulos. Nós gostaríamos de fazer um único corte horizontal, com a ajuda de um estilete e uma régua, que maximize o número resultante de pedaços separados pelo corte. A figura mostra quatro diferentes cortes que resultariam, respectivamente, em 4, 11, 10 e 3 pedaços.\n[1.png]\n",
+    "input": "A primeira linha da entrada contém um inteiro N, representando o número de retângulos na folha de papel. A segunda linha contém N inteiros Ai, 1 ≤ i ≤ N, representando a sequência de alturas dos retângulos.",
     "output": "Seu programa deve imprimir uma linha contendo um inteiro representando o número máximo de pedaços possível, com um único corte horizontal.",
-    "constraints": "• 1 ≤ N ≤ 10⁵\n• 1 ≤ Aᵢ ≤ 10⁹ , para 1 ≤ i ≤ N",
+    "constraints": "• 1 ≤ N ≤ 10^5\n• 1 ≤ Ai ≤ 10^9, para 1 ≤ i ≤ N",
     "examples": [
         {
             "input": "10\n20 5 10 5 15 15 15 5 6 22",
@@ -14,22 +14,17 @@
             "output": "2"
         }
     ],
-    "imgs": [
-        {
-            "url": "https://raw.githubusercontent.com/olimpiada-brasileira-de-informatica/problem-parser/master/extracted-problems/2017/fase2/nivel2/cortando_o_papel/img-0.png",
-            "alt": "Uma ilustração de uma folha de papel composta por 33 retângulos de alturas variadas. Quatro linhas de corte horizontais são mostradas, com os números 3, 10, 11 e 4 ao lado, indicando o número de pedaços resultantes para cada corte."
-        }
-    ],
+    "imgs": ["1.png"],
     "rating": [
-        40
+        40,
+        60
     ],
     "year": "2017",
-    "level": "Nível 2",
+    "level": "Universitária",
     "period": "Fase 2",
-    "difficulty": "Médio",
     "topics": [
-        "arrays",
-        "ordenação",
-        "greedy"
-    ]
+        "sweep line",
+        "arrays"
+    ],
+    "difficulty": "Médio"
 }

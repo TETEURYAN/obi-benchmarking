@@ -3,7 +3,7 @@
     "statement": "Um amigo seu acabou de se mudar para Linearlandia. Apesar de recém chegado, ele decidiu montar um negócio, um restaurante de Pizza.\n\nSeu amigo está muito feliz na nova empreitada, contudo, com muito medo de errar. Além do preparo da pizza, o restaurante deve se preocupar com a caixa para entrega (que são retangulares), que deverá ser a mesma para todas as pizzas, e com o corte das fatias, que será automatizado e igual para todas as pizzas produzidas.\n\nNo momento seu amigo está planejando qual será o tamanho das pizzas (que serão todas círculos perfeitos de um único tamanho), e também qual será o ângulo interno de cada fatia (em graus). Além disso, ele encontrou uma loja de caixas de pizza com ótimos preços, mas não sabe se as caixas são adequadas para as pizzas que ele vai produzir.\n\nA restrição para a caixa de pizza é que a pizza caiba dentro da caixa (mesmo que com alguma folga); a restrição para o ângulo de corte é que todas as fatias sejam de mesmo tamanho (mesmo que seja uma só fatia).\n\nDados as dimensões da caixa de pizza, o raio da pizza e o ângulo interno da fatia em graus, você deve escrever um programa para determinar se a caixa e o ângulo escolhidos satisfazem às restrições.",
     "input": "A entrada é composta por quatro linhas, contendo respectivamente os números inteiros A, B, R e G. Os inteiros A e B são as dimensões da caixa de pizza, o inteiro R é o raio da pizza e o inteiro G é o angulo interno das fatias de pizza.",
     "output": "Seu programa deve produzir uma única linha na saída, contendo um único caractere, que deve ser S se os dados satisfazem às restrições ou N caso contrário.",
-    "constraints": "• 1 ≤ A, B, R ≤ 10⁹;\n• 1 ≤ G ≤ 360.",
+    "constraints": "• 1 ≤ A, B, R ≤ 10^9;\n• 1 ≤ G ≤ 360.",
     "examples": [
         {
             "input": "4\n10\n2\n60",
@@ -25,11 +25,11 @@
         61
     ],
     "year": "2022",
-    "level": "Nível 1",
+    "level": "N1",
     "period": "Fase 3",
-    "difficulty": "Fácil",
     "topics": [
         "matemática",
-        "geometria"
-    ]
+        "geometria básica"
+    ],
+    "difficulty": "Fácil"
 }

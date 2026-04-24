@@ -1,9 +1,9 @@
 {
     "title": "Soma",
-    "statement": "Temos uma sequência de N quadrados desenhados lado a lado. Cada quadrado possui um número natural anotado dentro dele. Dados a sequência dos N quadrados e um valor K, quantos retângulos distintos existem cuja soma dos números dentro do retângulo é exatamente igual a K? Por exemplo, a figura mostra uma sequência de N = 10 quadrados para a qual existem 5 retângulos cuja soma dos números é igual a K = 4.",
+    "statement": "Temos uma sequência de N quadrados desenhados lado a lado. Cada quadrado possui um número natural anotado dentro dele. Dados a sequência dos N quadrados e um valor K, quantos retângulos distintos existem cuja soma dos números dentro do retângulo é exatamente igual a K? Por exemplo, a figura mostra uma sequência de N = 10 quadrados para a qual existem 5 retângulos cuja soma dos números é igual a K = 4.\n[1.png]\n",
     "input": "A primeira linha da entrada contém dois inteiros N e K representando o número de quadrados na sequência e o valor da soma desejada. A segunda linha da entrada contém N números naturais Xi, para 1 ≤ i ≤ N, indicando a sequência de números anotados dentro dos quadrados.",
     "output": "Seu programa deve imprimir uma linha contendo um número inteiro representando quantos retângulos existem na sequência cuja soma é igual a K.",
-    "constraints": "• 1 ≤ N ≤ 500000 (5 × 10^5)\n• 0 ≤ K ≤ 10^6\n• 0 ≤ Xi ≤ 100 para 1 ≤ i ≤ N\n\nInformações sobre a pontuação\n• Em um conjunto de casos de teste somando 10 pontos, N ≤ 500\n• Em um conjunto de casos de teste somando 20 pontos, N ≤ 10^4\n• Em um conjunto de casos de teste somando 30 pontos, K > 0 e Xi > 0 para 1 ≤ i ≤ N\n• Em um conjunto de casos de teste somando 40 pontos, nenhuma restrição adicional (note que para esta subtarefa o inteiro da saída pode não caber em 32 bits.)",
+    "constraints": "• 1 ≤ N ≤ 500000 (5 × 10^5)\n• 0 ≤ K ≤ 10^6\n• 0 ≤ Xi ≤ 100 para 1 ≤ i ≤ N\n\nInformações sobre a pontuação:\n• Em um conjunto de casos de teste somando 10 pontos, N ≤ 500\n• Em um conjunto de casos de teste somando 20 pontos, N ≤ 10^4\n• Em um conjunto de casos de teste somando 30 pontos, K > 0 e Xi > 0 para 1 ≤ i ≤ N\n• Em um conjunto de casos de teste somando 40 pontos, nenhuma restrição adicional",
     "examples": [
         {
             "input": "10 4\n2 0 1 1 0 0 8 4 1 3",
@@ -14,11 +14,7 @@
             "output": "25"
         }
     ],
-    "imgs": [
-        {
-            "description": "Uma sequência de 10 quadrados com os números 2, 0, 1, 1, 0, 0, 8, 4, 1, 3. A imagem serve para exemplificar a entrada do problema."
-        }
-    ],
+    "imgs": ["1.png"],
     "rating": [
         10,
         20,
@@ -28,12 +24,9 @@
     "year": "2019",
     "level": "Nível 2",
     "period": "Fase Local",
-    "difficulty": "Difícil",
     "topics": [
-        "somas de prefixo",
-        "mapas / tabelas hash",
-        "dois ponteiros",
-        "arrays",
-        "força bruta"
-    ]
+        "soma de prefixos",
+        "two pointers"
+    ],
+    "difficulty": "Médio"
 }

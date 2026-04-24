@@ -21,11 +21,12 @@
     "imgs": [],
     "rating": [],
     "year": "2017",
-    "level": "Nível Júnior",
+    "level": "PJ",
     "period": "Fase Nacional",
-    "difficulty": "Fácil",
     "topics": [
-        "matemática",
-        "força bruta"
-    ]
+        "condicionais",
+        "simulação",
+        "matemática"
+    ],
+    "difficulty": "Fácil"
 }

@@ -19,11 +19,11 @@
         100
     ],
     "year": "2023",
-    "level": "Nível Júnior",
+    "level": "PJ",
     "period": "Fase 1",
-    "difficulty": "Fácil",
     "topics": [
-        "matemática",
-        "força bruta"
-    ]
+        "laços",
+        "simulação"
+    ],
+    "difficulty": "Fácil"
 }
