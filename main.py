@@ -50,6 +50,18 @@ def execute_problems_by_year(problems: list, year: int):
     
     print_partition(text="FIM ZERO-SHOT vs FEW-SHOT")
     
+def execute_problems_with_imgs(problems: list):
+    
+    path = Path("database")
+    problems_imgs = []
+    
+    for name, problem in problems:
+        path_imgs = path / name / "imgs"
+        if path_imgs.exists() and path_imgs.is_dir():
+            problems_imgs.append((name, problem))
+    
+    return problems_imgs
+
 def main():
     
     try:
@@ -130,8 +142,26 @@ def main():
         else:
             exit(0)
         
+        print_partition(text="MENU")
+        print("1. Executar todas as questões;")
+        print("2. Executar apenas as questões que contém imagem.")
+        print("Se digitar qualquer outra coisa; termina a execução!")
+        
+        op = get_int_input("Escolha uma opção para problema: ")
+        
+        problems_execute = []
+        
+        if op == 1:
+            problems_execute = problems
+        elif op == 2:
+            problems_execute = execute_problems_with_imgs(problems=problems)
+        else:
+            exit(0)
+        
+        print_partition(text=f"EXECUÇÃO SERÁ COM {len(problems_execute)} QUESTÕES")
+        
         orchestrador = Orchestrator(type=type_prompt, language=language, use_images=use_images)
-        if orchestrador.execute(problems=problems):
+        if orchestrador.execute(problems=problems_execute):
             print("Resultado está em output/results/")
             print_partition("REINICIANDO")
         else:
