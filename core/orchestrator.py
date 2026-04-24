@@ -7,17 +7,43 @@ from prompts import ZERO_SHOT_PROMPT_TEMPLATE, FEW_SHOT_PROMPT_TEMPLATE, EXAMPLE
 import pandas as pd
 import os
 import glob
+import base64
 
 class Orchestrator:
 
-    def __init__(self, type: str, language: str):
+    def __init__(self, type: str, language: str, use_images: bool = False):
         self.__type = type
         self.__language = language
+        self.__use_images = use_images
+        self.__img_mode = "img" if use_images else "noimg"
 
         if language == "python":
             self.__format_file_code = "py"
         elif language == "cpp":
             self.__format_file_code = "cpp"
+
+    def __load_images_base64(self, problem_name: str, imgs_list: list) -> list[str]:
+        """Read image files from database/{problem_name}/imgs/ and return as base64 strings."""
+        images_base64 = []
+        imgs_dir = Path("database") / problem_name / "imgs"
+
+        for img_filename in imgs_list:
+            if not isinstance(img_filename, str):
+                print(f"  Aviso: Entrada de imagem ignorada (não é filename): {type(img_filename)}")
+                continue
+            img_path = imgs_dir / img_filename
+            if img_path.exists():
+                try:
+                    img_bytes = img_path.read_bytes()
+                    img_b64 = base64.b64encode(img_bytes).decode("utf-8")
+                    images_base64.append(img_b64)
+                    print(f"  Imagem carregada: {img_path}")
+                except Exception as e:
+                    print(f"  Aviso: Erro ao ler imagem {img_path}: {e}")
+            else:
+                print(f"  Aviso: Imagem não encontrada: {img_path}")
+
+        return images_base64
 
     def create_file(self,
                     name: str = "test.cpp",
@@ -25,7 +51,7 @@ class Orchestrator:
                     model: str = "test",
                     content: str = "test") -> bool:
         try:
-            target_dir = Path(base) / model / self.__type / self.__language
+            target_dir = Path(base) / model / self.__type / f"{self.__language}_{self.__img_mode}"
 
             target_dir.mkdir(parents=True, exist_ok=True)
             file_path = target_dir / name
@@ -47,7 +73,7 @@ class Orchestrator:
                 print("Aviso: Lista de resultados vazia. CSV não será gerado.")
                 return False
 
-            file_name = f"results_{model}_{self.__language}_{self.__type}.csv"
+            file_name = f"results_{model}_{self.__language}_{self.__type}_{self.__img_mode}.csv"
             file_path = target_dir / file_name
 
             df = pd.DataFrame([r.model_dump() for r in results])
@@ -209,7 +235,7 @@ class Orchestrator:
             results = []
 
             path_results = Path(
-                f"output/results/results_{self.normalize_model_name(model)}_{self.__language}_{self.__type}.csv")
+                f"output/results/results_{self.normalize_model_name(model)}_{self.__language}_{self.__type}_{self.__img_mode}.csv")
 
             if path_results.exists():
                 df = pd.read_csv(path_results)
@@ -244,10 +270,21 @@ class Orchestrator:
                 else:
                     return False
 
+                # Load images as base64 if use_images is enabled
+                images_base64 = None
+                if self.__use_images and problem.imgs:
+                    images_base64 = self.__load_images_base64(name_problem, problem.imgs)
+                    if images_base64:
+                        print(f"  {len(images_base64)} imagem(ns) carregada(s) para envio multimodal.")
+                    else:
+                        print(f"  Nenhuma imagem encontrada, enviando apenas texto.")
+                        images_base64 = None
+
                 code_response, total_tokens, cost_prompt, duration_create_code = llm_service.create_code_llm(
                     prompt=prompt,
                     input_price=input_price,
-                    output_price=output_price)
+                    output_price=output_price,
+                    images_base64=images_base64)
 
                 code = self.valid_code(code_response)
 

@@ -1,1 +1,0 @@
-Script para extração das questões no repositorio do link: https://github.com/mestrevh/problems-of-the-obi.git

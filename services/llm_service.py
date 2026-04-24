@@ -20,9 +20,13 @@ class LLMService:
     def create_code_llm(self,
                         prompt: str,
                         input_price: float,
-                        output_price: float) -> tuple[str, int, float, float]:
+                        output_price: float,
+                        images_base64: list[str] = None) -> tuple[str, int, float, float]:
         try:
-            result = self.__send_prompt(prompt=prompt)
+            if images_base64:
+                result = self.__send_prompt_with_images(prompt=prompt, images_base64=images_base64)
+            else:
+                result = self.__send_prompt(prompt=prompt)
             total = result["prompt_tokens"] + result["completion_tokens"]
             cost = (result["prompt_tokens"] * input_price) + (result["completion_tokens"] * output_price) 
             
@@ -54,4 +58,36 @@ class LLMService:
             }
         except Exception as e:
             print(f"Erro na chamada da API OpenAI: {e}")
+            raise
+
+    def __send_prompt_with_images(self, prompt: str, images_base64: list[str]):
+        
+        try:
+            content = [{"type": "text", "text": prompt}]
+            for img_b64 in images_base64:
+                content.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{img_b64}"}
+                })
+
+            start_time = time.perf_counter()
+            response = self.__client.chat.completions.create(
+                model=self.__model,
+                messages=[{"role": "user", "content": content}],
+                temperature=self.__temperature
+            )
+            end_time = time.perf_counter()
+                
+            content = response.choices[0].message.content
+            usage = response.usage
+            
+            return {
+                "content": content,
+                "prompt_tokens": usage.prompt_tokens,
+                "completion_tokens": usage.completion_tokens,
+                "total_tokens": usage.total_tokens,
+                "duration_prompt": end_time - start_time
+            }
+        except Exception as e:
+            print(f"Erro na chamada da API OpenAI (multimodal): {e}")
             raise
