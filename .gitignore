@@ -1,13 +1,15 @@
+#Config Python
 .env
 .venv/
 __pycache__/
 *.py[cod]
 
+#Database
 database/*
 !database/problems_of_the_obi.txt
 !database/model_problem.json
 !database/dataset-questions-obi.zip
 
+#Judge
 piston/data/*
 in
-database/
