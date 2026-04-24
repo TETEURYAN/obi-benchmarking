@@ -2,11 +2,11 @@
 .venv/
 __pycache__/
 *.py[cod]
-results.csv
+
+database/*
+!database/problems_of_the_obi.txt
+!database/model_problem.json
+!database/dataset-questions-obi.zip
 
 piston/data/*
 in
-database/
-!database/model_problem.json
-!database/problems_of_the_obi.txt
-!database/dataset-questions-obi.zip

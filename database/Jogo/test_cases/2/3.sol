@@ -1,2 +1,0 @@
-menor
-correto
