@@ -212,7 +212,7 @@ class Orchestrator:
 
         return output
 
-    def execute(self, problems: list):
+    def execute(self, problems: list) -> bool:
 
         for _, provider in config.list_providers().items():
 
@@ -248,8 +248,14 @@ class Orchestrator:
             questoes_concluidas = {
                 resultado.question_name for resultado in results}
 
+            count = 0
+            
             for name_problem, problem in problems:
-
+                count += 1
+                
+                if count == 11:
+                    return True
+                
                 if name_problem in questoes_concluidas:
                     print(f"Pulando '{name_problem}' (já avaliado).")
                     continue
@@ -287,7 +293,33 @@ class Orchestrator:
                     images_base64=images_base64)
 
                 code = self.valid_code(code_response)
+                
+                if len(test_cases) == 0:
+                    print("Próxima questão...")
 
+                    results.append(EvaluationResult(
+                        question_name=name_problem,
+                        difficulty=problem.difficulty,
+                        llm_code_creation_time=duration_create_code,
+                        total_tokens=total_tokens,
+                        cost_prompt=cost_prompt,
+                        judge_predict="NO TEST CASES",
+                        execution_time=0.0,
+                        AC=0,
+                        WA=0,
+                        RE=0,
+                        TLE=0,
+                        CE=0,
+                        total_test_cases=len(test_cases)
+                    ))
+                    
+                    if self.create_csv(results=results, model=self.normalize_model_name(model)):
+                        print("Resultado criado com sucesso!")
+                    else:
+                        print("Erro ao criar o resultado")
+                        
+                    continue
+                
                 if self.create_file(name=f"{name_problem}.{self.__format_file_code}",
                                     base="output",
                                     model=self.normalize_model_name(model),
