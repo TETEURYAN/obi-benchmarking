@@ -1,0 +1,4 @@
+question_name,difficulty,llm_code_creation_time,total_tokens,cost_prompt,judge_predict,execution_time,AC,WA,RE,TLE,CE,total_test_cases
+Caça ao Tesouro_2011,Médio,4.365136558000813,1561,0.0068070000000000006,AC,0.049508448002598016,22,0,0,0,0,22
+Gomoku,Médio,3.7098708630001056,1868,0.008472,AC,0.04845506100173225,30,0,0,0,0,30
+Notas da Prova,Fácil,2.0681155620004574,1073,0.004059,WA,0.03984402699643397,7,13,0,0,0,20
