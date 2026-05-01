@@ -1,0 +1,54 @@
+import sys
+
+def merge_count(arr):
+    n = len(arr)
+    if n <= 1:
+        return 0
+    temp = [0] * n
+
+    def sort_count(l, r):
+        if r - l <= 1:
+            return 0
+        m = (l + r) // 2
+        inv = sort_count(l, m) + sort_count(m, r)
+        i, j, k = l, m, l
+        while i < m and j < r:
+            if arr[i] <= arr[j]:
+                temp[k] = arr[i]
+                i += 1
+            else:
+                temp[k] = arr[j]
+                inv += m - i
+                j += 1
+            k += 1
+        while i < m:
+            temp[k] = arr[i]
+            i += 1
+            k += 1
+        while j < r:
+            temp[k] = arr[j]
+            j += 1
+            k += 1
+        arr[l:r] = temp[l:r]
+        return inv
+
+    return sort_count(0, n)
+
+def main():
+    input = sys.stdin.readline
+    N, X1, X2 = map(int, input().split())
+
+    lines = []
+    for _ in range(N):
+        A, B = map(int, input().split())
+        y1 = A * X1 + B
+        y2 = A * X2 + B
+        lines.append((y1, y2))
+
+    lines.sort(key=lambda p: (p[0], p[1]))
+    ys = [p[1] for p in lines]
+    ans = merge_count(ys)
+    print(ans)
+
+if __name__ == "__main__":
+    main()

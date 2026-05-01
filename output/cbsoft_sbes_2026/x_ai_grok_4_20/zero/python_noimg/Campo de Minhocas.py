@@ -1,0 +1,35 @@
+
+import sys
+
+input = sys.stdin.read
+data = input().split()
+
+N = int(data[0])
+M = int(data[1])
+
+grid = []
+index = 2
+for i in range(N):
+    row = []
+    for j in range(M):
+        row.append(int(data[index]))
+        index += 1
+    grid.append(row)
+
+max_sum = 0
+
+# Soma das linhas
+for i in range(N):
+    row_sum = sum(grid[i])
+    if row_sum > max_sum:
+        max_sum = row_sum
+
+# Soma das colunas
+for j in range(M):
+    col_sum = 0
+    for i in range(N):
+        col_sum += grid[i][j]
+    if col_sum > max_sum:
+        max_sum = col_sum
+
+print(max_sum)

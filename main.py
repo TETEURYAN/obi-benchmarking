@@ -57,7 +57,9 @@ def execute_problems_with_imgs(problems: list):
     
     for name, problem in problems:
         path_imgs = path / name / "imgs"
-        if path_imgs.exists() and path_imgs.is_dir():
+        path_test_cases = path / name / "test_cases"
+        
+        if path_test_cases.exists() and path_imgs.exists() and path_imgs.is_dir():
             problems_imgs.append((name, problem))
     
     return problems_imgs
@@ -81,7 +83,9 @@ def main():
         
         problems = []
         for question_path in questions_path:
-            problems.append((question_path.name, load_problem(Path(question_path / "problem.json"))))
+            path_test_cases = question_path / "test_cases"
+            if path_test_cases.exists():
+                problems.append((question_path.name, load_problem(Path(question_path / "problem.json"))))
         
         print_partition("FIM DA CRIAÇÃO DATABASE")
     except Exception as e:    
@@ -89,6 +93,7 @@ def main():
         print("Erro: ", e)
         exit(1)
     
+    print_partition(text=f"NÚMERO DE QUESTÕES COM TEST CASES {len(problems)}")
     while True:
         print_partition(text="MENU")
         

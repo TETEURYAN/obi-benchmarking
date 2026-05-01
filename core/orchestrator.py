@@ -66,7 +66,7 @@ class Orchestrator:
 
     def create_csv(self, base: str = "output", model: str = "test", results: list = None) -> bool:
         try:
-            target_dir = Path(base) / "results"
+            target_dir = Path(base) / "cbsoft_sbes_2026" / "results"
             target_dir.mkdir(parents=True, exist_ok=True)
 
             if not results:
@@ -212,7 +212,7 @@ class Orchestrator:
 
         return output
 
-    def execute(self, problems: list):
+    def execute(self, problems: list) -> bool:
 
         for _, provider in config.list_providers().items():
 
@@ -235,7 +235,7 @@ class Orchestrator:
             results = []
 
             path_results = Path(
-                f"output/results/results_{self.normalize_model_name(model)}_{self.__language}_{self.__type}_{self.__img_mode}.csv")
+                f"output/cbsoft_sbes_2026/results/results_{self.normalize_model_name(model)}_{self.__language}_{self.__type}_{self.__img_mode}.csv")
 
             if path_results.exists():
                 df = pd.read_csv(path_results)
@@ -249,7 +249,6 @@ class Orchestrator:
                 resultado.question_name for resultado in results}
 
             for name_problem, problem in problems:
-
                 if name_problem in questoes_concluidas:
                     print(f"Pulando '{name_problem}' (já avaliado).")
                     continue
@@ -287,9 +286,35 @@ class Orchestrator:
                     images_base64=images_base64)
 
                 code = self.valid_code(code_response)
+                
+                if len(test_cases) == 0:
+                    print("Próxima questão...")
 
+                    results.append(EvaluationResult(
+                        question_name=name_problem,
+                        difficulty=problem.difficulty,
+                        llm_code_creation_time=duration_create_code,
+                        total_tokens=total_tokens,
+                        cost_prompt=cost_prompt,
+                        judge_predict="NO TEST CASES",
+                        execution_time=0.0,
+                        AC=0,
+                        WA=0,
+                        RE=0,
+                        TLE=0,
+                        CE=0,
+                        total_test_cases=len(test_cases)
+                    ))
+                    
+                    if self.create_csv(results=results, model=self.normalize_model_name(model)):
+                        print("Resultado criado com sucesso!")
+                    else:
+                        print("Erro ao criar o resultado")
+                        
+                    continue
+                
                 if self.create_file(name=f"{name_problem}.{self.__format_file_code}",
-                                    base="output",
+                                    base="output/cbsoft_sbes_2026",
                                     model=self.normalize_model_name(model),
                                     content=code):
                     print("Arquivo criado com sucesso!!")
