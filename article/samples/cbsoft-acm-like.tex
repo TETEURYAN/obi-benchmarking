@@ -51,7 +51,71 @@ Este artigo tem como objetivo desenvolver e avaliar uma arquitetura para medir a
 \maketitle
 
 \section{Introdução}
-Falar sobre a necessidade do impacto de utilização da imagem para resolução dos problemas. Além de comparar esse tipo de abordagem com utilização de diagramas na engenharia de software com os 
+
+A interpretação precisa de requisitos visuais é uma habilidade central tanto na 
+Engenharia de Software quanto na programação competitiva. Em projetos de software, 
+diagramas, fluxogramas e mockups compõem parte indispensável da especificação de 
+sistemas~\cite{Mendoza2024Comparative}. De forma análoga, nos problemas da 
+Olimpíada Brasileira de Informática (OBI), ilustrações e figuras são frequentemente 
+o elemento-chave para a correta compreensão de restrições e estruturas de dados 
+sem as quais a modelagem algorítmica da solução torna-se incompleta ou incorreta.
+
+Com o crescimento acelerado dos Grandes Modelos de Linguagem (LLMs), impulsionado 
+pelas leis de escala descritas por Kaplan et al.~\cite{kaplan2020scaling}, esses 
+modelos atingiram um novo patamar de capacidade, ganhando notoriedade na geração 
+automática de código~\cite{Chen:2021:ELL}. Isso motivou estudos sobre a capacidade 
+das LLMs em resolver questões de programação competitiva~\cite{Zheng2025LiveCodeBenchPH}, 
+bem como sua avaliação em exames e contextos educacionais 
+diversos~\cite{Viegas2025AssessingTC, Mendona2024EvaluatingCV, nunes2023evaluating}. 
+Em particular, Almeida et al.~\cite{Almeida2023BLUEXAB} introduziram a ideia de 
+adicionar elementos visuais nos enunciados para a resolução de problemas em exames 
+universitários brasileiros.
+
+Essa perspectiva foi impulsionada pelo avanço das técnicas de \textit{Visual 
+Instruction Tuning}, que alinham características visuais à compreensão semântica 
+das LLMs~\cite{Liu2023VisualIT}, dando origem aos Modelos de Linguagem Multimodais 
+(MLLMs). Estudos recentes verificaram a capacidade cognitiva desses modelos com 
+imagens~\cite{Fu2023MMEAC}, em problemas matemáticos com elementos 
+visuais~\cite{Lu2023MathVistaEM} e em avaliações universitárias 
+multidisciplinares~\cite{Yue2023MMMUAM}. No ciclo de desenvolvimento de software, 
+MLLMs também têm sido aplicados à engenharia de 
+requisitos~\cite{Mendoza2024Comparative}, à geração automática de testes 
+unitários~\cite{Silva2025LLMs} e à análise multimodal de capturas de tela e 
+diagramas para correção de bugs~\cite{Yang2024SWEbenchMD}.
+
+No entanto, apesar desses avanços, o impacto do contexto visual no raciocínio 
+algorítmico de nível educacional inicial permanece pouco explorado --- especialmente 
+no contexto brasileiro. A OBI representa uma das principais portas de entrada ao 
+ensino de programação e ao pensamento computacional no país, e seus enunciados 
+frequentemente incluem figuras e diagramas que integram informações essenciais à 
+solução. Compreender se e quando MLLMs se beneficiam dessas representações visuais 
+é, portanto, uma questão relevante tanto para a área de Inteligência Artificial 
+quanto para a Engenharia de Software Experimental.
+
+Neste trabalho, apresentamos e avaliamos uma arquitetura experimental automatizada 
+para medir a capacidade de MLLMs na resolução de problemas da modalidade programação 
+da OBI~\cite{obi_passadas}. A infraestrutura integra um agente gerador de código 
+baseado em LLM e um juiz automático (\textit{Judge}) que valida as soluções por 
+meio de casos de teste oficiais, emulando o ambiente de avaliação real da olimpíada. 
+Para isolar o efeito do contexto visual, conduzimos experimentos em configuração 
+\textit{zero-shot}~\cite{wei2021finetuned}, comparando enunciados com e sem imagens 
+codificadas em Base64, sobre 181 questões de nível fácil, médio e difícil extraídas 
+dos cadernos da OBI de 1999 a 2025.
+
+Os resultados demonstram que a inclusão de imagens impacta diretamente a taxa de 
+acerto. Para questões avançadas, envolvendo tópicos como grafos e programação 
+dinâmica, o contexto visual mostrou-se essencial para a correta interpretação do 
+enunciado. Para questões de nível básico, por outro lado, as imagens mostraram-se 
+dispensáveis ou até prejudiciais ao desempenho de alguns modelos. Esses achados 
+traçam um paralelo com a Engenharia de Software: assim como diagramas enriquecem, mas não substituem, especificações textuais na engenharia de requisitos, o 
+estímulo visual atua como um facilitador semântico nos prompts de MLLMs, sem 
+garantir por si só a corretude algorítmica da solução.
+
+Este artigo está organizado da seguinte forma: a Seção~2 revisa os trabalhos 
+relacionados; a Seção~3 detalha a arquitetura experimental e a metodologia adotada; 
+a Seção~4 apresenta e analisa os resultados; a Seção~5 discute as implicações dos 
+achados; e a Seção~6 sintetiza as contribuições e aponta direções para trabalhos 
+futuros.
 
 \section{Trabalhos Relacionados}
 Com escalabilidade e o crescimento do poder das LLMs, notavel em Kaplan et al. \cite{kaplan2020scaling}, os modelos conseguiram entrar em um patamar de processamento diferente ganhando notoriedade na criação de código em Chen et al.\cite{Chen:2021:ELL} utilizando a métrica pass@k.
