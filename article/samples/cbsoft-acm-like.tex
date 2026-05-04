@@ -37,11 +37,11 @@
 % }
 % \email{vhsa@ufal.ic.br}
 
-\renewcommand{\shortauthors}{Ângelo}
+% \renewcommand{\shortauthors}{Ângelo}
 \renewcommand{\shorttitle}{Resolução de Problemas da OBI com LLMs Multimodais}
 
 \begin{abstract}
-Este artigo tem como objetivo desenvolver e avaliar uma arquitetura para medir a capacidade de Grandes Modelos de Linguagem Multimodais (MLLMs) na resolução de desafios algorítmicos complexos da Olimpíada Brasileira de Informática (OBI). Para isso, foi construída uma infraestrutura automatizada e experimental composta por um agente gerador de código baseado em LLM e um avaliador (Judge) para validação dos casos de teste. Dessa forma, um orquestrador gerencia o fluxo entre o banco de problemas, a estruturação de templates de prompts e os serviços externos. Para simplificação dos resultados foi adotado a seguinte configuração: o código gerado em Python, a técnica de prompt zero-shot com os enunciados tento imagens no formato Base64, sendo comparado com os enunciados sem as imagens. O estudo traça um paralelo pertinente entre a programação competitiva e a Engenharia de Software a interpretação de enunciados assemelha-se à modelagem de requisitos de sistemas, e a validação de corner cases reflete a prática de testes unitários. Nossos resultados demonstram que a inclusão de imagens impacta diretamente a taxa de acerto do código gerado. Assim, observou-se que as imagens aumentam a assertividade na resolução de problemas avançados, mas podem ser dispensáveis em questões de nível básico, pois o contexto visual mostra-se essencial para a solução correta de tópicos avançados.
+Este artigo tem como objetivo desenvolver e avaliar uma arquitetura projetada para mensurar a capacidade de Grandes Modelos de Linguagem Multimodais (MLLMs) na resolução de desafios algorítmicos complexos da Olimpíada Brasileira de Informática (OBI). Para isso, construiu-se uma infraestrutura experimental automatizada composta por um agente gerador de código baseado em LLM e um avaliador (Judge) para a validação dos casos de teste, gerenciados por um orquestrador central. O delineamento experimental adotado utilizou a linguagem Python e a técnica de prompting zero-shot, comparando o desempenho dos modelos ao receberem enunciados puramente textuais versus enunciados enriquecidos com imagens (codificadas em Base64). Os resultados demonstram que a inclusão de imagens impacta a taxa de acerto do código gerado de forma assimétrica. Observou-se que a modalidade visual aumenta significativamente a precisão na resolução de problemas de nível fácil — onde o contexto visual frequentemente clarifica soluções ad-hoc —, mas não apresenta ganhos expressivos em questões de nível médio ou difícil, obtendo desempenho semelhante à abordagem estritamente textual.
 \end{abstract}
 
 % Não esqueça de colocar suas palavras-chave reais aqui depois
@@ -130,7 +130,7 @@ Engenharia de Requisitos: \cite{Mendoza2024Comparative}
 
 \section{Metodologia}
 
-Esta seção descreve o ambiente automatizado desenvolvido para avaliar a capacidade das mllms na resolução de problemas inspirado no modelo da modalidade programação no contexto da OBI. O objetivo da metodologia é garantir um processo sistemático, reproduzível e comparável para análise do desempenho dos modelos.
+Esta seção descreve o ambiente automatizado desenvolvido para avaliar a capacidade das MLLMs na resolução de problemas inspirado no modelo da modalidade programação no contexto da OBI. O objetivo da metodologia é garantir um processo sistemático, reproduzível e comparável para análise do desempenho dos modelos.
 Para reduzir variações no processo experimental, foi utilizado um formato padronizado de prompt, contendo:
 
 \begin{itemize}
@@ -153,41 +153,57 @@ O sistema foi pensado em ser simples e automatizado de forma que ao escolher ent
 
 \subsubsection{Banco de Problemas}
 \label{sec:Banco de Problemas}
-\paragraph{Para a realização do experimento,}
-foi construído um banco de problemas (dataset) a partir do site oficial da Olimpíada Brasileira de Informática (OBI). A compilação e estruturação desse banco foram automatizadas por meio de um pipeline desenvolvido em Python, composto por seis etapas:
+
+Para a realização do experimento, foi construído um banco de problemas (\textit{dataset}) a partir do site oficial da Olimpíada Brasileira de Informática (OBI). A compilação e a estruturação desse banco foram automatizadas por meio de um \textit{pipeline} desenvolvido em Python, composto pelas seguintes seis etapas:
 
 \begin{itemize}
-\item\textbf{Coleta de Dados (Web Scraping):} Download dos cadernos de provas (abrangendo todos os níveis, de 1999 a 2025) utilizando a biblioteca requests para requisições do conteúdo da página e BeautifulSoup para a extração dos links.
-\item \textbf{Processamento via LLM:} Submissão dos arquivos PDF ao modelo Gemini 2.5 Pro para extração e estruturação dos dados em formato JSON (referenciar a imagem do prompt). Os campos gerados incluíram: título, enunciado, entrada, saída, restrições, exemplos, pontuação, ano, nível, período e dificuldade (sendo este último atributo inferido pelo próprio modelo).
-\item \textbf{Obtenção dos Casos de Teste:} Download dos gabaritos oficiais (arquivos .zip) correspondentes a cada questão para extração das entradas e saídas esperadas.
-\item \textbf{Mapeamento de Arquivos Automatizado:} Organização e vinculação dos casos de teste extraídos aos seus respectivos problemas no diretório da questão.
-\item \textbf{Limpeza:} Remoção de arquivos residuais, garantindo a integridade para a avaliação no judge, além disso, alguns gabaritos não estavam disponíveis no site, por isso foi necessário uma validação manual.
-\item \textbf{Validação Manual:} essa etapa foi necessário para análisar se houve alucinações no processamento via LLM para formatação em JSON. Com isso, foram analisadas 183 provas e consequentemente 493 questões. Durante essa análise, foi adicionado as imagens das questões no diretório da mesma de forma manual, além disso, alguns gabaritos que não houve viculação durante a etapa mapeamento teve seu gabarito viculado de manualmente durante essa etapa. 
+    \item \textbf{Coleta de Dados (\textit{Web Scraping}):} Download dos cadernos de provas (abrangendo todos os níveis, de 1999 a 2025) utilizando a biblioteca \texttt{requests} para a requisição do conteúdo das páginas e a \texttt{BeautifulSoup} para a extração dos \textit{links}.
+    
+    \item \textbf{Processamento via LLM:} Submissão dos arquivos PDF ao modelo Gemini 2.5 Pro para a extração e estruturação dos dados em formato JSON (ver Figura \ref{fig:prompt_exemplo}). Os campos gerados incluíram: título, enunciado, entrada, saída, restrições, exemplos, pontuação, ano, nível, período e dificuldade (sendo este último atributo inferido pelo próprio modelo).
+    
+    \item \textbf{Obtenção dos Casos de Teste:} Download dos gabaritos oficiais (arquivos \texttt{.zip}) correspondentes a cada questão para a extração das entradas e saídas esperadas.
+    
+    \item \textbf{Mapeamento Automatizado:} Organização e vinculação dos casos de teste extraídos aos seus respectivos problemas dentro do diretório correspondente.
+    
+    \item \textbf{Limpeza:} Remoção de arquivos residuais para garantir a integridade da avaliação no \textit{judge}. Adicionalmente, como alguns gabaritos não estavam disponíveis no site oficial, foi exigida uma validação manual posterior.
+    
+    \item \textbf{Validação Manual:} Etapa necessária para mitigar e corrigir possíveis alucinações do modelo de linguagem durante a formatação do JSON. Ao todo, inspecionou-se 183 provas, totalizando 493 questões. Durante esse processo, as imagens referentes a cada problema foram inseridas manualmente em seus respectivos diretórios. Além disso, os gabaritos que falharam na etapa de mapeamento automatizado foram devidamente vinculados de forma manual.
 \end{itemize}
 
-\subsubsection{Camada Service}
+\subsubsection{Camada de Serviço (\textit{Service})}
 \label{sec:Camada de Service}
-\paragraph{Para o funcionamento do sistema,} foi necessário criar 2 services que se comunicam com o ambiente externo da arquitetura. O service do LLM tem objetivo de se fazer request api das LLMs calculando o custo total do prompt, além do total de tokens gasto e o código criado pela LLMs. Entretando, o service do Judge tem objetivo avaliar o código através de subthreads executando os casos de testes diretamente no ambiente de processamento. Com isso, o ambiente deve conter o g++ e algum interpretador do Python para garantir automatização do processo. Além disso, o Judge informa o status final da questão, quantidade de acertos e de outros tipos de erros, o tempo máximo de execução entre todos os casos teste.  
 
-\subsubsection{Orquestrador e configuração}
-\label{sec:Orquestrador e configuração}
-\paragraph{Para garantir a execução continua,} criou-se um orquestrador para executar no momento que o usuário escolher uma configuração para execução da automatização. Esse orquestrador tem como objetivo executar as seguintes tarefas:
+Para o funcionamento do sistema, foram desenvolvidos dois serviços responsáveis pela comunicação com o ambiente externo da arquitetura. O primeiro, focado nos modelos de linguagem (Serviço de LLM), tem o objetivo de realizar as requisições às APIs dos modelos, calcular o custo computacional e financeiro do \textit{prompt}, contabilizar os \textit{tokens} consumidos e extrair o código-fonte gerado. 
+
+Por sua vez, o segundo serviço (Serviço de \textit{Judge}) é responsável por avaliar o código gerado. Essa validação ocorre por meio de concorrência baseada em \textit{threads}, que executam os casos de teste de forma isolada diretamente no ambiente de processamento. Para garantir a automação e a correta avaliação do fluxo, a infraestrutura requer a presença do compilador \texttt{g++} e de um interpretador Python devidamente configurados.
+
+Ao final do processamento, o \textit{Judge} consolida e retorna as métricas de avaliação, que incluem: o \textit{status} final da submissão, a quantidade de casos de teste aceitos (acertos) e reprovados (erros), bem como o tempo máximo de execução registrado dentre todos os casos avaliados.
+
+\subsubsection{Orquestrador e Configuração}
+\label{sec:Orquestrador e configuracao}
+
+Para garantir a execução contínua e fluida do experimento, desenvolveu-se um módulo orquestrador. Esse componente é instanciado assim que o usuário define os parâmetros de configuração do fluxo automatizado, assumindo a responsabilidade por coordenar as seguintes tarefas:
+
 \begin{itemize}
-    \item \textbf{Criação e edição de arquivos:} o mesmo consegue criar arquivos na linguagem que o usuário escolher durante a execução, além de criar o arquivo csv que possui os resultados para benchmarking
-    \item \textbf{Carregamento dos casos teste da questão:} faz uma busca no diretório da questão para carregar todos os casos testes enviando para Judge
-    \item \textbf{Validação do código: } verificar se as LLMs enviaram apenas os códigos em markedown. Caso contrário, retirar o markedown.
-    \item \textbf{Carregamento das imagens: responsável por carregar as imagens que estão no diretório da questão no formato Base64}
-    \item \textbf{Iteração com as questões da OBI para cada LLM:} para cada  agente codificadore (LLM) é executado todas as questões de forma que se o código já foi criado uma vez, então não será criado novamente.
+    \item \textbf{Gerenciamento de Arquivos:} Criação dinâmica de arquivos na linguagem de programação especificada para a execução, bem como a geração do arquivo CSV destinado ao armazenamento dos resultados para \textit{benchmarking}.
+    
+    \item \textbf{Carregamento dos Casos de Teste:} Varredura no diretório de cada problema para identificar, carregar e despachar todos os casos de teste correspondentes ao serviço do \textit{Judge}.
+    
+    \item \textbf{Higienização e Validação do Código:} Verificação das respostas geradas pelos LLMs para assegurar a integridade do código-fonte. Caso o modelo retorne o código encapsulado em blocos de formatação Markdown, o orquestrador realiza o \textit{parsing} e a limpeza da resposta, isolando apenas o texto executável.
+    
+    \item \textbf{Processamento de Imagens:} Identificação e carregamento das representações visuais associadas aos enunciados nos diretórios dos problemas, realizando a conversão estruturada desses arquivos para o formato Base64.
+    
+    \item \textbf{Iteração Otimizada sobre o \textit{Dataset}:} Controle do fluxo de execução das questões da OBI para cada agente codificador (LLM). O orquestrador implementa um mecanismo de verificação de estado para prevenir o reprocessamento, garantindo que problemas cujo código já tenha sido gerado com sucesso não originem novas e redundantes requisições às APIs.
 \end{itemize}
 Além disso, é importante a configuração das variáveis de ambiente, pois as mesmas são responsáveis pela conexão com LLMs externas.
-Para garantir o funcionamento da comunicação precisa informar as seguintes variáveis de ambiente (imagem do exemplo do env):
+Para garantir o funcionamento da comunicação precisa informar as seguintes variáveis de ambiente:
 \begin{itemize}
     \item \textbf{NOME\_\_API\_KEY:} chave da api fornecida pela llm 
     \item \textbf{NOME\_\_BASE\_URL:} url de comunicação
     \item \textbf{NOME\_\_MODEL\_NAME:} modelo que você deseja 
     \item \textbf{NOME\_\_INPUT\_PRICE:} valor do prompt de input por token
     \item \textbf{NOME\_\_OUTPUT\_PRICE:} valor do output do prompt por token
-\end{itemize}
+\end{itemize} 
 
 \subsection{Modelos Avaliados}
 Os experimentos foram conduzidos utilizando diferentes modelos de linguagem capazes de gerar código de programação a partir de descrições textuais. Seguem os proprietários e os respectivos modelos:
@@ -226,13 +242,13 @@ O limite de tempo para execução foi padronizado em 15 segundos para todas as i
 
 \subsection{Configuração do Experimento}
 
-No intuito de avaliar a capacidade das llms multimodais foi necessário separar 181 questões que possuem imagens e casos de testes na base de problemas, sendo que essas questões são majoritariamente de nível médio segundo gemini 2.5 pro.
+Com o intuito de avaliar a capacidade de raciocínio espacial e lógico dos LLMs multimodais, foi necessário isolar 181 questões da base de problemas que continham imagens e casos de teste atrelados ao enunciado. Conforme a classificação inferida pelo modelo Gemini 2.5 Pro, essa amostra apresenta uma predominância de desafios de nível médio.
 
 \begin{figure}[ht]
   \centering
     \begin{tikzpicture}
     \begin{axis}[
-        title={Classificação das 181 questões segundo gemini 2.5 pro},
+        title={Classificação das 181 questões (inferência via Gemini 2.5 Pro)},
         ybar,
         enlargelimits=0.5,
         ylabel={Quantidade de questões},
@@ -250,8 +266,8 @@ No intuito de avaliar a capacidade das llms multimodais foi necessário separar 
     
     \end{axis}
     \end{tikzpicture}
-\caption{Gráfico com a quantidade do nível das 181 questões retirados do cardeno de tarefas da modalidade programação da OBI.}
-  \Description{Classificação das 181 questões segundo gemini 2.5 pro.}
+\caption{Distribuição dos níveis de dificuldade das 181 questões selecionadas dos cadernos de tarefas da modalidade Programação da OBI.}
+\Description{Gráfico de barras ilustrando a classificação de dificuldade das 181 questões selecionadas, com 67 fáceis, 81 médias e 32 difíceis, segundo o modelo Gemini 2.5 Pro.}
 \end{figure}
 
 Além disso, a configuração utilizada durante a execução da arquitetura o código deve ser produzido na linguagem Python e a técnica de prompt zero-shot (referenciar no prompt zero shot). Devido a isso, a imagem será inserido no prompt no formato Base64 com referencias durante o enunciado como está ilustrado na imagem~\ref{fig:enunciado-vertical}. 
@@ -264,7 +280,7 @@ Além disso, a configuração utilizada durante a execução da arquitetura o c�
   \label{fig:enunciado-vertical}
 \end{figure}
 
-Com isso, seguindo o pipeline da imagem \ref{fig:pipeline-questão} para cada questão será colocado no template do prompt o enunciado da questão, em seguida o agende codificador será responsável por fazer um código executavel, sendo criado um arquivo com código em python e o judge busca validação dos casos testes para ser salvo em um arquivo csv.
+Conforme o fluxo de execução ilustrado na Figura \ref{fig:pipeline-questão}, o processo avaliativo de cada problema segue etapas sequenciais estritas. Inicialmente, o enunciado da questão é incorporado ao \textit{template} do \textit{prompt}. Em seguida, o agente codificador processa essa entrada e gera um código-fonte executável na linguagem Python, o qual é persistido em um arquivo local. Posteriormente, o serviço do \textit{Judge} submete esse código à validação contra os casos de teste da respectiva questão. Por fim, as métricas e os resultados dessa validação são consolidados e armazenados em um arquivo CSV para posterior análise.
 
 \begin{figure}[ht]
   \centering
@@ -274,7 +290,7 @@ Com isso, seguindo o pipeline da imagem \ref{fig:pipeline-questão} para cada qu
   \label{fig:pipeline-questão}
 \end{figure}
 
-Por fim, o ambiente deve ter acesso a internet para requisições juntamente com um interpretador python e o ambiente de hardware é constituído por um processador Intel Core i7-1360P de 13ª geração (2.20 GHz), 16 GB de memória RAM (4800 MT/s) e acelerador gráfico integrado Intel Iris Xe, operando sob o sistema Windows 11 Home (64 bits).
+Por fim, a infraestrutura de execução requer acesso à internet para a realização das requisições externas e a presença de um interpretador Python devidamente configurado. Todos os experimentos foram conduzidos em uma máquina equipada com um processador Intel Core i7-1360P de 13ª geração (2,20 GHz), 16 GB de memória RAM (4800 MT/s) e acelerador gráfico integrado Intel Iris Xe, operando sob o sistema operacional Windows 11 Home (64 bits).
 
 \section{Resultados}
 Esta seção tem como objetivo apresentar os resultados do experimento executado. Nas Subseções~\ref{subsec:resultados_sem_imagens} e \ref{subsec:resultados_com_imagens} serão mostradas as estatísticas gerais dos LLMs multimodais. Já a Subseção~\ref{subsec:desempenho_em_topicos} detalha os resultados para os casos de teste em tópicos avançados, como grafos e programação dinâmica.
