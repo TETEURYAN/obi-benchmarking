@@ -403,7 +403,56 @@ Enquanto ferramentas modernas de geração de código dependem de ciclos de feed
 Para os estudantes a arquitetura experimental pode ajudar na forma de estudo para as questões. Qual seria o impacto da imagem para entendimento da questão, como o modelo multimodal tentou resolver a questão, analisar os códigos criados pela arquitetura ajudou a entender como resolver a questão. Entre outros pontos que é possível por tem uma arquitetura automatiza para avaliação das questões.
 
 \section{Conclusão}
-Fazer a conclusão
+\label{sec:conclusao}
+
+Este trabalho apresentou e avaliou uma arquitetura experimental automatizada para 
+medir a capacidade de Modelos de Linguagem Multimodais (MLLMs) na resolução de 
+problemas da modalidade programação da Olimpíada Brasileira de Informática (OBI). 
+A infraestrutura desenvolvida integra um agente gerador de código, um juiz automático 
+(\textit{Judge}) e um orquestrador de prompts, compondo um pipeline reproduzível e 
+escalável para o benchmarking de MLLMs em programação competitiva.
+
+Os experimentos conduzidos sobre 181 questões com imagens, em configuração 
+\textit{zero-shot} e com código gerado em Python, revelaram que a inclusão do 
+contexto visual impacta diretamente a taxa de acerto dos modelos avaliados. Em 
+questões de nível fácil, a maioria dos modelos apresentou ganho de desempenho com 
+a adição de imagens. Em questões de nível médio e difícil, o efeito foi heterogêneo: 
+apenas modelos com maior capacidade cognitiva, como o Gemini 3.1 Pro, mantiveram 
+desempenho consistente independentemente da presença de imagens, enquanto modelos 
+menores apresentaram variações significativas. Em tópicos avançados, como grafos e 
+programação dinâmica, a análise dos casos de teste individuais mostrou que o contexto 
+visual contribuiu para uma maior assertividade na maior parte dos modelos, com 
+exceção do Mistral Small 4, cujo desempenho foi inferior com imagens.
+
+Esses resultados evidenciam que a imagem atua como um facilitador semântico: ela 
+auxilia na compreensão do enunciado, mas não é suficiente para superar a limitação 
+cognitiva dos modelos diante de problemas que exigem raciocínio algorítmico avançado. 
+Um prompt \textit{zero-shot} com enunciado visual ainda é insuficiente para garantir 
+a identificação do algoritmo correto e o tratamento adequado de casos extremos de 
+entrada e saída --- habilidades centrais na programação competitiva e análogas à 
+capacidade de modelar requisitos complexos na Engenharia de Software.
+
+Do ponto de vista arquitetural, a tensão entre a natureza probabilística das LLMs 
+e o determinismo estrito do \textit{Judge} revelou uma fronteira importante para o 
+uso de MLLMs na geração autônoma de código: soluções logicamente corretas podem ser 
+rejeitadas por pequenas divergências de formatação ou por exceder o limite de tempo. 
+Isso reforça que a limitação atual dos modelos não reside apenas na compreensão 
+algorítmica, mas na adequação precisa às interfaces de validação automatizada.
+
+Este trabalho pode ser utilizado como ponto de referência para o benchmarking de 
+MLLMs em programação competitiva no contexto brasileiro. O banco de questões 
+construído, abrangendo 493 problemas da OBI de 1999 a 2025 com casos de teste 
+oficiais, e a arquitetura experimental estão disponibilizados publicamente para 
+facilitar a replicação e extensão dos experimentos. Trabalhos futuros podem 
+investigar o impacto de técnicas mais elaboradas de engenharia de prompts, como 
+\textit{Few-Shot}~\cite{brown2020language} e \textit{Chain-of-Thought}, bem como 
+a evolução do orquestrador estático para um fluxo com ciclo de 
+\textit{feedback} entre o \textit{Judge} e a LLM, aproximando a avaliação 
+educacional da OBI à dinâmica iterativa de correção de bugs presente no mercado 
+de trabalho~\cite{Silva2025LLMs}. Por fim, a arquitetura proposta abre caminho 
+para a criação de ferramentas de tutoria automatizadas voltadas às escolas públicas 
+brasileiras participantes da OBI, democratizando o acesso ao ensino de programação 
+competitiva sem dependência de APIs comerciais.
 
 \section{Trabalhos Futuros}
 
