@@ -1,0 +1,498 @@
+\documentclass[sigconf,anonymous]{acmart} % Adicionado 'anonymous' para a fase de revisão
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\setcopyright{none}
+
+\acmConference[SBES 2026]{40th Brazilian Symposium on Software Engineering}{September 8–12, 2026}{São Paulo, SP, Brazil}
+
+\AtBeginDocument{
+    \providecommand\BibTeX{{Bib\TeX}}
+}
+
+\usepackage{graphicx}
+\usepackage[brazilian]{babel}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\renewcommand\abstractname{Resumo}
+\renewcommand\keywordsname{Palavras-chave}
+\renewcommand\refname{Referências}
+
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabela}
+
+\begin{document}
+
+\title{Avaliação de LLMs Multimodais na Modalidade Programação da Olimpíada Brasileira de Informática: Uma Arquitetura Experimental}
+
+% ------------------------------------------------------------
+% NOTA: Mantenha os autores COMENTADOS durante a submissão!
+% Descomente apenas quando o artigo for aprovado (Camera-ready)
+% ------------------------------------------------------------
+% \author{Victor Hugo Silva Ângelo}
+% \affiliation{
+%   \institution{Instituto da Computação - Universidade Federal de Alagoas}
+%   \city{Maceió}
+%   \country{Brasil}
+% }
+% \email{vhsa@ufal.ic.br}
+
+% \renewcommand{\shortauthors}{Ângelo}
+\renewcommand{\shorttitle}{Resolução de Problemas da OBI com LLMs Multimodais}
+
+\begin{abstract}
+Este artigo tem como objetivo desenvolver e avaliar uma arquitetura projetada para mensurar a capacidade de Grandes Modelos de Linguagem Multimodais (MLLMs) na resolução de desafios algorítmicos complexos da Olimpíada Brasileira de Informática (OBI). Para isso, construiu-se uma infraestrutura experimental automatizada composta por um agente gerador de código baseado em LLM e um avaliador (Judge) para a validação dos casos de teste, gerenciados por um orquestrador central. O delineamento experimental adotado utilizou a linguagem Python e a técnica de prompting zero-shot, comparando o desempenho dos modelos ao receberem enunciados puramente textuais versus enunciados enriquecidos com imagens (codificadas em Base64). Os resultados demonstram que a inclusão de imagens impacta a taxa de acerto do código gerado de forma assimétrica. Observou-se que a modalidade visual aumenta significativamente a precisão na resolução de problemas de nível fácil — onde o contexto visual frequentemente clarifica soluções ad-hoc —, mas não apresenta ganhos expressivos em questões de nível médio ou difícil, obtendo desempenho semelhante à abordagem estritamente textual.
+\end{abstract}
+
+% Não esqueça de colocar suas palavras-chave reais aqui depois
+\keywords{Modelos de Linguagem Multimodais, Geração Automática de Código, Engenharia de Software Experimental, Teste de Software, Programação Competitiva}
+
+\frenchspacing
+\maketitle
+
+\section{Introdução}
+
+A interpretação precisa de requisitos visuais é uma habilidade central tanto na 
+Engenharia de Software quanto na programação competitiva. Em projetos de software, 
+diagramas, fluxogramas e mockups compõem parte indispensável da especificação de 
+sistemas~\cite{Mendoza2024Comparative}. De forma análoga, nos problemas da 
+Olimpíada Brasileira de Informática (OBI), ilustrações e figuras são frequentemente 
+o elemento-chave para a correta compreensão de restrições e estruturas de dados 
+sem as quais a modelagem algorítmica da solução torna-se incompleta ou incorreta.
+
+Com o crescimento acelerado dos Grandes Modelos de Linguagem (LLMs), impulsionado 
+pelas leis de escala descritas por Kaplan et al.~\cite{kaplan2020scaling}, esses 
+modelos atingiram um novo patamar de capacidade, ganhando notoriedade na geração 
+automática de código~\cite{Chen:2021:ELL}. Isso motivou estudos sobre a capacidade 
+das LLMs em resolver questões de programação competitiva~\cite{Zheng2025LiveCodeBenchPH}, 
+bem como sua avaliação em exames e contextos educacionais 
+diversos~\cite{Viegas2025AssessingTC, Mendona2024EvaluatingCV, nunes2023evaluating}. 
+Em particular, Almeida et al.~\cite{Almeida2023BLUEXAB} introduziram a ideia de 
+adicionar elementos visuais nos enunciados para a resolução de problemas em exames 
+universitários brasileiros.
+
+Essa perspectiva foi impulsionada pelo avanço das técnicas de \textit{Visual 
+Instruction Tuning}, que alinham características visuais à compreensão semântica 
+das LLMs~\cite{Liu2023VisualIT}, dando origem aos Modelos de Linguagem Multimodais 
+(MLLMs). Estudos recentes verificaram a capacidade cognitiva desses modelos com 
+imagens~\cite{Fu2023MMEAC}, em problemas matemáticos com elementos 
+visuais~\cite{Lu2023MathVistaEM} e em avaliações universitárias 
+multidisciplinares~\cite{Yue2023MMMUAM}. No ciclo de desenvolvimento de software, 
+MLLMs também têm sido aplicados à engenharia de 
+requisitos~\cite{Mendoza2024Comparative}, à geração automática de testes 
+unitários~\cite{Silva2025LLMs} e à análise multimodal de capturas de tela e 
+diagramas para correção de bugs~\cite{Yang2024SWEbenchMD}.
+
+No entanto, apesar desses avanços, o impacto do contexto visual no raciocínio 
+algorítmico de nível educacional inicial permanece pouco explorado --- especialmente 
+no contexto brasileiro. A OBI representa uma das principais portas de entrada ao 
+ensino de programação e ao pensamento computacional no país, e seus enunciados 
+frequentemente incluem figuras e diagramas que integram informações essenciais à 
+solução. Compreender se e quando MLLMs se beneficiam dessas representações visuais 
+é, portanto, uma questão relevante tanto para a área de Inteligência Artificial 
+quanto para a Engenharia de Software Experimental.
+
+Neste trabalho, apresentamos e avaliamos uma arquitetura experimental automatizada 
+para medir a capacidade de MLLMs na resolução de problemas da modalidade programação 
+da OBI~\cite{obi_passadas}. A infraestrutura integra um agente gerador de código 
+baseado em LLM e um juiz automático (\textit{Judge}) que valida as soluções por 
+meio de casos de teste oficiais, emulando o ambiente de avaliação real da olimpíada. 
+Para isolar o efeito do contexto visual, conduzimos experimentos em configuração 
+\textit{zero-shot}~\cite{wei2021finetuned}, comparando enunciados com e sem imagens 
+codificadas em Base64, sobre 181 questões de nível fácil, médio e difícil extraídas 
+dos cadernos da OBI de 1999 a 2025.
+
+Os resultados demonstram que a inclusão de imagens impacta diretamente a taxa de 
+acerto. Para questões avançadas, envolvendo tópicos como grafos e programação 
+dinâmica, o contexto visual mostrou-se essencial para a correta interpretação do 
+enunciado. Para questões de nível básico, por outro lado, as imagens mostraram-se 
+dispensáveis ou até prejudiciais ao desempenho de alguns modelos. Esses achados 
+traçam um paralelo com a Engenharia de Software: assim como diagramas enriquecem, mas não substituem, especificações textuais na engenharia de requisitos, o 
+estímulo visual atua como um facilitador semântico nos prompts de MLLMs, sem 
+garantir por si só a corretude algorítmica da solução.
+
+Este artigo está organizado da seguinte forma: a Seção~2 revisa os trabalhos 
+relacionados; a Seção~3 detalha a arquitetura experimental e a metodologia adotada; 
+a Seção~4 apresenta e analisa os resultados; a Seção~5 discute as implicações dos 
+achados; e a Seção~6 sintetiza as contribuições e aponta direções para trabalhos 
+futuros.
+
+\section{Trabalhos Relacionados}
+Com escalabilidade e o crescimento do poder das LLMs, notavel em Kaplan et al. \cite{kaplan2020scaling}, os modelos conseguiram entrar em um patamar de processamento diferente ganhando notoriedade na criação de código em Chen et al.\cite{Chen:2021:ELL} utilizando a métrica pass@k.
+Isso trouxe uma necessidade de avaliar a capacidade das LLMs em resolver questões de programação competitiva \cite{Zheng2025LiveCodeBenchPH}, em resolução de problemas em variados contextos e domínios \cite{Viegas2025AssessingTC, Mendona2024EvaluatingCV, nunes2023evaluating}, dando destaque em Almeida et al. \cite{Almeida2023BLUEXAB} que trouxe a ideia de adicionar elementos visuais no enunciado para resolução de problemas.
+
+Tendo em vista que a interpretação do contexto com imagens impulsionada pelas técnicas de Visual Instruction Tuning alinham características visuais com a compreensão semântica das LLMs \cite{Liu2023VisualIT}. Por isso, o avanço das técnicas trouxe novos estudos sobre os modelos multimodais como verificar a capacidade cognitiva simples utilizando imagem \cite{Fu2023MMEAC}, em problemas matemáticos que possuem elementos visual \cite{Lu2023MathVistaEM}, ou no contexto universitário que abrange varias áreas de estudo. \cite{Yue2023MMMUAM}.
+
+Por fim, a aplicação de Modelos de Linguagem de Grande Escala tem se expandido por diversas fases do ciclo de desenvolvimento de software. a literatura recente já demonstra o potencial dessas ferramentas na abstração de problemas em engenharia de requisitos \cite{Mendoza2024Comparative}, na automação da geração de testes unitários \cite{Silva2025LLMs} e, mais recentemente, na correção de bugs complexos através da análise multimodal de capturas de tela e diagramas \cite{Yang2024SWEbenchMD}. No entanto, apesar desses avanços em tarefas de nível profissional, o impacto e a eficácia de LLMs multimodais no raciocínio algorítmico de nível educacional inicial ainda são pouco explorados. Nesse contexto, surge a necessidade de verificar a capacidade desses modelos em interpretar e resolver os problemas da Olimpíada Brasileira de Informática (OBI). Sendo a OBI uma das principais portas de entrada para o ensino de programação e pensamento computacional no país, assim o artigo busca avaliar os modelos com a combinação de enunciados textuais e representações visuais.
+
+Teste unitário: \cite{Silva2025LLMs}
+Engenharia de Requisitos: \cite{Mendoza2024Comparative}
+
+\section{Metodologia}
+
+Esta seção descreve o ambiente automatizado desenvolvido para avaliar a capacidade das MLLMs na resolução de problemas inspirado no modelo da modalidade programação no contexto da OBI. O objetivo da metodologia é garantir um processo sistemático, reproduzível e comparável para análise do desempenho dos modelos.
+Para reduzir variações no processo experimental, foi utilizado um formato padronizado de prompt, contendo:
+
+\begin{itemize}
+    \item O enunciado do problema com tags das imagens;
+    \item A especificação de entrada e saída;
+    \item Exemplos do enunciado;
+    \item Instruções para gerar uma solução completa em código.
+\end{itemize}
+
+\subsection{Visão Geral da Arquitetura}
+
+O sistema foi pensado em ser simples e automatizado de forma que ao escolher entre as linguagens de programação (C++ ou Python) e técnicas de prompt (Zero-Shot \cite{wei2021finetuned} ou Few-Shot \cite{brown2020language}), o mesmo deve produzir um código e o código deve ser averiguado através do gabarito. Assim, haverá um agente codificador (LLM Multimodal) e um avaliador (judge) para a dinamização do benchmarking dos modelos utilizados para resolver os problemas de OBI 1999 até 2025 disponível no site~\cite{obi_passadas}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{samples/arquitetura-experimental-preto.png}
+  \caption{Arquitetura Experimental para Resolução de Problemas de Programação da OBI.}
+  \Description{Arquitetura Experimental}
+\end{figure}
+
+\subsubsection{Banco de Problemas}
+\label{sec:Banco de Problemas}
+
+Para a realização do experimento, foi construído um banco de problemas (\textit{dataset}) a partir do site oficial da Olimpíada Brasileira de Informática (OBI). A compilação e a estruturação desse banco foram automatizadas por meio de um \textit{pipeline} desenvolvido em Python, composto pelas seguintes seis etapas:
+
+\begin{itemize}
+    \item \textbf{Coleta de Dados (\textit{Web Scraping}):} Download dos cadernos de provas (abrangendo todos os níveis, de 1999 a 2025) utilizando a biblioteca \texttt{requests} para a requisição do conteúdo das páginas e a \texttt{BeautifulSoup} para a extração dos \textit{links}.
+    
+    \item \textbf{Processamento via LLM:} Submissão dos arquivos PDF ao modelo Gemini 2.5 Pro para a extração e estruturação dos dados em formato JSON (ver Figura \ref{fig:prompt_exemplo}). Os campos gerados incluíram: título, enunciado, entrada, saída, restrições, exemplos, pontuação, ano, nível, período e dificuldade (sendo este último atributo inferido pelo próprio modelo).
+    
+    \item \textbf{Obtenção dos Casos de Teste:} Download dos gabaritos oficiais (arquivos \texttt{.zip}) correspondentes a cada questão para a extração das entradas e saídas esperadas.
+    
+    \item \textbf{Mapeamento Automatizado:} Organização e vinculação dos casos de teste extraídos aos seus respectivos problemas dentro do diretório correspondente.
+    
+    \item \textbf{Limpeza:} Remoção de arquivos residuais para garantir a integridade da avaliação no \textit{judge}. Adicionalmente, como alguns gabaritos não estavam disponíveis no site oficial, foi exigida uma validação manual posterior.
+    
+    \item \textbf{Validação Manual:} Etapa necessária para mitigar e corrigir possíveis alucinações do modelo de linguagem durante a formatação do JSON. Ao todo, inspecionou-se 183 provas, totalizando 493 questões. Durante esse processo, as imagens referentes a cada problema foram inseridas manualmente em seus respectivos diretórios. Além disso, os gabaritos que falharam na etapa de mapeamento automatizado foram devidamente vinculados de forma manual.
+\end{itemize}
+
+\subsubsection{Camada de Serviço (\textit{Service})}
+\label{sec:Camada de Service}
+
+Para o funcionamento do sistema, foram desenvolvidos dois serviços responsáveis pela comunicação com o ambiente externo da arquitetura. O primeiro, focado nos modelos de linguagem (Serviço de LLM), tem o objetivo de realizar as requisições às APIs dos modelos, calcular o custo computacional e financeiro do \textit{prompt}, contabilizar os \textit{tokens} consumidos e extrair o código-fonte gerado. 
+
+Por sua vez, o segundo serviço (Serviço de \textit{Judge}) é responsável por avaliar o código gerado. Essa validação ocorre por meio de concorrência baseada em \textit{threads}, que executam os casos de teste de forma isolada diretamente no ambiente de processamento. Para garantir a automação e a correta avaliação do fluxo, a infraestrutura requer a presença do compilador \texttt{g++} e de um interpretador Python devidamente configurados.
+
+Ao final do processamento, o \textit{Judge} consolida e retorna as métricas de avaliação, que incluem: o \textit{status} final da submissão, a quantidade de casos de teste aceitos (acertos) e reprovados (erros), bem como o tempo máximo de execução registrado dentre todos os casos avaliados.
+
+\subsubsection{Orquestrador e Configuração}
+\label{sec:Orquestrador e configuracao}
+
+Para garantir a execução contínua e fluida do experimento, desenvolveu-se um módulo orquestrador. Esse componente é instanciado assim que o usuário define os parâmetros de configuração do fluxo automatizado, assumindo a responsabilidade por coordenar as seguintes tarefas:
+
+\begin{itemize}
+    \item \textbf{Gerenciamento de Arquivos:} Criação dinâmica de arquivos na linguagem de programação especificada para a execução, bem como a geração do arquivo CSV destinado ao armazenamento dos resultados para \textit{benchmarking}.
+    
+    \item \textbf{Carregamento dos Casos de Teste:} Varredura no diretório de cada problema para identificar, carregar e despachar todos os casos de teste correspondentes ao serviço do \textit{Judge}.
+    
+    \item \textbf{Higienização e Validação do Código:} Verificação das respostas geradas pelos LLMs para assegurar a integridade do código-fonte. Caso o modelo retorne o código encapsulado em blocos de formatação Markdown, o orquestrador realiza o \textit{parsing} e a limpeza da resposta, isolando apenas o texto executável.
+    
+    \item \textbf{Processamento de Imagens:} Identificação e carregamento das representações visuais associadas aos enunciados nos diretórios dos problemas, realizando a conversão estruturada desses arquivos para o formato Base64.
+    
+    \item \textbf{Iteração Otimizada sobre o \textit{Dataset}:} Controle do fluxo de execução das questões da OBI para cada agente codificador (LLM). O orquestrador implementa um mecanismo de verificação de estado para prevenir o reprocessamento, garantindo que problemas cujo código já tenha sido gerado com sucesso não originem novas e redundantes requisições às APIs.
+\end{itemize}
+Além disso, é importante a configuração das variáveis de ambiente, pois as mesmas são responsáveis pela conexão com LLMs externas.
+Para garantir o funcionamento da comunicação precisa informar as seguintes variáveis de ambiente:
+\begin{itemize}
+    \item \textbf{NOME\_\_API\_KEY:} chave da api fornecida pela llm 
+    \item \textbf{NOME\_\_BASE\_URL:} url de comunicação
+    \item \textbf{NOME\_\_MODEL\_NAME:} modelo que você deseja 
+    \item \textbf{NOME\_\_INPUT\_PRICE:} valor do prompt de input por token
+    \item \textbf{NOME\_\_OUTPUT\_PRICE:} valor do output do prompt por token
+\end{itemize} 
+
+\subsection{Modelos Avaliados}
+Os experimentos foram conduzidos utilizando diferentes modelos de linguagem capazes de gerar código de programação a partir de descrições textuais. Seguem os proprietários e os respectivos modelos:
+
+\begin{itemize}
+    \item \textbf{Anthropic:} Claude Sonnet 4.6 (LLM Proprietário);
+    \item \textbf{Google DeepMind:} Gemini 3.1 Pro (LLM Proprietário);
+    \item \textbf{OpenAI:} GPT 5.4 (LLM Proprietário);
+    \item \textbf{DeepSeek:} DeepSeek-V3.2 (LLM Open-Source - MIT);
+    \item \textbf{Z.AI:} Glm 5 (LLM Open-Source - MIT);
+    \item \textbf{StepFun:} Step 3.5 flash (LLM Open-Source - Apache 2.0);
+    \item \textbf{X:} Grok 4.20 (LLM Proprietário);
+    \item \textbf{Mistral:} Mistral Small 4 (LLM Proprietário).
+\end{itemize}
+
+\subsection{Ambiente de Avalição}
+O processo de avaliação das soluções geradas pelos modelos tem as seguintes etapas:
+\begin{itemize}
+    \item Seleção de um problema do banco de dados;
+    \item Envio do enunciado ao modelo de linguagem;
+    \item Recebimento do código gerado pelo modelo;  
+    \item Compilação e execução do código;
+    \item Avaliação automática utilizando casos de teste.
+\end{itemize}
+
+A verificação das soluções é realizada por meio da comparação entre a saída produzida pelo programa e a saída esperada definida nos casos de teste do problema. Cada solução é classificada de acordo com categorias comuns em sistemas de juízes automáticos, como:
+\begin{itemize}
+    \item Accepted (AC):  solução correta;
+    \item Wrong Answer (WA):  saída incorreta;
+    \item Compilation Error (CE):  erro de compilação;
+    \item Runtime Error (RE):  erro durante execução;
+    \item Time Limit Exceeded (TLE): excedeu o limite de tempo.
+\end{itemize}
+
+O limite de tempo para execução foi padronizado em 15 segundos para todas as instâncias e modelos deste estudo, pois essa informação não estava disponível nos cadernos de problemas da OBI.
+
+\subsection{Configuração do Experimento}
+
+Com o intuito de avaliar a capacidade de raciocínio espacial e lógico dos LLMs multimodais, foi necessário isolar 181 questões da base de problemas que continham imagens e casos de teste atrelados ao enunciado. Conforme a classificação inferida pelo modelo Gemini 2.5 Pro, essa amostra apresenta uma predominância de desafios de nível médio.
+
+\begin{figure}[H]
+  \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        title={Classificação das 181 questões (inferência via Gemini 2.5 Pro)},
+        ybar,
+        enlargelimits=0.5,
+        ylabel={Quantidade de questões},
+        symbolic x coords={Fácil, Médio, Difícil},
+        xtick=data,
+        nodes near coords,
+        nodes near coords align={vertical},
+        nodes near coords style={color=black, font=\bfseries},
+        bar shift=0pt,
+        bar width=1cm,
+    ]
+    
+    % --- INSERÇÃO DOS DADOS ---
+    \addplot [fill=black!40, draw=black!80!black] coordinates {(Fácil,67) (Médio,81) (Difícil,32)};
+    
+    \end{axis}
+    \end{tikzpicture}
+\caption{Distribuição dos níveis de dificuldade das 181 questões selecionadas dos cadernos de tarefas da modalidade Programação da OBI.}
+\Description{Gráfico de barras ilustrando a classificação de dificuldade das 181 questões selecionadas, com 67 fáceis, 81 médias e 32 difíceis, segundo o modelo Gemini 2.5 Pro.}
+\end{figure}
+
+Além disso, a configuração utilizada durante a execução da arquitetura o código deve ser produzido na linguagem Python e a técnica de prompt zero-shot (referenciar no prompt zero shot). Devido a isso, a imagem será inserido no prompt no formato Base64 com referencias durante o enunciado como está ilustrado na imagem~\ref{fig:enunciado-vertical}. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{samples/enunciado-prompt-horizontal.png}
+  \caption{Formatação do Enunciado para Adicionar Imagens no Prompt no Formato Base64.}
+  \Description{Estrutura que será utilizado durante o experimento para melhorar o desempenho das llms multimodais}
+  \label{fig:enunciado-vertical}
+\end{figure}
+
+Conforme o fluxo de execução ilustrado na Figura \ref{fig:pipeline-questão}, o processo avaliativo de cada problema segue etapas sequenciais estritas. Inicialmente, o enunciado da questão é incorporado ao \textit{template} do \textit{prompt}. Em seguida, o agente codificador processa essa entrada e gera um código-fonte executável na linguagem Python, o qual é persistido em um arquivo local. Posteriormente, o serviço do \textit{Judge} submete esse código à validação contra os casos de teste da respectiva questão. Por fim, as métricas e os resultados dessa validação são consolidados e armazenados em um arquivo CSV para posterior análise.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{samples/pipeline.png}
+  \caption{Pipeline de Execução para cada Questão.}
+  \Description{Arquitetura segue esse fluxo para avaliação de cada questão}
+  \label{fig:pipeline-questão}
+\end{figure}
+
+Por fim, a infraestrutura de execução requer acesso à internet para a realização das requisições externas e a presença de um interpretador Python devidamente configurado. Todos os experimentos foram conduzidos em uma máquina equipada com um processador Intel Core i7-1360P de 13ª geração (2,20 GHz), 16 GB de memória RAM (4800 MT/s) e acelerador gráfico integrado Intel Iris Xe, operando sob o sistema operacional Windows 11 Home (64 bits).
+
+\section{Resultados}
+Esta seção tem como objetivo apresentar os resultados do experimento executado. Nas Subseções~\ref{subsec:resultados_sem_imagens} e \ref{subsec:resultados_com_imagens} serão mostradas as estatísticas gerais dos LLMs multimodais. Já a Subseção~\ref{subsec:desempenho_em_topicos} detalha os resultados para os casos de teste em tópicos avançados, como grafos e programação dinâmica.
+
+\subsection{Resultados dos Enunciados Sem Imagens}
+\label{subsec:resultados_sem_imagens}
+
+O desempenho em relação à taxa de acerto para questões de nível fácil (acima de 77\%) e de nível médio (acima de 69\%) é considerado alto, como visto na Tabela~\ref{tab:desempenho_modelos_sem_imagens}, destacando-se os modelos Claude Sonnet 4.6, GPT 5.4 e Gemini 3.1 Pro. Entretanto, apenas o modelo Gemini 3.1 obteve um desempenho satisfatório para questões consideradas difíceis. Vale ressaltar que este modelo também exigiu o maior tempo de processamento para a geração da resolução e o maior custo médio. Com isso, uma característica observada durante o experimento é que os modelos ainda têm dificuldades cognitivas para a resolução de problemas complexos. Um simples \textit{prompt} em configuração \textit{zero-shot} pedindo para resolver a questão não foi suficiente para passar no gabarito, pois uma característica intrínseca da programação competitiva é a necessidade de prever casos extremos (\textit{corner cases}) de entrada e saída.
+
+\begin{table*}[htbp]
+  \caption{Comparativo de Desempenho dos Modelos Multimodais sem Imagens}
+  \label{tab:desempenho_modelos_sem_imagens}
+  \begin{tabular}{l c c c c c c}
+    \toprule
+    \textbf{Modelo} & \textbf{Fácil AC (\%)} & \textbf{Médio AC (\%)} & \textbf{Difícil AC (\%)} & \textbf{Tokens I/O (Média)} & \textbf{Custo Médio (US\$)} & \textbf{Tempo Médio (s)} \\
+    \midrule
+    Claude Sonnet 4.6 & 77.61 & 75.31 & 36.36 & 1698 & 0.0121 & 9 \\
+    GPT 5.4           & 80.60 & 69.14 & 30.30 & 1123 & 0.0059 & 4 \\
+    Gemini 3.1 Pro    & 97.01 & 88.89 & 84.85 & 5128 & 0.0520 & 38 \\
+    Grok 4.20         & 61.19 & 54.32 & 18.18 & 1958 & 0.0078 & 9 \\
+    Mistral Small 4   & 58.21 & 49.38 & 9.09  & 1212 & 0.0016 & 3 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{Resultados dos Enunciados Com Imagens}
+\label{subsec:resultados_com_imagens}
+
+Ao aumentar o nível de complexidade do \textit{prompt} com a adição de imagens, apenas o modelo Gemini 3.1 Pro manteve os mesmos percentuais da Tabela~\ref{tab:desempenho_modelos_sem_imagens}. No entanto, ao analisar os demais modelos multimodais, observou-se um aumento na taxa de acerto para questões de nível fácil. Entretanto, para questões de nível médio, apenas os modelos GPT 5.4 e Gemini 3.1 Pro mantiveram o mesmo desempenho, enquanto os demais apresentaram queda na taxa de acerto. Além disso, para questões de nível difícil, apenas os modelos GPT 5.4 e Mistral Small 4 conseguiram acertar mais questões utilizando o contexto visual. Isso evidencia que o aumento da complexidade do \textit{prompt} não é garantia de resolução para questões de níveis médio e difícil, como demonstrado na Tabela~\ref{tab:desempenho_modelos_com_imagens}, embora possa servir como um guia para a modelagem da solução.
+
+\begin{table*}
+  \caption{Comparativo de Desempenho dos Modelos Multimodais com Imagens}
+  \label{tab:desempenho_modelos_com_imagens}
+  \begin{tabular}{l c c c c c c}
+    \toprule
+    \textbf{Modelo} & \textbf{Fácil AC (\%)} & \textbf{Médio AC (\%)} & \textbf{Difícil AC (\%)} & \textbf{Tokens I/O (Média)} & \textbf{Custo Médio (US\$)} & \textbf{Tempo Médio (s)} \\
+    \midrule
+    Claude Sonnet 4.6 & 83.58 & 71.60 & 33.33 & 2049 & 0.0148 & 12 \\
+    GPT 5.4           & 82.09 & 69.14 & 36.36 & 1329 & 0.0065 & 4 \\
+    Gemini 3.1 Pro    & 97.01 & 88.89 & 84.85 & 6539 & 0.0567 & 39 \\
+    Grok 4.20         & 73.13 & 53.09 & 15.15 & 1792 & 0.0061 & 7 \\
+    Mistral Small 4   & 61.19 & 41.98 & 12.12 & 1456 & 0.0018 & 3 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{Desempenho em Tópicos Avançados}
+\label{subsec:desempenho_em_topicos}
+
+Cabe ressaltar que, para o \textit{Judge} aceitar uma submissão, o código deve passar em todos os casos de teste da questão. Ao analisar especificamente as questões que envolvem tópicos de grafos e programação dinâmica (64 questões e 2.491 casos de teste no total), é perceptível no Gráfico~\ref{fig:acuracia_modelos_total} que a utilização de imagens no enunciado proporcionou uma melhora no desempenho de acerto individual dos casos de teste. A exceção foi o modelo Mistral Small 4, que apresentou um desempenho inferior ao processar o contexto visual.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        ybar=0pt,
+        width=\columnwidth,
+        height=7cm,
+        bar width=15pt,
+        enlarge x limits=0.15,
+        ymin=0, ymax=100,
+        ytick={0, 20, 40, 60, 80, 100},
+        yticklabel={\pgfmathprintnumber\tick\%},
+        ylabel={\% de acertos nos casos de teste},
+        ymajorgrids=true,
+        grid style={line width=.1pt, draw=gray!20},
+        axis x line*=bottom,
+        axis y line*=left,
+        symbolic x coords={Gemini 3.1 Pro, Claude Sonnet 4.6, GPT-5.4, Grok 4.20, Mistral Small 4},
+        xtick=data,
+        x tick label style={rotate=35, anchor=north east, font=\footnotesize},
+        nodes near coords,
+        nodes near coords style={font=\tiny, /pgf/number format/fixed, /pgf/number format/precision=1},
+        legend style={
+            at={(1,1)},
+            anchor=north east,
+            legend columns=-1,
+            draw=none,
+            font=\footnotesize
+        },
+    ]
+
+    % Dados: Sem imagem (Vermelho)
+    \addplot[fill=red!70!white, draw=none] coordinates {
+        (Gemini 3.1 Pro, 87.4) 
+        (Claude Sonnet 4.6, 53.5) 
+        (GPT-5.4, 50.8) 
+        (Grok 4.20, 37.6) 
+        (Mistral Small 4, 29.3)
+    };
+
+    % Dados: Com imagem (Azul)
+    \addplot[fill=blue!70!white, draw=none] coordinates {
+        (Gemini 3.1 Pro, 87.4) 
+        (Claude Sonnet 4.6, 53.8) 
+        (GPT-5.4, 53.9) 
+        (Grok 4.20, 38.0) 
+        (Mistral Small 4, 23.5)
+    };
+
+    \legend{Sem imagem, Com imagem}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Desempenho comparativo de acertos totais por modelo com e sem imagem.}
+  \label{fig:acuracia_modelos_total}
+  \Description{Gráfico de barras verticais mostrando que o Gemini 3.1 Pro lidera com 87.4 por cento, enquanto o Mistral Small apresenta o menor desempenho, especialmente no cenário com imagem (23.5 por cento).}
+\end{figure}
+
+\section{Discussão}
+
+Os dados obtidos nesta pesquisa evidenciam que a utilização de imagens em questões de programação competitiva auxilia na compreensão preliminar do problema, mas não garante a resolução de questões que exigem maior capacidade cognitiva em tópicos avançados. Isso reflete a realidade de que estudantes iniciantes na programação competitiva enfrentam grandes desafios para assimilar determinados conceitos da área. Além disso, a inclusão de imagens no enunciado pode tornar a tarefa mais complexa para que os modelos de IA consigam formular uma resposta correta. O principal motivo para isso é a ausência de um contexto explícito no \textit{prompt}; ou seja, para chegar à solução correta, a IA (assim como um usuário humano) precisa primeiro identificar a qual categoria o problema pertence e qual técnica de programação é necessária para obter o \textit{Accepted} no \textit{Judge}.
+
+Portanto, o objetivo fundamental desse tipo de prova é avaliar e ensinar otimização, técnicas de programação, análise de requisitos complexos e padrões de entrada e saída. Contudo, os LLMs são sistemas não determinísticos; logo, o sucesso da resposta dependerá fortemente da forma como o \textit{prompt} é estruturado e das configurações internas do modelo. Da mesma forma que um estudante precisa saber exatamente qual problema está atacando, delegar essa interpretação diretamente aos MLLMs --- fornecendo apenas o enunciado textual e a imagem --- pode auxiliar a passar em alguns casos de teste básicos, mas frequentemente falha em garantir o acerto total da questão.
+
+Nota-se que a complexidade de processar o contexto visual pode prejudicar o desempenho dos modelos em cenários que exigem um conhecimento altamente específico de programação estruturada. Esse comportamento contrasta com estudos voltados para a indústria, como o de Mendoza et al.~\cite{Mendoza2024Comparative}, que demonstra eficácia na geração de dados de teste a partir de especificações textuais explícitas (BDD). Na Engenharia de Requisitos, o uso exclusivo de elementos textuais já promove um impacto considerável, mas não contempla a totalidade de especificações visuais do mundo real, como diagramas de arquitetura e fluxogramas de processos. Dessa forma, modelar os requisitos de um sistema corporativo assemelha-se a resolver várias questões de programação competitiva de forma interconectada, visando solucionar um problema maior que transcende a aplicação isolada de técnicas de código.
+
+\subsection{O Papel e os Desafios da Arquitetura Experimental Automatizada}
+
+A construção da arquitetura experimental apresentada neste estudo consolida-se como um framework de Engenharia de Software voltado à criação de um pipeline de benchmarking robusto, escalável e reprodutível. A infraestrutura integra um orquestrador de prompts, interface de comunicação com múltiplas APIs (abrangendo modelos de código abertos e proprietários) e um módulo de avaliação local rigoroso (Judge). Tal composição emula o rigor de ambientes de Integração Contínua (CI/CD) estabelecidos na indústria de software.
+
+Um dos principais fenômenos observados durante a execução da arquitetura é o conflito entre a natureza probabilística dos Grandes Modelos de Linguagem (LLMs) e a natureza estritamente determinística do avaliador (Judge). Enquanto os LLMs geram código baseado em predições estatísticas de tokens, frequentemente adotando abordagens semanticamente coerentes, o Judge não admite ambiguidades ou acertos parciais. Desvios mínimos, como falhas de formatação na saída padrão ou excedentes da ordem de milissegundos no tempo de execução, convertem soluções logicamente viáveis em erros do tipo Wrong Answer (WA) ou Time Limit Exceeded (TLE). Esse rigor arquitetural evidencia que a atual limitação das LLMs não está apenas na compreensão da lógica algorítmica, mas na adequação estrita às interfaces de validação.
+
+Além disso, o design atual da arquitetura, fundamentado em uma execução zero-shot de fluxo unidirecional (como descrito na figra \ref{fig:pipeline-questão}), expõe uma fronteira para o uso de Modelos Multimodais de Linguagem de Grande Escala (MLLMs) na geração autônoma de código. Na prática da Engenharia de Software, assim como na resolução humana de problemas da OBI, o processo é iterativo. A ausência de um ciclo de retroalimentação (feedback loop), por meio do qual o modelo possa corrigir suas próprias falhas de compilação ou execução, representa uma restrição estrutural da abordagem zero-shot atual.
+
+Portanto, a arquitetura aqui proposta consolida uma base fundamental para a avaliação sistemática do raciocínio multimodal em programação competitiva no contexto brasileiro. Simultaneamente, os resultados obtidos indicam que a evolução natural desta infraestrutura passa pela transformação do orquestrador atual em um agente autônomo. Nesse cenário futuro, o Judge deixará de ser apenas o validador final para se tornar um componente ativo que realimenta a LLM com o rastreamento dos erros, aproximando a avaliação educacional da OBI à dinâmica de correção de bugs complexos do mercado de trabalho.
+
+\subsection{Impacto do Multimodal na Arquitetura Experimental}
+
+O estudo de Silva e Coelho~\cite{Silva2025LLMs} demonstra que os LLMs possuem alta capacidade cognitiva para gerar cenários extremos e validações através de altos índices de \textit{Mutation Score} em testes unitários. Paradoxalmente, nossos resultados na OBI revelam que, ao atuarem como desenvolvedoras da solução principal, essas mesmas IAs falham em antecipar implicitamente esses \textit{corner cases}, resultando em falhas nas submissões. Isso reforça a tese de que a introdução de estímulos visuais atua como um facilitador semântico, ajudando o modelo a enxergar restrições que ele não conseguiria deduzir apenas pelo texto.
+
+Entretanto, a utilização de imagens no formato Base64 juntamente com o texto no \textit{prompt} teve impacto direto na quantidade de \textit{tokens} processados, no custo médio e no tempo médio de criação do código. Devido a isso, e pelo fato de os gabaritos serem estritamente determinísticos, faz-se necessário ponderar o uso da abordagem multimodal. O modelo pode processar corretamente a imagem, mas nem sempre conseguirá cobrir todos os casos extremos, o que pode tornar o uso de \textit{tokens} visuais um desperdício de recursos em questões que poderiam ser resolvidas apenas com a especificação textual.
+
+Enquanto ferramentas modernas de geração de código dependem de ciclos de \textit{feedback} contínuo (onde o LLM corrige os próprios erros de compilação) para obter alta eficácia~\cite{Silva2025LLMs}, nosso experimento limitou-se ao cenário \textit{zero-shot}. Isso indica que, para problemas competitivos avançados (nível Difícil), a IA precisa de um ambiente interativo onde o \textit{Judge} devolva os erros (WA, CE ou TLE) para que o LLM refine a lógica algorítmica iterativamente.
+
+No contexto educacional, a arquitetura experimental pode auxiliar diretamente no processo de aprendizagem dos estudantes. A análise dos códigos gerados e das falhas apontadas pelo \textit{Judge} permite investigar qual o impacto real da imagem no entendimento do problema e como o modelo multimodal estruturou a sua lógica de resolução. Além disso, a disponibilidade de uma arquitetura automatizada para avaliação abre espaço para a criação de ferramentas de tutoria, guiando os alunos na interpretação correta dos enunciados da OBI.
+
+\section{Conclusão}
+\label{sec:conclusao}
+
+Este trabalho apresentou e avaliou uma arquitetura experimental automatizada para medir a capacidade de Modelos de Linguagem Multimodais (MLLMs) na resolução de problemas da modalidade de programação da Olimpíada Brasileira de Informática (OBI). A infraestrutura desenvolvida integra um agente gerador de código, um juiz automático (\textit{Judge}) e um orquestrador de \textit{prompts}, compondo um \textit{pipeline} reproduzível e escalável para o \textit{benchmarking} de MLLMs em programação competitiva.
+
+Os experimentos conduzidos sobre 181 questões com imagens, em configuração \textit{zero-shot} e com código gerado em Python, revelaram que a inclusão do contexto visual impacta diretamente a taxa de acerto dos modelos avaliados. Em questões de nível fácil, a maioria dos modelos apresentou ganho de desempenho com a adição de imagens. Em questões de nível médio e difícil, o efeito foi heterogêneo: apenas modelos com maior capacidade cognitiva, como o Gemini 3.1 Pro, mantiveram um desempenho consistente independentemente da presença de imagens, enquanto modelos menores apresentaram variações significativas. Em tópicos avançados, como grafos e programação dinâmica, a análise dos casos de teste individuais mostrou que o contexto visual contribuiu para uma maior assertividade na maior parte dos modelos, com exceção do Mistral Small 4, cujo desempenho foi inferior com imagens.
+
+Esses resultados evidenciam que a imagem atua como um facilitador semântico: ela auxilia na compreensão do enunciado, mas não é suficiente para superar a limitação cognitiva dos modelos diante de problemas que exigem raciocínio algorítmico avançado. Um \textit{prompt zero-shot} com enunciado visual ainda é insuficiente para garantir a identificação do algoritmo correto e o tratamento adequado de casos extremos de entrada e saída --- habilidades centrais na programação competitiva e análogas à capacidade de modelar requisitos complexos na Engenharia de Software.
+
+Do ponto de vista arquitetural, a tensão entre a natureza probabilística dos LLMs e o determinismo estrito do \textit{Judge} revelou uma fronteira importante para o uso de MLLMs na geração autônoma de código: soluções logicamente corretas podem ser rejeitadas por pequenas divergências de formatação ou por excederem o limite de tempo. Isso reforça que a limitação atual dos modelos não reside apenas na compreensão algorítmica, mas na adequação precisa às interfaces de validação automatizada.
+
+Este trabalho pode ser utilizado como ponto de referência para o \textit{benchmarking} de MLLMs em programação competitiva no contexto brasileiro. O banco de questões construído, abrangendo 493 problemas da OBI de 1999 a 2025 com casos de teste oficiais, e a arquitetura experimental estão disponibilizados publicamente para facilitar a replicação e extensão dos experimentos. Trabalhos futuros podem investigar o impacto de técnicas mais elaboradas de engenharia de \textit{prompts}, como \textit{Few-Shot}~\cite{brown2020language} e \textit{Chain-of-Thought}, bem como a evolução do orquestrador estático para um fluxo com ciclo de \textit{feedback} entre o \textit{Judge} e o LLM, aproximando a avaliação educacional da OBI à dinâmica iterativa de correção de \textit{bugs} presente no mercado de trabalho~\cite{Silva2025LLMs}. Por fim, a arquitetura proposta abre caminho para a criação de ferramentas de tutoria automatizadas voltadas às escolas públicas brasileiras participantes da OBI, democratizando o acesso ao ensino de programação competitiva sem dependência de APIs comerciais.
+
+\section{Trabalhos Futuros}
+
+Embora os resultados deste estudo indiquem que a utilização de Modelos de Linguagem de Grande Escala Multimodais (MLLMs) e a submissão de figuras ilustrativas dos problemas não tenham gerado melhorias estatisticamente significativas nas taxas de acerto — especialmente em questões de níveis médio e difícil —, a pesquisa limitou-se ao dataset da Olimpíada Brasileira de Informática (OBI), cujos enunciados possuem um estilo de escrita bastante particular. Para trabalhos futuros, recomenda-se a replicação desta metodologia utilizando datasets mais amplos e diversificados de programação competitiva. Isso permitirá avaliar a capacidade de generalização dos modelos frente a uma gama maior de problemas que dependem de interpretação visual.
+
+Além disso, o escopo experimental deste estudo restringiu-se ao uso da linguagem Python e à técnica de Zero-shot prompting. Sugere-se, portanto, a investigação de outras linguagens de programação, bem como a adoção de estratégias de engenharia de prompt mais avançadas. Abordagens como Few-shot prompting e Chain-of-Thought (CoT) devem ser exploradas, pois têm o forte potencial de aprimorar o raciocínio lógico dos modelos ao integrar de forma mais eficiente o contexto textual e visual na resolução dos problemas.
+
+
+\section*{Disponibilidade de Artefatos}
+
+As questões extraídas, as provas e os gabaritos estão disponíveis no seguinte repositório: \url{https://anonymous.4open.science/r/problems-of-the-obi-5C5D/README.md}
+
+Entretanto, para reproduzir o estudo, é necessário extrair o arquivo \texttt{dataset-questions-obi.zip} no diretório \texttt{database} dentro do repositório \texttt{obi-benchmarking}.
+
+A arquitetura experimental, juntamente com os códigos e dados utilizados nas avaliações, encontra-se disponível para fins de revisão em: \url{https://anonymous.4open.science/r/obi-benchmarking-11CA/README.md}
+
+O arquivo \texttt{metrics/model\_metrics\_cbsoft\_sbes\_2026.ipynb} contém os \textit{scripts} para a geração das tabelas e dos gráficos que fundamentam a avaliação.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{sample-base}
+
+\appendix
+
+\section{Configuração de Ambiente}
+A Figura \ref{fig:env_exemplo} detalha as variáveis de ambiente necessárias citadas na Seção \ref{sec:Orquestrador e configuração}. Note que é possível configurar múltiplos LLMs, sendo obrigatório informar estas 5 variáveis para o funcionamento correto da API.  
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{samples/arquivo-env.png}
+  \caption{Exemplo de arquivo .env para configuração dos LLMs.}
+  \Description{Especificação para colocar no .env para conseguir executar o ambiente de desenvolvimento.}
+  \label{fig:env_exemplo}
+\end{figure}
+
+\section{Prompt Zero-shot para Criação do Código através do Enunciado com Imagem ou sem Imagem}
+Abaixo apresentam-se as capturas de tela dos comandos (\textit{prompts}) enviados à ferramenta Gemini 2.5 Pro durante a fase de extração e classificação.
+
+\begin{figure}[H] 
+  \centering
+  \includegraphics[width=0.8\linewidth]{samples/estrutura-prompt-zero-shot.png}
+  \caption{Captura de Tela do \textit{Prompt} de Extração de Questões.}
+  \Description{Esse prompt é essencial para a preparação da base de questões visando à execução do experimento.}
+  \label{fig:prompt_1}
+\end{figure}
+
+\section{Prompts Utilizados para Extração das Questões nos Cadernos de Tarefas da Modalidade de Programação OBI}
+Abaixo apresenta-se a captura de tela do \textit{prompt} enviado à ferramenta Gemini 2.5 Pro durante a fase de extração e classificação.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{samples/prompt-de-extracao.png}
+  \caption{Captura de Tela do \textit{Prompt} de Extração de Questões.}
+  \Description{Esse prompt é essencial para a preparação da base de questões visando à execução do experimento.}
+  \label{fig:prompt_2}
+\end{figure}
+
+\end{document}
