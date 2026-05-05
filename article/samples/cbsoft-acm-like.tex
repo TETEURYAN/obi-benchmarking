@@ -244,7 +244,7 @@ O limite de tempo para execução foi padronizado em 15 segundos para todas as i
 
 Com o intuito de avaliar a capacidade de raciocínio espacial e lógico dos LLMs multimodais, foi necessário isolar 181 questões da base de problemas que continham imagens e casos de teste atrelados ao enunciado. Conforme a classificação inferida pelo modelo Gemini 2.5 Pro, essa amostra apresenta uma predominância de desafios de nível médio.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
     \begin{tikzpicture}
     \begin{axis}[
@@ -272,7 +272,7 @@ Com o intuito de avaliar a capacidade de raciocínio espacial e lógico dos LLMs
 
 Além disso, a configuração utilizada durante a execução da arquitetura o código deve ser produzido na linguagem Python e a técnica de prompt zero-shot (referenciar no prompt zero shot). Devido a isso, a imagem será inserido no prompt no formato Base64 com referencias durante o enunciado como está ilustrado na imagem~\ref{fig:enunciado-vertical}. 
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{samples/enunciado-prompt-horizontal.png}
   \caption{Formatação do Enunciado para Adicionar Imagens no Prompt no Formato Base64.}
@@ -282,7 +282,7 @@ Além disso, a configuração utilizada durante a execução da arquitetura o c�
 
 Conforme o fluxo de execução ilustrado na Figura \ref{fig:pipeline-questão}, o processo avaliativo de cada problema segue etapas sequenciais estritas. Inicialmente, o enunciado da questão é incorporado ao \textit{template} do \textit{prompt}. Em seguida, o agente codificador processa essa entrada e gera um código-fonte executável na linguagem Python, o qual é persistido em um arquivo local. Posteriormente, o serviço do \textit{Judge} submete esse código à validação contra os casos de teste da respectiva questão. Por fim, as métricas e os resultados dessa validação são consolidados e armazenados em um arquivo CSV para posterior análise.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{samples/pipeline.png}
   \caption{Pipeline de Execução para cada Questão.}
@@ -342,7 +342,7 @@ Ao aumentar o nível de complexidade do \textit{prompt} com a adição de imagen
 
 Cabe ressaltar que, para o \textit{Judge} aceitar uma submissão, o código deve passar em todos os casos de teste da questão. Ao analisar especificamente as questões que envolvem tópicos de grafos e programação dinâmica (64 questões e 2.491 casos de teste no total), é perceptível no Gráfico~\ref{fig:acuracia_modelos_total} que a utilização de imagens no enunciado proporcionou uma melhora no desempenho de acerto individual dos casos de teste. A exceção foi o modelo Mistral Small 4, que apresentou um desempenho inferior ao processar o contexto visual.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     \begin{axis}[
@@ -442,13 +442,10 @@ Este trabalho pode ser utilizado como ponto de referência para o \textit{benchm
 
 \section{Trabalhos Futuros}
 
-Apesar dos resultados promissores alcançados com a arquitetura experimental proposta, este estudo levanta novas oportunidades para o aprimoramento da avaliação de Modelos de Linguagem Multimodais (MLLMs) no raciocínio algorítmico.
+Embora os resultados deste estudo indiquem que a utilização de Modelos de Linguagem de Grande Escala Multimodais (MLLMs) e a submissão de figuras ilustrativas dos problemas não tenham gerado melhorias estatisticamente significativas nas taxas de acerto — especialmente em questões de níveis médio e difícil —, a pesquisa limitou-se ao dataset da Olimpíada Brasileira de Informática (OBI), cujos enunciados possuem um estilo de escrita bastante particular. Para trabalhos futuros, recomenda-se a replicação desta metodologia utilizando datasets mais amplos e diversificados de programação competitiva. Isso permitirá avaliar a capacidade de generalização dos modelos frente a uma gama maior de problemas que dependem de interpretação visual.
 
-Em primeiro lugar, planeja-se expandir as abordagens de Engenharia de Prompts (\textit{Prompt Engineering}). Como a presente infraestrutura baseou-se exclusivamente na técnica \textit{zero-shot}, investigações futuras devem avaliar o impacto de técnicas mais complexas na taxa de aceitação (AC) do \textit{Judge}. A incorporação de métodos como \textit{Few-Shot Prompting} (fornecendo exemplos de resoluções de provas anteriores) e \textit{Chain-of-Thought} (CoT) — obrigando o modelo a explicar o seu raciocínio passo a passo antes de gerar o código — poderá mitigar as falhas cognitivas observadas nas questões de nível "Difícil".
+Além disso, o escopo experimental deste estudo restringiu-se ao uso da linguagem Python e à técnica de Zero-shot prompting. Sugere-se, portanto, a investigação de outras linguagens de programação, bem como a adoção de estratégias de engenharia de prompt mais avançadas. Abordagens como Few-shot prompting e Chain-of-Thought (CoT) devem ser exploradas, pois têm o forte potencial de aprimorar o raciocínio lógico dos modelos ao integrar de forma mais eficiente o contexto textual e visual na resolução dos problemas.
 
-Em segundo lugar, e como avanço mais crítico para a arquitetura, propõe-se a evolução do orquestrador estático para um fluxo de trabalho interativo baseado em agentes (\textit{Agentic Workflow}). Inspirado em metodologias recentes de automação de testes de software, o objetivo é estabelecer um ciclo de \textit{feedback} contínuo entre o LLM e o \textit{Judge}. Em vez de uma única tentativa, caso o modelo receba um erro (como \textit{Compilation Error}, \textit{Wrong Answer} ou \textit{Time Limit Exceeded}), o orquestrador devolverá essa falha à IA, solicitando que a mesma refine e corrija o seu próprio código até alcançar o \textit{Accepted} (AC).
-
-Por fim, vislumbra-se a aplicação prática desta arquitetura no contexto educacional. Trabalhos futuros poderão focar-se na avaliação exclusiva de modelos multimodais de código aberto (\textit{Open-Source}) e de menor escala, verificando a viabilidade da sua execução local. Isso permitiria a criação de ferramentas de tutoria automatizadas e acessíveis para as escolas públicas brasileiras que participam da Olimpíada Brasileira de Informática, democratizando o acesso ao ensino de programação sem a dependência de APIs comerciais dispendiosas.
 
 \section*{Disponibilidade de Artefatos}
 
@@ -468,7 +465,7 @@ O arquivo \texttt{metrics/model\_metrics\_cbsoft\_sbes\_2026.ipynb} contém os \
 \section{Configuração de Ambiente}
 A Figura \ref{fig:env_exemplo} detalha as variáveis de ambiente necessárias citadas na Seção \ref{sec:Orquestrador e configuração}. Note que é possível configurar múltiplos LLMs, sendo obrigatório informar estas 5 variáveis para o funcionamento correto da API.  
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\linewidth]{samples/arquivo-env.png}
   \caption{Exemplo de arquivo .env para configuração dos LLMs.}
@@ -479,7 +476,7 @@ A Figura \ref{fig:env_exemplo} detalha as variáveis de ambiente necessárias ci
 \section{Prompt Zero-shot para Criação do Código através do Enunciado com Imagem ou sem Imagem}
 Abaixo apresentam-se as capturas de tela dos comandos (\textit{prompts}) enviados à ferramenta Gemini 2.5 Pro durante a fase de extração e classificação.
 
-\begin{figure}[h!] 
+\begin{figure}[H] 
   \centering
   \includegraphics[width=0.8\linewidth]{samples/estrutura-prompt-zero-shot.png}
   \caption{Captura de Tela do \textit{Prompt} de Extração de Questões.}
@@ -490,7 +487,7 @@ Abaixo apresentam-se as capturas de tela dos comandos (\textit{prompts}) enviado
 \section{Prompts Utilizados para Extração das Questões nos Cadernos de Tarefas da Modalidade de Programação OBI}
 Abaixo apresenta-se a captura de tela do \textit{prompt} enviado à ferramenta Gemini 2.5 Pro durante a fase de extração e classificação.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.8\linewidth]{samples/prompt-de-extracao.png}
   \caption{Captura de Tela do \textit{Prompt} de Extração de Questões.}
