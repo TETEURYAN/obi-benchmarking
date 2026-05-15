@@ -68,7 +68,7 @@ class Orchestrator:
 
     def create_csv(self, base: str = "output", model: str = "test", results: list = None) -> bool:
         try:
-            target_dir = Path(base) / "cbsoft_sbes_2026" / "results"
+            target_dir = Path(base) / f"{self.__output_path}" / "results"
             target_dir.mkdir(parents=True, exist_ok=True)
 
             if not results:

@@ -119,15 +119,16 @@ def main():
             op = int(input("Crie ou escolha um ambiente de resultados, para sair basta digitar um número que não exista (apenas os números): "))
             if op == 0:
                 try:
-                    year = int(get_int_input("Digite um ano entre 1999 a 2026: "))
-                    execute_problems_by_year(problems, year)
+                    output_path = input("Digite o nome do ambiente (em vez de espaço coloque _ e evite acetos, caracteres especiais):")
+                    out_path = out_path / output_path
+                    out_path.mkdir(parents=True, exist_ok=True)
                 except Exception as e:
-                    print("Digite apenas números!!!")
+                    print("Erro ao criar diretorio!!!")
             elif op > 0 and op < len(options):
                 output_path = options[op]
                 break
             else:
-                print_partition(text="MENU")
+                print_partition(text="FIM MENU")
                 break
         except Exception as e:
             print("As opções são apenas números!!!")
@@ -141,11 +142,11 @@ def main():
         if op == 'y':
             try:
                 year = int(get_int_input("Digite um ano entre 1999 a 2026: "))
-                execute_problems_by_year(problems, year)
+                execute_problems_by_year(problems, year, output_path)
             except Exception as e:
                 print("Digite apenas números!!!")
         else:
-            print_partition(text="MENU")
+            print_partition(text="FIM MENU")
             break
     
     while True:

@@ -23,31 +23,21 @@ cp .env.example .env
 
 Edite o arquivo `.env` com suas credenciais:
 ```
-OPENAI__API_KEY=seu-api-key-aqui
-OPENAI__BASE_URL=https://api.openai.com/v1
-OPENAI__MODEL_NAME=gpt-4o
-
 GEMINI__API_KEY=seu-api-key-aqui
-GEMINI__BASE_URL=https://api.google.com/v1
+GEMINI__BASE_URL=https://openrouter.ai/api/v1 #Utilizando openrouter
 GEMINI__MODEL_NAME=gemini-pro
+GEMINI__INPUT_PRICE=0.000002 # Entrada: 2U$ por 1M tokens
+GEMINI__OUTPUT_PRICE=0.000012 # Saída: 12U$ por 1M tokens
 ```
 
-## Estrutura do Projeto
+## Banco de questões
 
-```
-├── core/                   # Configuração e orquestração
-│   ├── config.py          # Carregamento de credenciais
-│   └── orchestrator.py    # Lógica principal de execução
-├── database/              # Problemas da OBI
-│   ├── obi_2023/
-│   └── obi_2024/          # Anos 2023-2024 organizados por fase
-├── models/                # Modelos de dados Pydantic
-├── prompts/               # Templates de prompts (zero-shot, few-shot)
-├── services/              # Serviços de LLM e avaliação
-├── output/                # Resultados gerados
-│   ├── [modelo]/          # Saída organizada por modelo
-│   └── results/           # CSVs com métricas
-└── metrics/               # Notebooks para análise
+- Antes de executar o sistema, extraia as questões compactadas em `database/file.zip` para a pasta `database/` para que o `core/orchestrator.py` consiga localizar os problemas.
+
+Exemplo:
+
+```bash
+unzip database/file.zip -d database/
 ```
 
 ## Uso
@@ -57,21 +47,26 @@ GEMINI__MODEL_NAME=gemini-pro
    uv run main.py
    ```
 
-2. Selecione a estratégia de prompting:
+2. Crie ou escolha um ambiente de saída (número):
+   - `0` = Criar um ambiente
+   - `1` = Ambiente 1 (diretório de output)
+   - `2` = Ambiente 2 (diretório de output)
+3. 
+4. Selecione a estratégia de prompting:
    - `1` = Zero-shot (sem exemplos)
    - `2` = Few-shot (com exemplos)
 
-3. Selecione a linguagem de programação:
+5. Selecione a linguagem de programação:
    - `1` = Python
    - `2` = C++
 
-4. O sistema irá:
+6. O sistema irá:
    - Carregar problemas do database
    - Gerar soluções usando os modelos LLM configurados
    - Executar testes com casos de teste
    - Gerar relatórios em CSV
 
-5. Verifique os resultados em `output/results/`
+7. Verifique os resultados em `output/results/`
 
 ## Arquivos Principais
 
@@ -86,10 +81,35 @@ GEMINI__MODEL_NAME=gemini-pro
 ## Saídas Geradas
 
 Os resultados são organizados em:
-- `output/[modelo]/[tipo]/[linguagem]/`: Código-fonte gerado
-- `output/results/`: Arquivos CSV com métricas
-  - `results_[modelo]_[linguagem]_[tipo].csv`: Desempenho por problema
+- `output/[ambiente criado pelo usuário]/[modelo]/[tipo]/[linguagem]/`: Código-fonte gerado e artefatos
+- `output/[ambiente criado pelo usuário]/results/`: Arquivos CSV com métricas
+   - `results_[modelo]_[linguagem]_[tipo].csv`: Desempenho por problema
+
+## Estrutura do Projeto Geral
+
+```
+├── core/                      # Configuração e orquestração
+│   ├── config.py              # Carregamento de credenciais
+│   └── orchestrator.py        # Lógica principal de execução
+├── database/                  # Problemas da OBI (extrair database/file.zip)
+│   ├── [questao_1]/
+│   │   └── problem.json
+│   ├── [questao_2]/
+│   │   └── problem.json
+│   └── ...
+├── models/                    # Modelos de dados Pydantic
+├── prompts/                   # Templates de prompts (zero-shot, few-shot)
+├── services/                  # Serviços de LLM e avaliação
+├── output/                    # Resultados gerados
+│   └── [ambiente]/
+│       ├── [modelo]/
+│       │   ├── [tipo]/
+│       │   │   └── [linguagem]/
+│       │   └── ...
+│       └── results/           # CSVs com métricas
+└── metrics/                   # Notebooks para análise
+```
 
 ## Notebook de Análise
 
-Execute análises detalhadas em `metrics/model_metrics.ipynb`
+Execute análises detalhadas em `metrics/model_metrics.ipynb`, isso foi adicionado de forma manual. Será implementado de forma que fique automático os valores.
