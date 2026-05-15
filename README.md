@@ -25,7 +25,7 @@ Edite o arquivo `.env` com suas credenciais:
 ```
 GEMINI__API_KEY=seu-api-key-aqui
 GEMINI__BASE_URL=https://openrouter.ai/api/v1 #Utilizando openrouter
-GEMINI__MODEL_NAME=gemini-pro
+GEMINI__MODEL_NAME=google/gemini-3.1-pro-preview
 GEMINI__INPUT_PRICE=0.000002 # Entrada: 2U$ por 1M tokens
 GEMINI__OUTPUT_PRICE=0.000012 # Saída: 12U$ por 1M tokens
 ```
