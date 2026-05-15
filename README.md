@@ -51,7 +51,10 @@ unzip database/file.zip -d database/
    - `0` = Criar um ambiente
    - `1` = Ambiente 1 (diretório de output)
    - `2` = Ambiente 2 (diretório de output)
-3. 
+
+3. Informar para executar apenas 1 ano:
+   - Informe um ano entre 1999 a 2025
+
 4. Selecione a estratégia de prompting:
    - `1` = Zero-shot (sem exemplos)
    - `2` = Few-shot (com exemplos)
